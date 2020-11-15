@@ -6,7 +6,6 @@ import java.nio.ByteBuffer;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
-import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
 
 public class WsClient extends WebSocketClient {
@@ -48,7 +47,7 @@ public class WsClient extends WebSocketClient {
 	}
 
 	public static void main(String[] args) throws URISyntaxException {		
-		WebSocketClient client = new WsClient(new URI("ws://192.168.1.22:88/chatting"));
+		WebSocketClient client = new WsClient(new URI("ws://3.35.240.16:88/chatting"));
 		client.connect();
 	}
 }

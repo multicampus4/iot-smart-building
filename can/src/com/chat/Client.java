@@ -23,12 +23,13 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
 public class Client implements SerialPortEventListener {
-
+	// 멤버 변수
 	int port;
 	String address;
 	String id;
 	Socket socket;
 	Sender sender;
+	
 
 	// Serial 변수
 	private BufferedInputStream bin;
@@ -39,26 +40,25 @@ public class Client implements SerialPortEventListener {
 	private CommPort commPort;
 	private String rawCanID, rawTotal;
 	
-	public static WebSocketClient WsClient;
+	// 웹소켓
+	static WebSocketClient WsClient;
 	
-	
-	
+	// 기본생성자
 	public Client() throws Exception {
-
 	}
-
+	// IP주소, 포트, ID를 담은 클라이언트 생성자
 	public Client(String address, int port, String id) throws Exception {
 		this.address = address;
 		this.port = port;
 		this.id = id;
 		
 		// WebSocket Client 선언, 최초 연결
-		WsClient = new WsClient(new URI("ws://172.30.1.27:88/chatting"));
+		WsClient = new WsClient(new URI("ws://3.35.240.16:88/chatting"));
 		WsClient.connect();
 		
 		// Serial 연결
-		portIdentifier = CommPortIdentifier.getPortIdentifier("COM5");
-		System.out.printf("Port Connect : %s\n", "COM5");
+		portIdentifier = CommPortIdentifier.getPortIdentifier("COM10");
+		System.out.printf("Port Connect : %s\n", "COM10");
 		connectSerial();
 		
 		
@@ -121,14 +121,14 @@ public class Client implements SerialPortEventListener {
 		Msg msg = new Msg(null, id, ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
-		if (socket != null) {
-			try {
-				socket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("bye ...");
+//		if (socket != null) {
+//			try {
+//				socket.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		System.out.println("bye ...");
 	}
 
 	// 메세지 전송
@@ -229,42 +229,24 @@ public class Client implements SerialPortEventListener {
 	public void connectSerial() throws Exception {
 
 		if (portIdentifier.isCurrentlyOwned()) {
-
 			System.out.println("Error: Port is currently in use");
-
 		} else {
-
 			commPort = portIdentifier.open(this.getClass().getName(), 5000);
-
 			if (commPort instanceof SerialPort) {
-
 				serialPort = (SerialPort) commPort;
-
 				serialPort.addEventListener(this);
-
 				serialPort.notifyOnDataAvailable(true);
-
 				serialPort.setSerialPortParams(9600, // 통신속도
-
 						SerialPort.DATABITS_8, // 데이터 비트
-
 						SerialPort.STOPBITS_1, // stop 비트
-
 						SerialPort.PARITY_NONE); // 패리티
-
 				in = serialPort.getInputStream();
 				bin = new BufferedInputStream(in);
-
 				out = serialPort.getOutputStream();
-
 			} else {
-
 				System.out.println("Error: Only serial ports are handled by this example.");
-
 			}
-
 		}
-
 	}
 
 	
@@ -287,7 +269,7 @@ public void serialEvent(SerialPortEvent event) {
 			break;
 		case SerialPortEvent.DATA_AVAILABLE:
 			byte[] readBuffer = new byte[128];
-
+			
 			try {
 
 				while (bin.available() > 0) {
@@ -297,7 +279,9 @@ public void serialEvent(SerialPortEvent event) {
 				String ss = new String(readBuffer);
 				System.out.println("Receive Low Data:" + ss + "||");
 				
+				sendMsg(ss);
 				WsClient.send(ss);
+				
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -363,8 +347,9 @@ public void serialEvent(SerialPortEvent event) {
 	}
 
 	public static void main(String[] args) {
+		
 		try {
-			Client client = new Client("172.30.1.27", 5555, "[Jeong]");
+			Client client = new Client("192.168.25.57", 5253, "[IoTClient]");
 			client.connect();
 		} catch (Exception e) {
 			e.printStackTrace();
