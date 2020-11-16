@@ -146,11 +146,11 @@
 			<div id="chatting0" class="chatting"></div>
 		</div>
 		<div class="innerContainer1">
-			<h2>센서1</h2>
+			<h2>센서1: 온도</h2>
 			<div id="chating" class="chatting"></div>
 		</div>
 		<div class="innerContainer2">
-			<h2>센서2</h2>
+			<h2>센서2: 습도</h2>
 			<div id="chatting2" class="chatting"></div>
 		</div>
 	</div>

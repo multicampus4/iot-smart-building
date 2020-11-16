@@ -271,36 +271,15 @@ public void serialEvent(SerialPortEvent event) {
 			break;
 		case SerialPortEvent.DATA_AVAILABLE:
 			byte[] readBuffer = new byte[128];
-			
 			try {
-
 				while (bin.available() > 0) {
 					int numBytes = bin.read(readBuffer);
 				}
-
 				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
-				System.out.println("Receive Low Data:" + ss + "||");
-				sendMsg(ss);
-				
-//				String[] dataArr = ss.split(";");
-//				System.out.println(Arrays.toString(dataArr));
-//				JSONObject jsonObj = new JSONObject();
-//				
-//				for(int i=0; i<dataArr.length; i++) {
-//					switch(dataArr[i].substring(0,3)) {
-//						case "tmp":
-//							System.out.println("온도"+dataArr[i].substring(3));
-//							jsonObj.put("tmp", dataArr[i].substring(3));
-//							continue;
-//						case "hum":
-//							System.out.println("습도"+dataArr[i].substring(3));
-//							jsonObj.put("hum", dataArr[i].substring(3));
-//							continue;
-//					}	
-//				}
-//				System.out.println(jsonObj);
-				
-				WsClient.send(convertJson(ss).toJSONString());
+				System.out.println("Receive Raw Data:" + ss + "||");
+				sendMsg(ss);		// Send raw to TCP/IP Server
+				WsClient.send(ss);	// Send raw to DashBoard (Websocket)
+				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
 				
 			} catch (Exception e) {
 				e.printStackTrace();
