@@ -55,11 +55,11 @@ public class Client implements SerialPortEventListener {
 		this.id = id;
 		
 		// WebSocket Client 선언, 최초 연결
-		WsClient = new WsClient(new URI("ws://3.35.240.16:88/chatting"));
+		WsClient = new WsClient(new URI("ws://192.168.0.6:88/chatting"));
 		WsClient.connect();
 		
 		// Serial 연결
-		portIdentifier = CommPortIdentifier.getPortIdentifier("COM10");
+		portIdentifier = CommPortIdentifier.getPortIdentifier("COM5");
 		System.out.printf("Port Connect : %s\n", "COM10");
 		connectSerial();
 		
@@ -121,7 +121,7 @@ public class Client implements SerialPortEventListener {
 //		}
 //		sc.close();
 		Msg msg = new Msg(null, id, ss);
-		sender.setMsg(msg);
+//		sender.setMsg(msg);
 		new Thread(sender).start();
 //		if (socket != null) {
 //			try {
@@ -301,7 +301,8 @@ public void serialEvent(SerialPortEvent event) {
 				System.out.println(jsonObj);
 				
 				sendMsg(ss);
-				WsClient.send(ss);
+//				WsClient.send(ss);
+				WsClient.send(jsonObj.toJSONString());
 				
 
 			} catch (Exception e) {
