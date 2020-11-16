@@ -4,9 +4,10 @@ import java.util.Arrays;
 
 import org.json.simple.JSONObject;
 
-public class ClientTest {
+public class ClientTest {	
 
 	public static void main(String[] args) {
+				
 		String ss = "tmp26;hum80;";
 		String[] dataArr = ss.split(";");
 		System.out.println(Arrays.toString(dataArr));

@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 
 import com.msg.Msg;
 import com.ws.WsClient;
+import com.properties.My;
 
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
@@ -31,7 +32,6 @@ public class Client implements SerialPortEventListener {
 	String id;
 	Socket socket;
 	Sender sender;
-	
 
 	// Serial 변수
 	private BufferedInputStream bin;
@@ -45,6 +45,8 @@ public class Client implements SerialPortEventListener {
 	// 웹소켓
 	static WebSocketClient WsClient;
 	
+	static My my = new My();
+	
 	// 기본생성자
 	public Client() throws Exception {
 	}
@@ -55,12 +57,12 @@ public class Client implements SerialPortEventListener {
 		this.id = id;
 		
 		// WebSocket Client 선언, 최초 연결
-		WsClient = new WsClient(new URI("ws://192.168.0.6:88/chatting"));
+		WsClient = new WsClient(new URI("ws://"+my.getWebsocketIp()+":"+my.getWebsocektPort()+"/chatting"));
 		WsClient.connect();
 		
 		// Serial 연결
-		portIdentifier = CommPortIdentifier.getPortIdentifier("COM5");
-		System.out.printf("Port Connect : %s\n", "COM10");
+		portIdentifier = CommPortIdentifier.getPortIdentifier(my.getSerialPort());
+		System.out.printf("Port Connect : %s\n", my.getSerialPort());
 		connectSerial();
 		
 		
@@ -275,7 +277,7 @@ public void serialEvent(SerialPortEvent event) {
 				while (bin.available() > 0) {
 					int numBytes = bin.read(readBuffer);
 				}
-				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
+				String ss = new String(readBuffer);	// 아두에노에서 보내는 데이터 포맷 : "tmp26;hum80;"
 				System.out.println("Receive Raw Data:" + ss + "||");
 				sendMsg(ss);		// Send raw to TCP/IP Server
 				WsClient.send(ss);	// Send raw to DashBoard (Websocket)
@@ -350,7 +352,8 @@ public void serialEvent(SerialPortEvent event) {
 
 	public static void main(String[] args) {
 		try {
-			Client client = new Client("192.168.25.57", 5253, "[IoTClient]");
+			Client client = new Client(my.getLocalIp(), my.getLocalPort(), "[IoTClient]");
+			
 			client.connect();
 		} catch (Exception e) {
 			e.printStackTrace();
