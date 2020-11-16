@@ -121,7 +121,7 @@ public class Client implements SerialPortEventListener {
 //		}
 //		sc.close();
 		Msg msg = new Msg(null, id, ss);
-//		sender.setMsg(msg);
+		sender.setMsg(msg);
 		new Thread(sender).start();
 //		if (socket != null) {
 //			try {
