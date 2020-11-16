@@ -6,18 +6,17 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.Socket;
 import java.net.URI;
-import java.util.Arrays;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Set;
 
 import org.java_websocket.client.WebSocketClient;
-import org.json.simple.JSONObject;
 
 import com.msg.Msg;
 import com.ws.WsClient;
-import com.properties.My;
 
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
@@ -26,7 +25,7 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
 public class Client implements SerialPortEventListener {
-	// 멤버 변수
+
 	int port;
 	String address;
 	String id;
@@ -41,31 +40,27 @@ public class Client implements SerialPortEventListener {
 	private CommPortIdentifier portIdentifier;
 	private CommPort commPort;
 	private String rawCanID, rawTotal;
-	
-	// 웹소켓
-	static WebSocketClient WsClient;
-	
-	static My my = new My();
-	
-	// 기본생성자
+
+	public static WebSocketClient WsClient;
+
 	public Client() throws Exception {
+
 	}
-	// IP주소, 포트, ID를 담은 클라이언트 생성자
+
 	public Client(String address, int port, String id) throws Exception {
 		this.address = address;
 		this.port = port;
 		this.id = id;
-		
+
 		// WebSocket Client 선언, 최초 연결
-		WsClient = new WsClient(new URI("ws://"+my.getWebsocketIp()+":"+my.getWebsocektPort()+"/chatting"));
+		WsClient = new WsClient(new URI("ws://192.168.0.17:88/chatting"));
 		WsClient.connect();
-		
+
 		// Serial 연결
-		portIdentifier = CommPortIdentifier.getPortIdentifier(my.getSerialPort());
-		System.out.printf("Port Connect : %s\n", my.getSerialPort());
+		portIdentifier = CommPortIdentifier.getPortIdentifier("COM5");
+		System.out.printf("Port Connect : %s\n", "COM5");
 		connectSerial();
-		
-		
+
 	}
 
 	public void connect() throws IOException {
@@ -88,10 +83,10 @@ public class Client implements SerialPortEventListener {
 	}
 
 	public void sendTarget(String ip, String cmd) {
-		//ArrayList<String> ips = new ArrayList<String>();
-		//ips.add(ip);
+		// ArrayList<String> ips = new ArrayList<String>();
+		// ips.add(ip);
 		Msg msg = new Msg(id, cmd);
-		sender.setMsg(msg);
+//		sender.setMsg(msg);
 		new Thread(sender).start();
 	}
 
@@ -125,14 +120,14 @@ public class Client implements SerialPortEventListener {
 		Msg msg = new Msg(null, id, ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
-//		if (socket != null) {
-//			try {
-//				socket.close();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		System.out.println("bye ...");
+		if (socket != null) {
+			try {
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("bye ...");
 	}
 
 	// 메세지 전송
@@ -227,39 +222,55 @@ public class Client implements SerialPortEventListener {
 		}
 
 	}
-	
+
 	// *********** Serial 통신 코드 ***********
 
 	public void connectSerial() throws Exception {
 
 		if (portIdentifier.isCurrentlyOwned()) {
+
 			System.out.println("Error: Port is currently in use");
+
 		} else {
+
 			commPort = portIdentifier.open(this.getClass().getName(), 5000);
+
 			if (commPort instanceof SerialPort) {
+
 				serialPort = (SerialPort) commPort;
+
 				serialPort.addEventListener(this);
+
 				serialPort.notifyOnDataAvailable(true);
+
 				serialPort.setSerialPortParams(9600, // 통신속도
+
 						SerialPort.DATABITS_8, // 데이터 비트
+
 						SerialPort.STOPBITS_1, // stop 비트
+
 						SerialPort.PARITY_NONE); // 패리티
+
 				in = serialPort.getInputStream();
 				bin = new BufferedInputStream(in);
+
 				out = serialPort.getOutputStream();
+
 			} else {
+
 				System.out.println("Error: Only serial ports are handled by this example.");
+
 			}
+
 		}
+
 	}
 
-	
-	
 	// Asynchronized Receive Data
 	// --------------------------------------------------------
 
-public void serialEvent(SerialPortEvent event) {
-		
+	public void serialEvent(SerialPortEvent event) {
+
 		switch (event.getEventType()) {
 		case SerialPortEvent.BI:
 		case SerialPortEvent.OE:
@@ -273,16 +284,20 @@ public void serialEvent(SerialPortEvent event) {
 			break;
 		case SerialPortEvent.DATA_AVAILABLE:
 			byte[] readBuffer = new byte[128];
+
 			try {
 				while (bin.available() > 0) {
 					int numBytes = bin.read(readBuffer);
 				}
-				String ss = new String(readBuffer);	// 아두에노에서 보내는 데이터 포맷 : "tmp26;hum80;"
-				System.out.println("Receive Raw Data:" + ss + "||");
-				sendMsg(ss);		// Send raw to TCP/IP Server
-				WsClient.send(ss);	// Send raw to DashBoard (Websocket)
-				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
+
+				String ss = new String(readBuffer);
+				System.out.println("Receive Low Data:" + ss + "||");
+
+				WsClient.send(ss);
 				
+				// http로 브라우저에 데이터 전송(로그 기록용)
+				send(ss);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -291,20 +306,35 @@ public void serialEvent(SerialPortEvent event) {
 	}
 
 	public void close() throws IOException {
+
 		try {
+
 			Thread.sleep(100);
+
 		} catch (InterruptedException e) {
+
 			e.printStackTrace();
+
 		}
+
 		if (in != null) {
+
 			in.close();
+
 		}
+
 		if (out != null) {
+
 			out.close();
+
 		}
+
 		if (commPort != null) {
+
 			commPort.close();
+
 		}
+
 	}
 
 	public void sendIoT(String cmd) {
@@ -331,33 +361,66 @@ public void serialEvent(SerialPortEvent event) {
 
 	}
 	
-	public JSONObject convertJson(String ss) {
-		JSONObject jsonObj = new JSONObject();
-		String[] dataArr = ss.split(";");
-		
-		for(int i=0; i<dataArr.length; i++) {
-			switch(dataArr[i].substring(0,3)) {
-				case "tmp":
-					System.out.println("온도"+dataArr[i].substring(3));
-					jsonObj.put("tmp", dataArr[i].substring(3));
-					continue;
-				case "hum":
-					System.out.println("습도"+dataArr[i].substring(3));
-					jsonObj.put("hum", dataArr[i].substring(3));
-					continue;
-			}	
+	public static void send(String data) {
+		HttpSender sender = null;
+		String urlstr = "http://192.168.0.17:88/chat";
+		URL url = null;
+		try {
+			double temp = Double.parseDouble(data);
+			url = new URL(urlstr + "?temp=" + temp);
+			sender = new HttpSender(temp, url);
+			new Thread(sender).start();
+		} catch (Exception e) {
+//			break;
 		}
-		return jsonObj;
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	static class HttpSender implements Runnable {
+
+		URL url = null;
+		double temp;
+
+		public HttpSender() {
+		}
+
+		public HttpSender(double temp, URL url) {
+			this.temp = temp;
+			this.url = url;
+		}
+
+		@Override
+		public void run() {
+			HttpURLConnection con = null;
+			try {
+				con = (HttpURLConnection) url.openConnection();
+				con.setReadTimeout(5000);
+				con.setRequestMethod("POST");
+				con.getInputStream();
+				System.out.println("temp:" + temp);
+			} catch (Exception e) {
+
+			} finally {
+				con.disconnect();
+			}
+		}
+
 	}
 
 	public static void main(String[] args) {
 		try {
-			Client client = new Client(my.getLocalIp(), my.getLocalPort(), "[IoTClient]");
-			
+			Client client = new Client("192.168.0.17", 5555, "[Jeong]");
 			client.connect();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+
 	}
 
 }
