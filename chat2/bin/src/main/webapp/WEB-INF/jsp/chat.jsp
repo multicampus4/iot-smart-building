@@ -13,54 +13,24 @@
 			padding:0;
 		}
 		.container{
-			width: 800px;
+			width: 500px;
 			margin: 0 auto;
 			padding: 25px
 		}
-		.container h2{
+		.container h1{
 			text-align: left;
 			padding: 5px 5px 5px 15px;
 			color: #FFBB00;
 			border-left: 3px solid #FFBB00;
 			margin-bottom: 20px;
 		}
-		.containerBottom{
-			width: 500px;
-			height: 100px;
-			margin: 0 auto;
-			padding: 25px
-		}
-		.btn1{
-			float: left;
-		}
-		.btn2{
-			float: right;
-		}
-		.innerContainer0{
-			width: 30%;
-			float: left;
-			margin: 0 auto;
-			padding: 5px
-		}
-		.innerContainer1{
-			width: 30%;
-			float: left;
-			margin: 0 auto;
-			padding: 5px
-		}
-		.innerContainer2{
-			width: 30%;
-			float: right;
-			margin: 0 auto;
-			padding: 5px
-		}
-		.chatting{
+		.chating{
 			background-color: #000;
-			width: 100%;
+			width: 500px;
 			height: 500px;
 			overflow: auto;
 		}
-		.chatting p{
+		.chating p{
 			color: #fff;
 			text-align: left;
 		}
@@ -94,14 +64,8 @@
 		
 		ws.onmessage = function(data) {
 			var msg = data.data;
-			$("#chatting0").append("<p>" + msg + "</p>");
-			var obj = JSON.parse(msg);
-			
-			// ex: { "tmp":"28", "hum":"80" }
-			
 			if(msg != null && msg.trim() != ''){
-				$("#chating").append("<p>" + obj.tmp + "</p>");
-				$("#chatting2").append("<p>" + obj.hum + "</p>");
+				$("#chating").append("<p>" + msg + "</p>");
 			}
 		}
 
@@ -119,7 +83,6 @@
 	}
 	
 	$(document).ready(function() {
-		// Buttons Action for TCP/IP Cmd
 		$('#ledStart').click(function() {
 			$.ajax({
 				url : 'ledStart',
@@ -141,36 +104,22 @@
 </script>
 <body>
 	<div id="container" class="container">
-		<div class="innerContainer0">
-			<h2>raw data</h2>
-			<div id="chatting0" class="chatting"></div>
-		</div>
-		<div class="innerContainer1">
-			<h2>센서1</h2>
-			<div id="chating" class="chatting"></div>
-		</div>
-		<div class="innerContainer2">
-			<h2>센서2</h2>
-			<div id="chatting2" class="chatting"></div>
-		</div>
-	</div>
-
-	<div id="container" class="containerBottom">
-		<div class="btn1">
-			<a class="btn" id="ledStart" href="#">LED START</a>
-		</div>
-		<div class="btn2">
-			<a class="btn" id="ledStop" href="#">LED STOP</a>
+		<h1>센서1</h1>
+		<div id="chating" class="chating">
 		</div>
 		
 		<div id="yourMsg">
 			<table class="inputTable">
 				<tr>
-					<th>Data from Arduino</th>
-					<th><input id="chatting" value='{ "tmp":"28", "hum":"80" }'></th>
+					<th>메시지</th>
+					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
 					<th><button onclick="send()" id="sendBtn">보내기</button></th>
 				</tr>
 			</table>
+		</div>
+		<div>
+			<a class="btn" id="ledStart" href="#">LED START</a>
+			<a class="btn" id="ledStop" href="#">LED STOP</a>
 		</div>
 	</div>
 </body>
