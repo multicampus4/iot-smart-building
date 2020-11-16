@@ -33,7 +33,6 @@ public class SocketHandler extends TextWebSocketHandler {
 		//소켓 연결
 		super.afterConnectionEstablished(session);
 		sessionMap.put(session.getId(), session);
-		System.out.println("Connected WebSocket");
 	}
 	
 	@Override
@@ -41,6 +40,5 @@ public class SocketHandler extends TextWebSocketHandler {
 		//소켓 종료
 		sessionMap.remove(session.getId());
 		super.afterConnectionClosed(session, status);
-		System.out.println("Closed WebSocket");
 	}
 }

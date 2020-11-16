@@ -278,33 +278,30 @@ public void serialEvent(SerialPortEvent event) {
 					int numBytes = bin.read(readBuffer);
 				}
 
-				String ss = new String(readBuffer);
-				// 출력예 : "tmp26;hum80;"
+				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
 				System.out.println("Receive Low Data:" + ss + "||");
-				
-				String[] dataArr = ss.split(";");
-				System.out.println(Arrays.toString(dataArr));
-				JSONObject jsonObj = new JSONObject();
-				
-				for(int i=0; i<dataArr.length; i++) {
-					switch(dataArr[i].substring(0,3)) {
-						case "tmp":
-							System.out.println("온도"+dataArr[i].substring(3));
-							jsonObj.put("tmp", dataArr[i].substring(3));
-							continue;
-						case "hum":
-							System.out.println("습도"+dataArr[i].substring(3));
-							jsonObj.put("hum", dataArr[i].substring(3));
-							continue;
-					}	
-				}
-				System.out.println(jsonObj);
-				
 				sendMsg(ss);
-//				WsClient.send(ss);
-				WsClient.send(jsonObj.toJSONString());
 				
-
+//				String[] dataArr = ss.split(";");
+//				System.out.println(Arrays.toString(dataArr));
+//				JSONObject jsonObj = new JSONObject();
+//				
+//				for(int i=0; i<dataArr.length; i++) {
+//					switch(dataArr[i].substring(0,3)) {
+//						case "tmp":
+//							System.out.println("온도"+dataArr[i].substring(3));
+//							jsonObj.put("tmp", dataArr[i].substring(3));
+//							continue;
+//						case "hum":
+//							System.out.println("습도"+dataArr[i].substring(3));
+//							jsonObj.put("hum", dataArr[i].substring(3));
+//							continue;
+//					}	
+//				}
+//				System.out.println(jsonObj);
+				
+				WsClient.send(convertJson(ss).toJSONString());
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -313,35 +310,20 @@ public void serialEvent(SerialPortEvent event) {
 	}
 
 	public void close() throws IOException {
-
 		try {
-
 			Thread.sleep(100);
-
 		} catch (InterruptedException e) {
-
 			e.printStackTrace();
-
 		}
-
 		if (in != null) {
-
 			in.close();
-
 		}
-
 		if (out != null) {
-
 			out.close();
-
 		}
-
 		if (commPort != null) {
-
 			commPort.close();
-
 		}
-
 	}
 
 	public void sendIoT(String cmd) {
@@ -367,9 +349,27 @@ public void serialEvent(SerialPortEvent event) {
 		}
 
 	}
+	
+	public JSONObject convertJson(String ss) {
+		JSONObject jsonObj = new JSONObject();
+		String[] dataArr = ss.split(";");
+		
+		for(int i=0; i<dataArr.length; i++) {
+			switch(dataArr[i].substring(0,3)) {
+				case "tmp":
+					System.out.println("온도"+dataArr[i].substring(3));
+					jsonObj.put("tmp", dataArr[i].substring(3));
+					continue;
+				case "hum":
+					System.out.println("습도"+dataArr[i].substring(3));
+					jsonObj.put("hum", dataArr[i].substring(3));
+					continue;
+			}	
+		}
+		return jsonObj;
+	}
 
 	public static void main(String[] args) {
-		
 		try {
 			Client client = new Client("192.168.25.57", 5253, "[IoTClient]");
 			client.connect();
