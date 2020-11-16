@@ -1,13 +1,19 @@
 package com.example.sensorswitch;
 
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         tx_data = findViewById(R.id.tx_data);
 
         // Topic 메시지 "aaa"라는 주제를 구독 및 구독 성공여부 확인하는 Task를 반환
-        FirebaseMessaging.getInstance().subscribeToTopic("aaa").addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseMessaging.getInstance().subscribeToTopic("osh").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {      // 성공했다면
                 String msg = "FCM Complete ...";                    // "FCM 성공"
@@ -57,11 +63,26 @@ public class MainActivity extends AppCompatActivity {
         address = "192.168.25.57";
         id = "[osh_switch]";
 
+
         // "con" 이라는 쓰레드 시작
         new Thread(con).start();
-
-
+        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+        lbm.registerReceiver(receiver, new IntentFilter("notification"));
     }
+
+    public BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent != null) {
+                String title = intent.getStringExtra("title");
+                String control = intent.getStringExtra("control");
+                String data = intent.getStringExtra("data");
+                Toast.makeText(MainActivity.this,
+                        title + " " + control + " " + data, Toast.LENGTH_SHORT).show();
+                tx_data.setText(title + " " + control + " " + data);
+            }
+        }
+    };
 
     // 앱 나갈 때 (뒤로가기 버튼을 눌렀을 때 처리하는 버튼)
     @Override
@@ -129,9 +150,9 @@ public class MainActivity extends AppCompatActivity {
     public void clickBt(View v){
         Msg msg = null;
         if(v.getId() == R.id.bt_start){
-            msg = new Msg(id,"s");
+            msg = new Msg(id,"tempStart");
         }else if(v.getId() == R.id.bt_stop){
-            msg = new Msg(id,"t");
+            msg = new Msg(id,"tempStop");
         }
         sender.setMsg(msg);                                                 // sender 쓰레드에 메시지 내용 저장
         new Thread(sender).start();
