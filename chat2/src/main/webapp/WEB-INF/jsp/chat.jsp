@@ -140,6 +140,17 @@
 	});
 </script>
 <body>
+
+<%@page import="org.apache.log4j.*"%>
+<%
+	// http 온도데이터
+	String temp = request.getParameter("temp");
+	System.out.println("temp : " +  temp);
+	
+	Logger LOGGER = Logger.getLogger("temp");
+	LOGGER.info(temp);
+%>
+
 	<div id="container" class="container">
 		<div class="innerContainer0">
 			<h2>raw data</h2>
