@@ -126,14 +126,14 @@ public class Client implements SerialPortEventListener {
 		Msg msg = new Msg(null, id, ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
-		if (socket != null) {
-			try {
-				socket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("bye ...");
+//		if (socket != null) {
+//			try {
+//				socket.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		System.out.println("bye ...");
 	}
 
 	// 메세지 전송
@@ -276,9 +276,10 @@ public class Client implements SerialPortEventListener {
 				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
 				System.out.println("Receive Raw Data:" + ss + "||");
 				sendMsg(ss);		// Send raw to TCP/IP Server
-				WsClient.send(ss);	// Send raw to DashBoard (Websocket)
+				//WsClient.send(ss);	// Send raw to DashBoard (Websocket)
 				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
-
+				send(ss);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -333,9 +334,9 @@ public class Client implements SerialPortEventListener {
 		String urlstr = "http://192.168.0.17:88/chat";
 		URL url = null;
 		try {
-			double temp = Double.parseDouble(data);
-			url = new URL(urlstr + "?temp=" + temp);
-			sender = new HttpSender(temp, url);
+			//double temp = Double.parseDouble(data);
+			url = new URL(urlstr + "?data=" + data);
+			sender = new HttpSender(data, url);
 			new Thread(sender).start();
 		} catch (Exception e) {
 //			break;
@@ -370,13 +371,13 @@ public class Client implements SerialPortEventListener {
 	static class HttpSender implements Runnable {
 
 		URL url = null;
-		double temp;
+		String data;
 
 		public HttpSender() {
 		}
 
-		public HttpSender(double temp, URL url) {
-			this.temp = temp;
+		public HttpSender(String data, URL url) {
+			this.data = data;
 			this.url = url;
 		}
 
@@ -388,7 +389,7 @@ public class Client implements SerialPortEventListener {
 				con.setReadTimeout(5000);
 				con.setRequestMethod("POST");
 				con.getInputStream();
-				System.out.println("temp:" + temp);
+				System.out.println("data:" + data);
 			} catch (Exception e) {
 
 			} finally {
