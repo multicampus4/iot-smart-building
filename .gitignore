@@ -4,6 +4,13 @@
 .project
 .classpath
 
+# Local IP address properties
+/can/src/com/properties/My.java
+/can/src/com/properties/my.java
+can/src/com/properties/my.java
+can/src/com/properties/My.java
+can/src/com/properties/
+
 # Compiled class file
 *.class
 

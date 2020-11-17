@@ -48,7 +48,7 @@ public class WsClient extends WebSocketClient {
 	}
 
 	public static void main(String[] args) throws URISyntaxException {		
-		WebSocketClient client = new WsClient(new URI("ws://192.168.1.22:88/chatting"));
-		client.connect();
+//		WebSocketClient client = new WsClient(new URI("ws://192.168.1.22:88/chatting"));
+//		client.connect();
 	}
 }
