@@ -344,6 +344,8 @@ public class Client implements SerialPortEventListener {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+	}
 
 	// 아두이노에서 받은 센서데이터 > JSON 형식으로 변환 
 	public JSONObject convertJson(String ss) {
@@ -362,6 +364,7 @@ public class Client implements SerialPortEventListener {
 					continue;
 			}	
 		}
+		return jsonObj;
 	}
 
 	static class HttpSender implements Runnable {
