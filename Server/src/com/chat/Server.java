@@ -15,7 +15,7 @@ public class Server {
 
 	int port;
 	
-	// clientµéÀÇ ¸Ş¼¼Áö¸¦ ¹Ş´Â´Ù.
+	// clientë“¤ì˜ ë©”ì„¸ì§€ë¥¼ ë°›ëŠ”ë‹¤.
 	HashMap<String, ObjectOutputStream> maps;
 	
 	ServerSocket serverSocket;
@@ -32,7 +32,7 @@ public class Server {
 		serverSocket = new ServerSocket(port);
 		System.out.println("Strat Server ...");
 		
-		// ³×Æ®¿öÅ©´Â ½º·¹µå¿¡¼­ µ¿ÀÛ½ÃÄÑ¾ß ÇÑ´Ù.
+		// ë„¤íŠ¸ì›Œí¬ëŠ” ìŠ¤ë ˆë“œì—ì„œ ë™ì‘ì‹œì¼œì•¼ í•œë‹¤.
 		Runnable r = new Runnable() {
 			
 			@Override
@@ -42,11 +42,11 @@ public class Server {
 						Socket socket = null;
 						System.out.println("Ready Server ...");
 						socket = serverSocket.accept();
-						// Á¢¼ÓÇÑ clientµéÀÇ ip address È®ÀÎ
+						// ì ‘ì†í•œ clientë“¤ì˜ ip address í™•ì¸
 						System.out.println(socket.getInetAddress());
 						makeOut(socket);
 						
-						// client°¡ µé¾î¿Ã ¶§¸¶´Ù »õ·Î¿î ½º·¹µå°¡ »ı¼º
+						// clientê°€ ë“¤ì–´ì˜¬ ë•Œë§ˆë‹¤ ìƒˆë¡œìš´ ìŠ¤ë ˆë“œê°€ ìƒì„±
 						new Receiver(socket).start();
 						
 					} catch(Exception e) {
@@ -61,16 +61,16 @@ public class Server {
 			
 	}
 	
-	// °¢°¢ÀÇ clientµéÀÇ outputstreamÀ» hashmap¿¡ ÀúÀåÇÑ´Ù.
+	// ê°ê°ì˜ clientë“¤ì˜ outputstreamì„ hashmapì— ì €ì¥í•œë‹¤.
 	public void makeOut(Socket socket) throws IOException {
 		ObjectOutputStream oo;
 		oo = new ObjectOutputStream(socket.getOutputStream());
 		maps.put(socket.getInetAddress().toString(), oo);
-		System.out.println("Á¢¼ÓÀÚ¼ö: " + maps.size());
+		System.out.println("ì ‘ì†ììˆ˜: " + maps.size());
 	}
 	
-	// clientµéÀ» ¹Ş´Â´Ù.
-	// sendMsg¸¦ È£ÃâÇÏ¿© ¸Ş¼¼Áö °´Ã¼¸¦ ¹Ş´Â´Ù.
+	// clientë“¤ì„ ë°›ëŠ”ë‹¤.
+	// sendMsgë¥¼ í˜¸ì¶œí•˜ì—¬ ë©”ì„¸ì§€ ê°ì²´ë¥¼ ë°›ëŠ”ë‹¤.
 	class Receiver extends Thread {
 		Socket socket;
 		ObjectInputStream oi;
@@ -87,7 +87,7 @@ public class Server {
 				try {
 					msg = (Msg) oi.readObject();
 					if(msg.getMsg().equals("q")) {
-						// °­Á¦·Î exceptionÀ» ³»¼­ client¸¦ »èÁ¦ÇÑ´Ù.
+						// ê°•ì œë¡œ exceptionì„ ë‚´ì„œ clientë¥¼ ì‚­ì œí•œë‹¤.
 						throw new Exception();
 					}else if(msg.getMsg().equals("1")) {
 						String ip = socket.getInetAddress().toString();
@@ -100,16 +100,16 @@ public class Server {
 						for(String k : keys) {
 							hm.put(k, null);
 						}
-						// 1À» º¸³½ client
-						// ¼­¹öÀÇ Á¢¼ÓÀÚ ipµé
+						// 1ì„ ë³´ë‚¸ client
+						// ì„œë²„ì˜ ì ‘ì†ì ipë“¤
 						msg.setMaps(hm);
 					}
 					System.out.println(msg.getId() + msg.getMsg());
 					sendMsg(msg);
-				} catch (Exception e) { // client°¡ °©ÀÚ±â Á¢¼Ó Áß´ÜµÈ °æ¿ì
+				} catch (Exception e) { // clientê°€ ê°‘ìê¸° ì ‘ì† ì¤‘ë‹¨ëœ ê²½ìš°
 					maps.remove(socket.getInetAddress().toString());
 					System.out.println(socket.getInetAddress()+".. Exited");
-					System.out.println("Á¢¼ÓÀÚ¼ö: " + maps.size());
+					System.out.println("ì ‘ì†ììˆ˜: " + maps.size());
 					break;
 				} 
 			} // end while
@@ -128,14 +128,14 @@ public class Server {
 		
 	}
 	
-	// °´Ã¼¿¡¼­ ¸Ş¼¼Áö·Î °¡Á®¿Í¼­ Sender¸¦ È£ÃâÇÑ´Ù.
+	// ê°ì²´ì—ì„œ ë©”ì„¸ì§€ë¡œ ê°€ì ¸ì™€ì„œ Senderë¥¼ í˜¸ì¶œí•œë‹¤.
 	public void sendMsg(Msg msg) {
 		Sender sender = new Sender();
 		sender.setMsg(msg);
 		sender.start();
 	}
 	
-	// clientµé¿¡°Ô ¸Ş¼¼Áö Àü¼ÛÇÑ´Ù.
+	// clientë“¤ì—ê²Œ ë©”ì„¸ì§€ ì „ì†¡í•œë‹¤.
 	class Sender extends Thread {
 		Msg msg;
 		public void setMsg(Msg msg) {
@@ -167,9 +167,9 @@ public class Server {
 	
 
 	public static void main(String[] args) {
-		Server server = new Server(5555);
+		Server server = new Server(5253);
 		
-		// ¼­¹ö ½ÇÇà
+		// ì„œë²„ ì‹¤í–‰
 		try {
 			server.startServer();
 		} catch (Exception e) {
