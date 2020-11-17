@@ -14,9 +14,11 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.java_websocket.client.WebSocketClient;
+import org.json.simple.JSONObject;
 
 import com.msg.Msg;
 import com.ws.WsClient;
+import com.properties.My;
 
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
@@ -25,7 +27,7 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
 public class Client implements SerialPortEventListener {
-
+	// 멤버 변수
 	int port;
 	String address;
 	String id;
@@ -41,24 +43,28 @@ public class Client implements SerialPortEventListener {
 	private CommPort commPort;
 	private String rawCanID, rawTotal;
 
-	public static WebSocketClient WsClient;
+	// 웹소켓
+	static WebSocketClient WsClient;
 
+	static My my = new My();
+
+	// 기본생성자
 	public Client() throws Exception {
-
 	}
-
+	
+	// IP주소, 포트, ID를 담은 클라이언트 생성자
 	public Client(String address, int port, String id) throws Exception {
 		this.address = address;
 		this.port = port;
 		this.id = id;
 
 		// WebSocket Client 선언, 최초 연결
-		WsClient = new WsClient(new URI("ws://192.168.0.17:88/chatting"));
+		WsClient = new WsClient(new URI("ws://" + my.getWebsocketIp() + ":" + my.getWebsocektPort() + "/chatting"));
 		WsClient.connect();
 
 		// Serial 연결
-		portIdentifier = CommPortIdentifier.getPortIdentifier("COM5");
-		System.out.printf("Port Connect : %s\n", "COM5");
+		portIdentifier = CommPortIdentifier.getPortIdentifier(my.getSerialPort());
+		System.out.printf("Port Connect : %s\n", my.getSerialPort());
 		connectSerial();
 
 	}
@@ -154,7 +160,6 @@ public class Client implements SerialPortEventListener {
 					// 서버가 죽어 있을 때
 					// 더 이상의 메세지가 날라가지 않을 때 에러
 					// e.printStackTrace();
-
 					try {
 						if (socket != null) {
 							socket.close();
@@ -162,7 +167,6 @@ public class Client implements SerialPortEventListener {
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-
 					try {
 						// 다시 서버와 연결 시도
 						System.out.println("Retry ...");
@@ -174,7 +178,6 @@ public class Client implements SerialPortEventListener {
 				} // end try
 			}
 		}
-
 	}
 
 	class Receiver extends Thread {
@@ -224,46 +227,26 @@ public class Client implements SerialPortEventListener {
 	}
 
 	// *********** Serial 통신 코드 ***********
-
 	public void connectSerial() throws Exception {
-
 		if (portIdentifier.isCurrentlyOwned()) {
-
 			System.out.println("Error: Port is currently in use");
-
 		} else {
-
 			commPort = portIdentifier.open(this.getClass().getName(), 5000);
-
 			if (commPort instanceof SerialPort) {
-
 				serialPort = (SerialPort) commPort;
-
 				serialPort.addEventListener(this);
-
 				serialPort.notifyOnDataAvailable(true);
-
 				serialPort.setSerialPortParams(9600, // 통신속도
-
 						SerialPort.DATABITS_8, // 데이터 비트
-
 						SerialPort.STOPBITS_1, // stop 비트
-
 						SerialPort.PARITY_NONE); // 패리티
-
 				in = serialPort.getInputStream();
 				bin = new BufferedInputStream(in);
-
 				out = serialPort.getOutputStream();
-
 			} else {
-
 				System.out.println("Error: Only serial ports are handled by this example.");
-
 			}
-
 		}
-
 	}
 
 	// Asynchronized Receive Data
@@ -290,13 +273,11 @@ public class Client implements SerialPortEventListener {
 					int numBytes = bin.read(readBuffer);
 				}
 
-				String ss = new String(readBuffer);
-				System.out.println("Receive Low Data:" + ss + "||");
-
-				WsClient.send(ss);
-				
-				// http로 브라우저에 데이터 전송(로그 기록용)
-				send(ss);
+				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
+				System.out.println("Receive Raw Data:" + ss + "||");
+				sendMsg(ss);		// Send raw to TCP/IP Server
+				WsClient.send(ss);	// Send raw to DashBoard (Websocket)
+				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -306,35 +287,20 @@ public class Client implements SerialPortEventListener {
 	}
 
 	public void close() throws IOException {
-
 		try {
-
 			Thread.sleep(100);
-
 		} catch (InterruptedException e) {
-
 			e.printStackTrace();
-
 		}
-
 		if (in != null) {
-
 			in.close();
-
 		}
-
 		if (out != null) {
-
 			out.close();
-
 		}
-
 		if (commPort != null) {
-
 			commPort.close();
-
 		}
-
 	}
 
 	public void sendIoT(String cmd) {
@@ -361,6 +327,7 @@ public class Client implements SerialPortEventListener {
 
 	}
 	
+
 	public static void send(String data) {
 		HttpSender sender = null;
 		String urlstr = "http://192.168.0.17:88/chat";
@@ -377,6 +344,23 @@ public class Client implements SerialPortEventListener {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+
+	// 아두이노에서 받은 센서데이터 > JSON 형식으로 변환 
+	public JSONObject convertJson(String ss) {
+		JSONObject jsonObj = new JSONObject();
+		String[] dataArr = ss.split(";");
+		
+		for(int i=0; i<dataArr.length; i++) {
+			switch(dataArr[i].substring(0,3)) {
+				case "tmp":
+					System.out.println("온도"+dataArr[i].substring(3));
+					jsonObj.put("tmp", dataArr[i].substring(3));
+					continue;
+				case "hum":
+					System.out.println("습도"+dataArr[i].substring(3));
+					jsonObj.put("hum", dataArr[i].substring(3));
+					continue;
+			}	
 		}
 	}
 
@@ -413,7 +397,7 @@ public class Client implements SerialPortEventListener {
 
 	public static void main(String[] args) {
 		try {
-			Client client = new Client("192.168.0.17", 5555, "[Jeong]");
+			Client client = new Client(my.getLocalIp(), my.getLocalPort(), "[IoTClient]");
 			client.connect();
 			
 		} catch (Exception e) {
