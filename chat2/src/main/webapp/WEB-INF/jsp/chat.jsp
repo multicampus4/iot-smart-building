@@ -100,7 +100,7 @@
 			// ex: { "tmp":"28", "hum":"80" }
 			
 			if(msg != null && msg.trim() != ''){
-				$("#chating").append("<p>" + obj.tmp + "</p>");
+				$("#chatting1").append("<p>" + obj.tmp + "</p>");
 				$("#chatting2").append("<p>" + obj.hum + "</p>");
 			}
 		}
@@ -167,7 +167,7 @@
 		</div>
 		<div class="innerContainer1">
 			<h2>센서1: 온도</h2>
-			<div id="chatting" class="chatting"></div>
+			<div id="chatting1" class="chatting"></div>
 		</div>
 		<div class="innerContainer2">
 			<h2>센서2: 습도</h2>
