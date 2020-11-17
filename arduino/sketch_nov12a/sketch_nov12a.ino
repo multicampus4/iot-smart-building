@@ -1,5 +1,6 @@
 const int tempPin = A0;
 const int ledPin = A2;
+boolean check = false;
 
 void setup() {
   Serial.begin(9600);
@@ -8,27 +9,11 @@ void setup() {
 
 void loop() {
   delay(2000);
-  
-  // 온도 센서
-  int data = analogRead(tempPin);
-  float temp = ((5.0 * data) / 1024.0) * 100;
-<<<<<<< HEAD
-  Serial.print("tmp");
-  Serial.print(temp);
-  
-  Serial.print(";hum");
+  float temp = analogRead(tempPin);
+  temp = (temp * 5.0/1024.0)*100;
+  Serial.print("humidity");
   Serial.print(temp+52.12);
-  Serial.print(";\n");
-=======
-  Serial.print("temp:");
-  Serial.print(temp);
-  Serial.println();
-
-  Serial.print("humidity:");
-  Serial.print(temp+52.12);
-  Serial.println();
->>>>>>> d7fca7605b477e614ba0238cdfd6e5c22266dc3c
-  
+  Serial.print("\n");
   // LED 센서
   String cmd="";
   if(Serial.available()){
@@ -38,12 +23,17 @@ void loop() {
       digitalWrite(ledPin, HIGH);
     }else if(cmd.equals("ledStop")){
       digitalWrite(ledPin, LOW);
+    }else if(cmd.equals("tempStart")){
+      digitalWrite(tempPin, HIGH);
+      check = true;
+    }else if(cmd.equals("tempStop")){
+      digitalWrite(tempPin, LOW);
+      check = false;
     }
   }
-  
-
-  
-  
-
-
+    if(check){
+      float temp = analogRead(tempPin);
+      temp = (temp * 5.0/1024.0)*100;
+      Serial.println(temp);
+  }
 }
