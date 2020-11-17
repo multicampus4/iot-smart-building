@@ -331,6 +331,7 @@ public void serialEvent(SerialPortEvent event) {
 
 	}
 	
+	// 아두이노에서 받은 센서데이터 > JSON 형식으로 변환 
 	public JSONObject convertJson(String ss) {
 		JSONObject jsonObj = new JSONObject();
 		String[] dataArr = ss.split(";");
