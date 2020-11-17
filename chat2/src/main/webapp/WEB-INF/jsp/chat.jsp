@@ -8,10 +8,6 @@
 <meta charset="UTF-8">
 	<title>WebSocket Data</title>
 	<style>
-		*{
-			margin:0;
-			padding:0;
-		}
 		.container{
 			width: 800px;
 			margin: 0 auto;
@@ -34,7 +30,10 @@
 			float: left;
 		}
 		.btn2{
-			float: right;
+			float: left;
+		}
+		.btn3{
+			float:left;
 		}
 		.innerContainer0{
 			width: 30%;
@@ -50,7 +49,7 @@
 		}
 		.innerContainer2{
 			width: 30%;
-			float: right;
+			float: left;
 			margin: 0 auto;
 			padding: 5px
 		}
@@ -88,10 +87,11 @@
 	}
 		
 	function wsEvt() {
+		// onopen: 웹 소켓이 열리면 호출
 		ws.onopen = function(data){
 			//소켓이 열리면 초기화 세팅하기
 		}
-		
+		// onmessage: 메시지가 도착하면 호출
 		ws.onmessage = function(data) {
 			var msg = data.data;
 			$("#chatting0").append("<p>" + msg + "</p>");
@@ -137,11 +137,20 @@
 				}
 			});
 		});
+		$('#alert').click(function(){
+			$.ajax({
+				url:'alert',
+				success:function(data){
+					alert('Send Complete...');
+				}
+			});
+		});
 	});
 </script>
 <body>
 
 <%@page import="org.apache.log4j.*"%>
+
 <%
 	// http 온도데이터
 	String temp = request.getParameter("temp");
@@ -158,7 +167,7 @@
 		</div>
 		<div class="innerContainer1">
 			<h2>센서1: 온도</h2>
-			<div id="chating" class="chatting"></div>
+			<div id="chatting" class="chatting"></div>
 		</div>
 		<div class="innerContainer2">
 			<h2>센서2: 습도</h2>
@@ -172,6 +181,9 @@
 		</div>
 		<div class="btn2">
 			<a class="btn" id="ledStop" href="#">LED STOP</a>
+		</div>
+		<div class="btn3">
+			<a class="btn" id= "alert" href = "#">Alert</a>
 		</div>
 		
 		<div id="yourMsg">
