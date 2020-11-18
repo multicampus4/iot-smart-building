@@ -5,21 +5,26 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-
+import java.util.Iterator;
 
 import com.msg.Msg;
 
 public class Server {
 
 	int port;
+	String address;
+	String id;
+	
+	ServerSocket serverSocket;
 	
 	// client들의 메세지를 받는다.
 	HashMap<String, ObjectOutputStream> maps;
 	
-	ServerSocket serverSocket;
-	
+	// sendTarget 위한 ip주소 선언
+	String targetIp = null;
 	
 	public Server() {}
 	
@@ -58,7 +63,6 @@ public class Server {
 		
 		new Thread(r).start();
 		
-			
 	}
 	
 	// 각각의 client들의 outputstream을 hashmap에 저장한다.
@@ -84,28 +88,25 @@ public class Server {
 		public void run() {
 			while(oi != null) {
 				Msg msg = null;
+				
 				try {
 					msg = (Msg) oi.readObject();
+					System.out.println("Server.java :::" +msg);
 					if(msg.getMsg().equals("q")) {
 						// 강제로 exception을 내서 client를 삭제한다.
 						throw new Exception();
-					}else if(msg.getMsg().equals("1")) {
-						String ip = socket.getInetAddress().toString();
-						ArrayList<String> ips = new ArrayList<>();
-						ips.add(ip);
-						msg.setIps(ips);
-						
-						Set<String> keys = maps.keySet();
-						HashMap<String, Msg> hm = new HashMap<>();
-						for(String k : keys) {
-							hm.put(k, null);
-						}
-						// 1을 보낸 client
-						// 서버의 접속자 ip들
-						msg.setMaps(hm);
+					}else if(msg.getMsg().equals("iamAndroid")) {
+						// Hand Shake 메시지로 sendTarget 실행할 IP 저장
+						targetIp = socket.getInetAddress().toString();
 					}
 					System.out.println(msg.getId() + msg.getMsg());
 //					sendMsg(msg);
+					// ▲ 전체 클라이언트에 전송하면 중복 데이터 주고받고 난리나는 문제의 원인
+					// sendTarget으로 특정 클라이언트에만 데이터 전송
+					// 지금 여기선 모바일앱이 sendTarget 대상
+					// fix: 2020-11-18(재현)
+					if(targetIp != null)
+						sendTarget(targetIp,msg.getMsg());
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
 					maps.remove(socket.getInetAddress().toString());
 					System.out.println(socket.getInetAddress()+".. Exited");
@@ -133,6 +134,15 @@ public class Server {
 		Sender sender = new Sender();
 		sender.setMsg(msg);
 		sender.start();
+	}
+	
+	public void sendTarget(String ip, String cmd) {
+		ArrayList<String> ips = new ArrayList<String>();
+		ips.add(ip);
+		Msg msg = new Msg(ips,id,cmd);
+		Sender sender = new Sender();
+		sender.setMsg(msg);
+		new Thread(sender).start();
 	}
 	
 	// client들에게 메세지 전송한다.
