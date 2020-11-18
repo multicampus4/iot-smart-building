@@ -98,31 +98,6 @@ public class Client implements SerialPortEventListener {
 
 	// 메세지 입력받음
 	public void sendMsg(String ss) {
-//		Scanner sc = new Scanner(System.in);
-//		while(true){
-//			System.out.println("Input msg");
-//			String ms = sc.nextLine();
-//			
-//			// 1을 보내명 서버에서는 사용자 리스트를 보낸다.
-//			Msg msg = null;
-//			if(ms.equals("1")) {
-//				msg = new Msg(id, ms);
-//				
-//			}else {
-//				// 귓속말 하고자하는 상대의 ip주소 지정
-//				ArrayList<String> ips = new ArrayList<>();
-//				ips.add("/172.30.1.27");
-//				//msg = new Msg(ips,id,ms);
-//				
-//				// 모두에게 보낼 때
-//				msg = new Msg(null,id,ms);
-//			}
-
-//			if(ms.equals("q")) {
-//				break;
-//			}
-//		}
-//		sc.close();
 		Msg msg = new Msg(null, id, ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
@@ -274,6 +249,7 @@ public class Client implements SerialPortEventListener {
 				}
 
 				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
+				ss = ss.trim();
 				System.out.println("Receive Raw Data:" + ss + "||");
 				sendMsg(ss);		// Send raw to TCP/IP Server
 				WsClient.send(ss);	// Send raw to DashBoard (Websocket)
@@ -328,9 +304,9 @@ public class Client implements SerialPortEventListener {
 	}
 	
 
-	public static void send(String data) {
+	public static void sendHttp(String data) {
 		HttpSender sender = null;
-		String urlstr = "http://192.168.0.17:88/chat";
+		String urlstr = "http://" + my.getWebsocketIp() + ":" + my.getWebsocektPort() + "/chat";
 		URL url = null;
 		try {
 			double temp = Double.parseDouble(data);
@@ -340,11 +316,11 @@ public class Client implements SerialPortEventListener {
 		} catch (Exception e) {
 //			break;
 		}
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	// 아두이노에서 받은 센서데이터 > JSON 형식으로 변환 
