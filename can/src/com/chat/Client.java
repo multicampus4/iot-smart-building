@@ -87,8 +87,8 @@ public class Client implements SerialPortEventListener {
 		sender = new Sender(socket);
 		new Receiver(socket).start();
 		
-		Msg msg = new Msg(null, id,"iamLatte01");                  // Hand Shake : iamLatte01 : Server>Server.java
-		sender.setMsg(msg);                                        // sender 쓰레드에 메시지 내용 저장
+		Msg msg = new Msg(null, id,"iamLatte01");	// Hand Shake : iamLatte01 : Server>Server.java
+		sender.setMsg(msg);							// sender 쓰레드에 메시지 내용 저장
 		new Thread(sender).start();
 	}
 
