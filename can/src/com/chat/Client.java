@@ -251,7 +251,7 @@ public class Client implements SerialPortEventListener {
 				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
 				ss = ss.trim();
 				System.out.println("Receive Raw Data:" + ss + "||");
-				sendMsg(ss);		// Send raw to TCP/IP Server
+				sendMsg(ss);		// Send raw to TCP/IP Server -> Mobile App
 				WsClient.send(ss);	// Send raw to DashBoard (Websocket)
 				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
 
@@ -303,7 +303,7 @@ public class Client implements SerialPortEventListener {
 
 	}
 	
-
+	// http요청 > 로그 기록 목적
 	public static void sendHttp(String data) {
 		HttpSender sender = null;
 		String urlstr = "http://" + my.getWebsocketIp() + ":" + my.getWebsocektPort() + "/chat";
@@ -311,6 +311,7 @@ public class Client implements SerialPortEventListener {
 		try {
 			double temp = Double.parseDouble(data);
 			url = new URL(urlstr + "?temp=" + temp);
+			System.out.println("sendHttp에서 보내는 url: "+url);
 			sender = new HttpSender(temp, url);
 			new Thread(sender).start();
 		} catch (Exception e) {
@@ -376,6 +377,7 @@ public class Client implements SerialPortEventListener {
 
 	public static void main(String[] args) {
 		try {
+			// TCP/IP Server 연결 초기화
 			Client client = new Client(my.getLocalIp(), my.getLocalPort(), "[IoTClient]");
 			client.connect();
 			

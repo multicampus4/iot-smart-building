@@ -33,7 +33,7 @@ public class WsClient extends WebSocketClient {
 
 	@Override
 	public void onMessage(String message) {
-		System.out.println("received message(ws): " + message);
+//		System.out.println("received message(ws): " + message);
 	}
 
 	@Override

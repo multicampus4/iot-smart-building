@@ -105,7 +105,7 @@ public class Server {
 						msg.setMaps(hm);
 					}
 					System.out.println(msg.getId() + msg.getMsg());
-					sendMsg(msg);
+//					sendMsg(msg);
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
 					maps.remove(socket.getInetAddress().toString());
 					System.out.println(socket.getInetAddress()+".. Exited");

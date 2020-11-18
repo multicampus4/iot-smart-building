@@ -154,7 +154,7 @@
 <%
 	// http 온도데이터
 	String temp = request.getParameter("temp");
-	System.out.println("temp : " +  temp);
+	System.out.println("GET PARAMETER : " +  temp);
 	
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(temp);
