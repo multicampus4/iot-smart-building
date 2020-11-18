@@ -86,6 +86,10 @@ public class Client implements SerialPortEventListener {
 		System.out.println("Connected Server: " + address);
 		sender = new Sender(socket);
 		new Receiver(socket).start();
+		
+		Msg msg = new Msg(null, id,"iamLatte01");                  // Hand Shake : iamLatte01 : Server>Server.java
+		sender.setMsg(msg);                                        // sender 쓰레드에 메시지 내용 저장
+		new Thread(sender).start();
 	}
 
 	public void sendTarget(String ip, String cmd) {
@@ -253,10 +257,9 @@ public class Client implements SerialPortEventListener {
 				ss = ss.trim();
 				System.out.println("Receive Raw Data:" + ss + "||");
 
-				sendTcpipAll(ss);		// Send raw to TCP/IP Server -> Mobile App
-				WsClient.send(ss);	// Send raw to DashBoard (Websocket)
+				sendTcpipAll(ss);	// Send raw to TCP/IP Server -> Mobile App
 				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
-				sendHttp(ss);
+				sendHttp(ss);		// Send raw to chat.jsp (LOG)
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -382,6 +385,8 @@ public class Client implements SerialPortEventListener {
 			// TCP/IP Server 연결 초기화
 			Client client = new Client(my.getLocalIp(), my.getLocalPort(), "[IoTClient]");
 			client.connect();
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
