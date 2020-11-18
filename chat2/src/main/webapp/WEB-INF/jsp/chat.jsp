@@ -153,11 +153,11 @@
 
 <%
 	// http 온도데이터
-	String temp = request.getParameter("temp");
-	System.out.println("GET PARAMETER(jsp) : " +  temp);
+	String data = request.getParameter("data");
+	System.out.println("data(jsp) : " +  data);
 	
 	Logger LOGGER = Logger.getLogger("temp");
-	LOGGER.info(temp);
+	LOGGER.info(data);
 %>
 
 	<div id="container" class="container">
