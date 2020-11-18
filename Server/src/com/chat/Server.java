@@ -23,8 +23,9 @@ public class Server {
 	// client들의 메세지를 받는다.
 	HashMap<String, ObjectOutputStream> maps;
 	
-	// sendTarget 위한 ip주소 선언
+	// sendTarget 위한 ip주소 선언 >> hashMap 관리방식으로 변경하기!
 	String targetIp = null;
+	String targetIp2 = null;
 	
 	public Server() {}
 	
@@ -92,12 +93,14 @@ public class Server {
 				try {
 					msg = (Msg) oi.readObject();
 					System.out.println("Server.java :::" +msg);
-					if(msg.getMsg().equals("q")) {
-						// 강제로 exception을 내서 client를 삭제한다.
-						throw new Exception();
-					}else if(msg.getMsg().equals("iamAndroid")) {
-						// Hand Shake 메시지로 sendTarget 실행할 IP 저장
-						targetIp = socket.getInetAddress().toString();
+					switch(msg.getMsg()) {
+						case "q": // 강제로 exception을 내서 client를 삭제한다.
+							throw new Exception();
+						case "iamAndroid":	// Hand Shake 메시지로 sendTarget 실행할 IP 저장
+							targetIp = socket.getInetAddress().toString();
+						case "iamLatte01":
+							targetIp2 = socket.getInetAddress().toString();
+							System.out.println("targetIp2========="+targetIp2);
 					}
 					System.out.println(msg.getId() + msg.getMsg());
 //					sendMsg(msg);
@@ -107,6 +110,10 @@ public class Server {
 					// fix: 2020-11-18(재현)
 					if(targetIp != null)
 						sendTarget(targetIp,msg.getMsg());
+					if(targetIp2 != null) {
+						sendTarget(targetIp,msg.getMsg());
+						System.out.println("LATTEEEEEEE SENDTARGET");
+					}
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
 					maps.remove(socket.getInetAddress().toString());
 					System.out.println(socket.getInetAddress()+".. Exited");
