@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 멤버변수에 값 선언
         port = 5253;
-        address = "192.168.25.57";
+        address = "192.168.0.6";
         id = "[osh_switch]";
 
 
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
         try{
             Msg msg = new Msg(null, id, "q");       // "q" 라는 메시지를 담아
-            sender.setMsg(msg);                               // 메시지 전송
+            sender.setMsg(msg);                                                // 메시지 전송
             new Thread(sender).start();                       // sender 쓰레드 시작
             if(socket != null){
                 socket.close();                               // 메시지 보내고 소켓 닫음
@@ -142,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
     // 서버 접속 시, 접속했음을 클라이언트들에게 메시지 전송
     private void getList() {
         Log.d("[태그]","---------여기까지왔는가-----------");
-        Msg msg = new Msg(null, id,"님이 참가하셨습니다.");       // Msg 객체의 msg 변수 선언 (메시지)
+        Msg msg = new Msg(null, id,"iamAndroid");                  // Hand Shake : iamAndroid : Server>Server.java
+                                                                            // Msg 객체의 msg 변수 선언 (메시지) ex: 님이 참가하셨습니다.
         sender.setMsg(msg);                                                  // sender 쓰레드에 메시지 내용 저장
         new Thread(sender).start();                                          // 메시지 내용에 대해 sender 쓰레드 실행.
 
@@ -223,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             String tx = tx_data.getText().toString();
-                            tx_data.setText(finalMsg.getId() + finalMsg.getMsg() +"\n"+tx);
+                            tx_data.setText("[ID]"+finalMsg.getId() + " [MSG]" + finalMsg.getMsg() +"\n"+tx);
                         }
                     });
                     System.out.println(msg.getId() + msg.getMsg());
