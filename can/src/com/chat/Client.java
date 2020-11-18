@@ -252,15 +252,11 @@ public class Client implements SerialPortEventListener {
 				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
 				ss = ss.trim();
 				System.out.println("Receive Raw Data:" + ss + "||");
-<<<<<<< HEAD
+
 				sendTcpipAll(ss);		// Send raw to TCP/IP Server -> Mobile App
 				WsClient.send(ss);	// Send raw to DashBoard (Websocket)
-=======
-				sendMsg(ss);		// Send raw to TCP/IP Server
-				//WsClient.send(ss);	// Send raw to DashBoard (Websocket)
->>>>>>> 42260653d6e266054f657d91244f5f69a9f65acc
 				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
-				send(ss);
+				sendHttp(ss);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -316,16 +312,9 @@ public class Client implements SerialPortEventListener {
 		String urlstr = "http://" + my.getWebsocketIp() + ":" + my.getWebsocektPort() + "/chat";
 		URL url = null;
 		try {
-<<<<<<< HEAD
-			double temp = Double.parseDouble(data);
-			url = new URL(urlstr + "?temp=" + temp);
-			System.out.println("sendHttp에서 보내는 url: "+url);
-			sender = new HttpSender(temp, url);
-=======
 			//double temp = Double.parseDouble(data);
 			url = new URL(urlstr + "?data=" + data);
 			sender = new HttpSender(data, url);
->>>>>>> 42260653d6e266054f657d91244f5f69a9f65acc
 			new Thread(sender).start();
 		} catch (Exception e) {
 //			break;
