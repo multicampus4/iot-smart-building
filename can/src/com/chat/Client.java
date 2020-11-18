@@ -101,14 +101,14 @@ public class Client implements SerialPortEventListener {
 		Msg msg = new Msg(null, id, ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
-		if (socket != null) {
-			try {
-				socket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("bye ...");
+//		if (socket != null) {
+//			try {
+//				socket.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+		System.out.println("sendMsg OK");
 	}
 
 	// 메세지 전송
