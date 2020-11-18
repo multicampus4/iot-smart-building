@@ -92,15 +92,17 @@ public class Server {
 				
 				try {
 					msg = (Msg) oi.readObject();
-					System.out.println("Server.java :::" +msg);
+//					System.out.println("Server.java :::" +msg);
 					switch(msg.getMsg()) {
 						case "q": // 강제로 exception을 내서 client를 삭제한다.
 							throw new Exception();
 						case "iamAndroid":	// Hand Shake 메시지로 sendTarget 실행할 IP 저장
 							targetIp = socket.getInetAddress().toString();
+							System.out.println("ANDROID's IP"+ targetIp);
 						case "iamLatte01":
 							targetIp2 = socket.getInetAddress().toString();
-							System.out.println("targetIp2========="+targetIp2);
+							System.out.println("LATTE'S IP"+ targetIp2);
+
 					}
 					System.out.println(msg.getId() + msg.getMsg());
 //					sendMsg(msg);
@@ -108,11 +110,16 @@ public class Server {
 					// sendTarget으로 특정 클라이언트에만 데이터 전송
 					// 지금 여기선 모바일앱이 sendTarget 대상
 					// fix: 2020-11-18(재현)
-					if(targetIp != null)
+					if(targetIp != null) {
 						sendTarget(targetIp,msg.getMsg());
-					if(targetIp2 != null) {
-						sendTarget(targetIp,msg.getMsg());
-						System.out.println("LATTEEEEEEE SENDTARGET");
+					}
+					if(msg.getId().equals("[WEB]")) {
+						sendTarget(targetIp2,msg.getMsg()); // to Latte
+						System.out.println("라떼로 메시지 전송 요청:"+ msg.getMsg());
+					}
+					else if(msg.getId().equals("[osh_switch]")) {
+						sendTarget(targetIp2,msg.getMsg());	// to Latte
+						System.out.println("안드로이드에서:"+ msg.getMsg());
 					}
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
 					maps.remove(socket.getInetAddress().toString());
@@ -160,7 +167,7 @@ public class Server {
 		}
 		
 		@Override
-		public void run() {
+		public void run() { 
 			Collection<ObjectOutputStream> cols = maps.values();
 			Iterator<ObjectOutputStream> it = cols.iterator();
 			while(it.hasNext()) {
