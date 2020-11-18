@@ -21,6 +21,8 @@ import com.chat.Client;
 public class MainController {
 	
 	Client client;
+	
+	public MainController() {
 		client = new Client("192.168.0.17", 5555, "[WEB]");
 		try {
 			client.connect();
