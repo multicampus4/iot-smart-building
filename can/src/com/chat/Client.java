@@ -97,7 +97,7 @@ public class Client implements SerialPortEventListener {
 	}
 
 	// 메세지 입력받음
-	public void sendMsg(String ss) {
+	public void sendTcpipAll(String ss) {
 		Msg msg = new Msg(null, id, ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
@@ -108,7 +108,7 @@ public class Client implements SerialPortEventListener {
 //				e.printStackTrace();
 //			}
 //		}
-		System.out.println("sendMsg OK");
+		System.out.println("send TCPIP ALL OK");
 	}
 
 	// 메세지 전송
@@ -251,7 +251,7 @@ public class Client implements SerialPortEventListener {
 				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
 				ss = ss.trim();
 				System.out.println("Receive Raw Data:" + ss + "||");
-				sendMsg(ss);		// Send raw to TCP/IP Server -> Mobile App
+				sendTcpipAll(ss);		// Send raw to TCP/IP Server -> Mobile App
 				WsClient.send(ss);	// Send raw to DashBoard (Websocket)
 				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
 
@@ -332,11 +332,11 @@ public class Client implements SerialPortEventListener {
 		for(int i=0; i<dataArr.length; i++) {
 			switch(dataArr[i].substring(0,3)) {
 				case "tmp":
-					System.out.println("온도"+dataArr[i].substring(3));
+//					System.out.println("온도"+dataArr[i].substring(3));
 					jsonObj.put("tmp", dataArr[i].substring(3));
 					continue;
 				case "hum":
-					System.out.println("습도"+dataArr[i].substring(3));
+//					System.out.println("습도"+dataArr[i].substring(3));
 					jsonObj.put("hum", dataArr[i].substring(3));
 					continue;
 			}	
