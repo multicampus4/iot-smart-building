@@ -93,9 +93,9 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         try{
-            Msg msg = new Msg(null, id, "q");                                                 // "q" 라는 메시지를 담아
-            sender.setMsg(msg);                                                                         // 메시지 전송
-            new Thread(sender).start();                                                                 // sender 쓰레드 시작
+            Msg msg = new Msg(null, id, "byeAndroid");       // "byeAndroid" 라는 메시지를 담아
+            sender.setMsg(msg);                               // 메시지 전송 :: 메시지 안 가는 듯 >> 수정필요
+            new Thread(sender).start();                       // sender 쓰레드 시작
             if(socket != null){
                 socket.close();                                                                         // 메시지 보내고 소켓 닫음
             }
@@ -153,14 +153,14 @@ public class MainActivity extends AppCompatActivity {
 
     // 버튼 클릭시 "작동" 과 "중지" 메시지 전달.
     public void clickBt(View v){
-        Msg msg = null;                                                                                 // Msg 객체 초기화
-        if(v.getId() == R.id.bt_start){                                                                 // "Start" 버튼을 누르면
-            msg = new Msg(id,"tempStart");                                                         // id와 "tempStart" 메시지를 담은 메시지 생성
-        }else if(v.getId() == R.id.bt_stop){                                                            // "Stop" 버튼을 누르면
-            msg = new Msg(id,"tempStop");                                                          // id와 "tempStop" 메시지를 담은 메시지 생성
+        Msg msg = null;                                                                              // Msg 객체 초기화
+        if(v.getId() == R.id.bt_start){                                                              // "Start" 버튼을 누르면
+            msg = new Msg(id,"ledStart");                                                            // id와 "tempStart" 메시지를 담은 메시지 생성
+        }else if(v.getId() == R.id.bt_stop){                                                         // "Stop" 버튼을 누르면
+            msg = new Msg(id,"ledStop");                                                             // id와 "tempStop" 메시지를 담은 메시지 생성
         }
-        sender.setMsg(msg);                                                                             // sender 쓰레드에 메시지 내용 저장
-        new Thread(sender).start();                                                                     // sender 쓰레드 실행
+        sender.setMsg(msg);                                                                          // sender 쓰레드에 메시지 내용 저장
+        new Thread(sender).start();                                                                  // sender 쓰레드 실행
     }
 
     // Sender 쓰레드
