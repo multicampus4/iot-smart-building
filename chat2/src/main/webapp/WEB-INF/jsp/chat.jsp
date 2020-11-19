@@ -94,14 +94,14 @@
 		// onmessage: 메시지가 도착하면 호출
 		ws.onmessage = function(data) {
 			var msg = data.data;
-			$("#chatting0").append("<p>" + msg + "</p>");
+			$("#chatting0").prepend("<p>" + msg + "</p>");
 			var obj = JSON.parse(msg);
 			
 			// ex: { "tmp":"28", "hum":"80" }
 			
 			if(msg != null && msg.trim() != ''){
-				$("#chatting1").append("<p>" + obj.tmp + "</p>");
-				$("#chatting2").append("<p>" + obj.hum + "</p>");
+				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
+				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
 			}
 		}
 
