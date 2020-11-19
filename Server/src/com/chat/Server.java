@@ -92,34 +92,42 @@ public class Server {
 				
 				try {
 					msg = (Msg) oi.readObject();
-//					System.out.println("Server.java :::" +msg);
-					switch(msg.getMsg()) {
-						case "q": // 강제로 exception을 내서 client를 삭제한다.
-							throw new Exception();
-						case "iamAndroid":	// Hand Shake 메시지로 sendTarget 실행할 IP 저장
-							targetIp = socket.getInetAddress().toString();
-							System.out.println("ANDROID's IP"+ targetIp);
-						case "iamLatte01":
-							targetIp2 = socket.getInetAddress().toString();
-							System.out.println("LATTE'S IP"+ targetIp2);
+					switch (msg.getMsg()) {
+					case "q": // 강제로 exception을 내서 client를 삭제한다.
+						throw new Exception();
+					case "byeAndroid":
+						System.out.println("bye Android");
+						throw new Exception();
+					case "iamAndroid": // Hand Shake 메시지로 sendTarget 실행할 IP 저장
+						targetIp = socket.getInetAddress().toString();
+						System.out.println("ANDROID's IP" + targetIp);
+						sendTarget(targetIp, "Connected");
+						break;
+					case "iamLatte01":
+						targetIp2 = socket.getInetAddress().toString();
+						System.out.println("LATTE'S IP" + targetIp2);
+						break;
 
 					}
-					System.out.println(msg.getId() + msg.getMsg());
+					System.out.println("Received: " + msg.getId() + msg.getMsg());
 //					sendMsg(msg);
 					// ▲ 전체 클라이언트에 전송하면 중복 데이터 주고받고 난리나는 문제의 원인
 					// sendTarget으로 특정 클라이언트에만 데이터 전송
 					// 지금 여기선 모바일앱이 sendTarget 대상
-					// fix: 2020-11-18(재현)
-					if(targetIp != null) {
+					// 2020-11-18(재현)
+					// To-do : 로직 설계 제대로 해서 Null Exception 해결
+					// 원인 : 안드로이드 앱종료/재실행 액션 인지가 잘 안됨 
+					if(targetIp != null) {	// 센서데이터 > 안드로이드 전송 
 						sendTarget(targetIp,msg.getMsg());
+						System.out.println("To 안드로이드: "+ msg.getMsg());
 					}
-					if(msg.getId().equals("[WEB]")) {
+					if(msg.getId().equals("[WEB]") && targetIp2 != null) {
 						sendTarget(targetIp2,msg.getMsg()); // to Latte
-						System.out.println("라떼로 메시지 전송 요청:"+ msg.getMsg());
+						System.out.println("웹 > 라떼: "+ msg.getMsg());
 					}
-					else if(msg.getId().equals("[osh_switch]")) {
+					else if(msg.getId().equals("[osh_switch]") && targetIp2 != null) {
 						sendTarget(targetIp2,msg.getMsg());	// to Latte
-						System.out.println("안드로이드에서:"+ msg.getMsg());
+						System.out.println("안드로이드 > 라떼: "+ msg.getMsg());
 					}
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
 					maps.remove(socket.getInetAddress().toString());
@@ -163,6 +171,7 @@ public class Server {
 	class Sender extends Thread {
 		Msg msg;
 		public void setMsg(Msg msg) {
+			
 			this.msg = msg;
 		}
 		
@@ -174,6 +183,7 @@ public class Server {
 				try {
 					
 					if(msg.getIps() != null) {
+//						System.out.println("Sender class msg: "+msg);
 						for(String ip: msg.getIps()) {
 							maps.get(ip).writeObject(msg);
 						}
