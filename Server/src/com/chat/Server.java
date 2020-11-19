@@ -23,8 +23,9 @@ public class Server {
 	// client들의 메세지를 받는다.
 	HashMap<String, ObjectOutputStream> maps;							// 해쉬맵<IP주소, 해당 아웃풋스트림>
 	
-	// sendTarget 위한 ip주소 선언
+	// sendTarget 위한 ip주소 선언 >> hashMap 관리방식으로 변경하기!
 	String targetIp = null;
+	String targetIp2 = null;
 	
 	// 기본 생성자
 	public Server() {}
@@ -102,6 +103,7 @@ public class Server {
 						throw new Exception();							// 강제로 exception을 내서 client를 삭제한다.
 					}else if(msg.getMsg().equals("iamAndroid")) {		// "iamAndroid" 입력시
 						targetIp = socket.getInetAddress().toString();	// Hand Shake 메시지로 sendTarget 실행할 IP 저장
+
 					}
 					System.out.println(msg.getId() + msg.getMsg());
 //					sendMsg(msg);
@@ -109,8 +111,17 @@ public class Server {
 					// sendTarget으로 특정 클라이언트에만 데이터 전송
 					// 지금 여기선 모바일앱이 sendTarget 대상
 					// fix: 2020-11-18(재현)
-					if(targetIp != null)
+					if(targetIp != null) {
 						sendTarget(targetIp,msg.getMsg());
+					}
+					if(msg.getId().equals("[WEB]")) {
+						sendTarget(targetIp2,msg.getMsg()); // to Latte
+						System.out.println("라떼로 메시지 전송 요청:"+ msg.getMsg());
+					}
+					else if(msg.getId().equals("[osh_switch]")) {
+						sendTarget(targetIp2,msg.getMsg());	// to Latte
+						System.out.println("안드로이드에서:"+ msg.getMsg());
+					}
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
 					maps.remove(socket.getInetAddress().toString());			// 해쉬맵에서 연결된 IP주소 삭제
 					System.out.println(socket.getInetAddress()+".. Exited");	// "(IP)가 나갔습니다"
@@ -159,7 +170,7 @@ public class Server {
 		}
 		
 		@Override
-		public void run() {
+		public void run() { 
 			Collection<ObjectOutputStream> cols = maps.values();
 			Iterator<ObjectOutputStream> it = cols.iterator();
 			while(it.hasNext()) {
