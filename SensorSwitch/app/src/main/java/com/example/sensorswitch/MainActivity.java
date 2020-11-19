@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 멤버변수에 값 선언
         port = 5253;
-        address = "192.168.0.6";
+        address = "192.168.1.22";
         id = "[osh_switch]";
 
 
@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         try{
-            Msg msg = new Msg(null, id, "q");       // "q" 라는 메시지를 담아
-            sender.setMsg(msg);                                                // 메시지 전송
+            Msg msg = new Msg(null, id, "byeAndroid");       // "byeAndroid" 라는 메시지를 담아
+            sender.setMsg(msg);                               // 메시지 전송 :: 메시지 안 가는 듯 >> 수정필요
             new Thread(sender).start();                       // sender 쓰레드 시작
             if(socket != null){
                 socket.close();                               // 메시지 보내고 소켓 닫음
@@ -151,9 +151,9 @@ public class MainActivity extends AppCompatActivity {
     public void clickBt(View v){
         Msg msg = null;
         if(v.getId() == R.id.bt_start){
-            msg = new Msg(id,"tempStart");
+            msg = new Msg(id,"ledStart");
         }else if(v.getId() == R.id.bt_stop){
-            msg = new Msg(id,"tempStop");
+            msg = new Msg(id,"ledStop");
         }
         sender.setMsg(msg);                                                 // sender 쓰레드에 메시지 내용 저장
         new Thread(sender).start();
