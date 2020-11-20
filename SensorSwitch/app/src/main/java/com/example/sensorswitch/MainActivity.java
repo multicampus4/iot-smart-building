@@ -59,14 +59,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 멤버변수에 값 선언
-        port = 5253;
-        address = "192.168.25.57";
-        id = "[osh_switch]";
 
-
-        // "con" 이라는 쓰레드 시작
-        new Thread(con).start();
 
         // notification 작동
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
@@ -155,12 +148,20 @@ public class MainActivity extends AppCompatActivity {
     public void clickBt(View v){
         Msg msg = null;                                                                              // Msg 객체 초기화
         if(v.getId() == R.id.bt_start){                                                              // "Start" 버튼을 누르면
-            msg = new Msg(id,"ledStart");                                                            // id와 "tempStart" 메시지를 담은 메시지 생성
+            msg = new Msg(id,"ledStart");
+            sender.setMsg(msg);
+            new Thread(sender).start();
         }else if(v.getId() == R.id.bt_stop){                                                         // "Stop" 버튼을 누르면
-            msg = new Msg(id,"ledStop");                                                             // id와 "tempStop" 메시지를 담은 메시지 생성
+            msg = new Msg(id,"ledStop");
+            sender.setMsg(msg);
+            new Thread(sender).start();
+        }else if(v.getId() == R.id.bt_conn){
+            port = 5253;
+            address = "192.168.0.6";
+            id = "[osh_switch]";
+            new Thread(con).start();
         }
-        sender.setMsg(msg);                                                                          // sender 쓰레드에 메시지 내용 저장
-        new Thread(sender).start();                                                                  // sender 쓰레드 실행
+                                                                          // sender 쓰레드 실행
     }
 
     // Sender 쓰레드
@@ -243,15 +244,15 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             } // end while
-//            try {
-//                if(oi != null) {
-//                    oi.close();
-//                }
-//                if(socket != null) {
-//                    socket.close();
-//                }
-//            } catch(Exception e) {
-//            }
+            try {
+                if(oi != null) {
+                    oi.close();
+                }
+                if(socket != null) {
+                    socket.close();
+                }
+            } catch(Exception e) {
+            }
         }
     }
 }

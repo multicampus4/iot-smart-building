@@ -167,11 +167,16 @@ public class Server {
 	
 	// 특정 클라이언트에게만 메시지를 전송하는 sendTarget 함수
 	public void sendTarget(String ip, String cmd) {
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		ArrayList<String> ips = new ArrayList<String>();					// IP를 담을 문자열 ArrayList 선언
 		ips.add(ip);														// ArrayList에 IP저장
 		Msg msg = new Msg(ips,id,cmd);										// IP ArrayList, ID, 메시지 내용을 담는 Msg 생성자를 이용
 		Sender sender = new Sender();										// Sender 객체 선언
-		sender.setMsg(msg);													// sender에 msg 저장
+		sender.setMsg(msg);											// sender에 msg 저장
 		new Thread(sender).start();											// sender 쓰레드 실행
 	}
 	
@@ -189,6 +194,7 @@ public class Server {
 			Iterator<ObjectOutputStream> it = cols.iterator();
 			while(it.hasNext()) {
 				try {
+					System.out.println("AAAAAA" + msg);
 					if(msg.getIps() != null) {								// 만약 Msg 객체 변수 중 IP Arraylist 안이 null이 아니면
 //						System.out.println("Sender class msg: "+msg);
 						for(String ip: msg.getIps()) {						// ips에 저장된 특정 클라이언트들만 대상으로 한다.
