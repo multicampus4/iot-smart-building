@@ -1,11 +1,13 @@
 package com.ex.chat2.controller;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +23,17 @@ import com.chat.Client;
 public class MainController {
 	
 	Client client;
+
+	// 루트 로컬의 my.properties 저장할 변수
+	static String tcpipIp;
+	static String wsIp;
+	static String serialComPort;
+	static int tcpipPort;
+	static int wsPort;
 	
 	public MainController() {
-		client = new Client("192.168.0.6", 5253, "[WEB]");
+		getProp();
+		client = new Client(tcpipIp, tcpipPort, "[WEB]");
 		try {
 			client.connect();
 		} catch (IOException e) {
@@ -110,6 +120,26 @@ public class MainController {
 			out.print("ok");
 			out.close();
 				
+	}
+	
+	// 로컬 폴더의 my.properties 로드
+	public static void getProp() {
+		FileReader resources = null;
+		Properties properties = new Properties();
+
+		try {
+			resources = new FileReader("../my.properties");
+			properties.load(resources);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+		tcpipIp = properties.getProperty("tcpipIp");
+		tcpipPort = Integer.parseInt(properties.getProperty("tcpipPort"));
+		wsIp = properties.getProperty("websocketIp");
+		wsPort = Integer.parseInt(properties.getProperty("websocektPort"));
+		serialComPort = properties.getProperty("serialPort");
+
 	}
 }
 

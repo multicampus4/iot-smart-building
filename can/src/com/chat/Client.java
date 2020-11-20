@@ -1,6 +1,7 @@
 package com.chat;
 
 import java.io.BufferedInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -11,6 +12,7 @@ import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.Set;
 
 import org.java_websocket.client.WebSocketClient;
@@ -18,7 +20,6 @@ import org.json.simple.JSONObject;
 
 import com.msg.Msg;
 import com.ws.WsClient;
-import com.properties.My;
 
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
@@ -33,6 +34,13 @@ public class Client implements SerialPortEventListener {
 	String id;
 	Socket socket;
 	Sender sender;
+	
+	// 루트 로컬의 my.properties 저장할 변수
+	static String localIp;
+	static String wsIp;
+	static String serialComPort;
+	static int localPort;
+	static int wsPort;
 
 	// Serial 변수
 	private BufferedInputStream bin;
@@ -46,8 +54,6 @@ public class Client implements SerialPortEventListener {
 	// 웹소켓
 	static WebSocketClient WsClient;
 
-	static My my = new My();
-
 	// 기본생성자
 	public Client() throws Exception {
 	}
@@ -59,12 +65,12 @@ public class Client implements SerialPortEventListener {
 		this.id = id;
 
 		// WebSocket Client 선언, 최초 연결
-		WsClient = new WsClient(new URI("ws://" + my.getWebsocketIp() + ":" + my.getWebsocektPort() + "/chatting"));
+		WsClient = new WsClient(new URI("ws://" + wsIp + ":" + wsPort + "/chatting"));
 		WsClient.connect();
 
 		// Serial 연결
-		portIdentifier = CommPortIdentifier.getPortIdentifier(my.getSerialPort());
-		System.out.printf("Port Connect : %s\n", my.getSerialPort());
+		portIdentifier = CommPortIdentifier.getPortIdentifier(serialComPort);
+		System.out.printf("Port Connect : %s\n", serialComPort);
 		connectSerial();
 
 	}
@@ -101,7 +107,7 @@ public class Client implements SerialPortEventListener {
 	}
 
 	// 메세지 입력받음
-	public void sendTcpipAll(String ss) {
+	public void sendTcpip(String ss) {
 		Msg msg = new Msg(null, id, ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
@@ -257,7 +263,7 @@ public class Client implements SerialPortEventListener {
 				ss = ss.trim();
 				System.out.println("Receive Raw Data:" + ss + "||");
 
-				sendTcpipAll(ss);	// Send raw to TCP/IP Server -> Mobile App
+				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
 				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
 				sendHttp(ss);		// Send raw to chat.jsp (LOG)
 				
@@ -312,7 +318,7 @@ public class Client implements SerialPortEventListener {
 	// http요청 > 로그 기록 목적
 	public static void sendHttp(String data) {
 		HttpSender sender = null;
-		String urlstr = "http://" + my.getWebsocketIp() + ":" + my.getWebsocektPort() + "/chat";
+		String urlstr = "http://" + wsIp + ":" + wsPort + "/chat";
 		URL url = null;
 		try {
 			//double temp = Double.parseDouble(data);
@@ -336,14 +342,14 @@ public class Client implements SerialPortEventListener {
 		
 		for(int i=0; i<dataArr.length; i++) {
 			switch(dataArr[i].substring(0,3)) {
-				case "tmp":
-//					System.out.println("온도"+dataArr[i].substring(3));
-					jsonObj.put("tmp", dataArr[i].substring(3));
-					continue;
-				case "hum":
-//					System.out.println("습도"+dataArr[i].substring(3));
-					jsonObj.put("hum", dataArr[i].substring(3));
-					continue;
+			case "tmp":
+//				System.out.println("온도"+dataArr[i].substring(3));
+				jsonObj.put("tmp", dataArr[i].substring(3));
+				continue;
+			case "hum":
+//				System.out.println("습도"+dataArr[i].substring(3));
+				jsonObj.put("hum", dataArr[i].substring(3));
+				continue;
 			}	
 		}
 		return jsonObj;
@@ -377,16 +383,35 @@ public class Client implements SerialPortEventListener {
 				con.disconnect();
 			}
 		}
+	}
+	
+	// 로컬 폴더의 my.properties 로드
+	public static void getProp() {
+		FileReader resources = null;
+		Properties properties = new Properties();
+		 
+		try {
+			resources = new FileReader("../my.properties");
+			properties.load(resources);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		localIp = properties.getProperty("tcpipIp");
+		localPort = Integer.parseInt(properties.getProperty("tcpipPort"));
+		wsIp = properties.getProperty("websocketIp");
+		wsPort = Integer.parseInt(properties.getProperty("websocektPort"));
+		serialComPort = properties.getProperty("serialPort");
 
 	}
+	
 
 	public static void main(String[] args) {
+		getProp();
 		try {
 			// TCP/IP Server 연결 초기화
-			Client client = new Client(my.getLocalIp(), my.getLocalPort(), "[IoTClient]");
+			Client client = new Client(localIp, localPort, "[IoTClient]");
 			client.connect();
-			
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

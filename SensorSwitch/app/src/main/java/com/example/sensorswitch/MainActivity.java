@@ -49,15 +49,15 @@ public class MainActivity extends AppCompatActivity {
         // Topic 메시지 "aaa"라는 주제를 구독 및 구독 성공여부 확인하는 Task를 반환
         FirebaseMessaging.getInstance().subscribeToTopic("osh").
                 addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {                                          // 성공했다면
-                String msg = "FCM Complete ...";                                                        // "FCM 성공"
-                if(! task.isSuccessful()){                                                              // 실패했다면
-                    msg = "FCM Fail";                                                                   // "FCM 실패"
-                }
-                Log.d("[TAG]:", msg);
-            }
-        });
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {                                          // 성공했다면
+                        String msg = "FCM Complete ...";                                                        // "FCM 성공"
+                        if(! task.isSuccessful()){                                                              // 실패했다면
+                            msg = "FCM Fail";                                                                   // "FCM 실패"
+                        }
+                        Log.d("[TAG]:", msg);
+                    }
+                });
 
 
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
     private void getList() {
         Log.d("[태그]","---------여기까지왔는가-----------");
         Msg msg = new Msg(null, id,"iamAndroid");                                             // Hand Shake : iamAndroid : Server>Server.java
-                                                                                                        // Msg 객체의 msg 변수 선언 (메시지) ex: 님이 참가하셨습니다.
+        // Msg 객체의 msg 변수 선언 (메시지) ex: 님이 참가하셨습니다.
         sender.setMsg(msg);                                                                             // sender 쓰레드에 메시지 내용 저장
         new Thread(sender).start();                                                                     // 메시지 내용에 대해 sender 쓰레드 실행.
 
@@ -156,12 +156,12 @@ public class MainActivity extends AppCompatActivity {
             sender.setMsg(msg);
             new Thread(sender).start();
         }else if(v.getId() == R.id.bt_conn){
-            port = 5253;
-            address = "192.168.0.6";
+            port = BuildConfig.tcpipPort;       // git 로컬폴더의 my.properties 에 저장된 값 할당
+            address = BuildConfig.tcpipIp;
             id = "[osh_switch]";
             new Thread(con).start();
         }
-                                                                          // sender 쓰레드 실행
+        // sender 쓰레드 실행
     }
 
     // Sender 쓰레드
