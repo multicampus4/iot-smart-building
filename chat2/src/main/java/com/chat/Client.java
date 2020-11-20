@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.Set;
 
 import com.msg.Msg;
@@ -57,7 +56,7 @@ public class Client {
 	public void sendTarget(String ip, String cmd) {
 		ArrayList<String> ips = new ArrayList<String>();
 		ips.add(ip);
-		Msg msg = new Msg(id, cmd);
+		Msg msg = new Msg(ips, id, cmd);
 		sender.setMsg(msg);
 		new Thread(sender).start();
 	}

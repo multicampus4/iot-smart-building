@@ -10,7 +10,8 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
         android:background="#E91E63"
         android:gravity="center"
         android:text="switch"
@@ -38,7 +39,7 @@
                 android:id="@+id/tx_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#EF90B0"
+                android:background="#FAE5EC"
                 android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
@@ -46,27 +47,45 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="9"
-        android:background="#E91E63"
-        android:orientation="horizontal"
+        android:layout_weight="4"
+        android:background="#F89DBC"
+        android:orientation="vertical"
         android:padding="5dp">
 
         <Button
-            android:id="@+id/bt_start"
-            android:layout_width="wrap_content"
+            android:id="@+id/bt_conn"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="2.5dp"
             android:layout_weight="1"
             android:onClick="clickBt"
-            android:text="Start" />
+            android:text="Connect" />
 
-        <Button
-            android:id="@+id/bt_stop"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="2.5dp"
             android:layout_weight="1"
-            android:onClick="clickBt"
-            android:text="Stop" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_start"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2.5dp"
+                android:layout_weight="1"
+                android:onClick="clickBt"
+                android:text="LED ON"
+                app:iconTint="#FFFFFF" />
+
+            <Button
+                android:id="@+id/bt_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2.5dp"
+                android:layout_weight="1"
+                android:onClick="clickBt"
+                android:text="LED OFF" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

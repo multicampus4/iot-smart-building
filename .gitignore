@@ -4,6 +4,9 @@
 .project
 .classpath
 
+# Local IP address properties
+can/src/com/properties/
+
 # Compiled class file
 *.class
 

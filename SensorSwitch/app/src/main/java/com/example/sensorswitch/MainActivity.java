@@ -1,13 +1,19 @@
 package com.example.sensorswitch;
 
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
     TextView tx_data;
 
     // 멤버 변수
-    int port;           // 포트
-    String address;     // IP 주소
-    String id;          // ID
-    Socket socket;      // 소켓
-    Sender sender;      // Sender 쓰레드
+    int port;                                                                                           // 포트
+    String address;                                                                                     // IP 주소
+    String id;                                                                                          // ID
+    Socket socket;                                                                                      // 소켓
+    Sender sender;                                                                                      // Sender 쓰레드
 
-    NotificationManager manager;        // 푸시알림 매니저
+    NotificationManager manager;                                                                        // 푸시알림 매니저
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,41 +47,53 @@ public class MainActivity extends AppCompatActivity {
         tx_data = findViewById(R.id.tx_data);
 
         // Topic 메시지 "aaa"라는 주제를 구독 및 구독 성공여부 확인하는 Task를 반환
-        FirebaseMessaging.getInstance().subscribeToTopic("aaa").addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseMessaging.getInstance().subscribeToTopic("osh").
+                addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {      // 성공했다면
-                String msg = "FCM Complete ...";                    // "FCM 성공"
-                if(! task.isSuccessful()){                          // 실패했다면
-                    msg = "FCM Fail";                               // "FCM 실패"
+            public void onComplete(@NonNull Task<Void> task) {                                          // 성공했다면
+                String msg = "FCM Complete ...";                                                        // "FCM 성공"
+                if(! task.isSuccessful()){                                                              // 실패했다면
+                    msg = "FCM Fail";                                                                   // "FCM 실패"
                 }
                 Log.d("[TAG]:", msg);
             }
         });
 
-        // 멤버변수에 값 선언
-        port = 5253;
-        address = "192.168.25.57";
-        id = "[osh_switch]";
-
-        // "con" 이라는 쓰레드 시작
-        new Thread(con).start();
 
 
+        // notification 작동
+        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+        lbm.registerReceiver(receiver, new IntentFilter("notification"));
     }
+
+    // FCM을 받아오는 Broadcast Receiver
+    public BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent != null) {
+                String title = intent.getStringExtra("title");
+                String control = intent.getStringExtra("control");
+                String data = intent.getStringExtra("data");
+                Toast.makeText(MainActivity.this,
+                        title + " " + control + " " + data, Toast.LENGTH_SHORT).show();
+                tx_data.setText(title + " " + control + " " + data);                                    // 받아온 메시지를 tx_data에 출력
+            }
+        }
+    };
 
     // 앱 나갈 때 (뒤로가기 버튼을 눌렀을 때 처리하는 버튼)
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         try{
-            Msg msg = new Msg(null, id, "q");       // "q" 라는 메시지를 담아
-            sender.setMsg(msg);                               // 메시지 전송
+            Msg msg = new Msg(null, id, "byeAndroid");       // "byeAndroid" 라는 메시지를 담아
+            sender.setMsg(msg);                               // 메시지 전송 :: 메시지 안 가는 듯 >> 수정필요
             new Thread(sender).start();                       // sender 쓰레드 시작
             if(socket != null){
-                socket.close();                               // 메시지 보내고 소켓 닫음
+                socket.close();                                                                         // 메시지 보내고 소켓 닫음
             }
-            finish();                                         // 액티비티 종료
-//            onDestroy();                                      // 필요 없는 리소스 해제, 액티비티 참조 정리
+            finish();                                                                                   // 액티비티 종료
+//            onDestroy();                                                                              // 필요 없는 리소스 해제, 액티비티 참조 정리
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -83,11 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
     // onCreate에서 실행했던 con 쓰레드: connect() 함수를 실행한다.
     Runnable con = new Runnable() {
-
         @Override
         public void run() {
             try {
-                connect();                                           // 서버와 TCP/IP 연결
+                connect();                                                                              // 서버와 TCP/IP 연결
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -96,116 +113,132 @@ public class MainActivity extends AppCompatActivity {
 
     // 서버와 연결하는 connect() 함수
     private void connect() throws IOException {
-        Log.d("[Tag]","----------------------------------------------------------");
         try {
-            socket = new Socket(address, port);                     // 소켓 생성(IP, 포트)
-        } catch (Exception e) {                                     // 에러시
-            while (true) {                                          // 무한 반복
+            socket = new Socket(address, port);                                                         // 소켓 생성(IP, 포트)
+        } catch (Exception e) {                                                                         // 에러시
+            while (true) {                                                                              // 무한 반복
                 try {
-                    Thread.sleep(2000);                       // 2초 뒤
-                    socket = new Socket(address, port);             // 소켓 재생성 시도
-                    break;                                          // 연결되면 루프 종료
-                } catch (Exception e1) {                            // 실패시
-                    Log.d("[Fail]","------------Exception Fail-------------");
-                    System.out.println("Retry ...");                // "재시도 ..."
+                    Thread.sleep(2000);                                                           // 2초 뒤
+                    socket = new Socket(address, port);                                                 // 소켓 재생성 시도
+                    break;                                                                              // 연결되면 루프 종료
+                } catch (Exception e1) {                                                                // 실패시
+                    System.out.println("Retry ...");                                                    // "재시도 ..."
                 }
-            }                                                       // 루프 반복
+            }                                                                                           // 루프 반복
         }
         // 연결 성공
         Log.d("[연결성공]","----------"+socket);
-        System.out.println("Connected Server: " + address);                 // "연결된 서버: 해당 IP"
-        new Receiver(socket).start();
-        sender = new Sender(socket);                                        // sender 쓰레드 생성
-        getList();                                                          // getList()
+        System.out.println("Connected Server: " + address);                                             // "연결된 서버: 해당 IP"
+        new Receiver(socket).start();                                                                   // Receiver 쓰레드 실행
+        sender = new Sender(socket);                                                                    // sender 쓰레드 생성
+        getList();                                                                                      // getList()
     }
+
     // 서버 접속 시, 접속했음을 클라이언트들에게 메시지 전송
     private void getList() {
         Log.d("[태그]","---------여기까지왔는가-----------");
-        Msg msg = new Msg(null, id,"님이 참가하셨습니다.");       // Msg 객체의 msg 변수 선언 (메시지)
-        sender.setMsg(msg);                                                  // sender 쓰레드에 메시지 내용 저장
-        new Thread(sender).start();                                          // 메시지 내용에 대해 sender 쓰레드 실행.
+        Msg msg = new Msg(null, id,"iamAndroid");                                             // Hand Shake : iamAndroid : Server>Server.java
+                                                                                                        // Msg 객체의 msg 변수 선언 (메시지) ex: 님이 참가하셨습니다.
+        sender.setMsg(msg);                                                                             // sender 쓰레드에 메시지 내용 저장
+        new Thread(sender).start();                                                                     // 메시지 내용에 대해 sender 쓰레드 실행.
 
     }
+
+    // 버튼 클릭시 "작동" 과 "중지" 메시지 전달.
     public void clickBt(View v){
-        Msg msg = null;
-        if(v.getId() == R.id.bt_start){
-            msg = new Msg(id,"s");
-        }else if(v.getId() == R.id.bt_stop){
-            msg = new Msg(id,"t");
+        Msg msg = null;                                                                              // Msg 객체 초기화
+        if(v.getId() == R.id.bt_start){                                                              // "Start" 버튼을 누르면
+            msg = new Msg(id,"ledStart");
+            sender.setMsg(msg);
+            new Thread(sender).start();
+        }else if(v.getId() == R.id.bt_stop){                                                         // "Stop" 버튼을 누르면
+            msg = new Msg(id,"ledStop");
+            sender.setMsg(msg);
+            new Thread(sender).start();
+        }else if(v.getId() == R.id.bt_conn){
+            port = 5253;
+            address = "192.168.0.6";
+            id = "[osh_switch]";
+            new Thread(con).start();
         }
-        sender.setMsg(msg);                                                 // sender 쓰레드에 메시지 내용 저장
-        new Thread(sender).start();
+                                                                          // sender 쓰레드 실행
     }
 
     // Sender 쓰레드
     class Sender implements Runnable {
         // 변수 선언
-        Socket socket;              // 소켓
-        ObjectOutputStream oo;      // 아웃풋스티림
-        Msg msg;                    // 메시지
+        Socket socket;                                                                                  // 소켓
+        ObjectOutputStream oo;                                                                          // 아웃풋스티림
+        Msg msg;                                                                                        // 메시지
 
         // Sender에 소켓을 담은 생성자
         public Sender (Socket socket) throws IOException {
             Log.d("[sender]","----------------센더 도달--------------");
-            this.socket = socket;                                       // 소켓
-            oo = new ObjectOutputStream(socket.getOutputStream());      // 소켓에서 아웃풋스트림을 가져와 oo에 저장
+            this.socket = socket;                                                                       // 소켓 삽입
+            oo = new ObjectOutputStream(socket.getOutputStream());                                      // 소켓에서 아웃풋스트림을 가져와 oo에 저장
         }
 
         // 메시지 내용을 저장
         public void setMsg(Msg msg) {
             this.msg = msg;
         }
+
+        // new Thread(sender).start(); 코드에 작동
         @Override
         public void run() {
             if(oo != null) {
                 try {
-                    oo.writeObject(msg);                                // msg의 내용을 아웃풋스트림에 쓴다.
+                    oo.writeObject(msg);                                                                // msg의 내용을 아웃풋스트림에 쓴다.
                 } catch (IOException e) {
                     // 서버가 죽어 있을 때
                     // 더 이상의 메세지가 날라가지 않을 때 에러가 난다.
                     //e.printStackTrace();
 
-                    try {
-                        if(socket != null) {
-                            socket.close();                             // 소켓 닫음
-                        }
-                    }catch(Exception e1){
-                        e1.printStackTrace();
-                    }
-
-                    try {
-                        // 다시 서버와 연결 시도
-                        System.out.println("Retry ...");
-                        Thread.sleep(2000);
-                        connect();                                      // 연결 시도
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
+//                    try {
+//                        if(socket != null) {
+//                            socket.close();                                                           // 소켓 닫음
+//
+//                    }catch(Exception e1){
+//                        e1.printStackTrace();
+//                    }
+//
+//                    try {
+//                        // 다시 서버와 연결 시도
+//                        System.out.println("Retry ...");
+//                        Thread.sleep(2000);
+//                        connect();                                                                    // 연결 시도
+//                    } catch (Exception e1) {
+//                        e1.printStackTrace();
+//                    }
                 } // end try
             }
         }
     }
 
+    // Receiver 쓰레드
     class Receiver extends Thread {
-        ObjectInputStream oi;
+        ObjectInputStream oi;                                                                           // 인풋 스트림 객체 선언
         public Receiver(Socket socket) throws IOException {
-            oi = new ObjectInputStream(socket.getInputStream());
+            oi = new ObjectInputStream(socket.getInputStream());                                        // 소켓에서 인풋스트림을 가져와 oi에 대입
         }
+
+
         @Override
         public void run() {
             while(oi != null) {
-                Msg msg = null;
+                Msg msg = null;                                                                         // Msg 객체인 변수 msg 초기화
                 try {
-                    msg = (Msg) oi.readObject();
-                    Msg finalMsg = msg;
+                    msg = (Msg) oi.readObject();                                                        // oi 안의 메시지 내용을 읽어서 msg에 대입
+                    Msg finalMsg = msg;                                                                 // Msg 객체인 변수 finalMsg에 msg 대입
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            String tx = tx_data.getText().toString();
-                            tx_data.setText(finalMsg.getId() + finalMsg.getMsg() +"\n"+tx);
-                        }
+                            String tx = tx_data.getText().toString();                                   // 기존에 tx_data에 있는 내용을 tx에 넣고
+                            tx_data.setText("[ID]"+finalMsg.getId() + " [MSG]"
+                                    + finalMsg.getMsg() +"\n"+tx);                                      // 메시지를 보낸 ID와 메시지 내용을 담은 내용을 추가로 담는다
+                        }                                                                               // 우리 눈에는 데이터가 계속해서 추가되는 것으롭 보인다.
                     });
-                    System.out.println(msg.getId() + msg.getMsg());
+                    Log.d(msg.getId() + msg.getMsg()," 이 로그는 Receiver에서 실행되었습니다.");
                 } catch(Exception e) {
                     //e.printStackTrace();
                     break;
