@@ -137,7 +137,7 @@ public class MainController {
 		tcpipIp = properties.getProperty("tcpipIp");
 		tcpipPort = Integer.parseInt(properties.getProperty("tcpipPort"));
 		wsIp = properties.getProperty("websocketIp");
-		wsPort = Integer.parseInt(properties.getProperty("websocektPort"));
+		wsPort = Integer.parseInt(properties.getProperty("websocketPort"));
 		serialComPort = properties.getProperty("serialPort");
 
 	}

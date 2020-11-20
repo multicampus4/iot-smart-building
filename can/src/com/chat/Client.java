@@ -36,10 +36,10 @@ public class Client implements SerialPortEventListener {
 	Sender sender;
 	
 	// 루트 로컬의 my.properties 저장할 변수
-	static String localIp;
+	static String tcpipIp;
 	static String wsIp;
 	static String serialComPort;
-	static int localPort;
+	static int tcpipPort;
 	static int wsPort;
 
 	// Serial 변수
@@ -397,10 +397,10 @@ public class Client implements SerialPortEventListener {
 			e1.printStackTrace();
 		}
 		
-		localIp = properties.getProperty("tcpipIp");
-		localPort = Integer.parseInt(properties.getProperty("tcpipPort"));
+		tcpipIp = properties.getProperty("tcpipIp");
+		tcpipPort = Integer.parseInt(properties.getProperty("tcpipPort"));
 		wsIp = properties.getProperty("websocketIp");
-		wsPort = Integer.parseInt(properties.getProperty("websocektPort"));
+		wsPort = Integer.parseInt(properties.getProperty("websocketPort"));
 		serialComPort = properties.getProperty("serialPort");
 
 	}
@@ -410,7 +410,7 @@ public class Client implements SerialPortEventListener {
 		getProp();
 		try {
 			// TCP/IP Server 연결 초기화
-			Client client = new Client(localIp, localPort, "[IoTClient]");
+			Client client = new Client(tcpipIp, tcpipPort, "[IoTClient]");
 			client.connect();
 			
 		} catch (Exception e) {

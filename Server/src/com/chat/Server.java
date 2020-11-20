@@ -1,5 +1,6 @@
 package com.chat;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Properties;
 
 import com.msg.Msg;
 
@@ -18,6 +20,9 @@ public class Server {
 	String address;														// IP 주소
 	String id;															// ID
 	
+	// 루트 로컬의 my.properties 저장할 변수
+	static int tcpipPort;
+
 	ServerSocket serverSocket;											// SErverSocket 객체
 	
 	// client들의 메세지를 받는다.
@@ -211,10 +216,25 @@ public class Server {
 		}
 	}
 	
-	
+	// 로컬 폴더의 my.properties 로드
+	public static void getProp() {
+		FileReader resources = null;
+		Properties properties = new Properties();
+
+		try {
+			resources = new FileReader("../my.properties");
+			properties.load(resources);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+		tcpipPort = Integer.parseInt(properties.getProperty("tcpipPort"));
+
+	}
 
 	public static void main(String[] args) {
-		Server server = new Server(5253);									// Server 객체에  포트를 넣어 선언
+		getProp();
+		Server server = new Server(tcpipPort);								// Server 객체에  포트를 넣어 선언
 		
 		// 서버 실행
 		try {
