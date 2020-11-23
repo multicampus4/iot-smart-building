@@ -41,10 +41,19 @@ public class MainController {
 		}
 	}
 	
+	@RequestMapping("/main")
+	public ModelAndView main() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("centerpage", "mainCenter.jsp");
+		mv.setViewName("index");
+		return mv;
+	}
+	
 	@RequestMapping("/chat")
 	public ModelAndView chat() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("chat");
+		mv.addObject("centerpage", "chat.jsp");
+		mv.setViewName("index");
 		return mv;
 	}
 	
