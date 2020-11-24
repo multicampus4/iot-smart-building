@@ -57,6 +57,13 @@ public class MainController {
 		return mv;
 	}
 	
+	@RequestMapping("/chat2")
+	public ModelAndView chat2() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("chat2");
+		return mv;
+	}
+	
 	@RequestMapping("/ledStart")
 	public void ledStart(HttpServletResponse res) throws IOException {
 		System.out.println("LED START ...");

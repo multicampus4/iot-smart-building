@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script type="text/javascript" src="./assets/scripts/main_ws.js"></script></body>
+
 
 <div class="app-page-title">
 	<div class="page-title-wrapper">
@@ -117,6 +124,26 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="main-card mb-3 card">
+			<!-- 실시간 차트 영역 -->
+			<div class="card-header">
+				실시간차트 :: 지진 모니터링 
+			</div>
+			<div class="tab-content">
+				<figure class="highcharts-figure">
+					<div id="hcontainer"></div>
+				</figure>
+			</div>
+			<div class="tab-content">
+				데모 데이터 전송 : <input id="chatting" value='{ "tmp":"28", "hum":"80" }'>
+				<button onclick="send()" id="sendBtn">보내기</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="row">
 	<div class="col-md-12 col-lg-6">
 		<div class="mb-3 card">
