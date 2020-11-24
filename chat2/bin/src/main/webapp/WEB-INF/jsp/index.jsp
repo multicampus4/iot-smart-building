@@ -441,9 +441,9 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="chat">
+                                    <a href="adminHotelList.mc">
                                         <i class="metismenu-icon pe-7s-display2"></i>
-                                        Facility Control
+                                        Hotel List
                                     </a>
                                 </li>                                
                                 <li>

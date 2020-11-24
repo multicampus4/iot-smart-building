@@ -94,14 +94,14 @@
 		// onmessage: 메시지가 도착하면 호출
 		ws.onmessage = function(data) {
 			var msg = data.data;
-			$("#chatting0").append("<p>" + msg + "</p>");
+			$("#chatting0").prepend("<p>" + msg + "</p>");
 			var obj = JSON.parse(msg);
 			
 			// ex: { "tmp":"28", "hum":"80" }
 			
 			if(msg != null && msg.trim() != ''){
-				$("#chatting1").append("<p>" + obj.tmp + "</p>");
-				$("#chatting2").append("<p>" + obj.hum + "</p>");
+				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
+				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
 			}
 		}
 
@@ -153,11 +153,11 @@
 
 <%
 	// http 온도데이터
-	String temp = request.getParameter("temp");
-	System.out.println("temp : " +  temp);
+	String data = request.getParameter("data");
+	System.out.println("data(jsp) : " +  data);
 	
 	Logger LOGGER = Logger.getLogger("temp");
-	LOGGER.info(temp);
+	LOGGER.info(data);
 %>
 
 	<div id="container" class="container">
@@ -172,6 +172,20 @@
 		<div class="innerContainer2">
 			<h2>센서2: 습도</h2>
 			<div id="chatting2" class="chatting"></div>
+		</div>
+	</div>
+
+	<div class="card mb-3 widget-content bg-midnight-bloom">
+		<div class="widget-content-wrapper text-white">
+			<div class="widget-content-left">
+				<div class="widget-heading">Total Orders</div>
+				<div class="widget-subheading">Last year expenses</div>
+			</div>
+			<div class="widget-content-right">
+				<div class="widget-numbers text-white">
+					<span>1896</span>
+				</div>
+			</div>
 		</div>
 	</div>
 
