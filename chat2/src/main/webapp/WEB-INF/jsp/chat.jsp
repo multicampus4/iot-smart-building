@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="css/btn.css" rel="stylesheet" type="text/css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 	<title>WebSocket Data</title>
@@ -159,6 +159,74 @@
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(data);
 %>
+	<div class="layers-dropdown">
+		<div class="dropdown d-inline-block">
+			<button type="button" aria-haspopup="true" aria-expanded="false"
+				data-toggle="dropdown"
+				class="mb-2 mr-2 dropdown-toggle btn btn-secondary">Secondary</button>
+			<div tabindex="-1" role="menu" aria-hidden="true"
+				class="dropdown-menu">
+				<button type="button" tabindex="0" class="dropdown-item">Menus</button>
+				<button type="button" tabindex="0" class="dropdown-item">Settings</button>
+				<h6 tabindex="-1" class="dropdown-header">Header</h6>
+				<button type="button" tabindex="0" class="dropdown-item">Actions</button>
+				<div tabindex="-1" class="dropdown-divider"></div>
+				<button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+			</div>
+		</div>
+	</div>
+	<div class="main-card mb-3 card">
+		<div class="card-header">
+			<i class="header-icon lnr-gift icon-gradient bg-grow-early"> </i>Header
+			Tabs Standard Buttons
+			<div class="btn-actions-pane-right">
+				<div class="nav">
+					<a data-toggle="tab" href="#tab-eg4-0"
+						class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-danger">Tab
+						1</a> <a data-toggle="tab" href="#tab-eg4-1"
+						class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-danger">Tab
+						2</a> <a data-toggle="tab" href="#tab-eg4-2"
+						class="border-0 btn-pill btn-wide btn-transition  btn btn-outline-danger">Tab
+						3</a>
+						<a data-toggle="tab" href="#tab-eg4-0"
+						class="border-0 btn-pill btn-wide btn-transition btn btn-outline-danger">Tab
+						4</a>
+						<a data-toggle="tab" href="#tab-eg4-0"
+						class="border-0 btn-pill btn-wide btn-transition btn btn-outline-danger">Tab
+						5</a>
+						<a data-toggle="tab" href="#tab-eg4-0"
+						class="border-0 btn-pill btn-wide btn-transition btn btn-outline-danger">Tab
+						6</a>
+						<a data-toggle="tab" href="#tab-eg4-0"
+						class="border-0 btn-pill btn-wide btn-transition btn btn-outline-danger">Tab
+						7</a>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="tab-content">
+				<div class="tab-pane active" id="tab-eg4-0" role="tabpanel">
+					<p>It was popularised in the 1960s with the release of Letraset
+						sheets containing Lorem Ipsum passages, and more recently with
+						desktop publishing software like Aldus PageMaker including
+						versions of Lorem Ipsum.</p>
+				</div>
+				<div class="tab-pane" id="tab-eg4-1" role="tabpanel">
+					<p>Like Aldus PageMaker including versions of Lorem. It has
+						survived not only five centuries, but also the leap into
+						electronic typesetting, remaining essentially unchanged.</p>
+				</div>
+				<div class="tab-pane" id="tab-eg4-2" role="tabpanel">
+					<p>Lorem Ipsum has been the industry's standard dummy text ever
+						since the 1500s, when an unknown printer took a galley of type and
+						scrambled it to make a type specimen book. It has survived not
+						only five centuries, but also the leap into electronic
+						typesetting, remaining essentially unchanged.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<div id="container" class="container">
 		<div class="innerContainer0">
@@ -175,19 +243,7 @@
 		</div>
 	</div>
 
-	<div class="card mb-3 widget-content bg-midnight-bloom">
-		<div class="widget-content-wrapper text-white">
-			<div class="widget-content-left">
-				<div class="widget-heading">Total Orders</div>
-				<div class="widget-subheading">Last year expenses</div>
-			</div>
-			<div class="widget-content-right">
-				<div class="widget-numbers text-white">
-					<span>1896</span>
-				</div>
-			</div>
-		</div>
-	</div>
+
 
 	<div id="container" class="containerBottom">
 		<div class="btn1">
