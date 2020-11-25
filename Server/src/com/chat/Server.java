@@ -31,6 +31,7 @@ public class Server {
 	// sendTarget 위한 ip주소 선언 >> hashMap 관리방식으로 변경하기!
 	String targetIp = null;
 	String targetIp2 = null;
+	String targetIp3 = null; // Tablet ip
 	
 	// 기본 생성자
 	public Server() {}
@@ -118,6 +119,10 @@ public class Server {
 						targetIp2 = socket.getInetAddress().toString();
 						System.out.println("LATTE'S IP" + targetIp2);
 						break;
+					case "iamTablet":
+						targetIp3 = socket.getInetAddress().toString();
+						System.out.println("TABLET'S IP" + targetIp3);
+						break;
 
 					}
 					System.out.println("Received: " + msg.getId() + msg.getMsg());
@@ -139,6 +144,9 @@ public class Server {
 					else if(msg.getId().equals("[osh_switch]") && targetIp2 != null) {
 						sendTarget(targetIp2,msg.getMsg());	// to Latte
 						System.out.println("안드로이드 > 라떼: "+ msg.getMsg());
+					}else if(msg.getId().equals("[WEB]") && targetIp3 != null) {
+						sendTarget(targetIp3,msg.getMsg());	// to Tablet
+						System.out.println("웹 > 태블릿: "+ msg.getMsg());
 					}
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
 					maps.remove(socket.getInetAddress().toString());			// 해쉬맵에서 연결된 IP주소 삭제

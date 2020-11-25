@@ -1,38 +1,37 @@
 .col-lg-6-2 {
-	flex:0 0 100%;
-	max-width:100%
-	position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+	flex: 0 0 100%;
+	max-width: 100% position: relative;
+	width: 100%;
+	padding-right: 15px;
+	padding-left: 15px;
 }
 
-.modal-dialog-2{
-	max-width:500px;
-	margin:8rem auto
+.modal-dialog-2 {
+	max-width: 500px;
+	margin: 8rem auto
 }
 
-.form-control-address{
+.form-control-address {
 	display: inherit;
-	width:32.5%;
-	height:calc(2.25rem + 2px);
-	padding:.375rem .75rem;
-	font-size:1rem;
-	font-weight:400;
-	line-height:1.5;
-	color:#495057;
-	background-color:#fff;
-	background-clip:padding-box;
-	border:1px solid #ced4da;
-	border-radius:.25rem;
-	transition:border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out
+	width: 32.5%;
+	height: calc(2.25rem + 2px);
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
 }
 
-.modal-backdrop{
-	position: inherit;	
+.modal-backdrop {
+	position: inherit;
 }
 
-.modal{
+.modal {
 	top: 50px;
 }
 
@@ -71,6 +70,48 @@
 	background:
 		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
-.layers-dropdown{
-	text-align:right;
+
+.layers-dropdown {
+	text-align: right;
+}
+
+.highcharts-figure, .highcharts-data-table table {
+	min-width: 100%;
+	max-width: 100%;
+	margin: 1em auto;
+}
+
+.highcharts-data-table table {
+	font-family: Verdana, sans-serif;
+	border-collapse: collapse;
+	border: 1px solid #EBEBEB;
+	margin: 10px auto;
+	text-align: center;
+	width: 100%;
+	max-width: 500px;
+}
+
+.highcharts-data-table caption {
+	padding: 1em 0;
+	font-size: 1.2em;
+	color: #555;
+}
+
+.highcharts-data-table th {
+	font-weight: 600;
+	padding: 0.5em;
+}
+
+.highcharts-data-table td, .highcharts-data-table th,
+	.highcharts-data-table caption {
+	padding: 0.5em;
+}
+
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even)
+	{
+	background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+	background: #f1f7ff;
 }

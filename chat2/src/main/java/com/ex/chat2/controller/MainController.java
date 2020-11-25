@@ -57,6 +57,13 @@ public class MainController {
 		return mv;
 	}
 	
+	@RequestMapping("/chat2")
+	public ModelAndView chat2() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("chat2");
+		return mv;
+	}
+	
 	@RequestMapping("/ledStart")
 	public void ledStart(HttpServletResponse res) throws IOException {
 		System.out.println("LED START ...");
@@ -149,6 +156,21 @@ public class MainController {
 		wsPort = Integer.parseInt(properties.getProperty("websocketPort"));
 		serialComPort = properties.getProperty("serialPort");
 
+	}
+	
+	@RequestMapping("/f1")
+	public ModelAndView f1() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("floorpage", "f1.jsp");
+		mv.setViewName("redirect:chat");
+		return mv;
+	}
+	@RequestMapping("/f2")
+	public ModelAndView f2() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("floorpage", "f2.jsp");
+		mv.setViewName("redirect:chat");
+		return mv;
 	}
 }
 
