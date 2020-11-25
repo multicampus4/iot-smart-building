@@ -140,9 +140,9 @@ public class MainActivity extends AppCompatActivity {
 
                             if(finalMsg.getMsg().equals("iamTablet")){
                                 tx4.setText("OFF");
-                            }else if(finalMsg.getMsg().equals("ledStart")){
+                            }else if(finalMsg.getMsg().equals("1_A_ON")){
                                 tx4.setText("ON");
-                            }else if(finalMsg.getMsg().equals("ledStop")){
+                            }else if(finalMsg.getMsg().equals("1_A_OFF")){
                                 tx4.setText("OFF");
                             }
                         }

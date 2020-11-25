@@ -64,17 +64,17 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping("/ledStart")
-	public void ledStart(HttpServletResponse res) throws IOException {
-		System.out.println("LED START ...");
-		client.sendMsg("ledStart");
+	@RequestMapping("/ON")
+	public void ledStart(HttpServletResponse res, String area) throws IOException {
+		System.out.println(area + "_ON START ...");
+		client.sendMsg(area +"_ON");
 		
 	}
 	
-	@RequestMapping("/ledStop")
-	public void ledStop(HttpServletResponse res) throws IOException {
-		System.out.println("LED STOP ...");
-		client.sendMsg("ledStop");
+	@RequestMapping("/OFF")
+	public void ledStop(HttpServletResponse res, String area) throws IOException {
+		System.out.println(area + "_OFF STOP ...");
+		client.sendMsg(area + "_OFF");
 		
 	}
 	@RequestMapping("/alert")
@@ -158,6 +158,7 @@ public class MainController {
 
 	}
 	
+	// 층별제어 - 1층 
 	@RequestMapping("/f1")
 	public ModelAndView f1() {
 		ModelAndView mv = new ModelAndView();
@@ -165,6 +166,8 @@ public class MainController {
 		mv.setViewName("redirect:chat");
 		return mv;
 	}
+	
+	// 층별제어 - 2층 
 	@RequestMapping("/f2")
 	public ModelAndView f2() {
 		ModelAndView mv = new ModelAndView();

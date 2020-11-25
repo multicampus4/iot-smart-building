@@ -41,5 +41,10 @@ git reset --hard d5c9d764ddf335663c32ff0f833dbb7726798a6a
 
 
 
+## 🐋층별 구역 센서 명칭 (임시)
 
+![캡처](https://user-images.githubusercontent.com/24764210/100204929-d359e700-2f47-11eb-9bae-839e00e78c8e.PNG) 
 
+- ON, OFF 명령은 뒤에 _ON 또는 _OFF를 붙입니다. 
+
+  예) 1_A_TEMP_ON
