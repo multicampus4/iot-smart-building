@@ -71,6 +71,16 @@ public class MainController {
 		return mv;
 	}
 	
+	@RequestMapping("/history")
+	public ModelAndView history() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("centerpage", "c2.jsp");
+		mv.setViewName("index");
+		return mv;
+	}
+	
+	
+	
 	@RequestMapping("/ON")
 	public void ledStart(HttpServletResponse res, String area) throws IOException {
 		System.out.println(area + "_ON START ...");
