@@ -1,10 +1,14 @@
 package com.example.sensorswitch;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +33,8 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Set;
 
+import static com.example.sensorswitch.BuildConfig.*;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView tx_data;
@@ -39,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     Socket socket;                                                                                      // 소켓
     Sender sender;                                                                                      // Sender 쓰레드
 
-    NotificationManager manager;                                                                        // 푸시알림 매니저
+    NotificationManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("[TAG]:", msg);
                     }
                 });
-
-
 
         // notification 작동
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
 
     // 앱 나갈 때 (뒤로가기 버튼을 눌렀을 때 처리하는 버튼)
     @Override
@@ -156,8 +162,8 @@ public class MainActivity extends AppCompatActivity {
             sender.setMsg(msg);
             new Thread(sender).start();
         }else if(v.getId() == R.id.bt_conn){
-            port = BuildConfig.tcpipPort;       // git 로컬폴더의 my.properties 에 저장된 값 할당
-            address = BuildConfig.tcpipIp;
+            port = tcpipPort;       // git 로컬폴더의 my.properties 에 저장된 값 할당
+            address = tcpipIp;
             id = "[osh_switch]";
             new Thread(con).start();
         }
