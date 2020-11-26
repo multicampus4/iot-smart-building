@@ -110,14 +110,12 @@ public class MainController {
 		return mv;
 	}
 	
-
 	@RequestMapping("/test")
 	public ModelAndView test() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("test");
 		return mv;
 	}
-
 	
 	@RequestMapping("/chat2")
 	public ModelAndView chat2() {
