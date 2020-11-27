@@ -435,33 +435,33 @@
                             <ul class="vertical-nav-menu">
                                 <li class="app-sidebar__heading">Dashboards</li>
                                 <li>
-                                    <a href="admin.mc" > <!-- class="mm-active" -->
+                                    <a href="main" > <!-- class="mm-active" -->
                                         <i class="metismenu-icon pe-7s-rocket"></i>
-                                        Admin Dashboard
+                                        HOME
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="adminHotelList.mc">
+                                    <a href="chat">
                                         <i class="metismenu-icon pe-7s-display2"></i>
-                                        Hotel List
+                                        Facility Control
                                     </a>
                                 </li>                                
                                 <li>
-                                    <a href="adminHotelRegister.mc">
+                                    <a href=" ">
                                         <i class="metismenu-icon pe-7s-albums">
                                         </i>
-                                        Hotel Register
+                                        Manage Floors
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="adminReserve.mc">
+                                    <a href="history">
                                         <i class="metismenu-icon pe-7s-ribbon">
                                         </i>
-                                        Reservations
+                                        History
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="adminUserList.mc">
+                                    <a href=" ">
                                         <i class="metismenu-icon pe-7s-user">
                                         </i>
                                         Users

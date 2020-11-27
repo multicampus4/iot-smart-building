@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link href="css/btn.css" rel="stylesheet" type="text/css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 	<title>WebSocket Data</title>
@@ -118,25 +119,17 @@
 		$('#chatting').val("");
 	}
 	
+	// 버튼 상태 변경(DB연결)
+	function setButtonState(){
+		<c:forEach var="u" items="${sensorlist}">
+			$("#${u.SENSOR_ID}").text("${u.SENSOR_STAT}");
+			
+		</c:forEach>
+	}
+	
 	$(document).ready(function() {
+		setButtonState();
 		// Buttons Action for TCP/IP Cmd
-		$('#ledStart').click(function() {
-			$.ajax({
-				url : 'ledStart',
-				success : function(data) {
-					//alert('LED START...');
-				}
-			});
-		});
-		
-		$('#ledStop').click(function() {
-			$.ajax({
-				url : 'ledStop',
-				success : function(data) {
-					//alert('LED STOP...');
-				}
-			});
-		});
 		$('#alert').click(function(){
 			$.ajax({
 				url:'alert',
@@ -145,20 +138,71 @@
 				}
 			});
 		});
+		$('#f1').click(function(){
+			$.ajax({
+				url:'f1',
+				success:function(data){
+					console.log("111");
+				}
+			});
+		});
+		$('#f2').click(function(){
+			$.ajax({
+				url:'f2',
+				success:function(data){
+					console.log("222");
+				}
+			});
+		});
+		
+		
 	});
+	
 </script>
 <body>
 
-<%@page import="org.apache.log4j.*"%>
-
+<%@ page import="org.apache.log4j.*" %>
 <%
 	// http 온도데이터
 	String data = request.getParameter("data");
 	System.out.println("data(jsp) : " +  data);
 	
+	// 층별 화면 전환 확인용
+	String floorpage = request.getParameter("floorpage");
+	System.out.println("floorpage : " +  floorpage);
+	
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(data);
+	
 %>
+
+	<div class="layers-dropdown">
+		<div class="dropdown d-inline-block">
+			<button type="button" aria-haspopup="true" aria-expanded="false"
+				data-toggle="dropdown"
+				class="mb-2 mr-2 dropdown-toggle btn btn-secondary">Secondary</button>
+			<div tabindex="-1" role="menu" aria-hidden="true"
+				class="dropdown-menu">
+				<button type="button" tabindex="0" class="dropdown-item" id="f1">Floor_1</button>
+				<button type="button" tabindex="0" class="dropdown-item" id="f2">Floor_2</button>
+				<h6 tabindex="-1" class="dropdown-header">Header</h6>
+				<button type="button" tabindex="0" class="dropdown-item">Actions</button>
+				<div tabindex="-1" class="dropdown-divider"></div>
+				<button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="app-main__inner">
+		<c:choose>
+			<c:when test="${floorpage == null}">
+				<jsp:include page="f1.jsp"></jsp:include>
+			</c:when>
+			<c:otherwise>
+				<jsp:include page="${floorpage}"></jsp:include>
+			</c:otherwise>
+		</c:choose>
+	</div>
 
 	<div id="container" class="container">
 		<div class="innerContainer0">
@@ -175,27 +219,9 @@
 		</div>
 	</div>
 
-	<div class="card mb-3 widget-content bg-midnight-bloom">
-		<div class="widget-content-wrapper text-white">
-			<div class="widget-content-left">
-				<div class="widget-heading">Total Orders</div>
-				<div class="widget-subheading">Last year expenses</div>
-			</div>
-			<div class="widget-content-right">
-				<div class="widget-numbers text-white">
-					<span>1896</span>
-				</div>
-			</div>
-		</div>
-	</div>
+
 
 	<div id="container" class="containerBottom">
-		<div class="btn1">
-			<a class="btn" id="ledStart" href="#">LED START</a>
-		</div>
-		<div class="btn2">
-			<a class="btn" id="ledStop" href="#">LED STOP</a>
-		</div>
 		<div class="btn3">
 			<a class="btn" id= "alert" href = "#">Alert</a>
 		</div>

@@ -7,6 +7,12 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chat.Client;
+import com.vo.SensorVO;
 
 @Controller
 public class MainController {
@@ -31,6 +38,12 @@ public class MainController {
 	static int tcpipPort;
 	static int wsPort;
 	
+	// DB에 연결할 변수
+	private String url;
+	private String dbid;
+	private String dbpwd;
+	
+	
 	public MainController() {
 		getProp();
 		client = new Client(tcpipIp, tcpipPort, "[WEB]");
@@ -39,6 +52,17 @@ public class MainController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		// oracle 연결
+//		try {
+//			Class.forName("oracle.jdbc.driver.OracleDriver");
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		this.url = "jdbc:oracle:thin:@" + tcpipIp + ":1521:xe";
+//		this.dbid = "db";
+//		this.dbpwd = "db";
+		
 	}
 	
 	@RequestMapping("/main")
@@ -49,11 +73,47 @@ public class MainController {
 		return mv;
 	}
 	
+
 	@RequestMapping("/chat")
-	public ModelAndView chat() {
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView chat(ModelAndView mv, HttpServletResponse res) throws Exception {
+		
+		// SENSOR 데이터 가져오기
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		ArrayList<SensorVO> list = new ArrayList<>();
+//		
+//		try {
+//			con = DriverManager.getConnection(url, dbid, dbpwd);
+//			pstmt = con.prepareStatement("SELECT * FROM SENSOR");
+//			rset = pstmt.executeQuery();
+//			while(rset.next()) {
+//				String sensor_id = rset.getString(1);
+//				String sensor_stat = rset.getString(2);
+//				
+//				SensorVO sensor = new SensorVO(sensor_id, sensor_stat);
+//				list.add(sensor);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			rset.close();
+//			pstmt.close();
+//			con.close();
+//		}
+//		mv.addObject("sensorlist", list);
+		
+		
+		// centerpage
 		mv.addObject("centerpage", "chat.jsp");
 		mv.setViewName("index");
+		return mv;
+	}
+	
+	@RequestMapping("/test")
+	public ModelAndView test() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("test");
 		return mv;
 	}
 	
@@ -64,10 +124,27 @@ public class MainController {
 		return mv;
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping("/ledStart")
 	public void ledStart(HttpServletResponse res) throws IOException {
 		System.out.println("LED START ...");
 		client.sendMsg("ledStart");
+=======
+	@RequestMapping("/history")
+	public ModelAndView history() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("centerpage", "c2.jsp");
+		mv.setViewName("index");
+		return mv;
+	}
+	
+	
+	
+	@RequestMapping("/ON")
+	public void ledStart(HttpServletResponse res, String area) throws IOException {
+		System.out.println(area + "_ON START ...");
+		client.sendMsg(area +"_ON");
+>>>>>>> 8a4f248c5460b22b35927e446ca2ec7a33c71787
 		
 	}
 	
@@ -170,6 +247,7 @@ public class MainController {
 
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping("/f1")
 	public ModelAndView f1() {
 		ModelAndView mv = new ModelAndView();
@@ -184,5 +262,7 @@ public class MainController {
 		mv.setViewName("redirect:chat");
 		return mv;
 	}
+=======
+>>>>>>> 8a4f248c5460b22b35927e446ca2ec7a33c71787
 }
 

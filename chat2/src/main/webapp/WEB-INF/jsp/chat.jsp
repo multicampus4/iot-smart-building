@@ -119,7 +119,16 @@
 		$('#chatting').val("");
 	}
 	
+	// 버튼 상태 변경(DB연결)
+	function setButtonState(){
+		<c:forEach var="u" items="${sensorlist}">
+			$("#${u.SENSOR_ID}").text("${u.SENSOR_STAT}");
+			
+		</c:forEach>
+	}
+	
 	$(document).ready(function() {
+		setButtonState();
 		// Buttons Action for TCP/IP Cmd
 		$('#ledStart').click(function() {
 			$.ajax({
@@ -146,66 +155,31 @@
 				}
 			});
 		});
-		$('#f1').click(function(){
-			$.ajax({
-				url:'f1',
-				success:function(data){
-					console.log("111");
-				}
-			});
-		});
-		$('#f2').click(function(){
-			$.ajax({
-				url:'f2',
-				success:function(data){
-					console.log("222");
-				}
-			});
-		});
 		
 	});
 	
 </script>
 <body>
 
-<%@page import="org.apache.log4j.*"%>
-
+<%@ page import="org.apache.log4j.*" %>
 <%
 	// http 온도데이터
 	String data = request.getParameter("data");
 	System.out.println("data(jsp) : " +  data);
+<<<<<<< HEAD
 	String floorpage = request.getParameter("floorpage");
 	System.out.println("floorpage : " +  floorpage);
+=======
+>>>>>>> 8a4f248c5460b22b35927e446ca2ec7a33c71787
 	
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(data);
+	
 %>
-	<div class="layers-dropdown">
-		<div class="dropdown d-inline-block">
-			<button type="button" aria-haspopup="true" aria-expanded="false"
-				data-toggle="dropdown"
-				class="mb-2 mr-2 dropdown-toggle btn btn-secondary">Secondary</button>
-			<div tabindex="-1" role="menu" aria-hidden="true"
-				class="dropdown-menu">
-				<button type="button" tabindex="0" class="dropdown-item" id="f1">Floor_1</button>
-				<button type="button" tabindex="0" class="dropdown-item" id="f2">Floor_2</button>
-				<h6 tabindex="-1" class="dropdown-header">Header</h6>
-				<button type="button" tabindex="0" class="dropdown-item">Actions</button>
-				<div tabindex="-1" class="dropdown-divider"></div>
-				<button type="button" tabindex="0" class="dropdown-item">Dividers</button>
-			</div>
-		</div>
-	</div>
 
+	<!-- 층별 제어 화면 -->
 	<div class="app-main__inner">
-		<c:choose>
-			<c:when test="${floorpage == null}">
-				<jsp:include page="f1.jsp"></jsp:include>
-			</c:when>
-			<c:otherwise>
-				<jsp:include page="${floorpage}"></jsp:include>
-			</c:otherwise>
-		</c:choose>
+		<jsp:include page="controlFloors.jsp"></jsp:include>
 	</div>
 
 	<div id="container" class="container">
