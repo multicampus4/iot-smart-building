@@ -121,6 +121,23 @@
 	
 	$(document).ready(function() {
 		// Buttons Action for TCP/IP Cmd
+		$('#ledStart').click(function() {
+			$.ajax({
+				url : 'ledStart',
+				success : function(data) {
+					//alert('LED START...');
+				}
+			});
+		});
+		
+		$('#ledStop').click(function() {
+			$.ajax({
+				url : 'ledStop',
+				success : function(data) {
+					//alert('LED STOP...');
+				}
+			});
+		});
 		$('#alert').click(function(){
 			$.ajax({
 				url:'alert',
@@ -157,8 +174,6 @@
 	// http 온도데이터
 	String data = request.getParameter("data");
 	System.out.println("data(jsp) : " +  data);
-	
-	// 층별 화면 전환 확인용
 	String floorpage = request.getParameter("floorpage");
 	System.out.println("floorpage : " +  floorpage);
 	
@@ -211,6 +226,12 @@
 
 
 	<div id="container" class="containerBottom">
+		<div class="btn1">
+			<a class="btn" id="ledStart" href="#">LED START</a>
+		</div>
+		<div class="btn2">
+			<a class="btn" id="ledStop" href="#">LED STOP</a>
+		</div>
 		<div class="btn3">
 			<a class="btn" id= "alert" href = "#">Alert</a>
 		</div>

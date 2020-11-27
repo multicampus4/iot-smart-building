@@ -64,17 +64,17 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping("/ON")
-	public void ledStart(HttpServletResponse res, String area) throws IOException {
-		System.out.println(area + "_ON START ...");
-		client.sendMsg(area +"_ON");
+	@RequestMapping("/ledStart")
+	public void ledStart(HttpServletResponse res) throws IOException {
+		System.out.println("LED START ...");
+		client.sendMsg("ledStart");
 		
 	}
 	
-	@RequestMapping("/OFF")
-	public void ledStop(HttpServletResponse res, String area) throws IOException {
-		System.out.println(area + "_OFF STOP ...");
-		client.sendMsg(area + "_OFF");
+	@RequestMapping("/ledStop")
+	public void ledStop(HttpServletResponse res) throws IOException {
+		System.out.println("LED STOP ...");
+		client.sendMsg("ledStop");
 		
 	}
 	@RequestMapping("/alert")
@@ -106,21 +106,33 @@ public class MainController {
 
 			// create notification message into JSON format
 			JSONObject message = new JSONObject();
-			message.put("to", "/topics/osh");
-			message.put("priority", "high");
-			
+			message.put("to", "/topics/osh");						
+			message.put("priority", "high");						
+				
 			
 			JSONObject notification = new JSONObject();
-			notification.put("title", "센서 작동");
+			notification.put("title", "센서 작동");						
 			notification.put("body", "센서가 작동되었습니다.");
-			message.put("notification", notification);
+			message.put("notification", notification);			
+			
+			
 			
 			JSONObject data = new JSONObject();
 			data.put("control", "control1");
 			data.put("data", 100);
 			message.put("data", data);
+			
+			/* JSONObject message는 이렇게 생겼다.
+			 * {
+			 * 		"to": "/topicx/osh",
+			 * 		"priority": "high",
+			 * 		"notification": {"title": "센서작동", "body": "센서가 작동되었습니다."},
+			 * 		"data": {"control": "control1", "data": 100}
+			 * }
+			 */
 
-
+			System.out.println(message.toString());
+			
 			try {
 				OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
 				out.write(message.toString());
@@ -158,7 +170,6 @@ public class MainController {
 
 	}
 	
-	// 층별제어 - 1층 
 	@RequestMapping("/f1")
 	public ModelAndView f1() {
 		ModelAndView mv = new ModelAndView();
@@ -166,8 +177,6 @@ public class MainController {
 		mv.setViewName("redirect:chat");
 		return mv;
 	}
-	
-	// 층별제어 - 2층 
 	@RequestMapping("/f2")
 	public ModelAndView f2() {
 		ModelAndView mv = new ModelAndView();
