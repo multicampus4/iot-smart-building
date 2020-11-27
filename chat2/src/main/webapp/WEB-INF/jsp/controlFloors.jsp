@@ -134,6 +134,7 @@
 			}
 		});
 	};
+	
 	$(document).ready(function() {
 		
 		var stat;
@@ -142,13 +143,15 @@
 		$('.d_btn').click(function(){
 			device = $(this).attr('id');
 			if($(this).hasClass("active")){
-				stat = "OFF";
-				$(this).text("OFF");
+				stat = 'OFF';
+				$(this).text('OFF');
 				$(this).css('background-color', '#794c8a'); // off 색상
+				$(this).css('border-color', '#794c8a');
 			}else{
-				stat = "ON";
-				$(this).text("ON");
+				stat = 'ON';
+				$(this).text('ON');
 				$(this).css('background-color', '#3ac47d'); // on 색상
+				$(this).css('border-color', '#3ac47d');
 			}
 			execAjax(stat, device);
 		});

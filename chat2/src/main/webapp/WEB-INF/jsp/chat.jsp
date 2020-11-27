@@ -119,7 +119,7 @@
 		$('#chatting').val("");
 	}
 	
-	// 버튼 상태 변경(DB연결)
+	// 버튼 상태 변경(DB 데이터 반영)
 	function setButtonState(){
 		<c:forEach var="d" items="${devicelist}">
 			// on인 상태일 때 버튼 색상 유지
@@ -127,6 +127,7 @@
 			    <c:when test="${d.DEVICE_STAT eq 'ON'}">
 				    $("#${d.DEVICE_ID}").addClass('active');
 					$("#${d.DEVICE_ID}").css('background-color', '#3ac47d');
+					$("#${d.DEVICE_ID}").css('border-color', '#3ac47d');
 			    </c:when>
 			</c:choose>
 			
@@ -136,24 +137,7 @@
 	
 	$(document).ready(function() {
 		setButtonState();
-		// Buttons Action for TCP/IP Cmd
-		$('#ledStart').click(function() {
-			$.ajax({
-				url : 'ledStart',
-				success : function(data) {
-					//alert('LED START...');
-				}
-			});
-		});
 		
-		$('#ledStop').click(function() {
-			$.ajax({
-				url : 'ledStop',
-				success : function(data) {
-					//alert('LED STOP...');
-				}
-			});
-		});
 		$('#alert').click(function(){
 			$.ajax({
 				url:'alert',
@@ -173,11 +157,6 @@
 	// http 온도데이터
 	String data = request.getParameter("data");
 	System.out.println("data(jsp) : " +  data);
-<<<<<<< HEAD
-	String floorpage = request.getParameter("floorpage");
-	System.out.println("floorpage : " +  floorpage);
-=======
->>>>>>> 8a4f248c5460b22b35927e446ca2ec7a33c71787
 	
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(data);

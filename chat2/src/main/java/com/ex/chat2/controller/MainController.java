@@ -113,12 +113,6 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping("/test")
-	public ModelAndView test() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("test");
-		return mv;
-	}
 	
 	@RequestMapping("/chat2")
 	public ModelAndView chat2() {
@@ -185,9 +179,8 @@ public class MainController {
 		}
 		
 		client.sendMsg(device + "_OFF");
-	}
-	
 		
+	}
 	@RequestMapping("/alert")
 	public void alert(HttpServletResponse res, HttpServletRequest request) throws IOException {
 		Client client;
@@ -284,4 +277,6 @@ public class MainController {
 
 	}
 	
+
 }
+
