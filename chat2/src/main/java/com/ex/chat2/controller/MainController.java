@@ -136,7 +136,6 @@ public class MainController {
 	}
 	
 	
-	
 	@RequestMapping("/ON")
 	public void ON(String device) throws IOException, SQLException {
 		System.out.println(device + "_ON START ...");
@@ -186,8 +185,9 @@ public class MainController {
 		}
 		
 		client.sendMsg(device + "_OFF");
-		
 	}
+	
+		
 	@RequestMapping("/alert")
 	public void alert(HttpServletResponse res, HttpServletRequest request) throws IOException {
 		Client client;
@@ -284,6 +284,4 @@ public class MainController {
 
 	}
 	
-
 }
-

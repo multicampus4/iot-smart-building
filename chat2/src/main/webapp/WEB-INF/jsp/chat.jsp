@@ -173,6 +173,11 @@
 	// http 온도데이터
 	String data = request.getParameter("data");
 	System.out.println("data(jsp) : " +  data);
+<<<<<<< HEAD
+	String floorpage = request.getParameter("floorpage");
+	System.out.println("floorpage : " +  floorpage);
+=======
+>>>>>>> 8a4f248c5460b22b35927e446ca2ec7a33c71787
 	
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(data);
