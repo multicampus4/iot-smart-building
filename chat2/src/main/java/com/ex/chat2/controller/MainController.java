@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chat.Client;
-import com.vo.SensorVO;
+import com.vo.DeviceVO;
 
 @Controller
 public class MainController {
@@ -37,6 +37,9 @@ public class MainController {
 	static String serialComPort;
 	static int tcpipPort;
 	static int wsPort;
+	static String oracleHostname;
+	static String oracleId;
+	static String oraclePwd;
 	
 	// DB에 연결할 변수
 	private String url;
@@ -54,14 +57,14 @@ public class MainController {
 		}
 		
 		// oracle 연결
-//		try {
-//			Class.forName("oracle.jdbc.driver.OracleDriver");
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		this.url = "jdbc:oracle:thin:@" + tcpipIp + ":1521:xe";
-//		this.dbid = "db";
-//		this.dbpwd = "db";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		this.url = "jdbc:oracle:thin:@" + oracleHostname + ":1521:ORCL";
+		this.dbid = oracleId;
+		this.dbpwd = oraclePwd;
 		
 	}
 	
@@ -77,31 +80,31 @@ public class MainController {
 	@RequestMapping("/chat")
 	public ModelAndView chat(ModelAndView mv, HttpServletResponse res) throws Exception {
 		
-		// SENSOR 데이터 가져오기
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		ArrayList<SensorVO> list = new ArrayList<>();
-//		
-//		try {
-//			con = DriverManager.getConnection(url, dbid, dbpwd);
-//			pstmt = con.prepareStatement("SELECT * FROM SENSOR");
-//			rset = pstmt.executeQuery();
-//			while(rset.next()) {
-//				String sensor_id = rset.getString(1);
-//				String sensor_stat = rset.getString(2);
-//				
-//				SensorVO sensor = new SensorVO(sensor_id, sensor_stat);
-//				list.add(sensor);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			rset.close();
-//			pstmt.close();
-//			con.close();
-//		}
-//		mv.addObject("sensorlist", list);
+		// DEVICE 데이터 가져오기
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<DeviceVO> list = new ArrayList<>();
+		
+		try {
+			con = DriverManager.getConnection(url, dbid, dbpwd);
+			pstmt = con.prepareStatement("SELECT * FROM DEVICE");
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				String device_id = rset.getString(1);
+				String device_stat = rset.getString(8);
+				
+				DeviceVO device = new DeviceVO(device_id, device_stat);
+				list.add(device);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			rset.close();
+			pstmt.close();
+			con.close();
+		}
+		mv.addObject("devicelist", list);
 		
 		
 		// centerpage
@@ -135,16 +138,54 @@ public class MainController {
 	
 	
 	@RequestMapping("/ON")
-	public void ledStart(HttpServletResponse res, String area) throws IOException {
-		System.out.println(area + "_ON START ...");
-		client.sendMsg(area +"_ON");
+	public void ON(String device) throws IOException, SQLException {
+		System.out.println(device + "_ON START ...");
+		
+		// DEVICE 데이터 업데이트
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		try {
+			con = DriverManager.getConnection(url, dbid, dbpwd);
+			pstmt = con.prepareStatement("UPDATE DEVICE SET DEVICE_STAT='ON' WHERE DEVICE_ID='" + device + "'");
+			rset = pstmt.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			rset.close();
+			pstmt.close();
+			con.close();
+		}
+		
+		client.sendMsg(device +"_ON");
 		
 	}
 	
 	@RequestMapping("/OFF")
-	public void ledStop(HttpServletResponse res, String area) throws IOException {
-		System.out.println(area + "_OFF STOP ...");
-		client.sendMsg(area + "_OFF");
+	public void OFF(String device) throws IOException, SQLException {
+		System.out.println(device + "_OFF STOP ...");
+		
+		// DEVICE 데이터 업데이트
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		try {
+			con = DriverManager.getConnection(url, dbid, dbpwd);
+			pstmt = con.prepareStatement("UPDATE DEVICE SET DEVICE_STAT='OFF' WHERE DEVICE_ID='" + device + "'");
+			rset = pstmt.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			rset.close();
+			pstmt.close();
+			con.close();
+		}
+		
+		client.sendMsg(device + "_OFF");
 		
 	}
 	@RequestMapping("/alert")
@@ -176,21 +217,33 @@ public class MainController {
 
 			// create notification message into JSON format
 			JSONObject message = new JSONObject();
-			message.put("to", "/topics/osh");
-			message.put("priority", "high");
-			
+			message.put("to", "/topics/osh");						
+			message.put("priority", "high");						
+				
 			
 			JSONObject notification = new JSONObject();
-			notification.put("title", "센서 작동");
+			notification.put("title", "센서 작동");						
 			notification.put("body", "센서가 작동되었습니다.");
-			message.put("notification", notification);
+			message.put("notification", notification);			
+			
+			
 			
 			JSONObject data = new JSONObject();
 			data.put("control", "control1");
 			data.put("data", 100);
 			message.put("data", data);
+			
+			/* JSONObject message는 이렇게 생겼다.
+			 * {
+			 * 		"to": "/topicx/osh",
+			 * 		"priority": "high",
+			 * 		"notification": {"title": "센서작동", "body": "센서가 작동되었습니다."},
+			 * 		"data": {"control": "control1", "data": 100}
+			 * }
+			 */
 
-
+			System.out.println(message.toString());
+			
 			try {
 				OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
 				out.write(message.toString());
@@ -225,8 +278,12 @@ public class MainController {
 		wsIp = properties.getProperty("websocketIp");
 		wsPort = Integer.parseInt(properties.getProperty("websocketPort"));
 		serialComPort = properties.getProperty("serialPort");
+		oracleHostname = properties.getProperty("oracleHostname");
+		oracleId = properties.getProperty("oracleId");
+		oraclePwd = properties.getProperty("oraclePwd");
 
 	}
 	
+
 }
 

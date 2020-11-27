@@ -121,15 +121,39 @@
 	
 	// 버튼 상태 변경(DB연결)
 	function setButtonState(){
-		<c:forEach var="u" items="${sensorlist}">
-			$("#${u.SENSOR_ID}").text("${u.SENSOR_STAT}");
+		<c:forEach var="d" items="${devicelist}">
+			// on인 상태일 때 버튼 색상 유지
+			<c:choose>
+			    <c:when test="${d.DEVICE_STAT eq 'ON'}">
+				    $("#${d.DEVICE_ID}").addClass('active');
+					$("#${d.DEVICE_ID}").css('background-color', '#3ac47d');
+			    </c:when>
+			</c:choose>
 			
+			$("#${d.DEVICE_ID}").text("${d.DEVICE_STAT}");
 		</c:forEach>
 	}
 	
 	$(document).ready(function() {
 		setButtonState();
 		// Buttons Action for TCP/IP Cmd
+		$('#ledStart').click(function() {
+			$.ajax({
+				url : 'ledStart',
+				success : function(data) {
+					//alert('LED START...');
+				}
+			});
+		});
+		
+		$('#ledStop').click(function() {
+			$.ajax({
+				url : 'ledStop',
+				success : function(data) {
+					//alert('LED STOP...');
+				}
+			});
+		});
 		$('#alert').click(function(){
 			$.ajax({
 				url:'alert',
@@ -178,6 +202,12 @@
 
 
 	<div id="container" class="containerBottom">
+		<div class="btn1">
+			<a class="btn" id="ledStart" href="#">LED START</a>
+		</div>
+		<div class="btn2">
+			<a class="btn" id="ledStop" href="#">LED STOP</a>
+		</div>
 		<div class="btn3">
 			<a class="btn" id= "alert" href = "#">Alert</a>
 		</div>

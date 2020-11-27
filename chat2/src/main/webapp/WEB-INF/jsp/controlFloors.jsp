@@ -21,31 +21,31 @@
 						<div>Area A</div>
 						<div>Air Conditioner</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_A_D_AIR">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_A_D_AIR">OFF</button>
 						</div>
 						<div>Humidifier</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_A_D_HUM">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_A_D_HUM">OFF</button>
 						</div>
 						<div>Air Cleaner</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_A_D_AIRCL">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_A_D_AIRCL">OFF</button>
 						</div>
 						<div>LED</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_A_D_LED">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_A_D_LED">OFF</button>
 						</div>
 						<div>Electricity</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_A_D_ELEC">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_A_D_ELEC">OFF</button>
 						</div>
 						<div>Water</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_A_D_WAT">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_A_D_WAT">OFF</button>
 						</div>
 						<div>Gas</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_A_D_GAS">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_A_D_GAS">OFF</button>
 						</div>
 					</div>
 					
@@ -53,31 +53,31 @@
 						<div>Area B</div>
 						<div>Air Conditioner</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_B_D_AIR">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_B_D_AIR">OFF</button>
 						</div>
 						<div>Humidifier</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_B_D_HUM">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_B_D_HUM">OFF</button>
 						</div>
 						<div>Air Cleaner</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_B_D_AIRCL">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_B_D_AIRCL">OFF</button>
 						</div>
 						<div>LED</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_B_D_LED">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_B_D_LED">OFF</button>
 						</div>
 						<div>Electricity</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_B_D_ELEC">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_B_D_ELEC">OFF</button>
 						</div>
 						<div>Water</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_B_D_WAT">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_B_D_WAT">OFF</button>
 						</div>
 						<div>Gas</div>
 						<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-alternate" id="1_B_D_GAS">OFF</button>
+							<button type="button" class="btn btn-alternate d_btn" id="1_B_D_GAS">OFF</button>
 						</div>
 					</div>
 				</div>
@@ -89,31 +89,31 @@
 					<div>Area A</div>
 					<div>Air Conditioner</div>
 					<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-						<button type="button" class="btn btn-alternate" id="2_A_D_AIR">OFF</button>
+						<button type="button" class="btn btn-alternate d_btn" id="2_A_D_AIR">OFF</button>
 					</div>
 					<div>Humidifier</div>
 					<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-						<button type="button" class="btn btn-alternate" id="2_A_D_HUM">OFF</button>
+						<button type="button" class="btn btn-alternate d_btn" id="2_A_D_HUM">OFF</button>
 					</div>
 					<div>Air Cleaner</div>
 					<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-						<button type="button" class="btn btn-alternate" id="2_A_D_AIRCL">OFF</button>
+						<button type="button" class="btn btn-alternate d_btn" id="2_A_D_AIRCL">OFF</button>
 					</div>
 					<div>LED</div>
 					<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-						<button type="button" class="btn btn-alternate" id="2_A_D_LED">OFF</button>
+						<button type="button" class="btn btn-alternate d_btn" id="2_A_D_LED">OFF</button>
 					</div>
 					<div>Electricity</div>
 					<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-						<button type="button" class="btn btn-alternate" id="2_A_D_ELEC">OFF</button>
+						<button type="button" class="btn btn-alternate d_btn" id="2_A_D_ELEC">OFF</button>
 					</div>
 					<div>Water</div>
 					<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-						<button type="button" class="btn btn-alternate" id="2_A_D_WAT">OFF</button>
+						<button type="button" class="btn btn-alternate d_btn" id="2_A_D_WAT">OFF</button>
 					</div>
 					<div>Gas</div>
 					<div class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-						<button type="button" class="btn btn-alternate" id="2_A_D_GAS">OFF</button>
+						<button type="button" class="btn btn-alternate d_btn" id="2_A_D_GAS">OFF</button>
 					</div>
 				</div>
 			</div>
@@ -126,104 +126,31 @@
 <script>
 
 	// ON, OFF AJAX
-	function execAjax(stat, area){
+	function execAjax(stat, device){
 		$.ajax({
 			url : stat,
-			data : {"area" : area},
+			data : {"device" : device},
 			success : function(data) {
 			}
 		});
 	};
 	$(document).ready(function() {
+		
 		var stat;
-		var area;
-		$('#1_A_D_AIR').click(function(){
-			area = "1_A_D_";
+		var device;
+		
+		$('.d_btn').click(function(){
+			device = $(this).attr('id');
 			if($(this).hasClass("active")){
 				stat = "OFF";
-				$('#1_A_TEMP').text("OFF");
+				$(this).text("OFF");
+				$(this).css('background-color', '#794c8a'); // off 색상
 			}else{
 				stat = "ON";
-				$('#1_A_TEMP').text("ON");
+				$(this).text("ON");
+				$(this).css('background-color', '#3ac47d'); // on 색상
 			}
-			execAjax(stat, area);
-		});
-		$('#1_B_TEMP').click(function(){
-			area = "1_B_TEMP";
-			if($(this).hasClass("active")){
-				stat = "OFF";
-				$('#1_B_TEMP').text("OFF");
-			}else{
-				stat = "ON";
-				$('#1_B_TEMP').text("ON");
-			}
-			execAjax(stat, area);
-		});
-		$('#1_A_HUM').click(function(){
-			area = "1_A_HUM";
-			if($(this).hasClass("active")){
-				stat = "OFF";
-				$('#1_A_HUM').text("OFF");
-			}else{
-				stat = "ON";
-				$('#1_A_HUM').text("ON");
-			}
-			execAjax(stat, area);
-		});
-		$('#1_B_HUM').click(function(){
-			area = "1_B_HUM";
-			if($(this).hasClass("active")){
-				stat = "OFF";
-				$('#1_B_HUM').text("OFF");
-			}else{
-				stat = "ON";
-				$('#1_B_HUM').text("ON");
-			}
-			execAjax(stat, area);
-		});
-		$('#1_A_DUST').click(function(){
-			area = "1_A_DUST";
-			if($(this).hasClass("active")){
-				stat = "OFF";
-				$('#1_A_DUST').text("OFF");
-			}else{
-				stat = "ON";
-				$('#1_A_DUST').text("ON");
-			}
-			execAjax(stat, area);
-		});
-		$('#1_B_DUST').click(function(){
-			area = "1_B_DUST";
-			if($(this).hasClass("active")){
-				stat = "OFF";
-				$('#1_B_DUST').text("OFF");
-			}else{
-				stat = "ON";
-				$('#1_B_DUST').text("ON");
-			}
-			execAjax(stat, area);
-		});
-		$('#1_A_LED').click(function(){
-			area = "1_A_LED";
-			if($(this).hasClass("active")){
-				stat = "OFF";
-				$('#1_A_LED').text("OFF");
-			}else{
-				stat = "ON";
-				$('#1_A_LED').text("ON");
-			}
-			execAjax(stat, area);
-		});
-		$('#1_B_LED').click(function(){
-			area = "1_B_LED";
-			if($(this).hasClass("active")){
-				stat = "OFF";
-				$('#1_B_LED').text("OFF");
-			}else{
-				stat = "ON";
-				$('#1_B_LED').text("ON");
-			}
-			execAjax(stat, area);
+			execAjax(stat, device);
 		});
 		
 	});
