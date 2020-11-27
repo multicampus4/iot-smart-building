@@ -138,23 +138,6 @@
 				}
 			});
 		});
-		$('#f1').click(function(){
-			$.ajax({
-				url:'f1',
-				success:function(data){
-					console.log("111");
-				}
-			});
-		});
-		$('#f2').click(function(){
-			$.ajax({
-				url:'f2',
-				success:function(data){
-					console.log("222");
-				}
-			});
-		});
-		
 		
 	});
 	
@@ -167,41 +150,14 @@
 	String data = request.getParameter("data");
 	System.out.println("data(jsp) : " +  data);
 	
-	// 층별 화면 전환 확인용
-	String floorpage = request.getParameter("floorpage");
-	System.out.println("floorpage : " +  floorpage);
-	
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(data);
 	
 %>
 
-	<div class="layers-dropdown">
-		<div class="dropdown d-inline-block">
-			<button type="button" aria-haspopup="true" aria-expanded="false"
-				data-toggle="dropdown"
-				class="mb-2 mr-2 dropdown-toggle btn btn-secondary">Secondary</button>
-			<div tabindex="-1" role="menu" aria-hidden="true"
-				class="dropdown-menu">
-				<button type="button" tabindex="0" class="dropdown-item" id="f1">Floor_1</button>
-				<button type="button" tabindex="0" class="dropdown-item" id="f2">Floor_2</button>
-				<h6 tabindex="-1" class="dropdown-header">Header</h6>
-				<button type="button" tabindex="0" class="dropdown-item">Actions</button>
-				<div tabindex="-1" class="dropdown-divider"></div>
-				<button type="button" tabindex="0" class="dropdown-item">Dividers</button>
-			</div>
-		</div>
-	</div>
-
+	<!-- 층별 제어 화면 -->
 	<div class="app-main__inner">
-		<c:choose>
-			<c:when test="${floorpage == null}">
-				<jsp:include page="f1.jsp"></jsp:include>
-			</c:when>
-			<c:otherwise>
-				<jsp:include page="${floorpage}"></jsp:include>
-			</c:otherwise>
-		</c:choose>
+		<jsp:include page="controlFloors.jsp"></jsp:include>
 	</div>
 
 	<div id="container" class="container">

@@ -54,14 +54,14 @@ public class MainController {
 		}
 		
 		// oracle 연결
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		this.url = "jdbc:oracle:thin:@" + tcpipIp + ":1521:xe";
-		this.dbid = "db";
-		this.dbpwd = "db";
+//		try {
+//			Class.forName("oracle.jdbc.driver.OracleDriver");
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		this.url = "jdbc:oracle:thin:@" + tcpipIp + ":1521:xe";
+//		this.dbid = "db";
+//		this.dbpwd = "db";
 		
 	}
 	
@@ -78,30 +78,30 @@ public class MainController {
 	public ModelAndView chat(ModelAndView mv, HttpServletResponse res) throws Exception {
 		
 		// SENSOR 데이터 가져오기
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<SensorVO> list = new ArrayList<>();
-		
-		try {
-			con = DriverManager.getConnection(url, dbid, dbpwd);
-			pstmt = con.prepareStatement("SELECT * FROM SENSOR");
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				String sensor_id = rset.getString(1);
-				String sensor_stat = rset.getString(2);
-				
-				SensorVO sensor = new SensorVO(sensor_id, sensor_stat);
-				list.add(sensor);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			rset.close();
-			pstmt.close();
-			con.close();
-		}
-		mv.addObject("sensorlist", list);
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		ArrayList<SensorVO> list = new ArrayList<>();
+//		
+//		try {
+//			con = DriverManager.getConnection(url, dbid, dbpwd);
+//			pstmt = con.prepareStatement("SELECT * FROM SENSOR");
+//			rset = pstmt.executeQuery();
+//			while(rset.next()) {
+//				String sensor_id = rset.getString(1);
+//				String sensor_stat = rset.getString(2);
+//				
+//				SensorVO sensor = new SensorVO(sensor_id, sensor_stat);
+//				list.add(sensor);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			rset.close();
+//			pstmt.close();
+//			con.close();
+//		}
+//		mv.addObject("sensorlist", list);
 		
 		
 		// centerpage
@@ -228,22 +228,5 @@ public class MainController {
 
 	}
 	
-	// 층별제어 - 1층 
-	@RequestMapping("/f1")
-	public ModelAndView f1() {
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("floorpage", "f1.jsp");
-		mv.setViewName("redirect:chat");
-		return mv;
-	}
-	
-	// 층별제어 - 2층 
-	@RequestMapping("/f2")
-	public ModelAndView f2() {
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("floorpage", "f2.jsp");
-		mv.setViewName("redirect:chat");
-		return mv;
-	}
 }
 
