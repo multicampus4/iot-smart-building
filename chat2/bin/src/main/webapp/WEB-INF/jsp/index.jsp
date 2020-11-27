@@ -454,7 +454,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href=" ">
+                                    <a href="history">
                                         <i class="metismenu-icon pe-7s-ribbon">
                                         </i>
                                         History

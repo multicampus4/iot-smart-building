@@ -59,9 +59,9 @@ public class MainController {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		this.url = "jdbc:oracle:thin:@192.168.0.17:1521:xe";
-		this.dbid = "db2";
-		this.dbpwd = "db2";
+		this.url = "jdbc:oracle:thin:@" + tcpipIp + ":1521:xe";
+		this.dbid = "db";
+		this.dbpwd = "db";
 		
 	}
 	
