@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:padding="10dp"
+    tools:context="com.example.tablet.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,26 +41,27 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/L_1_A_D_AIR"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#03A9F4"
+            android:background="#794c8a"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="50dp">
+            android:padding="40dp">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="온도"
+                android:text="에어컨"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/T_1_A_D_AIR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -68,26 +71,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/L_1_A_D_HUM"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#FFC107"
+            android:background="#794c8a"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="50dp">
+            android:padding="30dp">
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="습도"
+                android:text="가습기"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/T_1_A_D_HUM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -95,6 +99,67 @@
                 android:text="OFF"
                 android:textSize="36sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/L_1_A_D_AIRCL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#794c8a"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="공기청정기"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/T_1_A_D_AIRCL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="OFF"
+                android:textSize="36sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/L_1_A_D_LED"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#794c8a"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="조명"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/T_1_A_D_LED"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="OFF"
+                android:textSize="36sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -104,27 +169,28 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/L_1_A_D_ELEC"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#FFEB3B"
+            android:background="#794c8a"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="50dp">
+            android:padding="30dp">
 
             <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="미세먼지"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:text="전기"
+                android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/T_1_A_D_ELEC"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -133,32 +199,64 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/L_1_A_D_WAT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#CDDC39"
+            android:background="#794c8a"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="50dp">
+            android:padding="30dp">
 
             <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="조명"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:text="수도"
+                android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
+                android:id="@+id/T_1_A_D_WAT"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="OFF"
                 android:textSize="36sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/L_1_A_D_GAS"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#794c8a"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="가스"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/T_1_A_D_GAS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="OFF"
+                android:textSize="36sp" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

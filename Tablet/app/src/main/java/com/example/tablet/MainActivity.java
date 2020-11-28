@@ -1,35 +1,31 @@
 package com.example.tablet;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+
 import com.msg.Msg;
 
 public class MainActivity extends AppCompatActivity {
-    TextView tx1, tx2, tx3, tx4, serverstat;
 
+    /* 1층 A구역 DEVICE */
+
+    // 서버의 ON, OFF 상태
+    TextView serverstat;
+
+    // ON, OFF 배경색
+    String onColor, offColor;
+
+    // TCP/IP 연결 정보
     int port;
     String address;
     String id;
@@ -43,10 +39,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tx1 = findViewById(R.id.textView);
-        tx2 = findViewById(R.id.textView2);
-        tx3 = findViewById(R.id.textView3);
-        tx4 = findViewById(R.id.textView4);
+
+        onColor = "#3ac47d";
+        offColor = "#794c8a";
 
         serverstat = findViewById(R.id.textView10);
 
@@ -56,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         new Thread(con).start();
 
     }
-
 
 
     // 앱 나갈 때
@@ -138,13 +132,29 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            if(finalMsg.getMsg().equals("iamTablet")){
-                                tx4.setText("OFF");
-                            }else if(finalMsg.getMsg().equals("1_A_ON")){
-                                tx4.setText("ON");
-                            }else if(finalMsg.getMsg().equals("1_A_OFF")){
-                                tx4.setText("OFF");
+                            // 1층 A구역의 센서 상태 처리
+                            if(!finalMsg.getMsg().equals("iamTablet")){
+
+                                // cmd : 들어오는 메세지, deviceId : 디바이스 이름, deviceStat : ON or OFF
+                                String cmd = finalMsg.getMsg().trim();
+                                String deviceId = cmd.substring(0,cmd.lastIndexOf("_"));
+                                String deviceStat = cmd.substring(cmd.lastIndexOf("_") + 1);
+
+                                // id 이름 앞에는 문자로 시작해야 하기 때문에 id 앞에 T와 L로 구분
+                                // T_ : ON/OFF를 표시하는 TextView, L : 각 디바이스의 LinearLayout
+                                // DEVICE들의 상태를 표시하는 TextView에 deviceStat를 반영
+                                int dT = getResources().getIdentifier("T_" + deviceId,"id", getPackageName());
+                                ((TextView)findViewById(dT)).setText(deviceStat);
+
+                                // DEVICE들의 상태를 따른 배경색을 각각의 LinearLayout에 반영
+                                int dL = getResources().getIdentifier("L_" + deviceId,"id", getPackageName());
+                                if(deviceStat.equals("ON")){
+                                    ((LinearLayout)findViewById(dL)).setBackgroundColor(Color.parseColor(onColor));
+                                }else if(deviceStat.equals("OFF")){
+                                    ((LinearLayout)findViewById(dL)).setBackgroundColor(Color.parseColor(offColor));
+                                }
                             }
+
                         }
                     });
                     System.out.println(msg.getId() + msg.getMsg());
