@@ -103,6 +103,18 @@
 			if(msg != null && msg.trim() != ''){
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
 				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
+				
+				if(obj.tmp != "undefined"){
+					$("#1_A_S_TEMP").html("<p>" + obj.tmp + "</p>");
+					if(obj.tmp <= 23){
+						$("#1_A_S_TEMP").css('background-color', '#f7b924');
+					}else if(obj.tmp > 23 && obj.tmp <= 25){
+						$("#1_A_S_TEMP").css('background-color', '#00aeef');
+					}else if(obj.tmp > 25){
+						$("#1_A_S_TEMP").css('background-color', '#f42a2f');
+					}
+				}
+				
 			}
 		}
 
