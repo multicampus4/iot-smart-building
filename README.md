@@ -41,10 +41,16 @@ git reset --hard d5c9d764ddf335663c32ff0f833dbb7726798a6a
 
 
 
-## 🐋층별 구역 센서 명칭 (임시)
+## 🐋층별 구역 센서 및 디바이스 명칭
 
-![캡처](https://user-images.githubusercontent.com/24764210/100204929-d359e700-2f47-11eb-9bae-839e00e78c8e.PNG) 
+- 센서
 
-- ON, OFF 명령은 뒤에 _ON 또는 _OFF를 붙입니다. 
+  ![센서](https://user-images.githubusercontent.com/24764210/100413044-a6c5dc80-30b9-11eb-852e-ea2dac9db163.PNG) 
 
-  예) 1_A_TEMP_ON
+- 디바이스
+
+  ![디바이스](https://user-images.githubusercontent.com/24764210/100413047-a75e7300-30b9-11eb-9d87-533d9b47589f.PNG) 
+
+- **ON, OFF 명령**은 뒤에 _ON 또는 _OFF를 붙입니다. 
+
+  예) 1_A_D_AIR_ON

@@ -119,7 +119,16 @@
 		$('#chatting').val("");
 	}
 	
+	// 버튼 상태 변경(DB연결)
+	function setButtonState(){
+		<c:forEach var="u" items="${sensorlist}">
+			$("#${u.SENSOR_ID}").text("${u.SENSOR_STAT}");
+			
+		</c:forEach>
+	}
+	
 	$(document).ready(function() {
+		setButtonState();
 		// Buttons Action for TCP/IP Cmd
 		$('#alert').click(function(){
 			$.ajax({
@@ -146,13 +155,13 @@
 			});
 		});
 		
+		
 	});
 	
 </script>
 <body>
 
-<%@page import="org.apache.log4j.*"%>
-
+<%@ page import="org.apache.log4j.*" %>
 <%
 	// http 온도데이터
 	String data = request.getParameter("data");
@@ -164,7 +173,9 @@
 	
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(data);
+	
 %>
+
 	<div class="layers-dropdown">
 		<div class="dropdown d-inline-block">
 			<button type="button" aria-haspopup="true" aria-expanded="false"

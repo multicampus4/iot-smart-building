@@ -103,6 +103,29 @@
 			if(msg != null && msg.trim() != ''){
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
 				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
+				
+				// 실시간 데이터 상태에 따른 색상 표시
+				if(obj.tmp != "undefined"){
+					$("#1_A_S_TEMP").html("<h5>" + obj.tmp + "</h5>");
+					if(obj.tmp <= 23){
+						$("#1_A_S_TEMP").css('background-color', '#f7b924');
+					}else if(obj.tmp > 23 && obj.tmp <= 25){
+						$("#1_A_S_TEMP").css('background-color', '#00aeef');
+					}else if(obj.tmp > 25){
+						$("#1_A_S_TEMP").css('background-color', '#f42a2f');
+					}
+				}
+				if(obj.hum != "undefined"){
+					$("#1_A_S_HUM").html("<h5>" + obj.hum + "</h5>");
+					if(obj.hum <= 72){
+						$("#1_A_S_HUM").css('background-color', '#f7b924');
+					}else if(obj.hum > 72 && obj.hum <= 73){
+						$("#1_A_S_HUM").css('background-color', '#00aeef');
+					}else if(obj.hum > 73){
+						$("#1_A_S_HUM").css('background-color', '#f42a2f');
+					}
+				}
+				
 			}
 		}
 
@@ -119,29 +142,30 @@
 		$('#chatting').val("");
 	}
 	
+	// 버튼 상태 변경(DB 데이터 반영)
+	function setButtonState(){
+		<c:forEach var="d" items="${devicelist}">
+			// on인 상태일 때 버튼 색상 유지
+			<c:choose>
+			    <c:when test="${d.DEVICE_STAT eq 'ON'}">
+				    $("#${d.DEVICE_ID}").addClass('active');
+					$("#${d.DEVICE_ID}").css('background-color', '#3ac47d');
+					$("#${d.DEVICE_ID}").css('border-color', '#3ac47d');
+			    </c:when>
+			</c:choose>
+			
+			$("#${d.DEVICE_ID}").text("${d.DEVICE_STAT}");
+		</c:forEach>
+	}
+	
 	$(document).ready(function() {
-		// Buttons Action for TCP/IP Cmd
+		setButtonState();
+		
 		$('#alert').click(function(){
 			$.ajax({
 				url:'alert',
 				success:function(data){
 					alert('Send Complete...');
-				}
-			});
-		});
-		$('#f1').click(function(){
-			$.ajax({
-				url:'f1',
-				success:function(data){
-					console.log("111");
-				}
-			});
-		});
-		$('#f2').click(function(){
-			$.ajax({
-				url:'f2',
-				success:function(data){
-					console.log("222");
 				}
 			});
 		});
@@ -151,46 +175,20 @@
 </script>
 <body>
 
-<%@page import="org.apache.log4j.*"%>
-
+<%@ page import="org.apache.log4j.*" %>
 <%
 	// http 온도데이터
 	String data = request.getParameter("data");
 	System.out.println("data(jsp) : " +  data);
 	
-	// 층별 화면 전환 확인용
-	String floorpage = request.getParameter("floorpage");
-	System.out.println("floorpage : " +  floorpage);
-	
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(data);
+	
 %>
-	<div class="layers-dropdown">
-		<div class="dropdown d-inline-block">
-			<button type="button" aria-haspopup="true" aria-expanded="false"
-				data-toggle="dropdown"
-				class="mb-2 mr-2 dropdown-toggle btn btn-secondary">Secondary</button>
-			<div tabindex="-1" role="menu" aria-hidden="true"
-				class="dropdown-menu">
-				<button type="button" tabindex="0" class="dropdown-item" id="f1">Floor_1</button>
-				<button type="button" tabindex="0" class="dropdown-item" id="f2">Floor_2</button>
-				<h6 tabindex="-1" class="dropdown-header">Header</h6>
-				<button type="button" tabindex="0" class="dropdown-item">Actions</button>
-				<div tabindex="-1" class="dropdown-divider"></div>
-				<button type="button" tabindex="0" class="dropdown-item">Dividers</button>
-			</div>
-		</div>
-	</div>
 
+	<!-- 층별 제어 화면 -->
 	<div class="app-main__inner">
-		<c:choose>
-			<c:when test="${floorpage == null}">
-				<jsp:include page="f1.jsp"></jsp:include>
-			</c:when>
-			<c:otherwise>
-				<jsp:include page="${floorpage}"></jsp:include>
-			</c:otherwise>
-		</c:choose>
+		<jsp:include page="controlFloors.jsp"></jsp:include>
 	</div>
 
 	<div id="container" class="container">
@@ -211,6 +209,12 @@
 
 
 	<div id="container" class="containerBottom">
+		<div class="btn1">
+			<a class="btn" id="ledStart" href="#">LED START</a>
+		</div>
+		<div class="btn2">
+			<a class="btn" id="ledStop" href="#">LED STOP</a>
+		</div>
 		<div class="btn3">
 			<a class="btn" id= "alert" href = "#">Alert</a>
 		</div>
