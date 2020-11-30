@@ -14,12 +14,13 @@ public class OracleTest {
 		String password ="oracle";
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = DriverManager.getConnection(url,id,password);
-		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Sensor");
+		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM SENSOR2");
 		ResultSet rset = pstmt.executeQuery();
+		
 		while(rset.next()) {
-			String did = rset.getString("SENSORNAME");
+			String did = rset.getString("SNAME");
 			
-			int data = rset.getInt("OUTCOME");
+			int data = rset.getInt("SOUT");
 			System.out.println(did+""+data);
 			}
 		con.close();
