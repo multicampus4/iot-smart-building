@@ -18,9 +18,48 @@
 			<div class="tab-pane active" id="tab-eg4-0" role="tabpanel">
 
 				<div class="row">
-					<div class="container col-md-3">
-						<div class="sensors" id="1_A_S_TEMP"></div>
+					<div class="col-md-6">
+						<h5>Area A</h5>
+						<div class="row text-center">
+							<div>
+								<h5>TEMP</h5>
+								<div class="sensors m-2" id="1_A_S_TEMP"></div>
+							</div>
+							<div>
+								<h5>HUM</h5>
+								<div class="sensors m-2" id="1_A_S_HUM"></div>
+							</div>
+							<div>
+								<h5>DUST</h5>
+								<div class="sensors m-2" id="1_A_S_DUST"></div>
+							</div>
+							<div>
+								<h5>ILLM</h5>
+								<div class="sensors m-2" id="1_A_S_ILLM"></div>
+							</div>
+						</div>
+						<div class="divider"></div>
+						<h5>Area B</h5>
+						<div class="row text-center">
+							<div>
+								<h5>TEMP</h5>
+								<div class="sensors m-2" id="1_B_S_TEMP"></div>
+							</div>
+							<div>
+								<h5>HUM</h5>
+								<div class="sensors m-2" id="1_B_S_HUM"></div>
+							</div>
+							<div>
+								<h5>DUST</h5>
+								<div class="sensors m-2" id="1_B_S_DUST"></div>
+							</div>
+							<div>
+								<h5>ILLM</h5>
+								<div class="sensors m-2" id="1_B_S_ILLM"></div>
+							</div>
+						</div>
 					</div>
+
 					<div class="floor_1_A col-md-3">
 						<div>Area A</div>
 						<div>Air Conditioner</div>
@@ -117,53 +156,76 @@
 
 
 			<div class="tab-pane" id="tab-eg4-1" role="tabpanel">
-				<div class="floor_2_A col-md-3">
-					<div>Area A</div>
-					<div>Air Conditioner</div>
-					<div class="btn-group-lg btn-group btn-group-toggle"
-						data-toggle="buttons">
-						<button type="button" class="btn btn-alternate d_btn"
-							id="2_A_D_AIR">OFF</button>
+				<div class="row">
+					<div class="col-md-6">
+						<h5>Area A</h5>
+						<div class="row text-center">
+							<div>
+								<h5>TEMP</h5>
+								<div class="sensors m-2" id="2_A_S_TEMP"></div>
+							</div>
+							<div>
+								<h5>HUM</h5>
+								<div class="sensors m-2" id="2_A_S_HUM"></div>
+							</div>
+							<div>
+								<h5>DUST</h5>
+								<div class="sensors m-2" id="2_A_S_DUST"></div>
+							</div>
+							<div>
+								<h5>ILLM</h5>
+								<div class="sensors m-2" id="2_A_S_ILLM"></div>
+							</div>
+						</div>
 					</div>
-					<div>Humidifier</div>
-					<div class="btn-group-lg btn-group btn-group-toggle"
-						data-toggle="buttons">
-						<button type="button" class="btn btn-alternate d_btn"
-							id="2_A_D_HUM">OFF</button>
-					</div>
-					<div>Air Cleaner</div>
-					<div class="btn-group-lg btn-group btn-group-toggle"
-						data-toggle="buttons">
-						<button type="button" class="btn btn-alternate d_btn"
-							id="2_A_D_AIRCL">OFF</button>
-					</div>
-					<div>LED</div>
-					<div class="btn-group-lg btn-group btn-group-toggle"
-						data-toggle="buttons">
-						<button type="button" class="btn btn-alternate d_btn"
-							id="2_A_D_LED">OFF</button>
-					</div>
-					<div>Electricity</div>
-					<div class="btn-group-lg btn-group btn-group-toggle"
-						data-toggle="buttons">
-						<button type="button" class="btn btn-alternate d_btn"
-							id="2_A_D_ELEC">OFF</button>
-					</div>
-					<div>Water</div>
-					<div class="btn-group-lg btn-group btn-group-toggle"
-						data-toggle="buttons">
-						<button type="button" class="btn btn-alternate d_btn"
-							id="2_A_D_WAT">OFF</button>
-					</div>
-					<div>Gas</div>
-					<div class="btn-group-lg btn-group btn-group-toggle"
-						data-toggle="buttons">
-						<button type="button" class="btn btn-alternate d_btn"
-							id="2_A_D_GAS">OFF</button>
+
+					<div class="floor_2_A col-md-6">
+						<div>Area A</div>
+						<div>Air Conditioner</div>
+						<div class="btn-group-lg btn-group btn-group-toggle"
+							data-toggle="buttons">
+							<button type="button" class="btn btn-alternate d_btn"
+								id="2_A_D_AIR">OFF</button>
+						</div>
+						<div>Humidifier</div>
+						<div class="btn-group-lg btn-group btn-group-toggle"
+							data-toggle="buttons">
+							<button type="button" class="btn btn-alternate d_btn"
+								id="2_A_D_HUM">OFF</button>
+						</div>
+						<div>Air Cleaner</div>
+						<div class="btn-group-lg btn-group btn-group-toggle"
+							data-toggle="buttons">
+							<button type="button" class="btn btn-alternate d_btn"
+								id="2_A_D_AIRCL">OFF</button>
+						</div>
+						<div>LED</div>
+						<div class="btn-group-lg btn-group btn-group-toggle"
+							data-toggle="buttons">
+							<button type="button" class="btn btn-alternate d_btn"
+								id="2_A_D_LED">OFF</button>
+						</div>
+						<div>Electricity</div>
+						<div class="btn-group-lg btn-group btn-group-toggle"
+							data-toggle="buttons">
+							<button type="button" class="btn btn-alternate d_btn"
+								id="2_A_D_ELEC">OFF</button>
+						</div>
+						<div>Water</div>
+						<div class="btn-group-lg btn-group btn-group-toggle"
+							data-toggle="buttons">
+							<button type="button" class="btn btn-alternate d_btn"
+								id="2_A_D_WAT">OFF</button>
+						</div>
+						<div>Gas</div>
+						<div class="btn-group-lg btn-group btn-group-toggle"
+							data-toggle="buttons">
+							<button type="button" class="btn btn-alternate d_btn"
+								id="2_A_D_GAS">OFF</button>
+						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
@@ -209,13 +271,16 @@
 <style>
 .sensors {
 	background-color: #dcdcdc;
-	width: 100px;
-	height: 100px;
+	width: 60px;
+	height: 60px;
 	overflow: auto;
+	text-align:center;
 }
 
-.sensors p {
+.sensors h5 {
 	color: #fff;
-	text-align: left;
+	text-align: center;
 }
+
+
 </style>

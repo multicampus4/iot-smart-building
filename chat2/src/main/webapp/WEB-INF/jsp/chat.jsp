@@ -104,14 +104,25 @@
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
 				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
 				
+				// 실시간 데이터 상태에 따른 색상 표시
 				if(obj.tmp != "undefined"){
-					$("#1_A_S_TEMP").html("<p>" + obj.tmp + "</p>");
+					$("#1_A_S_TEMP").html("<h5>" + obj.tmp + "</h5>");
 					if(obj.tmp <= 23){
 						$("#1_A_S_TEMP").css('background-color', '#f7b924');
 					}else if(obj.tmp > 23 && obj.tmp <= 25){
 						$("#1_A_S_TEMP").css('background-color', '#00aeef');
 					}else if(obj.tmp > 25){
 						$("#1_A_S_TEMP").css('background-color', '#f42a2f');
+					}
+				}
+				if(obj.hum != "undefined"){
+					$("#1_A_S_HUM").html("<h5>" + obj.hum + "</h5>");
+					if(obj.hum <= 72){
+						$("#1_A_S_HUM").css('background-color', '#f7b924');
+					}else if(obj.hum > 72 && obj.hum <= 73){
+						$("#1_A_S_HUM").css('background-color', '#00aeef');
+					}else if(obj.hum > 73){
+						$("#1_A_S_HUM").css('background-color', '#f42a2f');
 					}
 				}
 				
