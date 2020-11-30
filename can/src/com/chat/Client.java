@@ -28,6 +28,10 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
 public class Client implements SerialPortEventListener {
+	// LattePanda ID
+	// latte_1A : 1A 구역에서 가동되는 IoT 클라이언트
+	static String latteId = "latte_1A";
+	
 	// 멤버 변수
 	int port;
 	String address;
@@ -49,7 +53,6 @@ public class Client implements SerialPortEventListener {
 	private SerialPort serialPort;
 	private CommPortIdentifier portIdentifier;
 	private CommPort commPort;
-	private String rawCanID, rawTotal;
 
 	// 웹소켓
 	static WebSocketClient WsClient;
@@ -93,8 +96,8 @@ public class Client implements SerialPortEventListener {
 		sender = new Sender(socket);
 		new Receiver(socket).start();
 		
-		Msg msg = new Msg(null, id,"iamLatte01");	// Hand Shake : iamLatte01 : Server>Server.java
-		sender.setMsg(msg);							// sender 쓰레드에 메시지 내용 저장
+		Msg msg = new Msg(null, id, latteId);	// Hand Shake : latte_1A : Server>Server.java
+		sender.setMsg(msg);
 		new Thread(sender).start();
 	}
 
@@ -410,7 +413,7 @@ public class Client implements SerialPortEventListener {
 		getProp();
 		try {
 			// TCP/IP Server 연결 초기화
-			Client client = new Client(tcpipIp, tcpipPort, "[IoTClient]");
+			Client client = new Client(tcpipIp, tcpipPort, "["+latteId+"]");
 			client.connect();
 			
 		} catch (Exception e) {

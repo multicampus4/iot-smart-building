@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -103,7 +104,10 @@ public class Server {
 				Msg msg = null;											// Msg 객체인 변수 msg 초기화
 				
 				try {
-					msg = (Msg) oi.readObject();						// 인풋스트림에서 메시지 내용을 읽어와 msg에 저장
+					msg = (Msg) oi.readObject();
+					String[] dataArr = msg.getMsg().split("_");
+					System.out.println(Arrays.deepToString(dataArr));
+					
 					switch (msg.getMsg()) {
 					case "q": 											// "q" 입력시
 						throw new Exception();							// 강제로 exception을 내서 client를 삭제한다.
@@ -114,6 +118,10 @@ public class Server {
 						targetIp = socket.getInetAddress().toString();
 						System.out.println("ANDROID's IP" + targetIp);
 						sendTarget(targetIp, "Connected");
+						break;
+					case "latte":	//latte_1A / latte_2B
+						
+						
 						break;
 					case "iamLatte01":
 						targetIp2 = socket.getInetAddress().toString();
