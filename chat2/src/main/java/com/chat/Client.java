@@ -56,14 +56,14 @@ public class Client {
 	public void sendTarget(String ip, String cmd) {
 		ArrayList<String> ips = new ArrayList<String>();
 		ips.add(ip);
-		Msg msg = new Msg(ips, id, cmd);
+		Msg msg = new Msg(ips, id, null, cmd);
 		sender.setMsg(msg);
 		new Thread(sender).start();
 	}
 	
 	// socket을 닫지 않고 중앙 서버에 메세지 전송
 	public void sendMsg(String cmd) {
-		Msg msg = new Msg(null,id,cmd);
+		Msg msg = new Msg(id, "command", cmd);
 		sender.setMsg(msg);
 		new Thread(sender).start();
 		
