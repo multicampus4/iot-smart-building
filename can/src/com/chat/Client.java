@@ -29,8 +29,8 @@ import gnu.io.SerialPortEventListener;
 
 public class Client implements SerialPortEventListener {
 	// LattePanda ID
-	// latte_1A : 1A 구역에서 가동되는 IoT 클라이언트
-	static String latteId = "latte_1A";
+	// latte_1_A : 1A 구역에서 가동되는 IoT 클라이언트
+	static String latteId = "latte_1_A";
 	
 	// 멤버 변수
 	int port;
@@ -96,7 +96,9 @@ public class Client implements SerialPortEventListener {
 		sender = new Sender(socket);
 		new Receiver(socket).start();
 		
-		Msg msg = new Msg(null, id, latteId);	// Hand Shake : latte_1A : Server>Server.java
+		// 최초 연결 시 msg type: "first"
+		Msg msg = new Msg(id, "first", "First Connection");
+		System.out.println(msg);
 		sender.setMsg(msg);
 		new Thread(sender).start();
 	}
@@ -104,14 +106,14 @@ public class Client implements SerialPortEventListener {
 	public void sendTarget(String ip, String cmd) {
 		// ArrayList<String> ips = new ArrayList<String>();
 		// ips.add(ip);
-		Msg msg = new Msg(id, cmd);
+		Msg msg = new Msg(id, null, cmd);
 //		sender.setMsg(msg);
 		new Thread(sender).start();
 	}
 
-	// 메세지 입력받음
+	// Send 센서데이터 to 서버 through TCP/IP소켓통신 
 	public void sendTcpip(String ss) {
-		Msg msg = new Msg(null, id, ss);
+		Msg msg = new Msg(id, "ssRaw", ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
 //		if (socket != null) {
@@ -190,8 +192,8 @@ public class Client implements SerialPortEventListener {
 						}
 						continue;
 					}
-					System.out.println(msg.getId() + msg.getMsg());
-
+					System.out.println("RECEIVED DATA: " + msg.getId() + msg.getMsg());
+					System.out.println("여기서 안드탭에 보내면 되겠다!");
 					// mobile client에서 보낸 메세지를 IoT Client로 전송
 					sendIoT(msg.getMsg());
 				} catch (Exception e) {
@@ -264,7 +266,7 @@ public class Client implements SerialPortEventListener {
 
 				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
 				ss = ss.trim();
-				System.out.println("Receive Raw Data:" + ss + "||");
+				System.out.println("RAW DATA From ARDUINO:" + ss + "||");
 
 				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
 				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
@@ -379,7 +381,7 @@ public class Client implements SerialPortEventListener {
 				con.setReadTimeout(5000);
 				con.setRequestMethod("POST");
 				con.getInputStream();
-				System.out.println("data:" + data);
+				System.out.println("SEND DATA HTTP:" + data);
 			} catch (Exception e) {
 
 			} finally {
@@ -413,7 +415,7 @@ public class Client implements SerialPortEventListener {
 		getProp();
 		try {
 			// TCP/IP Server 연결 초기화
-			Client client = new Client(tcpipIp, tcpipPort, "["+latteId+"]");
+			Client client = new Client(tcpipIp, tcpipPort, latteId);
 			client.connect();
 			
 		} catch (Exception e) {
