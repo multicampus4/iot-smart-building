@@ -13,27 +13,23 @@ public class Msg implements Serializable {
 	private HashMap<String, Msg> maps;
 	private ArrayList<String> ips;
 	private String id;
-	private String msg;
 	private String type;
+	private String msg;
 	
 	public Msg() {
 	}
 	
-	public Msg(String id, String msg) {
-		this.id = id;
-		this.msg = msg;
-	}
-	
-	public Msg(String id, String msg, String type) {
+	public Msg(String id, String type, String msg) {
 		super();
 		this.id = id;
-		this.msg = msg;
 		this.type = type;
+		this.msg = msg;
 	}
 
-	public Msg(ArrayList<String> ips, String id, String msg) {
+	public Msg(ArrayList<String> ips, String id, String type, String msg) {
 		this.ips = ips;
 		this.id = id;
+		this.type = type;
 		this.msg = msg;
 	}
 
@@ -44,13 +40,13 @@ public class Msg implements Serializable {
 		this.msg = msg;
 	}
 	
-	public Msg(HashMap<String, Msg> maps, ArrayList<String> ips, String id, String msg, String type) {
-		super();
+	public Msg(HashMap<String, Msg> maps, ArrayList<String> ips, String id, String type, String msg) {
 		this.maps = maps;
 		this.ips = ips;
 		this.id = id;
-		this.msg = msg;
 		this.type = type;
+		this.type = type;
+		this.msg = msg;
 	}
 
 	public HashMap<String, Msg> getMaps() {
@@ -95,8 +91,8 @@ public class Msg implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Msg [maps=" + maps + ", ips=" + ips + ", id=" + id + ", msg=" + msg + ", type=" + type + "]";
+		return "Msg [maps=" + maps + ", ips=" + ips + ", id=" + id + ", type=" + type + ", msg=" + msg + "]";
 	}
-	
+
 	
 }
