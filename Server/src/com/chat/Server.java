@@ -27,7 +27,9 @@ public class Server {
 	ServerSocket serverSocket;											// SErverSocket 객체
 	
 	// client들의 메세지를 받는다.
-	HashMap<String, ObjectOutputStream> maps;							// 해쉬맵<IP주소, 해당 아웃풋스트림>
+	HashMap<String, ObjectOutputStream> maps;	// HashMap<IP주소, 해당 아웃풋스트림>
+	HashMap<String, String> idipMaps;			// HashMap<클라이언트id, 클라이언트ip> for sendTarget
+												// ex) <latte_1_A, 192.168.1.11>
 	
 	// sendTarget 위한 ip주소 선언 >> hashMap 관리방식으로 변경하기!
 	String targetIp = null;
@@ -41,6 +43,8 @@ public class Server {
 	public Server(int port) {
 		this.port = port;
 		maps = new HashMap<>();
+		idipMaps = new HashMap<>();
+		
 	}
 	
 	// 서버를 시작하는 startServer() 함수
@@ -105,8 +109,50 @@ public class Server {
 				
 				try {
 					msg = (Msg) oi.readObject();
-					String[] dataArr = msg.getMsg().split("_");
-					System.out.println(Arrays.deepToString(dataArr));
+					System.out.println(msg);
+					
+//					String[] dataArr = msg.getId().split("_", 2);	// split : 처음 "_" 기준 두개로 나누어 저장
+//					System.out.println(Arrays.deepToString(dataArr));
+//					switch (dataArr[0]) {
+//					case "latte":	// latte_1A :: latte_2B :: latte_2A
+//						System.out.println("LATETETE");
+//						System.out.println(socket.getInetAddress().toString());
+//					}
+					switch(msg.getType()) {	// first :: ssRaw :: cmd 
+					case "first":
+						System.out.println("First");
+						idipMaps.put(msg.getId(), socket.getInetAddress().toString());
+						for(String key : idipMaps.keySet()){
+				            String value = idipMaps.get(key);
+				            System.out.println(key+" ::: "+value);
+				        }
+						break;
+					case "ssRaw":
+						System.out.println("Received Sensor Raw Data");
+						// From Lattes
+						// To (센서 raw 데이터 전송 대상)
+						// : 모바일 안드로이드(tcp/ip)
+						// : 웹대시보드 (websocket) >> 이건 여기서 취급 안함 >> 라떼에서 직접 통신
+						break;
+					case "command":
+						System.out.println("Received Command");
+						// From 웹대시보드, 모바일 안드로이드
+						// To (제어 명령어 전송 대상)
+						// : 각각의 라떼 IoT Client (1_A, 2_A, 2_B)
+						// web에서 보내는 메시지 예: 1_A_D_AIR_OFF
+						String[] split = msg.getMsg().split("_");
+						System.out.println(Arrays.deepToString(split));
+						String cmdArea = "latte_" + split[0] + "_" + split[1];
+						String cmdMsg = split[2] + "_" + split[3] + "_" + split[4];
+						System.out.println(cmdArea);
+						sendTarget(idipMaps.get(cmdArea), cmdMsg);
+						
+						break;
+					case "etc":
+						// 기타 메시지 처리
+						break;
+					}
+
 					
 					switch (msg.getMsg()) {
 					case "q": 											// "q" 입력시
@@ -119,10 +165,6 @@ public class Server {
 						System.out.println("ANDROID's IP" + targetIp);
 						sendTarget(targetIp, "Connected");
 						break;
-					case "latte":	//latte_1A :: latte_2B :: latte_2A
-						
-						
-						break;
 					case "iamLatte01":
 						targetIp2 = socket.getInetAddress().toString();
 						System.out.println("LATTE'S IP" + targetIp2);
@@ -133,7 +175,7 @@ public class Server {
 						break;
 
 					}
-					System.out.println("Received: " + msg.getId() + msg.getMsg());
+					System.out.println("Received: " + msg.getId() + " [" + msg.getType() + "] " + msg.getMsg());
 //					sendMsg(msg);
 					// ▲ 전체 클라이언트에 전송하면 중복 데이터 주고받고 난리나는 문제의 원인
 					// sendTarget으로 특정 클라이언트에만 데이터 전송
@@ -195,7 +237,7 @@ public class Server {
 		}
 		ArrayList<String> ips = new ArrayList<String>();					// IP를 담을 문자열 ArrayList 선언
 		ips.add(ip);														// ArrayList에 IP저장
-		Msg msg = new Msg(ips,id,cmd);										// IP ArrayList, ID, 메시지 내용을 담는 Msg 생성자를 이용
+		Msg msg = new Msg(ips, "MainServer","command", cmd);										// IP ArrayList, ID, 메시지 내용을 담는 Msg 생성자를 이용
 		Sender sender = new Sender();										// Sender 객체 선언
 		sender.setMsg(msg);											// sender에 msg 저장
 		new Thread(sender).start();											// sender 쓰레드 실행

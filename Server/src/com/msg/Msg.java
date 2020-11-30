@@ -32,19 +32,11 @@ public class Msg implements Serializable {
 		this.type = type;
 		this.msg = msg;
 	}
-
-	public Msg(HashMap<String, Msg> maps, ArrayList<String> ips, String id, String msg) {
-		this.maps = maps;
-		this.ips = ips;
-		this.id = id;
-		this.msg = msg;
-	}
 	
 	public Msg(HashMap<String, Msg> maps, ArrayList<String> ips, String id, String type, String msg) {
 		this.maps = maps;
 		this.ips = ips;
 		this.id = id;
-		this.type = type;
 		this.type = type;
 		this.msg = msg;
 	}
