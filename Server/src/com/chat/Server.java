@@ -119,7 +119,7 @@ public class Server {
 						System.out.println("ANDROID's IP" + targetIp);
 						sendTarget(targetIp, "Connected");
 						break;
-					case "latte":	//latte_1A / latte_2B
+					case "latte":	//latte_1A :: latte_2B :: latte_2A
 						
 						
 						break;
