@@ -104,7 +104,7 @@
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
 				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
 				
-				// 실시간 데이터 상태에 따른 색상 표시
+				// 실시간 데이터 상태에 따른 색상 표시(실시간 데이터 규격 결정 시 변경)
 				if(obj.tmp != "undefined"){
 					$("#1_A_S_TEMP").html("<h5>" + obj.tmp + "</h5>");
 					if(obj.tmp <= 23){
@@ -159,6 +159,11 @@
 	}
 	
 	$(document).ready(function() {
+		// 실시간 데이터 text 삽입 테스트, 배경색 변경 테스트
+		$("#1_A_S_TEMP span").text("12345");
+		$('#1_A_S_HUM span').css("color", "#e0201a");
+		// ----- 테스트 끝 ------
+		
 		setButtonState();
 		
 		$('#alert').click(function(){
