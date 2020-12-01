@@ -105,19 +105,11 @@ public class Server {
 		@Override
 		public void run() {
 			while(oi != null) {
-				Msg msg = null;											// Msg 객체인 변수 msg 초기화
-				
+				Msg msg = null;
 				try {
 					msg = (Msg) oi.readObject();
 					System.out.println(msg);
-					
-//					String[] dataArr = msg.getId().split("_", 2);	// split : 처음 "_" 기준 두개로 나누어 저장
-//					System.out.println(Arrays.deepToString(dataArr));
-//					switch (dataArr[0]) {
-//					case "latte":	// latte_1A :: latte_2B :: latte_2A
-//						System.out.println("LATETETE");
-//						System.out.println(socket.getInetAddress().toString());
-//					}
+
 					switch(msg.getType()) {	// first :: ssRaw :: cmd 
 					case "first":
 						System.out.println("First");
@@ -136,17 +128,15 @@ public class Server {
 						break;
 					case "command":
 						System.out.println("Received Command");
-						// From 웹대시보드, 모바일 안드로이드
-						// To (제어 명령어 전송 대상)
-						// : 각각의 라떼 IoT Client (1_A, 2_A, 2_B)
+						// Data From 웹대시보드, 모바일 안드로이드
+						// To 각 라떼 IoT Client (1_A, 2_A, 2_B)
 						// web에서 보내는 메시지 예: 1_A_D_AIR_OFF
 						String[] split = msg.getMsg().split("_");
-						System.out.println(Arrays.deepToString(split));
 						String cmdArea = "latte_" + split[0] + "_" + split[1];
-						String cmdMsg = split[2] + "_" + split[3] + "_" + split[4];
-						System.out.println(cmdArea);
-						sendTarget(idipMaps.get(cmdArea), cmdMsg);
-						
+						if(idipMaps.get(cmdArea) != null) {
+							String cmdAction = split[2] + "_" + split[3] + "_" + split[4];
+							sendTarget(idipMaps.get(cmdArea), cmdAction);
+						}										
 						break;
 					case "etc":
 						// 기타 메시지 처리
@@ -175,7 +165,7 @@ public class Server {
 						break;
 
 					}
-					System.out.println("Received: " + msg.getId() + " [" + msg.getType() + "] " + msg.getMsg());
+					System.out.println("Received: " + msg.getId() + " //" + msg.getType() + "// " + msg.getMsg());
 //					sendMsg(msg);
 					// ▲ 전체 클라이언트에 전송하면 중복 데이터 주고받고 난리나는 문제의 원인
 					// sendTarget으로 특정 클라이언트에만 데이터 전송
