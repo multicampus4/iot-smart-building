@@ -132,11 +132,16 @@ public class Server {
 						// To 각 라떼 IoT Client (1_A, 2_A, 2_B)
 						// web에서 보내는 메시지 예: 1_A_D_AIR_OFF
 						String[] split = msg.getMsg().split("_");
-						String cmdArea = "latte_" + split[0] + "_" + split[1];
-						if(idipMaps.get(cmdArea) != null) {
+						String cmdTargetL = "latte_" + split[0] + "_" + split[1];
+						String cmdTargetT = "tablet_" + split[0] + "_" + split[1];
+						if(idipMaps.get(cmdTargetL) != null) {
 							String cmdAction = split[2] + "_" + split[3] + "_" + split[4];
-							sendTarget(idipMaps.get(cmdArea), cmdAction);
-						}										
+							sendTarget(idipMaps.get(cmdTargetL), cmdAction);
+						}
+						if(idipMaps.get(cmdTargetT) != null) {
+							String cmdAction = split[2] + "_" + split[3] + "_" + split[4];
+							sendTarget(idipMaps.get(cmdTargetT), cmdAction);
+						}
 						break;
 					case "etc":
 						// 기타 메시지 처리
