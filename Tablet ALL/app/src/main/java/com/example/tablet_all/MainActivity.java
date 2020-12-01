@@ -6,9 +6,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,11 +29,15 @@ import static com.example.tablet_all.BuildConfig.tcpipPort;
 public class MainActivity extends AppCompatActivity {
     ActionBar actionBar;
     ConstraintLayout container1;
+    SoundPool soundPool;
+    SoundManager soundManager;
+    boolean play;
+    int playSoundId;
 
     TextView serverstat;        // 서버의 ON, OFF 상태
     TextView areastat;          // 상태 표시할 구역
     String onColor = "#3ac47d",
-            offColor = "#794c8a";   // ON, OFF 배경색
+            offColor = "#D5D5D5";   // ON, OFF 배경색
     String myArea;
 
     // TCP/IP 연결 정보
@@ -52,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
         container1 = findViewById(R.id.container1);
         actionBar = getSupportActionBar();
         actionBar.hide();
+
+        // 롤리팝 이상 버전일 경우
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            soundPool = new SoundPool.Builder().setMaxStreams(8).build();
+        } else {    // 롤리팝 이하
+            soundPool = new SoundPool(8, AudioManager.STREAM_MUSIC, 0);
+        }
+        soundManager = new SoundManager(this, soundPool);
+        soundManager.addSound(0, R.raw.turn_on);
+        soundManager.addSound(1, R.raw.turn_off);
 
     }
 
@@ -101,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     socket = new Socket(address, port);
                     break;
                 } catch (Exception e1) {
-                    runOnUiThread(new Runnable(){
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             serverstat.setText("OFF");
@@ -118,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         // 에러 수정 : Only the original thread that created a view hierarchy can touch its views
         // 문제 : 외부 Thread 에서 UI 변경 작업 시 에러 발생
         // 해결 : runOnUiThread로 UI Thread 호출하여 UI 변경
-        runOnUiThread(new Runnable(){
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 serverstat.setText("ON");
@@ -178,8 +193,10 @@ public class MainActivity extends AppCompatActivity {
                                     int dL = getResources().getIdentifier("L_" + deviceId, "id", getPackageName());
                                     if (deviceStat.equals("ON")) {
                                         ((LinearLayout) findViewById(dL)).setBackgroundColor(Color.parseColor(onColor));
+                                        soundManager.playSound(0);
                                     } else if (deviceStat.equals("OFF")) {
                                         ((LinearLayout) findViewById(dL)).setBackgroundColor(Color.parseColor(offColor));
+                                        soundManager.playSound(1);
                                     }
                                 } catch (Exception e) {
                                     // 다른 층이나 구역의 DEVICE 신호가 들어올 때 에러
@@ -255,3 +272,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+

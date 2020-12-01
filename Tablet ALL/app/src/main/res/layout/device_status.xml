@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="com.example.tablet_1_a.MainActivity">
+    tools:context="com.example.tablet_all.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#794c8a"
+            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="40dp">
@@ -91,7 +91,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#794c8a"
+            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="30dp">
@@ -121,7 +121,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#794c8a"
+            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="30dp">
@@ -151,7 +151,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#794c8a"
+            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="30dp">
@@ -189,7 +189,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#794c8a"
+            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="30dp">
@@ -219,7 +219,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#794c8a"
+            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="30dp">
@@ -249,7 +249,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#794c8a"
+            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="30dp">
