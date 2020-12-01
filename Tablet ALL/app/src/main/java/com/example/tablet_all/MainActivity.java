@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
@@ -31,14 +32,12 @@ public class MainActivity extends AppCompatActivity {
     ConstraintLayout container1;
     SoundPool soundPool;
     SoundManager soundManager;
-    boolean play;
-    int playSoundId;
 
     TextView serverstat;        // 서버의 ON, OFF 상태
     TextView areastat;          // 상태 표시할 구역
     String onColor = "#3ac47d",
             offColor = "#D5D5D5";   // ON, OFF 배경색
-    String myArea;
+    String myArea;              // 1_A, 2_A 등의 구역
 
     // TCP/IP 연결 정보
     int port;
@@ -60,13 +59,19 @@ public class MainActivity extends AppCompatActivity {
 
         // 롤리팝 이상 버전일 경우
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            soundPool = new SoundPool.Builder().setMaxStreams(8).build();
+            AudioAttributes attributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_GAME)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+            soundPool = new SoundPool.Builder()
+                    .setAudioAttributes(attributes)
+                    .setMaxStreams(4).build();
         } else {    // 롤리팝 이하
-            soundPool = new SoundPool(8, AudioManager.STREAM_MUSIC, 0);
+            soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 0);
         }
         soundManager = new SoundManager(this, soundPool);
-        soundManager.addSound(0, R.raw.turn_on);
-        soundManager.addSound(1, R.raw.turn_off);
+        soundManager.addSound(0, R.raw.turn_on_mp348);
+        soundManager.addSound(1, R.raw.turn_off_mp348);
 
     }
 
