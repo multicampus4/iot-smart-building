@@ -7,6 +7,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
     ConstraintLayout container1;
 
     TextView serverstat;        // 서버의 ON, OFF 상태
-    String onColor, offColor;   // ON, OFF 배경색
+    TextView areastat;          // 상태 표시할 구역
+    String onColor = "#3ac47d",
+            offColor = "#794c8a";   // ON, OFF 배경색
     String myArea;
 
     // TCP/IP 연결 정보
@@ -67,13 +71,13 @@ public class MainActivity extends AppCompatActivity {
         container1.removeAllViews();
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.device_status, container1, true);
-        serverstat = findViewById(R.id.textView10); //inflater 화면을 그리고 findView 호출
+        serverstat = findViewById(R.id.textView10); // inflater 화면을 그린 후 findView 호출
+        areastat = findViewById(R.id.textView12);
 
         port = tcpipPort;
         address = tcpipIp;
         id = "tablet_" + myArea;
         new Thread(con).start();
-
     }
 
     Runnable con = new Runnable() {
@@ -97,7 +101,12 @@ public class MainActivity extends AppCompatActivity {
                     socket = new Socket(address, port);
                     break;
                 } catch (Exception e1) {
-//                    serverstat.setText("OFF");
+                    runOnUiThread(new Runnable(){
+                        @Override
+                        public void run() {
+                            serverstat.setText("OFF");
+                        }
+                    });
                     System.out.println("Retry ...");
                 }
             }
@@ -105,7 +114,19 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Connected Server: " + address);
         sender = new Sender(socket);
         new Receiver(socket).start();
-        serverstat.setText("ON");
+
+        // 에러 수정 : Only the original thread that created a view hierarchy can touch its views
+        // 문제 : 외부 Thread 에서 UI 변경 작업 시 에러 발생
+        // 해결 : runOnUiThread로 UI Thread 호출하여 UI 변경
+        runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                serverstat.setText("ON");
+                areastat.setText(myArea);
+            }
+        });
+
+
         getInitial();
     }
 

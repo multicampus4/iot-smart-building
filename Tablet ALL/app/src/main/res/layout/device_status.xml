@@ -32,6 +32,21 @@
             android:layout_weight="1"
             android:text="OFF"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="Area : " />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="null" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="에어컨"
+                android:text="냉난방기"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

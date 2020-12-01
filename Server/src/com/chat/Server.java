@@ -134,13 +134,15 @@ public class Server {
 						String[] split = msg.getMsg().split("_");
 						String cmdTargetL = "latte_" + split[0] + "_" + split[1];
 						String cmdTargetT = "tablet_" + split[0] + "_" + split[1];
+						// Target : Latte
 						if(idipMaps.get(cmdTargetL) != null) {
 							String cmdAction = split[2] + "_" + split[3] + "_" + split[4];
 							sendTarget(idipMaps.get(cmdTargetL), cmdAction);
 						}
+						// Target : Tablet
 						if(idipMaps.get(cmdTargetT) != null) {
 							String cmdAction = split[2] + "_" + split[3] + "_" + split[4];
-							sendTarget(idipMaps.get(cmdTargetT), cmdAction);
+							sendTarget(idipMaps.get(cmdTargetT), msg.getMsg());
 						}
 						break;
 					case "etc":
