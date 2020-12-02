@@ -154,11 +154,11 @@ public class MainActivity extends AppCompatActivity {
     public void clickBt(View v){
         Msg msg = null;                                                                              // Msg 객체 초기화
         if(v.getId() == R.id.bt_start){                                                              // "Start" 버튼을 누르면
-            msg = new Msg(id, "command","ledStart");
+            msg = new Msg(id, "command","1_A_D_디바이스_액션");
             sender.setMsg(msg);
             new Thread(sender).start();
         }else if(v.getId() == R.id.bt_stop){                                                         // "Stop" 버튼을 누르면
-            msg = new Msg(id, "command","ledStop");
+            msg = new Msg(id, "command","1_A_D_디바이스_액션");
             sender.setMsg(msg);
             new Thread(sender).start();
         }else if(v.getId() == R.id.bt_conn){

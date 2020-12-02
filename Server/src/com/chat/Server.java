@@ -115,38 +115,33 @@ public class Server {
 						System.out.println("First");
 						idipMaps.put(msg.getId(), socket.getInetAddress().toString());
 						sendTarget(idipMaps.get(msg.getId()), "MAIN Server",msg.getType(),"SUCCESS Connection (FROM Server)");
-						for(String key : idipMaps.keySet()){
+						for(String key : idipMaps.keySet()){	//해쉬맵 idipMaps 전체 출력
 				            String value = idipMaps.get(key);
 				            System.out.println(key+" ::: "+value);
 				        }
 						break;
-					case "ssRaw":
-						System.out.println("Received Sensor Raw Data");
-						// From Lattes
-						// To (센서 raw 데이터 전송 대상)
-						// : 모바일 안드로이드(tcp/ip)
-						// : 웹대시보드 (websocket) >> 이건 여기서 취급 안함 >> 라떼에서 직접 통신
-						sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
+					case "ssRaw":	// (라떼)에서 오는 센서데이터 > 안드로이드로 Send Target
+						if(idipMaps.get("mobileApp") != null) {
+							sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
+						}
 						break;
-					case "command":
-						System.out.println("Received Command");
-						// Data From 웹대시보드, 모바일 안드로이드
-						// To 각 라떼 IoT Client (1_A, 2_A, 2_B)
-						// web에서 보내는 메시지 예: 1_A_D_AIR_OFF
+					case "command":	// (웹),(안드로이드)에서 오는 제어명령 > 라떼로 Send Target
+						// 라떼 구분 ID : 1_A, 2_A, 2_B
+						// 제어명령의 예: 1_A_D_AIR_OFF
 						String[] split = msg.getMsg().split("_");
 						String cmdTargetL = "latte_" + split[0] + "_" + split[1];
 						String cmdTargetT = "tablet_" + split[0] + "_" + split[1];
-						// Target : Latte
-						if(idipMaps.get(cmdTargetL) != null) {
+						
+						if(idipMaps.get(cmdTargetL) != null) {	// Target : Latte
 							String cmdAction = split[2] + "_" + split[3] + "_" + split[4];
 							sendTarget(idipMaps.get(cmdTargetL), msg.getId(), msg.getType(), cmdAction);
 						}
-						// Target : Tablet
-						if(idipMaps.get(cmdTargetT) != null) {
+						
+						if(idipMaps.get(cmdTargetT) != null) {	// Target : Tablet
 							sendTarget(idipMaps.get(cmdTargetT), msg.getId(), msg.getType(), msg.getMsg());
 						}
-						// Target : Mobile App
-						if(idipMaps.get("mobileApp") != null) {
+						
+						if(idipMaps.get("mobileApp") != null) {	// Target : Mobile App
 							sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
 						}
 						break;
@@ -164,17 +159,17 @@ public class Server {
 						System.out.println("bye Android");
 						throw new Exception();
 					case "iamAndroid": 									// Hand Shake 메시지로 sendTarget 실행할 IP 저장
-						targetIp = socket.getInetAddress().toString();
-						System.out.println("ANDROID's IP" + targetIp);
+//						targetIp = socket.getInetAddress().toString();
+//						System.out.println("ANDROID's IP" + targetIp);
 //						sendTarget(targetIp, "Connected");
 						break;
 					case "iamLatte01":
-						targetIp2 = socket.getInetAddress().toString();
-						System.out.println("LATTE'S IP" + targetIp2);
+//						targetIp2 = socket.getInetAddress().toString();
+//						System.out.println("LATTE'S IP" + targetIp2);
 						break;
 					case "iamTablet":
-						targetIp3 = socket.getInetAddress().toString();
-						System.out.println("TABLET'S IP" + targetIp3);
+//						targetIp3 = socket.getInetAddress().toString();
+//						System.out.println("TABLET'S IP" + targetIp3);
 						break;
 
 					}
@@ -212,9 +207,10 @@ public class Server {
 					// idipMaps는 IP주소가 Value값이므로 위의 방법처럼 삭제할 수 없음
 					// 따라서 Value 값으로 Key값을 찾아 삭제한다.
 					// ===================== 그런데 =====================
-					// AWS에 올려서 돌릴 경우, 같은 AP로 다중 기기를 접속하면 똑같은 Public IP로 잡힐것 같음
+					// AWS에 올려서 돌릴 경우 같은 AP로 다중 기기를 접속하면 
+					// 똑같은 Public IP로 잡힐것 같음
 					// 이 경우 확인해봐야 할듯
-					// ================================================ 2020-12-02
+					// ================================================ (2020-12-02)
 					String byeId = getKey(idipMaps, socket.getInetAddress().toString());
 					idipMaps.remove(byeId);
 					
@@ -263,12 +259,12 @@ public class Server {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		ArrayList<String> ips = new ArrayList<String>();					// IP를 담을 문자열 ArrayList 선언
-		ips.add(ip);														// ArrayList에 IP저장
-		Msg msg = new Msg(ips, senderId, type, cmd);					// IP ArrayList, ID, 메시지 내용을 담는 Msg 생성자를 이용
-		Sender sender = new Sender();										// Sender 객체 선언
-		sender.setMsg(msg);											// sender에 msg 저장
-		new Thread(sender).start();											// sender 쓰레드 실행
+		ArrayList<String> ips = new ArrayList<String>();	// IP를 담을 문자열 ArrayList 선언
+		ips.add(ip);										// ArrayList에 IP저장
+		Msg msg = new Msg(ips, senderId, type, cmd);		// IP ArrayList, ID, 메시지 내용을 담는 Msg 생성자를 이용
+		Sender sender = new Sender();						// Sender 객체 선언
+		sender.setMsg(msg);
+		new Thread(sender).start();
 	}
 	
 	// client들에게 메세지 전송한다.
@@ -285,7 +281,7 @@ public class Server {
 			Iterator<ObjectOutputStream> it = cols.iterator();
 			while(it.hasNext()) {
 				try {
-					System.out.println("AAAAAA" + msg);
+					System.out.println("SEND TARGET 할 메시지: " + msg);
 					if(msg.getIps() != null) {								// 만약 Msg 객체 변수 중 IP Arraylist 안이 null이 아니면
 //						System.out.println("Sender class msg: "+msg);
 						for(String ip: msg.getIps()) {						// ips에 저장된 특정 클라이언트들만 대상으로 한다.
