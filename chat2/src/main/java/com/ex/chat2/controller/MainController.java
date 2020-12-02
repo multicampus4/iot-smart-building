@@ -50,7 +50,7 @@ public class MainController {
 	
 	public MainController() {
 		getProp();
-		client = new Client(tcpipIp, tcpipPort, "[WEB]");
+		client = new Client(tcpipIp, tcpipPort, "WebAdmin");
 		try {
 			client.connect();
 		} catch (IOException e) {

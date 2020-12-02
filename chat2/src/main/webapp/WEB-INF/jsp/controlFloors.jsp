@@ -1,13 +1,13 @@
-<div class="main-card mb-3 card">
+<div class="main-card mb-1 card m-10">
 	<div class="card-header">
 		<i class="header-icon lnr-gift icon-gradient bg-grow-early"> </i>The
 		Floor View
 		<div class="btn-actions-pane-right">
 			<div class="nav">
 				<a data-toggle="tab" href="#tab-eg4-0"
-					class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-danger">F1</a>
+					class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-danger">Floor 1</a>
 				<a data-toggle="tab" href="#tab-eg4-1"
-					class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-danger">F2</a>
+					class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-danger">Floor 2</a>
 			</div>
 		</div>
 	</div>
@@ -15,220 +15,399 @@
 	<!-- tab contents (Real-time Data, ON/OFF Button) -->
 	<div class="card-body">
 		<div class="tab-content">
+
+			<!-- 1층 -->
 			<div class="tab-pane active" id="tab-eg4-0" role="tabpanel">
-
 				<div class="row">
-					<div class="col-md-6">
-						<h5>Area A</h5>
+					<div class="col-md-12">
+
+						<!-- A구역 실시간 데이터 -->
+						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
-							<div>
-								<h5>TEMP</h5>
-								<div class="sensors m-2" id="1_A_S_TEMP"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">TEMPERATURE</div>
+											<div class="widget-subheading">(â)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers" id="1_A_S_TEMP">
+												<span></span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<h5>HUM</h5>
-								<div class="sensors m-2" id="1_A_S_HUM"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">HUMIDITY</div>
+											<div class="widget-subheading">(%)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers" id="1_A_S_HUM">
+												<span>12345</span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<h5>DUST</h5>
-								<div class="sensors m-2" id="1_A_S_DUST"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">FINE DUST</div>
+											<div class="widget-subheading">(Î¼m)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers" id="1_A_S_DUST">
+												<span>12345</span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<h5>ILLM</h5>
-								<div class="sensors m-2" id="1_A_S_ILLM"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">AMBIENT LIGHT</div>
+											<div class="widget-subheading">(lx)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers text-white" id="1_A_S_ILLM">
+												<span></span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
+
+						<!-- A구역 제어 버튼 -->
+						<div class="main-card mb-1 text-center">
+							<div class="card-body table-responsive">
+								<table class="mb-0 table">
+									<thead>
+										<tr>
+											<th>AIR CONDITIONER</th>
+											<th>HUMIDIFIER</th>
+											<th>AIR CLEANER</th>
+											<th>LED</th>
+											<th>ELECTRICITY</th>
+											<th>WATER</th>
+											<th>GAS</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_A_D_AIR"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_A_D_HUM"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_A_D_AIRCL"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_A_D_LED"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_A_D_ELEC"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_A_D_WAT"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_A_D_GAS"> <span class="slider round"></span>
+												</label>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
 						<div class="divider"></div>
-						<h5>Area B</h5>
+
+						<!-- B구역 실시간 데이터 -->
+						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  B</div>
 						<div class="row text-center">
-							<div>
-								<h5>TEMP</h5>
-								<div class="sensors m-2" id="1_B_S_TEMP"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">TEMPERATURE</div>
+											<div class="widget-subheading">(â)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers text-white" id="1_B_S_TEMP">
+												<span></span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<h5>HUM</h5>
-								<div class="sensors m-2" id="1_B_S_HUM"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">HUMIDITY</div>
+											<div class="widget-subheading">(%)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers text-white" id="1_B_S_HUM">
+												<span></span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<h5>DUST</h5>
-								<div class="sensors m-2" id="1_B_S_DUST"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">FINE DUST</div>
+											<div class="widget-subheading">(Î¼m)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers text-white" id="1_B_S_DUST">
+												<span></span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<h5>ILLM</h5>
-								<div class="sensors m-2" id="1_B_S_ILLM"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">AMBIENT LIGHT</div>
+											<div class="widget-subheading">(lx)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers text-white" id="1_B_S_ILLM">
+												<span></span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="floor_1_A col-md-3">
-						<div>Area A</div>
-						<div>Air Conditioner</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_A_D_AIR">OFF</button>
+						<!-- B구역 제어 버튼 -->
+						<div class="main-card mb-1 text-center">
+							<div class="card-body table-responsive pb-0">
+								<table class="mb-0 table">
+									<thead>
+										<tr>
+											<th>AIR CONDITIONER</th>
+											<th>HUMIDIFIER</th>
+											<th>AIR CLEANER</th>
+											<th>LED</th>
+											<th>ELECTRICITY</th>
+											<th>WATER</th>
+											<th>GAS</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_B_D_AIR"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_B_D_HUM"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_B_D_AIRCL"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_B_D_LED"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_B_D_ELEC"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_B_D_WAT"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="1_B_D_GAS"> <span class="slider round"></span>
+												</label>
+											</td>
+									</tbody>
+								</table>
+							</div>
 						</div>
-						<div>Humidifier</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_A_D_HUM">OFF</button>
-						</div>
-						<div>Air Cleaner</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_A_D_AIRCL">OFF</button>
-						</div>
-						<div>LED</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_A_D_LED">OFF</button>
-						</div>
-						<div>Electricity</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_A_D_ELEC">OFF</button>
-						</div>
-						<div>Water</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_A_D_WAT">OFF</button>
-						</div>
-						<div>Gas</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_A_D_GAS">OFF</button>
-						</div>
-					</div>
 
-					<div class="floor_1_B col-md-3">
-						<div>Area B</div>
-						<div>Air Conditioner</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_B_D_AIR">OFF</button>
-						</div>
-						<div>Humidifier</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_B_D_HUM">OFF</button>
-						</div>
-						<div>Air Cleaner</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_B_D_AIRCL">OFF</button>
-						</div>
-						<div>LED</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_B_D_LED">OFF</button>
-						</div>
-						<div>Electricity</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_B_D_ELEC">OFF</button>
-						</div>
-						<div>Water</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_B_D_WAT">OFF</button>
-						</div>
-						<div>Gas</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="1_B_D_GAS">OFF</button>
-						</div>
 					</div>
 				</div>
 			</div>
 
-
+			<!-- 2층 -->
 			<div class="tab-pane" id="tab-eg4-1" role="tabpanel">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-12">
+
 						<h5>Area A</h5>
 						<div class="row text-center">
-							<div>
-								<h5>TEMP</h5>
-								<div class="sensors m-2" id="2_A_S_TEMP"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">TEMPERATURE</div>
+											<div class="widget-subheading">(â)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers text-white" id="2_A_S_TEMP">
+												<span></span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<h5>HUM</h5>
-								<div class="sensors m-2" id="2_A_S_HUM"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">HUMIDITY</div>
+											<div class="widget-subheading">(%)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers text-white" id="2_A_S_HUM">
+												<span></span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<h5>DUST</h5>
-								<div class="sensors m-2" id="2_A_S_DUST"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">FINE DUST</div>
+											<div class="widget-subheading">(Î¼m)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers text-white" id="2_A_S_DUST">
+												<span></span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<h5>ILLM</h5>
-								<div class="sensors m-2" id="2_A_S_ILLM"></div>
+							<div class="col-lg-6 col-xl-3">
+								<div class="card mb-1 widget-content sensordata">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left">
+											<div class="widget-heading">AMBIENT LIGHT</div>
+											<div class="widget-subheading">(lx)</div>
+										</div>
+										<div class="widget-content-right">
+											<div class="widget-numbers text-white" id="2_A_S_ILLM">
+												<span></span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="floor_2_A col-md-6">
-						<div>Area A</div>
-						<div>Air Conditioner</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="2_A_D_AIR">OFF</button>
+
+						<!-- A구역 제어 버튼 -->
+						<div class="main-card mb-1 text-center">
+							<div class="card-body table-responsive">
+								<table class="mb-0 table">
+									<thead>
+										<tr>
+											<th>AIR CONDITIONER</th>
+											<th>HUMIDIFIER</th>
+											<th>AIR CLEANER</th>
+											<th>LED</th>
+											<th>ELECTRICITY</th>
+											<th>WATER</th>
+											<th>GAS</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="2_A_D_AIR"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="2_A_D_HUM"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="2_A_D_AIRCL"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="2_A_D_LED"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="2_A_D_ELEC"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="2_A_D_WAT"> <span class="slider round"></span>
+												</label>
+											</td>
+											<td>
+												<label class="switch"> <input type="checkbox"
+													id="2_A_D_GAS"> <span class="slider round"></span>
+												</label>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
-						<div>Humidifier</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="2_A_D_HUM">OFF</button>
-						</div>
-						<div>Air Cleaner</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="2_A_D_AIRCL">OFF</button>
-						</div>
-						<div>LED</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="2_A_D_LED">OFF</button>
-						</div>
-						<div>Electricity</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="2_A_D_ELEC">OFF</button>
-						</div>
-						<div>Water</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="2_A_D_WAT">OFF</button>
-						</div>
-						<div>Gas</div>
-						<div class="btn-group-lg btn-group btn-group-toggle"
-							data-toggle="buttons">
-							<button type="button" class="btn btn-alternate d_btn"
-								id="2_A_D_GAS">OFF</button>
-						</div>
+
 					</div>
 				</div>
 			</div>
+			
 		</div>
 	</div>
 </div>
+
 
 
 <script>
@@ -249,18 +428,13 @@
 		var stat;
 		var device;
 
-		$('.d_btn').click(function() {
+		// on, off ui íì¤í¸
+		$("input[type='checkbox']").click(function(){
 			device = $(this).attr('id');
-			if ($(this).hasClass("active")) {
-				stat = 'OFF';
-				$(this).text('OFF');
-				$(this).css('background-color', '#794c8a'); // off ìì
-				$(this).css('border-color', '#794c8a');
-			} else {
+			if ($(this).is(":checked")) {
 				stat = 'ON';
-				$(this).text('ON');
-				$(this).css('background-color', '#3ac47d'); // on ìì
-				$(this).css('border-color', '#3ac47d');
+			}else{
+				stat = 'OFF';
 			}
 			execAjax(stat, device);
 		});
@@ -269,18 +443,69 @@
 </script>
 
 <style>
-.sensors {
-	background-color: #dcdcdc;
-	width: 60px;
-	height: 60px;
-	overflow: auto;
-	text-align:center;
+.sensordata {
+	background-color: #f1f3f5;
 }
 
-.sensors h5 {
-	color: #fff;
-	text-align: center;
+/* on, off ui íì¤í¸ */
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  vertical-align:middle;
 }
 
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .2s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 
 </style>

@@ -18,9 +18,16 @@ package com.ex.chat2.controller;
 
 	@Controller
 	public class ChartController {
+<<<<<<< HEAD
 		String url="jdbc:oracle:thin:@192.168.25.57:1521:xe";
 		String id ="final_db";
 		String password ="111111";
+=======
+
+		String url="jdbc:oracle:thin:@database-1.chookpxses6b.ap-northeast-2.rds.amazonaws.com:1521:ORCL";
+		String id ="admin";
+		String password ="2020final";
+>>>>>>> fe9034b85e4cab4bd4e3a63d29f255de96ae82e4
 		public ChartController() {
 			try {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
