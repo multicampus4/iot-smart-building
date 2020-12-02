@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         try{
-            Msg msg = new Msg(null, id, "byeAndroid");       // "byeAndroid" 라는 메시지를 담아
+            Msg msg = new Msg(id, "etc", "byeAndroid");       // "byeAndroid" 라는 메시지를 담아
             sender.setMsg(msg);                               // 메시지 전송 :: 메시지 안 가는 듯 >> 수정필요
             new Thread(sender).start();                       // sender 쓰레드 시작
             if(socket != null){
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     // 서버 접속 시, 접속했음을 클라이언트들에게 메시지 전송
     private void getList() {
         Log.d("[태그]","---------여기까지왔는가-----------");
-        Msg msg = new Msg(null, id,"iamAndroid");                                             // Hand Shake : iamAndroid : Server>Server.java
+        Msg msg = new Msg(id, "first","iamAndroid");                                             // Hand Shake : iamAndroid : Server>Server.java
         // Msg 객체의 msg 변수 선언 (메시지) ex: 님이 참가하셨습니다.
         sender.setMsg(msg);                                                                             // sender 쓰레드에 메시지 내용 저장
         new Thread(sender).start();                                                                     // 메시지 내용에 대해 sender 쓰레드 실행.
@@ -154,17 +154,17 @@ public class MainActivity extends AppCompatActivity {
     public void clickBt(View v){
         Msg msg = null;                                                                              // Msg 객체 초기화
         if(v.getId() == R.id.bt_start){                                                              // "Start" 버튼을 누르면
-            msg = new Msg(id,"ledStart");
+            msg = new Msg(id, "command","ledStart");
             sender.setMsg(msg);
             new Thread(sender).start();
         }else if(v.getId() == R.id.bt_stop){                                                         // "Stop" 버튼을 누르면
-            msg = new Msg(id,"ledStop");
+            msg = new Msg(id, "command","ledStop");
             sender.setMsg(msg);
             new Thread(sender).start();
         }else if(v.getId() == R.id.bt_conn){
             port = tcpipPort;       // git 로컬폴더의 my.properties 에 저장된 값 할당
             address = tcpipIp;
-            id = "[osh_switch]";
+            id = "mobileApp";
             new Thread(con).start();
         }
         // sender 쓰레드 실행
@@ -240,8 +240,9 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             String tx = tx_data.getText().toString();                                   // 기존에 tx_data에 있는 내용을 tx에 넣고
-                            tx_data.setText("[ID]"+finalMsg.getId() + " [MSG]"
-                                    + finalMsg.getMsg() +"\n"+tx);                                      // 메시지를 보낸 ID와 메시지 내용을 담은 내용을 추가로 담는다
+                            tx_data.setText("[ID]" + finalMsg.getId()
+                                    + " [TYPE]" + finalMsg.getType()
+                                    + " [MSG]" + finalMsg.getMsg() +"\n"+tx);                           // 메시지를 보낸 ID와 메시지 내용을 담은 내용을 추가로 담는다
                         }                                                                               // 우리 눈에는 데이터가 계속해서 추가되는 것으롭 보인다.
                     });
                     Log.d(msg.getId() + msg.getMsg()," 이 로그는 Receiver에서 실행되었습니다.");
