@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.application'
+}
+
+def apiKeyPropertiesFile = rootProject.file("../my.properties")
+def apiKeyProperties = new Properties()
+apiKeyProperties.load(new FileInputStream(apiKeyPropertiesFile))
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.example.tablet_all"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // xml file
+//        resValue "string", "CLIENT_ID", apiKeyProperties['CLIENT_ID']
+//        resValue "string", "CLIENT_SECRET", apiKeyProperties['CLIENT_SECRET']
+
+        // java file
+        buildConfigField("String", "wsIp", '"' + apiKeyProperties['websocketIp'] + '"')
+        buildConfigField("String", "tcpipIp", '"' + apiKeyProperties['tcpipIp'] + '"')
+        buildConfigField("int", "wsPort", apiKeyProperties['websocketPort'])
+        buildConfigField("int", "tcpipPort", apiKeyProperties['tcpipPort'])
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
