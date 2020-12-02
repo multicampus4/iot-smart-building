@@ -195,7 +195,7 @@ public class Client implements SerialPortEventListener {
 					System.out.println("RECEIVED DATA: " + msg.getId() + msg.getMsg());
 					System.out.println("여기서 안드탭에 보내면 되겠다!");
 					// mobile client에서 보낸 메세지를 IoT Client로 전송
-//					sendIoT(msg.getMsg());
+					sendToArduino(msg.getMsg());
 				} catch (Exception e) {
 					// e.printStackTrace();
 					break;
@@ -296,7 +296,7 @@ public class Client implements SerialPortEventListener {
 		}
 	}
 
-	public void sendIoT(String cmd) {
+	public void sendToArduino(String cmd) {
 		Thread t1 = new Thread(new sendIoT(cmd));
 		t1.start();
 	}
