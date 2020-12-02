@@ -114,8 +114,12 @@ public class Server {
 					case "first":
 						System.out.println("First");
 						idipMaps.put(msg.getId(), socket.getInetAddress().toString());
-						sendTarget(idipMaps.get(msg.getId()), "MAIN Server",msg.getType(),"SUCCESS Connection (FROM Server)");
-						for(String key : idipMaps.keySet()){	//해쉬맵 idipMaps 전체 출력
+						sendTarget(idipMaps.get(msg.getId()),			// 발송대상 IP
+								"MAIN Server",							// 발송 주체
+								msg.getType(), 							// 메시지 유형
+								"SUCCESS Connection (FROM Server)");	// 메시지
+						//해쉬맵 idipMaps 전체 출력
+						for(String key : idipMaps.keySet()){	
 				            String value = idipMaps.get(key);
 				            System.out.println(key+" ::: "+value);
 				        }
@@ -155,22 +159,22 @@ public class Server {
 					switch (msg.getMsg()) {
 					case "q": 											// "q" 입력시
 						throw new Exception();							// 강제로 exception을 내서 client를 삭제한다.
-					case "byeAndroid":
-						System.out.println("bye Android");
-						throw new Exception();
-					case "iamAndroid": 									// Hand Shake 메시지로 sendTarget 실행할 IP 저장
+//					case "byeAndroid":
+//						System.out.println("bye Android");
+//						throw new Exception();
+//					case "iamAndroid": 									// Hand Shake 메시지로 sendTarget 실행할 IP 저장
 //						targetIp = socket.getInetAddress().toString();
 //						System.out.println("ANDROID's IP" + targetIp);
 //						sendTarget(targetIp, "Connected");
-						break;
-					case "iamLatte01":
+//						break;
+//					case "iamLatte01":
 //						targetIp2 = socket.getInetAddress().toString();
 //						System.out.println("LATTE'S IP" + targetIp2);
-						break;
-					case "iamTablet":
+//						break;
+//					case "iamTablet":
 //						targetIp3 = socket.getInetAddress().toString();
 //						System.out.println("TABLET'S IP" + targetIp3);
-						break;
+//						break;
 
 					}
 					System.out.println("Received: " + msg.getId() + " /// " + msg.getType() + " /// " + msg.getMsg());
