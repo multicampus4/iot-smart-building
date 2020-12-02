@@ -275,7 +275,7 @@ public class Client implements SerialPortEventListener {
 				JSONObject jsonTemp = new JSONObject();
 				jsonTemp = convertJson(ss);
 				if(jsonTemp != null) {
-					WsClient.send(convertJson(ss).toJSONString());	
+					WsClient.send(jsonTemp.toJSONString());	
 					jsonTemp.clear();
 				}				
 				
@@ -354,20 +354,23 @@ public class Client implements SerialPortEventListener {
 		
 		jsonObj.put("latteId", latteId);
 		for(int i=0; i<dataArr.length; i++) {
-			switch(dataArr[i].substring(0,3)) {
+			String tempStr = null;
+			try {
+				tempStr = dataArr[i].substring(0,3);
+			} catch(Exception e) {
+				System.out.println("SUBSTRING에서 예외 발생!!!!!!!!!!!!앜!!@!!!");
+				return null;
+			}
+			switch(tempStr) {
 			case "tmp":
 //				System.out.println("온도"+dataArr[i].substring(3));
-				if(dataArr[i].substring(3) != null) {
-					jsonObj.put("tmp", dataArr[i].substring(3));
-					continue;
-				} else {
-					return null;
-				}
+				jsonObj.put("tmp", dataArr[i].substring(3));
+				continue;
 			case "hum":
 //				System.out.println("습도"+dataArr[i].substring(3));
 				jsonObj.put("hum", dataArr[i].substring(3));
 				continue;
-			}	
+			}
 		}
 		return jsonObj;
 	}
