@@ -114,7 +114,7 @@ public class Server {
 					case "first":
 						System.out.println("First");
 						idipMaps.put(msg.getId(), socket.getInetAddress().toString());
-						sendTarget(idipMaps.get(msg.getId()), msg.getType(),"SUCCESS Connection (FROM Server)");
+						sendTarget(idipMaps.get(msg.getId()), "MAIN Server",msg.getType(),"SUCCESS Connection (FROM Server)");
 						for(String key : idipMaps.keySet()){
 				            String value = idipMaps.get(key);
 				            System.out.println(key+" ::: "+value);
@@ -126,7 +126,7 @@ public class Server {
 						// To (센서 raw 데이터 전송 대상)
 						// : 모바일 안드로이드(tcp/ip)
 						// : 웹대시보드 (websocket) >> 이건 여기서 취급 안함 >> 라떼에서 직접 통신
-						sendTarget(idipMaps.get("mobileApp"), msg.getType(), msg.getMsg());
+						sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
 						break;
 					case "command":
 						System.out.println("Received Command");
@@ -139,14 +139,15 @@ public class Server {
 						// Target : Latte
 						if(idipMaps.get(cmdTargetL) != null) {
 							String cmdAction = split[2] + "_" + split[3] + "_" + split[4];
-							sendTarget(idipMaps.get(cmdTargetL), msg.getType(), cmdAction);
+							sendTarget(idipMaps.get(cmdTargetL), msg.getId(), msg.getType(), cmdAction);
 						}
 						// Target : Tablet
 						if(idipMaps.get(cmdTargetT) != null) {
-							sendTarget(idipMaps.get(cmdTargetT), msg.getType(), msg.getMsg());
+							sendTarget(idipMaps.get(cmdTargetT), msg.getId(), msg.getType(), msg.getMsg());
 						}
+						// Target : Mobile App
 						if(idipMaps.get("mobileApp") != null) {
-							sendTarget(idipMaps.get("mobileApp"), msg.getType(), msg.getMsg());
+							sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
 						}
 						break;
 					case "etc":
@@ -184,27 +185,41 @@ public class Server {
 					// 지금 여기선 모바일앱이 sendTarget 대상
 					// 2020-11-18(재현)
 					// To-do : 로직 설계 제대로 해서 Null Exception 해결
-					// 원인 : 안드로이드 앱종료/재실행 액션 인지가 잘 안됨 
+					// 원인 : 안드로이드 앱종료/재실행 액션 인지가 잘 안됨
+					// 2020-12-02 (로직설계 개선)
+					// 1. 새로운 Msg VO로 Msg Type 구분
+					// 2. idipMaps 해시맵 <클라이언트id, IP주소>을 생성하여 각 클라이언트에 대한 IP 주소 관리
+					// 3. 이를 활용하여 sendTarget 함으로써 메시지 전송 안정화 
 					if(targetIp != null) {	// 센서데이터 > 안드로이드 전송 
 //						sendTarget(targetIp,msg.getMsg());
 //						System.out.println("To 안드로이드: "+ msg.getMsg());
-					}
-					if(msg.getId().equals("[WEB]") && targetIp2 != null) {
+//					}
+//					if(msg.getId().equals("[WEB]") && targetIp2 != null) {
 //						sendTarget(targetIp2,msg.getMsg()); // to Latte
-						System.out.println("웹 > 라떼: "+ msg.getMsg());
-					}
-					else if(msg.getId().equals("[osh_switch]") && targetIp2 != null) {
+//						System.out.println("웹 > 라떼: "+ msg.getMsg());
+//					}
+//					else if(msg.getId().equals("[osh_switch]") && targetIp2 != null) {
 //						sendTarget(targetIp2,msg.getMsg());	// to Latte
-						System.out.println("안드로이드 > 라떼: "+ msg.getMsg());
+//						System.out.println("안드로이드 > 라떼: "+ msg.getMsg());
 					}else if(msg.getId().equals("[WEB]") && targetIp3 != null) {
 //						sendTarget(targetIp3,msg.getMsg());	// to Tablet
 						System.out.println("웹 > 태블릿: "+ msg.getMsg());
 					}
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
-					maps.remove(socket.getInetAddress().toString());			// 해쉬맵에서 연결된 IP주소 삭제
-					idipMaps.remove(socket.getInetAddress().toString());	// ************************* 테스트 안해봄!
-					System.out.println(socket.getInetAddress()+".. Exited");	// "(IP)가 나갔습니다"
-					System.out.println("접속자수: " + maps.size());				// 해쉬맵의 크기로 접속자수 출력
+					// 해쉬맵에서 연결된 IP주소 삭제
+					maps.remove(socket.getInetAddress().toString());			
+
+					// idipMaps는 IP주소가 Value값이므로 위의 방법처럼 삭제할 수 없음
+					// 따라서 Value 값으로 Key값을 찾아 삭제한다.
+					// ===================== 그런데 =====================
+					// AWS에 올려서 돌릴 경우, 같은 AP로 다중 기기를 접속하면 똑같은 Public IP로 잡힐것 같음
+					// 이 경우 확인해봐야 할듯
+					// ================================================ 2020-12-02
+					String byeId = getKey(idipMaps, socket.getInetAddress().toString());
+					idipMaps.remove(byeId);
+					
+					System.out.println(socket.getInetAddress()+".. Exited");
+					System.out.println("접속자수: " + maps.size());
 					break;
 				} 
 			} // end while
@@ -223,6 +238,16 @@ public class Server {
 		
 	}
 	
+	// HashMap에서 Value 값으로 Key값 찾기 
+	public static String getKey(HashMap<String, String> h, String value) {
+		for (String k : h.keySet()) {
+			if (h.get(k).equals(value)) {
+				return k;
+			}
+		}
+		return null;
+	}
+	
 	// 객체에서 메세지로 가져와서 Sender를 호출한다.
 	public void sendMsg(Msg msg) {
 		Sender sender = new Sender();
@@ -232,7 +257,7 @@ public class Server {
 	
 	
 	// 특정 클라이언트에게만 메시지를 전송하는 sendTarget 함수
-	public void sendTarget(String ip, String type, String cmd) {
+	public void sendTarget(String ip, String senderId, String type, String cmd) {
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -240,7 +265,7 @@ public class Server {
 		}
 		ArrayList<String> ips = new ArrayList<String>();					// IP를 담을 문자열 ArrayList 선언
 		ips.add(ip);														// ArrayList에 IP저장
-		Msg msg = new Msg(ips, "MainServer", type, cmd);					// IP ArrayList, ID, 메시지 내용을 담는 Msg 생성자를 이용
+		Msg msg = new Msg(ips, senderId, type, cmd);					// IP ArrayList, ID, 메시지 내용을 담는 Msg 생성자를 이용
 		Sender sender = new Sender();										// Sender 객체 선언
 		sender.setMsg(msg);											// sender에 msg 저장
 		new Thread(sender).start();											// sender 쓰레드 실행

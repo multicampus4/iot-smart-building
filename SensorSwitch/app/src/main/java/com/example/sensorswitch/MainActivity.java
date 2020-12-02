@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     // 서버가 죽어 있을 때
                     // 더 이상의 메세지가 날라가지 않을 때 에러가 난다.
-                    //e.printStackTrace();
+                    e.printStackTrace();
 
 //                    try {
 //                        if(socket != null) {
