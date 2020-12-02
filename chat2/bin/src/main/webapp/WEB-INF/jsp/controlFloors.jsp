@@ -29,7 +29,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">TEMPERATURE</div>
-											<div class="widget-subheading">(â)</div>
+											<div class="widget-subheading">(℃)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="1_A_S_TEMP">
@@ -59,7 +59,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">FINE DUST</div>
-											<div class="widget-subheading">(Î¼m)</div>
+											<div class="widget-subheading">(μm)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="1_A_S_DUST">
@@ -103,42 +103,57 @@
 									</thead>
 									<tbody>
 										<tr>
+											<th>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_A_D_AIR">OFF</button>
+												</div>
+											</th>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_A_D_AIR"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_A_D_HUM">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_A_D_HUM"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_A_D_AIRCL">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_A_D_AIRCL"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_A_D_LED">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_A_D_LED"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_A_D_ELEC">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_A_D_ELEC"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_A_D_WAT">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_A_D_WAT"> <span class="slider round"></span>
-												</label>
-											</td>
-											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_A_D_GAS"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_A_D_GAS">OFF</button>
+												</div>
 											</td>
 										</tr>
+
 									</tbody>
 								</table>
 							</div>
@@ -154,7 +169,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">TEMPERATURE</div>
-											<div class="widget-subheading">(â)</div>
+											<div class="widget-subheading">(℃)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_TEMP">
@@ -184,7 +199,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">FINE DUST</div>
-											<div class="widget-subheading">(Î¼m)</div>
+											<div class="widget-subheading">(μm)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_DUST">
@@ -228,41 +243,57 @@
 									</thead>
 									<tbody>
 										<tr>
+											<th>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_B_D_AIR">OFF</button>
+												</div>
+											</th>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_B_D_AIR"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_B_D_HUM">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_B_D_HUM"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_B_D_AIRCL">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_B_D_AIRCL"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_B_D_LED">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_B_D_LED"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_B_D_ELEC">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_B_D_ELEC"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_B_D_WAT">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_B_D_WAT"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="1_B_D_GAS">OFF</button>
+												</div>
 											</td>
-											<td>
-												<label class="switch"> <input type="checkbox"
-													id="1_B_D_GAS"> <span class="slider round"></span>
-												</label>
-											</td>
+										</tr>
+
 									</tbody>
 								</table>
 							</div>
@@ -284,7 +315,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">TEMPERATURE</div>
-											<div class="widget-subheading">(â)</div>
+											<div class="widget-subheading">(℃)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_TEMP">
@@ -314,7 +345,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">FINE DUST</div>
-											<div class="widget-subheading">(Î¼m)</div>
+											<div class="widget-subheading">(μm)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_DUST">
@@ -359,40 +390,54 @@
 									</thead>
 									<tbody>
 										<tr>
+											<th>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="2_A_D_AIR">OFF</button>
+												</div>
+											</th>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="2_A_D_AIR"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="2_A_D_HUM">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="2_A_D_HUM"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="2_A_D_AIRCL">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="2_A_D_AIRCL"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="2_A_D_LED">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="2_A_D_LED"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="2_A_D_ELEC">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="2_A_D_ELEC"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="2_A_D_WAT">OFF</button>
+												</div>
 											</td>
 											<td>
-												<label class="switch"> <input type="checkbox"
-													id="2_A_D_WAT"> <span class="slider round"></span>
-												</label>
-											</td>
-											<td>
-												<label class="switch"> <input type="checkbox"
-													id="2_A_D_GAS"> <span class="slider round"></span>
-												</label>
+												<div class="btn-group-lg btn-group btn-group-toggle"
+													data-toggle="buttons">
+													<button type="button" class="btn btn-alternate d_btn"
+														id="2_A_D_GAS">OFF</button>
+												</div>
 											</td>
 										</tr>
 									</tbody>
@@ -406,6 +451,12 @@
 			
 		</div>
 	</div>
+	<!-- on/off ui 테스트 -->
+	<label class="switch"> <input type="checkbox"> <span
+		class="slider round"></span>
+	</label>
+	<p id="off">OFF</p>
+	<p id="on" style="display: none;">ON</p>
 </div>
 
 
@@ -428,15 +479,27 @@
 		var stat;
 		var device;
 
-		// on, off ui íì¤í¸
-		$("input[type='checkbox']").click(function(){
+		$('.d_btn').click(function() {
 			device = $(this).attr('id');
-			if ($(this).is(":checked")) {
-				stat = 'ON';
-			}else{
+			if ($(this).hasClass("active")) {
 				stat = 'OFF';
+				$(this).text('OFF');
+				$(this).css('background-color', '#794c8a'); // off ìì
+				$(this).css('border-color', '#794c8a');
+			} else {
+				stat = 'ON';
+				$(this).text('ON');
+				$(this).css('background-color', '#3ac47d'); // on ìì
+				$(this).css('border-color', '#3ac47d');
 			}
 			execAjax(stat, device);
+		});
+		
+		// on, off ui 테스트
+		$("input[type='checkbox']").click(function(){
+			$("p").toggle();
+			console.log($("#off").is(":visible") );
+			console.log($("#on").is(":visible") );
 		});
 
 	});
@@ -447,7 +510,7 @@
 	background-color: #f1f3f5;
 }
 
-/* on, off ui íì¤í¸ */
+/* on, off ui 테스트 */
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -508,4 +571,10 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+p {
+	margin:0px;
+	display:inline-block;
+	font-size:15px;
+	font-weight:bold;
+}
 </style>
