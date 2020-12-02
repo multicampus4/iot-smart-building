@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -69,7 +70,23 @@ public class MainController {
 	}
 	
 	@RequestMapping("/main")
-	public ModelAndView main() {
+	public ModelAndView main() throws Exception {
+		SimpleDateFormat rtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		System.out.println(rtime);
+		String usl = "jdbc:hive2://192.168.111.101:10000/default";
+		String id = "root";
+		String password = "111111";
+		Class.forName("org.apache.hive.jdbc.HiveDriver");
+		Connection con = DriverManager.getConnection(url, id, password);
+		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM ENV LIMIT 5 WHERE REALTIME "+ rtime);
+		ResultSet rset = pstmt.executeQuery();
+		while(rset.next()) {
+			int ul_finedust = rset.getInt(2);
+			int finedust = rset.getInt(3);
+			float temp = rset.getFloat(4);
+			int humd = rset.getInt(5);
+			int illm = rset.getInt(6);
+		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("centerpage", "mainCenter.jsp");
 		mv.setViewName("index");

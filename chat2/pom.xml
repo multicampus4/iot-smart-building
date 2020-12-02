@@ -82,7 +82,6 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -109,10 +108,11 @@
 			</snapshots>
 		</repository>
 		<repository>
-			<id>Spring Plugins</id>
-			<url>http://repo.spring.io/plugins-release/</url>
-		</repository>
+            <id>codelds</id>
+            <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+        </repository>
 	</repositories>
+	
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-milestones</id>

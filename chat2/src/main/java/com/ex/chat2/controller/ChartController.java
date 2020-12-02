@@ -18,18 +18,15 @@ package com.ex.chat2.controller;
 
 	@Controller
 	public class ChartController {
-
-		String url="jdbc:oracle:thin:@192.168.123.106:1521:xe";
-		String id ="system";
-		String password ="oracle";
+		String url="jdbc:oracle:thin:@192.168.25.57:1521:xe";
+		String id ="final_db";
+		String password ="111111";
 		public ChartController() {
 			try {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 		
 		@RequestMapping("/getdata1.mc")
@@ -44,7 +41,6 @@ package com.ex.chat2.controller;
 				System.out.println(rset);
 				while(rset.next()) {
 					JSONObject data = new JSONObject();
-					
 					data.put("name", rset.getString(1));
 					//JSONArray jo2 = new JSONArray();
 					//jo2.add(rset.getInt(2));
@@ -55,24 +51,17 @@ package com.ex.chat2.controller;
 					System.out.println(data);
 					}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
-				
 			}
 			con.close();
 			res.setCharacterEncoding("UTF-8");
-
 			res.setContentType("application/json");
-
 			PrintWriter out = res.getWriter();
-
 			out.print(ja.toJSONString());
-
 			out.close();
-
-			
 		}
+		
 		@RequestMapping("/getdata2.mc")
 		@ResponseBody
 		public void getdata2(HttpServletResponse res) throws SQLException, Exception {
@@ -85,7 +74,6 @@ package com.ex.chat2.controller;
 				System.out.println(rset);
 				while(rset.next()) {
 					JSONObject data2 = new JSONObject();
-					
 					data2.put("name", rset.getString(1));
 					//JSONArray jo2 = new JSONArray();
 					//jo2.add(rset.getInt(2));
@@ -96,23 +84,15 @@ package com.ex.chat2.controller;
 					System.out.println(data2);
 					}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
-				
 			}
 			con.close();
 			res.setCharacterEncoding("UTF-8");
-
 			res.setContentType("application/json");
-
 			PrintWriter out = res.getWriter();
-
 			out.print(ja2.toJSONString());
-
 			out.close();
-
-			
 		}
 		@RequestMapping("/getdata3.mc")
 		@ResponseBody
@@ -126,7 +106,6 @@ package com.ex.chat2.controller;
 				System.out.println(rset);
 				while(rset.next()) {
 					JSONObject data = new JSONObject();
-					
 					data.put("name", rset.getString(1));
 					//JSONArray jo2 = new JSONArray();
 					//jo2.add(rset.getInt(2));
@@ -137,26 +116,14 @@ package com.ex.chat2.controller;
 					System.out.println(data);
 					}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
-				
 			}
 			con.close();
 			res.setCharacterEncoding("UTF-8");
-
 			res.setContentType("application/json");
-
 			PrintWriter out = res.getWriter();
-
 			out.print(ja.toJSONString());
-
 			out.close();
-
-			
 		}
-		
-		
 	}
-
-
