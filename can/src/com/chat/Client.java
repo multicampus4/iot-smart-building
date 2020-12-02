@@ -269,8 +269,15 @@ public class Client implements SerialPortEventListener {
 				System.out.println("RAW DATA From ARDUINO:" + ss + "||");
 
 				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
-				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
 				sendHttp(ss);		// Send raw to chat.jsp (LOG)
+				
+				// Send JSON to DashBoard (Websocket)
+				JSONObject jsonTemp = new JSONObject();
+				jsonTemp = convertJson(ss);
+				if(jsonTemp != null) {
+					WsClient.send(convertJson(ss).toJSONString());	
+					jsonTemp.clear();
+				}				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -345,12 +352,17 @@ public class Client implements SerialPortEventListener {
 		JSONObject jsonObj = new JSONObject();
 		String[] dataArr = ss.split(";");
 		
+		jsonObj.put("latteId", latteId);
 		for(int i=0; i<dataArr.length; i++) {
 			switch(dataArr[i].substring(0,3)) {
 			case "tmp":
 //				System.out.println("온도"+dataArr[i].substring(3));
-				jsonObj.put("tmp", dataArr[i].substring(3));
-				continue;
+				if(dataArr[i].substring(3) != null) {
+					jsonObj.put("tmp", dataArr[i].substring(3));
+					continue;
+				} else {
+					return null;
+				}
 			case "hum":
 //				System.out.println("습도"+dataArr[i].substring(3));
 				jsonObj.put("hum", dataArr[i].substring(3));
