@@ -193,7 +193,6 @@ public class Client implements SerialPortEventListener {
 						continue;
 					}
 					System.out.println("RECEIVED DATA: " + msg.getId() + msg.getMsg());
-					System.out.println("여기서 안드탭에 보내면 되겠다!");
 					// mobile client에서 보낸 메세지를 IoT Client로 전송
 					sendToArduino(msg.getMsg());
 				} catch (Exception e) {
@@ -268,16 +267,14 @@ public class Client implements SerialPortEventListener {
 				ss = ss.trim();
 				System.out.println("RAW DATA From ARDUINO:" + ss + "||");
 
-				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
+//				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
 				sendHttp(ss);		// Send raw to chat.jsp (LOG)
 				
 				// Send JSON to DashBoard (Websocket)
-				JSONObject jsonTemp = new JSONObject();
-				jsonTemp = convertJson(ss);
-				if(jsonTemp != null) {
-					WsClient.send(jsonTemp.toJSONString());	
-					jsonTemp.clear();
-				}				
+//				JSONObject jsonTemp = new JSONObject();
+				String jsonTemp = convertJson(ss).toJSONString();
+				WsClient.send(jsonTemp);
+				sendTcpip(jsonTemp);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -369,6 +366,9 @@ public class Client implements SerialPortEventListener {
 			case "hum":
 //				System.out.println("습도"+dataArr[i].substring(3));
 				jsonObj.put("hum", dataArr[i].substring(3));
+				continue;
+			case "acX":
+				System.out.println("ACC-X: " + dataArr[i].substring(3));
 				continue;
 			}
 		}
