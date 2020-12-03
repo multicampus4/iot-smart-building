@@ -281,7 +281,7 @@ public class Client implements SerialPortEventListener {
 				
 				// Send JSON to DashBoard (Websocket)
 //				JSONObject jsonTemp = new JSONObject();
-				String rawToJson = convertJson2(ss).toJSONString();
+				String rawToJson = convertJson(ss).toJSONString();
 				System.out.println(rawToJson);
 				WsClient.send(rawToJson);
 //				sendTcpip(jsonTemp);
@@ -361,26 +361,9 @@ public class Client implements SerialPortEventListener {
 		
 		jsonObj.put("latteId", latteId);
 		for(int i=0; i<dataArr.length; i++) {
-			String tempStr = null;
-			try {
-				tempStr = dataArr[i].substring(0,3);
-			} catch(Exception e) {
-				System.out.println("SUBSTRING에서 예외 발생!!!!!!!!!!!!앜!!@!!!");
-				return null;
-			}
-			switch(tempStr) {
-			case "tmp":
-//				System.out.println("온도"+dataArr[i].substring(3));
-				jsonObj.put("tmp", dataArr[i].substring(3));
-				continue;
-			case "hum":
-//				System.out.println("습도"+dataArr[i].substring(3));
-				jsonObj.put("hum", dataArr[i].substring(3));
-				continue;
-			case "acX":
-				System.out.println("ACC-X: " + dataArr[i].substring(3));
-				continue;
-			}
+			String dataName = dataArr[i].substring(0,3);
+			String dataValue = dataArr[i].substring(3);
+			jsonObj.put(dataName, dataValue);
 		}
 		return jsonObj;
 	}
