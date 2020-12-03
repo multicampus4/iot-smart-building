@@ -688,10 +688,11 @@ function displayTempAvg(data){
 		
 		$.ajax({
 			url:'getdata1.mc',
-			//alert(123)
+			
 			success:function(data){
 				
 				displayTable(data);
+				alert(data)
 				
 			},
 			error:function(){
@@ -782,6 +783,8 @@ function displayTempAvg(data){
 
  
 $(document).ready(function(){
+	
+	alert(123)
  	  getTempAvg();
 	  getHumAvg();
  	  getDustSat();
