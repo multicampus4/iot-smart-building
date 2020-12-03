@@ -18,11 +18,11 @@ void loop() {
   Serial.print(";hum");
   Serial.print(temp+52.12);
   
-  Serial.print(";acX");
+  Serial.print(";acx");
   Serial.print(temp+1.01);
-  Serial.print(";acY");
+  Serial.print(";acy");
   Serial.print(temp+2.19);
-  Serial.print(";acZ");
+  Serial.print(";acz");
   Serial.print(temp+1.84);
   Serial.print(";\n");
   
@@ -38,9 +38,5 @@ void loop() {
     }
   }
   
-
-  
-  
-
 
 }

@@ -88,6 +88,7 @@ public class Client implements SerialPortEventListener {
 					socket = new Socket(address, port);
 					break;
 				} catch (Exception e1) {
+					e1.printStackTrace();
 					System.out.println("Retry ...");
 				}
 			}
@@ -257,7 +258,6 @@ public class Client implements SerialPortEventListener {
 			break;
 		case SerialPortEvent.DATA_AVAILABLE:
 			byte[] readBuffer = new byte[128];
-
 			try {
 				while (bin.available() > 0) {
 					int numBytes = bin.read(readBuffer);
@@ -265,16 +265,20 @@ public class Client implements SerialPortEventListener {
 
 				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
 				ss = ss.trim();
+				if(ss.length() != 45) {
+					System.out.println("Return ... Crashed Data ...");
+					break;
+				}
 				System.out.println("RAW DATA From ARDUINO:" + ss + "||");
 
-//				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
+				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
 				sendHttp(ss);		// Send raw to chat.jsp (LOG)
 				
 				// Send JSON to DashBoard (Websocket)
 //				JSONObject jsonTemp = new JSONObject();
-				String jsonTemp = convertJson(ss).toJSONString();
-				WsClient.send(jsonTemp);
-				sendTcpip(jsonTemp);
+				String rawToJson = convertJson(ss).toJSONString();
+				WsClient.send(rawToJson);
+//				sendTcpip(jsonTemp);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
