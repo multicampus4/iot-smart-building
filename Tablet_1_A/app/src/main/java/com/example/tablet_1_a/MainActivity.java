@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.NotificationManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         serverstat = findViewById(R.id.textView10);
 
         port = 5253;
-        address = "192.168.1.22";
+        address = "172.30.1.27";
         id = "[Tablet]";
         new Thread(con).start();
 
