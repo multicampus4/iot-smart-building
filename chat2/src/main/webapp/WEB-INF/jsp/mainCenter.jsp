@@ -8,59 +8,532 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script type="text/javascript" src="./assets/scripts/main_ws.js"></script></body>
 
+<style>
+ 
+.highcharts-figure .chart-container {
+	width: 300px;
+	height: 200px;
+	/* float: none; */
+	margin: 0 auto;
+}
 
-<div class="app-page-title">
-	<div class="page-title-wrapper">
-		<div class="page-title-heading">
-			<div class="page-title-icon">
-				<i class="pe-7s-car icon-gradient bg-mean-fruit"> </i>
+.highcharts-figure, .highcharts-data-table table {
+	width: 600px;
+	margin: 0 auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+	font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+@media (max-width: 600px) {
+	.highcharts-figure, .highcharts-data-table table {
+		width: 100%;
+	}
+	.highcharts-figure .chart-container {
+		width: 300px;
+		float: none;
+		margin: 0 auto;
+	}
+}
+#dropbox {
+width:250px;
+margin:0 auto;
+}
+.backslash {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="100%" y2="100%" stroke="gray" /></svg>');
+}
+.backslash { text-align: left; }
+.backslash div { text-align: right; }
+th, td {
+	
+	padding: 5px;
+	text-align: center;
+}
+</style>
+<script type="text/javascript" >
+
+//하루 평균 온도 값 차트 
+function displayTempAvg(data){
+	 var gaugeOptions = {
+			    chart: {
+			        type: 'solidgauge'
+			    },
+			    title: null,
+			    pane: {
+			        center: ['50%', '85%'],
+			        size: '140%',
+			        startAngle: -90,
+			        endAngle: 90,
+			        background: {
+			            backgroundColor:
+			                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+			            innerRadius: '60%',
+			            outerRadius: '100%',
+			            shape: 'arc'
+			        }
+			    },
+			    exporting: {
+			        enabled: false
+			    },
+			    tooltip: {
+			        enabled: false
+			    },
+			    // the value axis
+			    yAxis: {
+			        stops: [
+			            [1.5, '#DF5353'] //red
+			            /* [0.5, ''], // yellow
+			            [0.9, '#DF5353'] */ // red
+			        ],
+			        lineWidth: 0,
+			        tickWidth: 0,
+			        minorTickInterval: null,
+			        tickAmount: 2,
+			        title: {
+			            y: -70
+			        },
+			        labels: {
+			            y: 16
+			        }
+			    },
+			    plotOptions: {
+			        solidgauge: {
+			            dataLabels: {
+			                y: 5,
+			                borderWidth: 0,
+			                useHTML: true
+			            }
+			        }
+			    }
+			};
+			var chartdust = Highcharts.chart('daytemp', Highcharts.merge(gaugeOptions, {
+			    yAxis: {
+			        min: 0,
+			        max: 200,
+			        title: {
+			            text: 'Speed'
+			        }
+			    },
+			    credits: {
+			        enabled: false
+			    },
+			    series: [{ 
+			        name: 'Speed',
+			        data:data,
+			        dataLabels: {
+			            format:
+			                '<div style="text-align:center">' +
+			                '<span style="font-size:25px">{y}</span><br/>' +
+			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '</div>'
+			        },
+			        tooltip: {
+			            valueSuffix: ' km/h'
+			        }
+			    }]
+			}
+		)
+	); 
+} 
+//하루 평균 습도 차트 
+ function displayHumAvg(data){
+	 var gaugeOptions = {
+			    chart: {
+			        type: 'solidgauge'
+			    },
+			    title: null,
+			    pane: {
+			        center: ['50%', '85%'],
+			        size: '140%',
+			        startAngle: -90,
+			        endAngle: 90,
+			        background: {
+			            backgroundColor:
+			                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+			            innerRadius: '60%',
+			            outerRadius: '100%',
+			            shape: 'arc'
+			        }
+			    },
+			    exporting: {
+			        enabled: false
+			    },
+			    tooltip: {
+			        enabled: false
+			    },
+			    // the value axis
+			    yAxis: {
+			        stops: [
+			            [1.5, '#DDDF0D'] //yellow
+			            /* [0.5, ''], // yellow
+			            [0.9, '#DF5353'] */ // red
+			        ],
+			        lineWidth: 0,
+			        tickWidth: 0,
+			        minorTickInterval: null,
+			        tickAmount: 2,
+			        title: {
+			            y: -70
+			        },
+			        labels: {
+			            y: 16
+			        }
+			    },
+			    plotOptions: {
+			        solidgauge: {
+			            dataLabels: {
+			                y: 5,
+			                borderWidth: 0,
+			                useHTML: true
+			            }
+			        }
+			    }
+			};
+			var chartdust = Highcharts.chart('dayhumid', Highcharts.merge(gaugeOptions, {
+			    yAxis: {
+			        min: 0,
+			        max: 200,
+			        title: {
+			            text: 'Speed'
+			        }
+			    },
+			    credits: {
+			        enabled: false
+			    },
+			    series: [{ 
+			        name: 'Speed',
+			        data:data,
+			        dataLabels: {
+			            format:
+			                '<div style="text-align:center">' +
+			                '<span style="font-size:25px">{y}</span><br/>' +
+			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '</div>'
+			        },
+			        tooltip: {
+			            valueSuffix: ' km/h'
+			        }
+			    }]
+			}
+		)
+	); 
+} 
+//하루 평균 미세먼지 농도 차트 
+ function displayDustSat(data){
+	 var gaugeOptions = {
+			    chart: {
+			        type: 'solidgauge'
+			    },
+			    title: null,
+			    pane: {
+			        center: ['50%', '85%'],
+			        size: '140%',
+			        startAngle: -90,
+			        endAngle: 90,
+			        background: {
+			            backgroundColor:
+			                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+			            innerRadius: '60%',
+			            outerRadius: '100%',
+			            shape: 'arc'
+			        }
+			    },
+			    exporting: {
+			        enabled: false
+			    },
+			    tooltip: {
+			        enabled: false
+			    },
+			    // the value axis
+			    yAxis: {
+			        stops: [
+			            [1.5, '#8041D9'] // green
+			            /* [0.5, '#DDDF0D'], // yellow
+			            [0.9, '#DF5353'] */ // red
+			        ],
+			        lineWidth: 0,
+			        tickWidth: 0,
+			        minorTickInterval: null,
+			        tickAmount: 2,
+			        title: {
+			            y: -70
+			        },
+			        labels: {
+			            y: 16
+			        }
+			    },
+			    plotOptions: {
+			        solidgauge: {
+			            dataLabels: {
+			                y: 5,
+			                borderWidth: 0,
+			                useHTML: true
+			            }
+			        }
+			    }
+			};
+			var chartdust = Highcharts.chart('dustgraph', Highcharts.merge(gaugeOptions, {
+			    yAxis: {
+			        min: 0,
+			        max: 200,
+			        title: {
+			            text: 'Speed'
+			        }
+			    },
+			    credits: {
+			        enabled: false
+			    },
+			    series: [{ 
+			        name: 'Speed',
+			        data:data,
+			        dataLabels: {
+			            format:
+			                '<div style="text-align:center">' +
+			                '<span style="font-size:25px">{y}</span><br/>' +
+			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '</div>'
+			        },
+			        tooltip: {
+			            valueSuffix: ' km/h'
+			        }
+			    }]
+			}
+		)
+	); 
+ } //console.log(data);
+ 
+//하루 평균 조도 차트 
+ function displayLightAvg(data){
+	 var gaugeOptions = {
+			    chart: {
+			        type: 'solidgauge'
+			    },
+			    title: null,
+			    pane: {
+			        center: ['50%', '85%'],
+			        size: '140%',
+			        startAngle: -90,
+			        endAngle: 90,
+			        background: {
+			            backgroundColor:
+			                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+			            innerRadius: '60%',
+			            outerRadius: '100%',
+			            shape: 'arc'
+			        }
+			    },
+			    exporting: {
+			        enabled: false
+			    },
+			    tooltip: {
+			        enabled: false
+			    },
+			    // the value axis
+			    yAxis: {
+			        stops: [
+			            [1.5, '#8041D9'] // green
+			            /* [0.5, '#DDDF0D'], // yellow
+			            [0.9, '#DF5353'] */ // red
+			        ],
+			        lineWidth: 0,
+			        tickWidth: 0,
+			        minorTickInterval: null,
+			        tickAmount: 2,
+			        title: {
+			            y: -70
+			        },
+			        labels: {
+			            y: 16
+			        }
+			    },
+			    plotOptions: {
+			        solidgauge: {
+			            dataLabels: {
+			                y: 5,
+			                borderWidth: 0,
+			                useHTML: true
+			            }
+			        }
+			    }
+			};
+			var chartdust = Highcharts.chart('daylight', Highcharts.merge(gaugeOptions, {
+			    yAxis: {
+			        min: 0,
+			        max: 200,
+			        title: {
+			            text: 'Speed'
+			        }
+			    },
+			    credits: {
+			        enabled: false
+			    },
+			    series: [{ 
+			        name: 'Speed',
+			        data:data,
+			        dataLabels: {
+			            format:
+			                '<div style="text-align:center">' +
+			                '<span style="font-size:25px">{y}</span><br/>' +
+			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '</div>'
+			        },
+			        tooltip: {
+			            valueSuffix: ' km/h'
+			        }
+			    }]
+			}
+		)
+	); 
+ } 
+ function getDustSat(){
+		$.ajax({
+			url:'getdata2.mc',
+			success:function(data){
+			/* console.log(data[2].y);
+			datas = data[2].y; */
+				displayDustSat(data);
+				//alert(data2);
+			},
+			error:function(){
+			}
+		});
+		displayDustSat();
+}
+function getTempAvg(){
+		$.ajax({
+			url:'getdata3.mc',
+			//alert(123)
+			success:function(data){
+				displayTempAvg(data);
+			},
+			error:function(){
+				}
+		});
+		displayTempAvg();
+	}
+
+function getHumAvg(){
+	$.ajax({
+		url:'getdata1.mc',
+		//alert(123)
+		success:function(data){
+			displayHumAvg(data);
+		},
+		error:function(){
+			}
+	});
+	displayHumAvg();
+}
+function getLightAvg(){
+	$.ajax({
+		url:'getdata2.mc',
+		//alert(123)
+		success:function(data){
+			
+			displayLightAvg(data);
+			
+		},
+		error:function(){
+		}
+	});
+	displayLightAvg();
+}
+ $(document).ready(function(){
+	  getTempAvg();
+	  getHumAvg();
+	  getDustSat();
+	  getLightAvg();
+	});
+</script>
+<div class="row">
+	<div class="col-md-12 col-lg-6">
+		<div class="main-card mb-3 card">
+			<div class="card-header">
+				현재 실내 온도 
 			</div>
-			<div>
-				Analytics Dashboard
-				<div class="page-title-subheading">This is an example
-					dashboard created using build-in elements and components.</div>
-			</div>
-		</div>
-		<div class="page-title-actions">
-			<button type="button" data-toggle="tooltip" title="Example Tooltip"
-				data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
-				<i class="fa fa-star"></i>
-			</button>
-			<div class="d-inline-block dropdown">
-				<button type="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"
-					class="btn-shadow dropdown-toggle btn btn-info">
-					<span class="btn-icon-wrapper pr-2 opacity-7"> <i
-						class="fa fa-business-time fa-w-20"></i>
-					</span> Buttons
-				</button>
-				<div tabindex="-1" role="menu" aria-hidden="true"
-					class="dropdown-menu dropdown-menu-right">
-					<ul class="nav flex-column">
-						<li class="nav-item"><a href="javascript:void(0);"
-							class="nav-link"> <i class="nav-link-icon lnr-inbox"></i> <span>
-									Inbox </span>
-								<div class="ml-auto badge badge-pill badge-secondary">86</div>
-						</a></li>
-						<li class="nav-item"><a href="javascript:void(0);"
-							class="nav-link"> <i class="nav-link-icon lnr-book"></i> <span>
-									Book </span>
-								<div class="ml-auto badge badge-pill badge-danger">5</div>
-						</a></li>
-						<li class="nav-item"><a href="javascript:void(0);"
-							class="nav-link"> <i class="nav-link-icon lnr-picture"></i> <span>
-									Picture </span>
-						</a></li>
-						<li class="nav-item"><a disabled href="javascript:void(0);"
-							class="nav-link disabled"> <i
-								class="nav-link-icon lnr-file-empty"></i> <span> File
-									Disabled </span>
-						</a></li>
-					</ul>
-				</div>
-			</div>
+			 <div class="tab-content">
+				<figure class="highcharts-figure">
+    				<div id="daytemp" class="chart-container"></div>
+				</figure>
+				<button type="button" id="PopoverCustomT-1"
+				        class="btn btn-primary btn-sm" >Details</button>
+			</div> 
 		</div>
 	</div>
+	
+	<div class="col-md-12 col-lg-6">
+		<div class="main-card mb-3 card">
+			<div class="card-header">
+				현재 실내 습도 
+			</div>
+			 <div class="tab-content">
+				<figure class="highcharts-figure">
+    <div id="dayhumid" class="chart-container"></div>
+				</figure>
+				<button type="button" id="PopoverCustomT-1"
+									class="btn btn-primary btn-sm" >Details</button>
+			</div> 
+		</div>
+	</div>
+</div>
+	
+	
+<div class="row"> 
+	<div class="col-md-12 col-lg-6">
+		<div class="main-card mb-3 card">
+			<div class="card-header">
+				현재 실내 미세먼지 농도  
+			</div>
+			 <div class="tab-content">
+				<figure class="highcharts-figure">
+			   		<div id="dustgraph" class="chart-container"></div>
+				</figure>
+			</div> 
+		</div>
+	</div> 
+	
+    <div class="col-md-12 col-lg-6">
+		<div class="main-card mb-3 card">
+			<div class="card-header">
+				현재 실내 조도
+			</div>
+			 <div class="tab-content">
+				<figure class="highcharts-figure">
+					<div id="daylight" class="chart-container"></div>
+				</figure>
+			</div> 
+		</div>
+	</div>  
 </div>
 <div class="row">
 	<div class="col-md-6 col-xl-4">

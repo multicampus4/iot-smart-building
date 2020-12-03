@@ -28,6 +28,10 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
 public class Client implements SerialPortEventListener {
+	// LattePanda ID
+	// latte_1_A : 1A 구역에서 가동되는 IoT 클라이언트
+	static String latteId = "latte_1_A";
+	
 	// 멤버 변수
 	int port;
 	String address;
@@ -49,7 +53,6 @@ public class Client implements SerialPortEventListener {
 	private SerialPort serialPort;
 	private CommPortIdentifier portIdentifier;
 	private CommPort commPort;
-	private String rawCanID, rawTotal;
 
 	// 웹소켓
 	static WebSocketClient WsClient;
@@ -93,22 +96,24 @@ public class Client implements SerialPortEventListener {
 		sender = new Sender(socket);
 		new Receiver(socket).start();
 		
-		Msg msg = new Msg(null, id,"iamLatte01");	// Hand Shake : iamLatte01 : Server>Server.java
-		sender.setMsg(msg);							// sender 쓰레드에 메시지 내용 저장
+		// 최초 연결 시 msg type: "first"
+		Msg msg = new Msg(id, "first", "First Connection");
+		System.out.println(msg);
+		sender.setMsg(msg);
 		new Thread(sender).start();
 	}
 
 	public void sendTarget(String ip, String cmd) {
 		// ArrayList<String> ips = new ArrayList<String>();
 		// ips.add(ip);
-		Msg msg = new Msg(id, cmd);
+		Msg msg = new Msg(id, null, cmd);
 //		sender.setMsg(msg);
 		new Thread(sender).start();
 	}
 
-	// 메세지 입력받음
+	// Send 센서데이터 to 서버 through TCP/IP소켓통신 
 	public void sendTcpip(String ss) {
-		Msg msg = new Msg(null, id, ss);
+		Msg msg = new Msg(id, "ssRaw", ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
 //		if (socket != null) {
@@ -187,10 +192,10 @@ public class Client implements SerialPortEventListener {
 						}
 						continue;
 					}
-					System.out.println(msg.getId() + msg.getMsg());
-
+					System.out.println("RECEIVED DATA: " + msg.getId() + msg.getMsg());
+					System.out.println("여기서 안드탭에 보내면 되겠다!");
 					// mobile client에서 보낸 메세지를 IoT Client로 전송
-					sendIoT(msg.getMsg());
+					sendToArduino(msg.getMsg());
 				} catch (Exception e) {
 					// e.printStackTrace();
 					break;
@@ -261,11 +266,18 @@ public class Client implements SerialPortEventListener {
 
 				String ss = new String(readBuffer);	// Data From Aruduino : "tmp26;hum80;"
 				ss = ss.trim();
-				System.out.println("Receive Raw Data:" + ss + "||");
+				System.out.println("RAW DATA From ARDUINO:" + ss + "||");
 
 				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
-				WsClient.send(convertJson(ss).toJSONString());	// Send JSON to DashBoard (Websocket)
 				sendHttp(ss);		// Send raw to chat.jsp (LOG)
+				
+				// Send JSON to DashBoard (Websocket)
+				JSONObject jsonTemp = new JSONObject();
+				jsonTemp = convertJson(ss);
+				if(jsonTemp != null) {
+					WsClient.send(jsonTemp.toJSONString());	
+					jsonTemp.clear();
+				}				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -291,7 +303,7 @@ public class Client implements SerialPortEventListener {
 		}
 	}
 
-	public void sendIoT(String cmd) {
+	public void sendToArduino(String cmd) {
 		Thread t1 = new Thread(new sendIoT(cmd));
 		t1.start();
 	}
@@ -340,8 +352,16 @@ public class Client implements SerialPortEventListener {
 		JSONObject jsonObj = new JSONObject();
 		String[] dataArr = ss.split(";");
 		
+		jsonObj.put("latteId", latteId);
 		for(int i=0; i<dataArr.length; i++) {
-			switch(dataArr[i].substring(0,3)) {
+			String tempStr = null;
+			try {
+				tempStr = dataArr[i].substring(0,3);
+			} catch(Exception e) {
+				System.out.println("SUBSTRING에서 예외 발생!!!!!!!!!!!!앜!!@!!!");
+				return null;
+			}
+			switch(tempStr) {
 			case "tmp":
 //				System.out.println("온도"+dataArr[i].substring(3));
 				jsonObj.put("tmp", dataArr[i].substring(3));
@@ -350,7 +370,7 @@ public class Client implements SerialPortEventListener {
 //				System.out.println("습도"+dataArr[i].substring(3));
 				jsonObj.put("hum", dataArr[i].substring(3));
 				continue;
-			}	
+			}
 		}
 		return jsonObj;
 	}
@@ -376,7 +396,7 @@ public class Client implements SerialPortEventListener {
 				con.setReadTimeout(5000);
 				con.setRequestMethod("POST");
 				con.getInputStream();
-				System.out.println("data:" + data);
+				System.out.println("SEND DATA HTTP:" + data);
 			} catch (Exception e) {
 
 			} finally {
@@ -410,7 +430,7 @@ public class Client implements SerialPortEventListener {
 		getProp();
 		try {
 			// TCP/IP Server 연결 초기화
-			Client client = new Client(tcpipIp, tcpipPort, "[IoTClient]");
+			Client client = new Client(tcpipIp, tcpipPort, latteId);
 			client.connect();
 			
 		} catch (Exception e) {

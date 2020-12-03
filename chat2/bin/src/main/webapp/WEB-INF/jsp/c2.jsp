@@ -11,28 +11,31 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-< <style>
-  #historycontainer {
-	width: 380px;
-	height: 380px;
-	
-} 
+
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+ <style>
  
+ .highcharts-figure .chart-container {
+	width: 300px;
+	height: 200px;
+	/* float: none; */
+	margin: 0 auto;
+}
 
 .highcharts-figure, .highcharts-data-table table {
-    min-width: 400px; 
-    max-width: 500px;
-    margin: 1em auto;
+	width: 600px;
+	margin: 0 auto;
 }
 
 .highcharts-data-table table {
-	font-family: Verdana, sans-serif;
-	border-collapse: collapse;
-	border: 1px solid #EBEBEB;
-	margin: 10px auto;
-	text-align: center;
-	width: 100%;
-	max-width: 500px;
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
 }
 .highcharts-data-table caption {
     padding: 1em 0;
@@ -53,73 +56,678 @@
     background: #f1f7ff;
 }
 
+@media (max-width: 600px) {
+	.highcharts-figure, .highcharts-data-table table {
+		width: 100%;
+	}
+	.highcharts-figure .chart-container {
+		width: 300px;
+		float: none;
+		margin: 0 auto;
+	}
 
+}
+#dropbox {
+width:250px;
+margin:0 auto;
+}
 
+.backslash {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="100%" y2="100%" stroke="gray" /></svg>');
+}
+.backslash { text-align: left; }
+.backslash div { text-align: right; }
+
+th, td {
+	
+	padding: 5px;
+	text-align: center;
+}
 
 </style>
 
 
 <script type="text/javascript" >
- function display(data){
-	Highcharts.chart('historycontainer', {
-	    chart: {
-	    	plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
+
+//하루 평균 온도 값 차트 
+function displayTempAvg(data){
+	
+	 var gaugeOptions = {
+			    chart: {
+			        type: 'solidgauge'
+			    },
+
+			    title: null,
+
+			    pane: {
+			        center: ['50%', '85%'],
+			        size: '140%',
+			        startAngle: -90,
+			        endAngle: 90,
+			        background: {
+			            backgroundColor:
+			                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+			            innerRadius: '60%',
+			            outerRadius: '100%',
+			            shape: 'arc'
+			        }
+			    },
+
+			    exporting: {
+			        enabled: false
+			    },
+
+			    tooltip: {
+			        enabled: false
+			    },
+
+			    // the value axis
+			    yAxis: {
+			        stops: [
+			            [1.5, '#DF5353'] //red
+			            /* [0.5, ''], // yellow
+			            [0.9, '#DF5353'] */ // red
+			        ],
+			        lineWidth: 0,
+			        tickWidth: 0,
+			        minorTickInterval: null,
+			        tickAmount: 2,
+			        title: {
+			            y: -70
+			        },
+			        labels: {
+			            y: 16
+			        }
+			    },
+
+			    plotOptions: {
+			        solidgauge: {
+			            dataLabels: {
+			                y: 5,
+			                borderWidth: 0,
+			                useHTML: true
+			            }
+			        }
+			    }
+			};
+
+			
+			     
+			
+			var chartdust = Highcharts.chart('daytemp', Highcharts.merge(gaugeOptions, {
+				
+			    yAxis: {
+			        min: 0,
+			        max: 200,
+			        title: {
+			            text: 'Speed'
+			        }
+			    },
+
+			    credits: {
+			        enabled: false
+			    },
             
-	        type: 'pie'
-	    },
-	    title: {
-	        text: '온도'
-	    },
-	  
+			    series: [{ 
+			    	
+			        name: 'Speed',
+			        
+			        
+			        data:data,
+			   
+			        
+			        
+			        dataLabels: {
+			            format:
+			                '<div style="text-align:center">' +
+			                '<span style="font-size:25px">{y}</span><br/>' +
+			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '</div>'
+			        },
+			        tooltip: {
+			            valueSuffix: ' km/h'
+			        }
+			    }]
+			   
 
-	    accessibility: {
-	        announceNewData: {
-	            enabled: true
-	        },
-	        point: {
-	            valueSuffix: '%'
-	        }
-	    },
-
-	    plotOptions: {
-	        series: {
-	            dataLabels: {
-	                enabled: true,
-	                format: '{point.name}: {point.y:.1f}%',
-	                style: {
-	                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-	                 }
-	            }
-	        },
-	    pie:{
-	    	 innerSize: 100,
-             depth: 45
-	    }
-	    },
-
-	    tooltip: {
-	        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-	        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-	    },
-
-	    series:[{
-	    	data:data
-	   
-	    }] 
-	    
-	});
+			})); 
 } 
 
-function getData(){
+//하루 평균 습도 차트 
+ function displayHumAvg(data){
+	
+	 var gaugeOptions = {
+			    chart: {
+			        type: 'solidgauge'
+			    },
+
+			    title: null,
+
+			    pane: {
+			        center: ['50%', '85%'],
+			        size: '140%',
+			        startAngle: -90,
+			        endAngle: 90,
+			        background: {
+			            backgroundColor:
+			                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+			            innerRadius: '60%',
+			            outerRadius: '100%',
+			            shape: 'arc'
+			        }
+			    },
+
+			    exporting: {
+			        enabled: false
+			    },
+
+			    tooltip: {
+			        enabled: false
+			    },
+
+			    // the value axis
+			    yAxis: {
+			        stops: [
+			            [1.5, '#DDDF0D'] //yellow
+			            /* [0.5, ''], // yellow
+			            [0.9, '#DF5353'] */ // red
+			        ],
+			        lineWidth: 0,
+			        tickWidth: 0,
+			        minorTickInterval: null,
+			        tickAmount: 2,
+			        title: {
+			            y: -70
+			        },
+			        labels: {
+			            y: 16
+			        }
+			    },
+
+			    plotOptions: {
+			        solidgauge: {
+			            dataLabels: {
+			                y: 5,
+			                borderWidth: 0,
+			                useHTML: true
+			            }
+			        }
+			    }
+			};
+
+			
+			     
+			
+			var chartdust = Highcharts.chart('dayhumid', Highcharts.merge(gaugeOptions, {
+				
+			    yAxis: {
+			        min: 0,
+			        max: 200,
+			        title: {
+			            text: 'Speed'
+			        }
+			    },
+
+			    credits: {
+			        enabled: false
+			    },
+             
+			    series: [{ 
+			    	
+			        name: 'Speed',
+			        
+			        
+			        data:data,
+			   
+			        
+			        
+			        dataLabels: {
+			            format:
+			                '<div style="text-align:center">' +
+			                '<span style="font-size:25px">{y}</span><br/>' +
+			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '</div>'
+			        },
+			        tooltip: {
+			            valueSuffix: ' km/h'
+			        }
+			    }]
+			   
+
+			})); 
+} 
+//하루 평균 미세먼지 농도 차트 
+ function displayDustSat(data){
+	 var gaugeOptions = {
+			    chart: {
+			        type: 'solidgauge'
+			    },
+
+			    title: null,
+
+			    pane: {
+			        center: ['50%', '85%'],
+			        size: '140%',
+			        startAngle: -90,
+			        endAngle: 90,
+			        background: {
+			            backgroundColor:
+			                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+			            innerRadius: '60%',
+			            outerRadius: '100%',
+			            shape: 'arc'
+			        }
+			    },
+
+			    exporting: {
+			        enabled: false
+			    },
+
+			    tooltip: {
+			        enabled: false
+			    },
+
+			    // the value axis
+			    yAxis: {
+			        stops: [
+			            [1.5, '#8041D9'] // green
+			            /* [0.5, '#DDDF0D'], // yellow
+			            [0.9, '#DF5353'] */ // red
+			        ],
+			        lineWidth: 0,
+			        tickWidth: 0,
+			        minorTickInterval: null,
+			        tickAmount: 2,
+			        title: {
+			            y: -70
+			        },
+			        labels: {
+			            y: 16
+			        }
+			    },
+
+			    plotOptions: {
+			        solidgauge: {
+			            dataLabels: {
+			                y: 5,
+			                borderWidth: 0,
+			                useHTML: true
+			            }
+			        }
+			    }
+			};
+
+			
+			     
+			
+			var chartdust = Highcharts.chart('dustgraph', Highcharts.merge(gaugeOptions, {
+				
+			    yAxis: {
+			        min: 0,
+			        max: 200,
+			        title: {
+			            text: 'Speed'
+			        }
+			    },
+
+			    credits: {
+			        enabled: false
+			    },
+                
+			    series: [{ 
+			    	
+			        name: 'Speed',
+			        
+			        
+			        data:data,
+			   
+			        
+			        
+			        dataLabels: {
+			            format:
+			                '<div style="text-align:center">' +
+			                '<span style="font-size:25px">{y}</span><br/>' +
+			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '</div>'
+			        },
+			        tooltip: {
+			            valueSuffix: ' km/h'
+			        }
+			    }]
+			   
+
+			})); 
+			
+ } //console.log(data);
+ 
+//하루 평균 조도 차트 
+ function displayLightAvg(data){
+	 var gaugeOptions = {
+			    chart: {
+			        type: 'solidgauge'
+			    },
+
+			    title: null,
+
+			    pane: {
+			        center: ['50%', '85%'],
+			        size: '140%',
+			        startAngle: -90,
+			        endAngle: 90,
+			        background: {
+			            backgroundColor:
+			                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+			            innerRadius: '60%',
+			            outerRadius: '100%',
+			            shape: 'arc'
+			        }
+			    },
+
+			    exporting: {
+			        enabled: false
+			    },
+
+			    tooltip: {
+			        enabled: false
+			    },
+
+			    // the value axis
+			    yAxis: {
+			        stops: [
+			            [1.5, '#8041D9'] // green
+			            /* [0.5, '#DDDF0D'], // yellow
+			            [0.9, '#DF5353'] */ // red
+			        ],
+			        lineWidth: 0,
+			        tickWidth: 0,
+			        minorTickInterval: null,
+			        tickAmount: 2,
+			        title: {
+			            y: -70
+			        },
+			        labels: {
+			            y: 16
+			        }
+			    },
+
+			    plotOptions: {
+			        solidgauge: {
+			            dataLabels: {
+			                y: 5,
+			                borderWidth: 0,
+			                useHTML: true
+			            }
+			        }
+			    }
+			};
+
+			
+			     
+			
+			var chartdust = Highcharts.chart('daylight', Highcharts.merge(gaugeOptions, {
+				
+			    yAxis: {
+			        min: 0,
+			        max: 200,
+			        title: {
+			            text: 'Speed'
+			        }
+			    },
+
+			    credits: {
+			        enabled: false
+			    },
+                
+			    series: [{ 
+			    	
+			        name: 'Speed',
+			        
+			        
+			        data:data,
+			   
+			        
+			        
+			        dataLabels: {
+			            format:
+			                '<div style="text-align:center">' +
+			                '<span style="font-size:25px">{y}</span><br/>' +
+			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '</div>'
+			        },
+			        tooltip: {
+			            valueSuffix: ' km/h'
+			        }
+			    }]
+			   
+
+			})); 
+			
+ } 
+ //시간 별 쾌적지수 그래프 출력 
+ function displayTimeTempHum(data){
+	 var colors = Highcharts.getOptions().colors;
+
+	 Highcharts.chart('timetempcontainer', {
+	     chart: {
+	         type: 'spline'
+	     },
+
+	     legend: {
+	         symbolWidth: 40
+	     },
+
+	     title: {
+	         text: '빌딩 내 쾌적지수'
+	     },
+
+	     subtitle: {
+	         text: '빌딩 내 평균 쾌적지수'
+	     },
+
+	     yAxis: {
+	         title: {
+	             text: 'Percentage usage'
+	         }
+	     },
+
+	     xAxis: {
+	         title: {
+	             text: 'Time'
+	         },
+	         accessibility: {
+	             description: 'Time from December 2010 to September 2019'
+	         },
+	         categories: ['01:00', '03:00', '05:00', '07:00', '09:00', '11:00', '13:00', '15:00', '17:00', '19:00', '21:00', '23:00']
+	     },
+
+	     tooltip: {
+	         valueSuffix: '%'
+	     },
+
+	     plotOptions: {
+	         series: {
+	             point: {
+	                 events: {
+	                     click: function () {
+	                         window.location.href = this.series.options.website;
+	                     }
+	                 }
+	             },
+	             cursor: 'pointer'
+	         }
+	     },
+		
+	     //dashStyle:ShortDot,Dash,ShortDashDot,
+	     //각각의 데이터를 입력해야 하는데 다른 데이터 입력하는 방법 찾아보기 
+	     series: [
+	         {
+	        	 name: '온도',
+	        	 data : data, 
+	        	 dashStyle: 'Dash',
+	        	 color: colors[1]
+	            
+	         },
+	         {
+	            
+	             name: '습도',
+	             data: [42.6, 51.5, 54.2, 45.8, 20.2, 15.4],
+	             dashStyle: 'ShortDash',
+	             color: colors[3]
+	         },
+	         
+	         {
+	        	 name: '미세먼지',
+	        	 data :[12.6, 21.5, 44.2, 39.8, 10.2, 52.4,12.6, 21.5, 44.2, 39.8, 10.2, 52.4], 
+	        	 dashStyle: 'ShortDot',
+	        	 color: colors[2]
+	            
+	         },
+	         
+	         {
+	        	 name: '조도',
+	        	 data : [35.6, 21.5, 14.2, 41.8, 24.2, 10.4], 
+	        	 dashStyle: 'ShortDashDot',
+	        	 color: colors[4]
+	            
+	         }
+	     ],
+
+	     responsive: {
+	         rules: [{
+	             condition: {
+	                 maxWidth: 550
+	             },
+	             chartOptions: {
+	                 legend: {
+	                     itemWidth: 150
+	                 },
+	                 xAxis: {
+	                     categories: ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00']
+	                 },
+	                 yAxis: {
+	                     title: {
+	                         enabled: false
+	                     },
+	                     labels: {
+	                         format: '{value}%'
+	                     }
+	                 }
+	             }
+	         }]
+	     }
+	 });
+ }
+ 
+ 
+ 
+ 
+ 
+ function displayTable(data){
+	 var str='';
+	 
+	 $.each(data, function(index,item){
+	 
+			str += '<tr>';
+			str += '<td>' + item.name+'</td>';
+			str += '<td>' + item.y+ '</td>';
+			str += '<td>' + item.y+ '</td>'; //str += '<td>' + item.y+ '</td>'; 이렇게 계속 추가하면 데이터 표에 입력됨 
+		    str += '</tr>';
+	  
+	   
+	
+	
+			
+		}); 
+		$('#htable').html(str);	
+	 
+	
+ }
+ 
+ 
+ function getTimeTempHum(){
+		
+		$.ajax({
+			url:'getdata1.mc',
+			
+			success:function(data){
+			console.log(data);
+				displayTimeTempHum(data);
+				
+			},
+			error:function(){
+				
+				}
+			
+		});
+		displayTimeTempHum();
+	}
+ 
+
+ function getDustSat(){
+		
+		$.ajax({
+			url:'getdata2.mc',
+			
+			success:function(data){
+			/* console.log(data[2].y);
+			datas = data[2].y; */
+			
+				displayDustSat(data);
+				//alert(data2);
+			},
+			error:function(){
+				
+				}
+			
+		});
+		displayDustSat();
+	}
+ 
+ 
+ function getTable(){
+		
+		$.ajax({
+			url:'getdata1.mc',
+			//alert(123)
+			success:function(data){
+				
+				displayTable(data);
+				
+			},
+			error:function(){
+				
+				}
+			
+		});
+		displayTable();
+	}
+ 
+ function getTempAvg(){
+		
+		$.ajax({
+			url:'getdata3.mc',
+			//alert(123)
+			success:function(data){
+				
+				displayTempAvg(data);
+				
+			},
+			error:function(){
+				
+				}
+			
+		});
+		displayTempAvg();
+	}
+ 
+ function getHumAvg(){
 	
 	$.ajax({
 		url:'getdata1.mc',
 		//alert(123)
 		success:function(data){
 			
-			display(data);
+			displayHumAvg(data);
 			
 		},
 		error:function(){
@@ -127,11 +735,63 @@ function getData(){
 			}
 		
 	});
-	display();
+	displayHumAvg();
 }
  
+ function getLightAvg(){
+		
+		$.ajax({
+			url:'getdata2.mc',
+			//alert(123)
+			success:function(data){
+				
+				displayLightAvg(data);
+				
+			},
+			error:function(){
+				
+				}
+			
+		});
+		displayLightAvg();
+	}
+ 
+ //body의 onclick에 의해 실행되는 함수 
+ //클릭하면 아래의 함수가 호출되고 아래의 함수에 따른 데이터로 그래프와 표가 업데이트 된다.
+ //추후 실제 로그데이터가 만들어지면 해당 날짜에 onclick이벤트 실행하여 해당 데이터로 업데이트 되는 함수 작성해 주면 됨 
+ function getMon(){
+		
+		$.ajax({
+			url:'getdata3.mc',
+			//alert(123)
+			success:function(data){
+				displayDustSat(data)
+				displayHumAvg(data)
+				displayTable(data)
+				displayTimeTempHum(data)
+				
+			},
+			error:function(){
+				
+				}
+			
+		});
+		
+		
+	} 
+
+ 
 $(document).ready(function(){
- 	  getData();
+ 	  getTempAvg();
+	  getHumAvg();
+ 	  getDustSat();
+ 	  getLightAvg();
+ 	  getTable();
+ 	  getTimeTempHum();
+ 	  
+ 	   
+ 		  
+ 	  
 	});
 	
 </script>
@@ -154,27 +814,44 @@ $(document).ready(function(){
 				data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
 				<i class="fa fa-star"></i>
 			</button>
-			<div class="d-inline-block dropdown">
+			<!-- <div class="d-inline-block dropdown">
 				<button type="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"
 					class="btn-shadow dropdown-toggle btn btn-info">
 					<span class="btn-icon-wrapper pr-2 opacity-7"> <i
 						class="fa fa-business-time fa-w-20"></i>
-					</span> Buttons
+					</span> 날짜선택
 				</button>
 				<div tabindex="-1" role="menu" aria-hidden="true"
 					class="dropdown-menu dropdown-menu-right">
 					<ul class="nav flex-column">
+					
+					
+					
+					월요일을 누르면 월요일에 해당되는 데이터가 출력되고 
+					     화요일을 누르면 화요일에 해당되는 데이터 출력하기
+					
 						<li class="nav-item"><a href="javascript:void(0);"
-							class="nav-link"> <i class="nav-link-icon lnr-inbox"></i> <span>
-									Inbox </span>
-								<div class="ml-auto badge badge-pill badge-secondary">86</div>
-						</a></li>
+							
+							
+							<li class="nav-link"> <i class="nav-link-icon lnr-book"></i> 
+									<span class= "paragragh"onclick="getMon()" >
+									월요일
+									
+									
+									</span>
+									
+								<div class="ml-auto badge badge-pill badge-danger">80</div>
+						</a></li></li>
+						
+						
+						
 						<li class="nav-item"><a href="javascript:void(0);"
-							class="nav-link"> <i class="nav-link-icon lnr-book"></i> <span>
-									Book </span>
+							class="nav-link"> <i class="nav-link-icon lnr-book" onclick="getTue"></i> <span>
+									화요일 </span>
 								<div class="ml-auto badge badge-pill badge-danger">5</div>
 						</a></li>
+						
 						<li class="nav-item"><a href="javascript:void(0);"
 							class="nav-link"> <i class="nav-link-icon lnr-picture"></i> <span>
 									Picture </span>
@@ -184,9 +861,16 @@ $(document).ready(function(){
 								class="nav-link-icon lnr-file-empty"></i> <span> File
 									Disabled </span>
 						</a></li>
+						
+						
+						
+						
+						
 					</ul>
 				</div>
 			</div>
+			 -->
+			
 		</div>
 	</div>
 </div>
@@ -207,18 +891,23 @@ $(document).ready(function(){
 		</div>
 	</div>
 	<div class="col-md-6 col-xl-4">
-		<div class="card mb-3 widget-content bg-arielle-smile">
+		<div class="card mb-3 widget-content bg-secondary ">
 			<div class="widget-content-wrapper text-white">
 				<div class="widget-content-left">
-					<div class="widget-heading">Clients</div>
-					<div class="widget-subheading">Total Clients Profit</div>
+				
+				<div class="mb-2 mr-2 btn-group" id="dropbox">
+                   <button class="btn btn-secondary">날짜선택</button>
+                     <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle-split dropdown-toggle btn btn-secondary"><span class="sr-only">Toggle Dropdown</span>
+                     </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getMon()">월요일</button>
+                         <button type="button" tabindex="0" class="dropdown-item">화요일</button>
+                         <button type="button" tabindex="0" class="dropdown-item">수요일</button>
+                         <button type="button" tabindex="0" class="dropdown-item">목요일</button>
+                        </div>
+                   </div>
 				</div>
-				<div class="widget-content-right">
-					<div class="widget-numbers text-white">
-						<span>$ 568</span>
-					</div>
-				</div>
-			</div>
+			</div> 
 		</div>
 	</div>
 	<div class="col-md-6 col-xl-4">
@@ -238,7 +927,7 @@ $(document).ready(function(){
 	</div>
 	<div class="d-xl-none d-lg-block col-md-6 col-xl-4">
 		<div class="card mb-3 widget-content bg-premium-dark">
-			<div class="widget-content-wrapper text-white">
+			 <div class="widget-content-wrapper text-white">
 				<div class="widget-content-left">
 					<div class="widget-heading">Products Sold</div>
 					<div class="widget-subheading">Revenue streams</div>
@@ -248,21 +937,91 @@ $(document).ready(function(){
 						<span>$14M</span>
 					</div>
 				</div>
-			</div>
+			</div> 
 		</div>
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-12">
+<div class="col-md-12 col-lg-6">
 		<div class="main-card mb-3 card">
 			
 			<div class="card-header">
-				이력조회  :: 차트 
+				하루 평균 온도 
 			</div>
 			
 			 <div class="tab-content">
 				<figure class="highcharts-figure">
-					<div id="historycontainer"></div>
+    				<div id="daytemp" class="chart-container"></div>
+				</figure>
+				<button type="button" id="PopoverCustomT-1"
+				        class="btn btn-primary btn-sm" >Details</button>
+			</div> 
+		</div>
+	</div>
+	
+	<div class="col-md-12 col-lg-6">
+		<div class="main-card mb-3 card">
+			
+			<div class="card-header">
+				하루 평균 습도 
+			</div>
+			
+			 <div class="tab-content">
+				<figure class="highcharts-figure">
+    <div id="dayhumid" class="chart-container"></div>
+				</figure>
+				<button type="button" id="PopoverCustomT-1"
+									class="btn btn-primary btn-sm" >Details</button>
+			</div> 
+		</div>
+
+	</div>
+	</div>
+	
+	
+	<div class="row"> 
+	 <div class="col-md-12 col-lg-6">
+		<div class="main-card mb-3 card">
+			
+			<div class="card-header">
+				하루 평균 미세먼지 농도  
+			</div>
+			
+			 <div class="tab-content">
+				<figure class="highcharts-figure">
+    <div id="dustgraph" class="chart-container"></div>
+				</figure>
+			</div> 
+		</div>
+	</div> 
+	
+    <div class="col-md-12 col-lg-6">
+		<div class="main-card mb-3 card">
+			
+			<div class="card-header">
+				하루 평균 조도
+			</div>
+			
+			 <div class="tab-content">
+				<figure class="highcharts-figure">
+					<div id="daylight" class="chart-container"></div>
+				</figure>
+			</div> 
+		</div>
+	</div>  
+</div>
+
+<div class="row">
+<div class="col-md-12 ">
+		<div class="main-card mb-3 card">
+			
+			<div class="card-header">
+			    시간별 평균 쾌적지수  
+			</div>
+			
+			 <div class="tab-content">
+				<figure class="highcharts-figure">
+					<div id="timetempcontainer"></div>
 				</figure>
 			</div> 
 		</div>
@@ -276,16 +1035,27 @@ $(document).ready(function(){
                                         <table class="mb-0 table table-bordered">
                                             <thead>
                                             <tr>
-                                                <th>#</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Username</th>
+                                                <th class='backslash'><div>시간</div>센서</th>
+                                                <th>01:00</th>
+                                                <th>03:00</th>
+                                                <th>05:00</th>
+                                                <th>07:00</th>
+                                                <th>09:00</th>
+                                                <th>11:00</th>
+                                                <th>13:00</th>
+                                              	<th>15:00</th>
+                                               	<th>17:00</th>
+                                              	<th>19:00</th>
+                                              	<th>21:00</th>
+                                              	<th>23:00</th>
                                             </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
+                                           </thead>
+                                          <tbody id="htable">
+                                            
+                                <!-- <tr><td>TEMP</td><td>24</td></tr><tr><td>TEMP</td><td>30</td></tr><tr><td>HUM</td><td>50</td></tr><tr><td>HUM</td><td>40</td></tr> -->
+                                            <!-- <tr>
                                                 <th scope="row">1</th>
-                                                <td>Mark</td>
+                                                <td>{}</td>
                                                 <td>Otto</td>
                                                 <td>@mdo</td>
                                             </tr>
@@ -300,11 +1070,12 @@ $(document).ready(function(){
                                                 <td>Larry</td>
                                                 <td>the Bird</td>
                                                 <td>@twitter</td>
-                                            </tr>
+                                            </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+                            </div>
                             </div>
 <div class="row">
 	<div class="col-md-6 col-xl-4">
@@ -534,13 +1305,13 @@ $(document).ready(function(){
 				<div class="widget-content-outer">
 					<div class="widget-content-wrapper">
 						<div class="widget-content-left pr-2 fsize-1">
-							<div class="widget-numbers mt-0 fsize-3 text-danger">71%</div>
+							<div class="widget-numbers mt-0 fsize-3 text-danger" id=dustavg></div>
 						</div>
 						<div class="widget-content-right w-100">
 							<div class="progress-bar-xs progress">
 								<div class="progress-bar bg-danger" role="progressbar"
 									aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"
-									style="width: 71%;"></div>
+									style="width: 50%;"></div>
 							</div>
 						</div>
 					</div>

@@ -20,18 +20,18 @@ import java.io.PrintWriter;
 	@Controller
 	public class ChartController {
 
+
         String url = "jdbc:hive2://3.35.240.16:10000/default";
 		
 		String userid = "root";
 		String password = "111111";
+
 		public ChartController() {
 			try {
 				Class.forName("org.apache.hive.jdbc.HiveDriver");
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 		
 		@RequestMapping("/getdata1.mc")
@@ -46,9 +46,11 @@ import java.io.PrintWriter;
 				ResultSet rset = pstmt.executeQuery();
 				System.out.println(rset);
 				while(rset.next()) {
+
                    JSONObject data = new JSONObject();
 					
 					data.put("name", rset.getString(5));
+
 					//JSONArray jo2 = new JSONArray();
 					//jo2.add(rset.getInt(2));
 					//jo2.add(rset.getString(5));
@@ -58,24 +60,17 @@ import java.io.PrintWriter;
 					System.out.println(ja);
 					}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
-				
 			}
 			con.close();
 			res.setCharacterEncoding("UTF-8");
-
 			res.setContentType("application/json");
-
 			PrintWriter out = res.getWriter();
-
 			out.print(ja.toJSONString());
-
 			out.close();
-
-			
 		}
+		
 		@RequestMapping("/getdata2.mc")
 		@ResponseBody
 		public void getdata2(HttpServletResponse res) throws Exception {
@@ -88,8 +83,12 @@ import java.io.PrintWriter;
 				System.out.println(rset);
 				while(rset.next()) {
 					JSONObject data2 = new JSONObject();
+
 					
 					data2.put("name", rset.getString(7));
+
+					
+
 					//JSONArray jo2 = new JSONArray();
 					//jo2.add(rset.getInt(2));
 					//jo2.add(rset.getString(5));
@@ -99,23 +98,15 @@ import java.io.PrintWriter;
 					System.out.println(data2);
 					}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
-				
 			}
 			con.close();
 			res.setCharacterEncoding("UTF-8");
-
 			res.setContentType("application/json");
-
 			PrintWriter out = res.getWriter();
-
 			out.print(ja2.toJSONString());
-
 			out.close();
-
-			
 		}
 		@RequestMapping("/getdata3.mc")
 		@ResponseBody
@@ -129,8 +120,10 @@ import java.io.PrintWriter;
 				System.out.println(rset);
 				while(rset.next()) {
 					JSONObject data = new JSONObject();
-					
-					data.put("name", rset.getString(7));
+                  	data.put("name", rset.getString(7));
+
+					data.put("name", rset.getString(1));
+
 					//JSONArray jo2 = new JSONArray();
 					//jo2.add(rset.getInt(2));
 					//jo2.add(rset.getString(5));
@@ -140,26 +133,14 @@ import java.io.PrintWriter;
 					System.out.println(data);
 					}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
-				
 			}
 			con.close();
 			res.setCharacterEncoding("UTF-8");
-
 			res.setContentType("application/json");
-
 			PrintWriter out = res.getWriter();
-
 			out.print(ja.toJSONString());
-
 			out.close();
-
-			
 		}
-		
-		
 	}
-
-
