@@ -374,7 +374,12 @@ public class Client implements SerialPortEventListener {
 //				System.out.println("습도"+dataArr[i].substring(3));
 				jsonObj.put("dst", dataArr[i].substring(3));
 				continue;
+			case "lgt":
+//				System.out.println("습도"+dataArr[i].substring(3));
+				jsonObj.put("lgt", dataArr[i].substring(3));
+				continue;
 			}
+			
 		}
 		return jsonObj;
 	}
