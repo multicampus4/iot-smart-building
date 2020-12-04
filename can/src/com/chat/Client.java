@@ -199,9 +199,13 @@ public class Client implements SerialPortEventListener {
 						}
 						continue;
 					}
-					System.out.println("RECEIVED DATA: " + msg.getId() + msg.getMsg());
-					// mobile client에서 보낸 메세지를 IoT Client로 전송
-					sendToArduino(msg.getMsg());
+					System.out.println("RECEIVED DATA: " + msg.getId() + "::::" + msg.getMsg());
+					if(msg.getType().equals("command")) {
+						// mobile client에서 보낸 메세지를 IoT Client로 전송
+						sendToArduino(msg.getMsg());
+						System.out.println("COMPLETE SEND ARDUINO: " + msg.getMsg());
+					}
+					
 				} catch (Exception e) {
 					// e.printStackTrace();
 					break;
@@ -272,7 +276,7 @@ public class Client implements SerialPortEventListener {
 				String ss = new String(readBuffer).trim();	// Data From Aruduino : "tmp26;hum80;"
 //				ss = ss.trim();
 				if(ss.length() != numOfDataType*9) {
-					System.out.println("Return ... Crashed Data ...");
+					System.out.println("Return ... Crashed Data ..." + ss);
 					break;
 				}
 				System.out.println("RAW DATA From ARDUINO:" + ss + "||");

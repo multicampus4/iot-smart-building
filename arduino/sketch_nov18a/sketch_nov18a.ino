@@ -1,4 +1,7 @@
 #include <DHT11.h>
+#include <iostream>
+#include <vector>
+#include <sstream>
 
 // pin 설정
 const int temphumPin = A0;
@@ -79,19 +82,44 @@ void loop() {
   calDust();
   calLight();
 
-  // 출력
-  Serial.print("tmp");
-  Serial.print(tmp);
-  Serial.print(";hum");
-  Serial.print(temp+52.12);
+  
 
-  Serial.print(";acx");
-  Serial.print(temp+1.01);
-  Serial.print(";acy");
-  Serial.print(temp+2.19);
-  Serial.print(";acz");
-  Serial.print(temp+1.84);
-  Serial.print(";\n");
+  if(Serial.available()){
+    cmd = Serial.readString();
+    Serial.println(cmd);
+
+    vector<string> result = split(test, ' ');
+    for (int i=0; i<result.size(); i++){
+      // cout << result[i] << " ";
+      Serial.print(result[i]);
+
+    }
+
+  } else {
+    // 출력
+    Serial.print("tmp");
+    Serial.print(tmp);
+    Serial.print(";hum");
+    Serial.print(temp+52.12);
+
+    Serial.print(";acx");
+    Serial.print(temp+1.01);
+    Serial.print(";acy");
+    Serial.print(temp+2.19);
+    Serial.print(";acz");
+    Serial.print(temp+1.84);
+    Serial.print(";\n");
+  }
+
+  vector<string> split(string input, char delimiter) {
+    vector<string> answer;
+    stringstream ss(input);
+    string temp;
+    while (getline(ss, temp, delimiter)) {
+        answer.push_back(temp);
+    }
+    return answer;
+}
 
 /*
   // LED 센서
