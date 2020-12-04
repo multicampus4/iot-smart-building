@@ -48,7 +48,7 @@
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="1_A_S_HUM">
-												<span>12345</span>
+												<span></span>
 											</div>
 										</div>
 									</div>
