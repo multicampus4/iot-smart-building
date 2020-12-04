@@ -48,7 +48,7 @@
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="1_A_S_HUM">
-												<span>12345</span>
+												<span></span>
 											</div>
 										</div>
 									</div>
@@ -63,7 +63,7 @@
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="1_A_S_DUST">
-												<span>12345</span>
+												<span></span>
 											</div>
 										</div>
 									</div>
@@ -154,7 +154,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">TEMPERATURE</div>
-											<div class="widget-subheading">(Ã¢ÂÂ)</div>
+											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_TEMP">
@@ -169,7 +169,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">HUMIDITY</div>
-											<div class="widget-subheading">(%)</div>
+											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_HUM">
@@ -184,7 +184,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">FINE DUST</div>
-											<div class="widget-subheading">(ÃÂ¼m)</div>
+											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_DUST">
@@ -277,14 +277,14 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<h5>Area A</h5>
+						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
 							<div class="col-lg-6 col-xl-3">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">TEMPERATURE</div>
-											<div class="widget-subheading">(Ã¢ÂÂ)</div>
+											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_TEMP">
@@ -299,7 +299,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">HUMIDITY</div>
-											<div class="widget-subheading">(%)</div>
+											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_HUM">
@@ -314,7 +314,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">FINE DUST</div>
-											<div class="widget-subheading">(ÃÂ¼m)</div>
+											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_DUST">
@@ -428,7 +428,7 @@
 		var stat;
 		var device;
 
-		// on, off ui Ã­ÂÂÃ¬ÂÂ¤Ã­ÂÂ¸
+		// on, off button control
 		$("input[type='checkbox']").click(function(){
 			device = $(this).attr('id');
 			if ($(this).is(":checked")) {
@@ -447,7 +447,7 @@
 	background-color: #f1f3f5;
 }
 
-/* on, off ui Ã­ÂÂÃ¬ÂÂ¤Ã­ÂÂ¸ */
+/* on, off button css */
 /* The switch - the box around the slider */
 .switch {
   position: relative;
