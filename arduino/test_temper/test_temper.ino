@@ -1,6 +1,9 @@
 const int tempPin = A0;
 const int ledPin = A2;
 
+String deviceName = "";   // AIR
+String deviceAction = ""; // ON
+
 void setup() {
   Serial.begin(9600);
   pinMode(ledPin, OUTPUT);
@@ -8,11 +11,12 @@ void setup() {
 
 void loop() {
   delay(2000);
+  // 온도 센서
+  int data = analogRead(tempPin);
+  float temp = ((5.0 * data) / 1024.0) * 100;
   
   if(Serial.available()){
     String cmdMsg = "";       // cmd 예시 : AIR_ON 
-    String deviceName = "";   // AIR
-    String deviceAction = ""; // ON
     cmdMsg = Serial.readString();
     Serial.println(cmdMsg);
     Split(cmdMsg, '_');
@@ -54,7 +58,7 @@ void Split(String sData, char cSeparator) {
         deviceName = sTemp;
 
       } else {  // 없으면 end
-        Serial.println( sCopy );  // ON/OFF
+        Serial.println( sCopy );  // ON or OFF
         deviceAction = sCopy;
         break;
       }
