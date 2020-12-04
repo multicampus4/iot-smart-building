@@ -73,7 +73,6 @@ th, td {
 
 </style>
 
-
 <script type="text/javascript" >
 
 //하루 평균 온도 값 차트 
@@ -258,9 +257,9 @@ function displayTempAvg(data){
 			            valueSuffix: ' km/h'
 			        }
 			    }]
-			   
-
-			})); 
+			}
+		)
+	); 
 } 
 //하루 평균 미세먼지 농도 차트 
  function displayDustSat(data){

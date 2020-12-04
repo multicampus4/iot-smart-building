@@ -222,6 +222,8 @@
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(data);
 	
+	Logger log_earthquake = Logger.getLogger("earthquake");
+	LOGGER.info(data);
 %>
 
 	<!-- 층별 제어 화면 -->
