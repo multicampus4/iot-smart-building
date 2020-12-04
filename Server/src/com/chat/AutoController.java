@@ -28,18 +28,20 @@ public class AutoController {
 		switch ((String) jsonObj.get("area")) {
 		case "1_A":
 			// queue에 add
-			if (q_1_A_TEMP.size() < MAX_QUE_SIZE) {
-				q_1_A_TEMP.add(Float.parseFloat((String) jsonObj.get("tmp")));
-			} else {
+			if (q_1_A_TEMP.size() >= MAX_QUE_SIZE) {
 				q_1_A_TEMP.poll();
-				q_1_A_TEMP.add(Float.parseFloat((String) jsonObj.get("tmp")));
 			}
-			System.out.println(getQueAvg(q_1_A_TEMP));
+			q_1_A_TEMP.add(Float.parseFloat((String) jsonObj.get("tmp")));
+			
+			System.out.println(jsonObj.get("area") + "의 현재 평균 온도: " +getQueAvg(q_1_A_TEMP));
+			
 			// 센서 평균값 & 적정 기준치 값 비교
 			if(getQueAvg(q_1_A_TEMP) > NORMAL_TEMP) {
 				return jsonObj.get("area") + "_D_AIR_ON";
+			} else if(getQueAvg(q_1_A_TEMP) <= NORMAL_TEMP) {
+				return jsonObj.get("area") + "_D_AIR_OFF";
 			} else {
-				return "Good Status";
+				return "Nothing";
 			}
 		case "1_B":
 			break;

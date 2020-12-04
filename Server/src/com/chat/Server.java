@@ -109,7 +109,10 @@ public class Server {
 				try {
 					msg = (Msg) oi.readObject();
 					System.out.println(msg);
-
+					String[] split;
+					String cmdTargetLatte;
+					String cmdTargetTab;
+					
 					switch(msg.getType()) {	// first :: ssRaw :: command 
 					case "first":
 						System.out.println("First");
@@ -125,7 +128,26 @@ public class Server {
 				        }
 						break;
 					case "ssRaw":
-						System.out.println(autoController.whatToDo(msg.getMsg()));
+						String whatToDo = autoController.whatToDo(msg.getMsg());
+						
+						if(whatToDo.equals("nothing")) {
+							System.out.println("Auto Controller : Fine! Nothing to control");
+							break;
+						} else {
+							split = whatToDo.split("_");
+							cmdTargetLatte = "latte_" + split[0] + "_" + split[1];
+							cmdTargetTab = "tablet_" + split[0] + "_" + split[1];
+							String cmdAction = split[3] + "_" + split[4];
+							
+							System.out.println(whatToDo);
+							if(idipMaps.get(cmdTargetLatte) != null) {	// Target : Latte
+								sendTarget(
+										idipMaps.get(cmdTargetLatte), 
+										"MAIN Server", 	// 발송 주체
+										"command", 		// 메시지 유형
+										cmdAction);		// 제어명령 ex) AIR_ON
+							}
+						}
 						
 //						if(idipMaps.get(cmdTargetL) != null) {	// Target : Latte
 //							sendTarget(idipMaps.get(cmdTargetL), msg.getId(), msg.getType(), cmdAction);
@@ -135,21 +157,24 @@ public class Server {
 						if(idipMaps.get("mobileApp") != null) {
 							sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
 						}
+						if(idipMaps.get(cmdTargetTab) != null) {	// Target : Tablet
+							sendTarget(idipMaps.get(cmdTargetTab), msg.getId(), msg.getType(), msg.getMsg());
+						}
 						break;
 					case "command":	// (웹),(안드로이드)에서 오는 제어명령 > 라떼로 Send Target
 						// 라떼 구분 ID : 1_A, 2_A, 2_B
 						// 제어명령의 예: 1_A_D_AIR_OFF
-						String[] split = msg.getMsg().split("_");
-						String cmdTargetL = "latte_" + split[0] + "_" + split[1];
-						String cmdTargetT = "tablet_" + split[0] + "_" + split[1];
+						split = msg.getMsg().split("_");
+						cmdTargetLatte = "latte_" + split[0] + "_" + split[1];
+						cmdTargetTab = "tablet_" + split[0] + "_" + split[1];
 						
-						if(idipMaps.get(cmdTargetL) != null) {	// Target : Latte
+						if(idipMaps.get(cmdTargetLatte) != null) {	// Target : Latte
 							String cmdAction = split[2] + "_" + split[3] + "_" + split[4];
-							sendTarget(idipMaps.get(cmdTargetL), msg.getId(), msg.getType(), cmdAction);
+							sendTarget(idipMaps.get(cmdTargetLatte), msg.getId(), msg.getType(), cmdAction);
 						}
 						
-						if(idipMaps.get(cmdTargetT) != null) {	// Target : Tablet
-							sendTarget(idipMaps.get(cmdTargetT), msg.getId(), msg.getType(), msg.getMsg());
+						if(idipMaps.get(cmdTargetTab) != null) {	// Target : Tablet
+							sendTarget(idipMaps.get(cmdTargetTab), msg.getId(), msg.getType(), msg.getMsg());
 						}
 						
 						if(idipMaps.get("mobileApp") != null) {	// Target : Mobile App
