@@ -10,15 +10,20 @@ void loop() {
   delay(2000);
   
   if(Serial.available()){
-    cmd = Serial.readString();
-    Serial.println(cmd);
-
-    Split(cmd, "-");
+    String cmdMsg = "";       // cmd 예시 : AIR_ON 
+    String deviceName = "";   // AIR
+    String deviceAction = ""; // ON
+    cmdMsg = Serial.readString();
+    Serial.println(cmdMsg);
+    Split(cmdMsg, '_');
+    Serial.println("RESULTDTT");
+    Serial.println(deviceName);
+    Serial.println(deviceAction);
 
   } else {
-    // 출력
+    // 평시 상태
     Serial.print("tmp");
-    Serial.print(tmp);
+    Serial.print(temp);
     Serial.print(";hum");
     Serial.print(temp+52.12);
 
@@ -30,41 +35,29 @@ void loop() {
     Serial.print(temp+1.84);
     Serial.print(";\n");
   }
-
   
 }
 
 void Split(String sData, char cSeparator) {	
     int nCount = 0;
     int nGetIndex = 0 ;
-
-    //임시저장
     String sTemp = "";
-
-    //원본 복사
     String sCopy = sData;
 
     while(true){
-      //구분자 찾기
-      nGetIndex = sCopy.indexOf(cSeparator);
+      nGetIndex = sCopy.indexOf(cSeparator);  // 구분자 찾기
 
-      //리턴된 인덱스가 있나?
-      if(-1 != nGetIndex)
-      {
-        //있으면 데이터 넣고
-        sTemp = sCopy.substring(0, nGetIndex);
-        Serial.println( sTemp );
-      
-        //뺀 데이터 만큼 잘라낸다.
-        sCopy = sCopy.substring(nGetIndex + 1);
-      }
-      else
-      {
-        //없으면 마무리 한다.
-        Serial.println( sCopy );
+      if(-1 != nGetIndex) {   // 리턴된 인덱스가 있을 경우 
+        sTemp = sCopy.substring(0, nGetIndex);  // 있으면 데이터 넣고
+        sCopy = sCopy.substring(nGetIndex + 1); // 뺀 데이터 만큼 잘라낸다.
+        Serial.println( sTemp ); // AIR, HUM ...
+        deviceName = sTemp;
+
+      } else {  // 없으면 end
+        Serial.println( sCopy );  // ON/OFF
+        deviceAction = sCopy;
         break;
       }
-      //다음 문자로
-      ++nCount;
+      ++nCount; // 다음 문자로
     }
   }
