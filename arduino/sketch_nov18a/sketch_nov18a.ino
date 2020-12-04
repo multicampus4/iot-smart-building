@@ -1,7 +1,4 @@
 #include <DHT11.h>
-#include <iostream>
-#include <vector>
-#include <sstream>
 
 // pin 설정
 const int temphumPin = A0;
@@ -88,12 +85,7 @@ void loop() {
     cmd = Serial.readString();
     Serial.println(cmd);
 
-    vector<string> result = split(test, ' ');
-    for (int i=0; i<result.size(); i++){
-      // cout << result[i] << " ";
-      Serial.print(result[i]);
-
-    }
+    Split(cmd, "-");
 
   } else {
     // 출력
@@ -111,15 +103,40 @@ void loop() {
     Serial.print(";\n");
   }
 
-  vector<string> split(string input, char delimiter) {
-    vector<string> answer;
-    stringstream ss(input);
-    string temp;
-    while (getline(ss, temp, delimiter)) {
-        answer.push_back(temp);
+  void Split(String sData, char cSeparator) {	
+    int nCount = 0;
+    int nGetIndex = 0 ;
+
+    //임시저장
+    String sTemp = "";
+
+    //원본 복사
+    String sCopy = sData;
+
+    while(true){
+      //구분자 찾기
+      nGetIndex = sCopy.indexOf(cSeparator);
+
+      //리턴된 인덱스가 있나?
+      if(-1 != nGetIndex)
+      {
+        //있으면 데이터 넣고
+        sTemp = sCopy.substring(0, nGetIndex);
+        Serial.println( sTemp );
+      
+        //뺀 데이터 만큼 잘라낸다.
+        sCopy = sCopy.substring(nGetIndex + 1);
+      }
+      else
+      {
+        //없으면 마무리 한다.
+        Serial.println( sCopy );
+        break;
+      }
+      //다음 문자로
+      ++nCount;
     }
-    return answer;
-}
+  }
 
 /*
   // LED 센서
