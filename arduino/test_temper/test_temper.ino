@@ -3,6 +3,9 @@ const int ledPin = A2;
 
 String deviceName = "";   // AIR
 String deviceAction = ""; // ON
+
+boolean runAir = false;
+
 float fakeAmountTmp = 0;
 
 void setup() {
@@ -22,10 +25,28 @@ void loop() {
     String cmdMsg = "";       // cmd 예시 : AIR_ON 
     cmdMsg = Serial.readString();
     Serial.println(cmdMsg);
-    Split(cmdMsg, '_');
-    Serial.println(deviceName);
-    Serial.println(deviceAction);
-    if(deviceName.equals("AIR")){
+    // Split(cmdMsg, '_');
+    if(cmdMsg.equals("AIR_ON")){
+      runAir = true;
+    } else if(cmdMsg.equals("AIR_OFF")){
+      runAir = false;
+    }
+
+  }
+
+  if(runAir == true){
+    Serial.println("AIRCON_ON");
+    fakeAmountTmp += 0.2;
+    temp -= fakeAmountTmp;
+    Serial.println(fakeAmountTmp);
+  } else if(runAir == false){
+    fakeAmountTmp = 0;
+  }
+  Serial.print("tmp");
+  Serial.print(temp);
+  
+/*
+  if(deviceName.equals("AIR")){
       if(deviceAction.equals("ON")){
         Serial.println("AIRCON_ON");
         fakeAmountTmp += 0.2;
@@ -36,11 +57,11 @@ void loop() {
         fakeAmountTmp = 0;
       }
     }
-  }
+    */
   
   // 평시 상태
-  Serial.print("tmp");
-  Serial.print(temp);
+  // Serial.print("tmp");
+  // Serial.print(temp);
   Serial.print(";hum");
   Serial.print(temp+52.12);
    
