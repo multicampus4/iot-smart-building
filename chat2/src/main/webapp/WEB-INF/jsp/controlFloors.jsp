@@ -277,7 +277,7 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<h5>Area A</h5>
+						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
 							<div class="col-lg-6 col-xl-3">
 								<div class="card mb-1 widget-content sensordata">
