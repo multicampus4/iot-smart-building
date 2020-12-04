@@ -428,7 +428,7 @@
 		var stat;
 		var device;
 
-		// on, off ui Ã­ÂÂÃ¬ÂÂ¤Ã­ÂÂ¸
+		// on, off button control
 		$("input[type='checkbox']").click(function(){
 			device = $(this).attr('id');
 			if ($(this).is(":checked")) {
@@ -447,7 +447,7 @@
 	background-color: #f1f3f5;
 }
 
-/* on, off ui Ã­ÂÂÃ¬ÂÂ¤Ã­ÂÂ¸ */
+/* on, off button css */
 /* The switch - the box around the slider */
 .switch {
   position: relative;
