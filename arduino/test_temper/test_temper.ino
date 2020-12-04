@@ -11,12 +11,12 @@ void setup() {
 
 void loop() {
   delay(2000);
-
-   // 온도 센서
+  
+  // 온도 센서
   int data = analogRead(tempPin);
   float temp = ((5.0 * data) / 1024.0) * 100;
   int fakeAmountTmp = 0;
-
+  
   if(Serial.available()){
     String cmdMsg = "";       // cmd 예시 : AIR_ON 
     cmdMsg = Serial.readString();
@@ -72,7 +72,11 @@ void Split(String sData, char cSeparator) {
         deviceName = sTemp;
 
       } else {  // 없으면 end
+<<<<<<< HEAD
         // Serial.println( sCopy );  // ON or OFF
+=======
+        Serial.println( sCopy );  // ON or OFF
+>>>>>>> c672c4777c2125f9ade20831e547118fd8da76e7
         deviceAction = sCopy;
         break;
       }
