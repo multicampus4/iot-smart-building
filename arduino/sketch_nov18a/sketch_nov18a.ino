@@ -83,11 +83,14 @@ void loop() {
   Serial.print("tmp");
   Serial.print(tmp);
   Serial.print(";hum");
-  Serial.print(hum);
-  Serial.print(";dst");
-  Serial.print(dustDensity);
-  Serial.print(";lgt");
-  Serial.print(lightVal);
+  Serial.print(temp+52.12);
+
+  Serial.print(";acx");
+  Serial.print(temp+1.01);
+  Serial.print(";acy");
+  Serial.print(temp+2.19);
+  Serial.print(";acz");
+  Serial.print(temp+1.84);
   Serial.print(";\n");
 
 /*

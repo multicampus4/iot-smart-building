@@ -19,13 +19,10 @@ import java.io.PrintWriter;
 
 	@Controller
 	public class ChartController {
-
-
         String url = "jdbc:hive2://3.35.240.16:10000/default";
 		
 		String userid = "root";
 		String password = "111111";
-
 		public ChartController() {
 			try {
 				Class.forName("org.apache.hive.jdbc.HiveDriver");
