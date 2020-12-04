@@ -267,12 +267,6 @@
 
 
 	<div id="container" class="containerBottom">
-		<div class="btn1">
-			<a class="btn" id="ledStart" href="#">LED START</a>
-		</div>
-		<div class="btn2">
-			<a class="btn" id="ledStop" href="#">LED STOP</a>
-		</div>
 		<div class="btn3">
 			<a class="btn" id= "alert" href = "#">Alert</a>
 		</div>
