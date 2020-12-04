@@ -31,7 +31,8 @@ import gnu.io.SerialPortEventListener;
 public class Client implements SerialPortEventListener {
 	// LattePanda ID
 	// latte_1_A : 1A 구역에서 가동되는 IoT 클라이언트
-	static String latteId = "latte_1_A";
+	static String AREA = "1_A";
+	static String latteId = "latte_" + AREA;	// latte_1_A
 	
 	// 아두이노 센서에서 받아올 데이터의 가짓수
 	// 예) tmp, hum, acX, acY, acZ -> 5
@@ -276,7 +277,7 @@ public class Client implements SerialPortEventListener {
 				}
 				System.out.println("RAW DATA From ARDUINO:" + ss + "||");
 
-				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
+//				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
 				sendHttp(ss);		// Send raw to chat.jsp (LOG)
 				
 				// Send JSON to DashBoard (Websocket)
@@ -284,7 +285,7 @@ public class Client implements SerialPortEventListener {
 				String rawToJson = convertJson(ss).toJSONString();
 				System.out.println(rawToJson);
 				WsClient.send(rawToJson);
-//				sendTcpip(jsonTemp);
+				sendTcpip(rawToJson);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -360,6 +361,7 @@ public class Client implements SerialPortEventListener {
 		String[] dataArr = ss.split(";");
 		
 		jsonObj.put("latteId", latteId);
+		jsonObj.put("area", AREA);
 		for(int i=0; i<dataArr.length; i++) {
 			String dataName = dataArr[i].substring(0,3);
 			String dataValue = dataArr[i].substring(3);
