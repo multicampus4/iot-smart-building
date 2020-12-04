@@ -9,9 +9,9 @@ public class OracleTest {
 
 	
 	public static void main(String[] args) throws Exception {
-		String url="jdbc:oracle:thin:@192.168.0.63:1521:xe";
-		String id ="system";
-		String password ="oracle";
+		String url="jdbc:oracle:thin:@192.168.25.57:1521:xe";
+		String id ="final_db";
+		String password ="111111";
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = DriverManager.getConnection(url,id,password);
 		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM SENSOR2");
