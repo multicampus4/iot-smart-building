@@ -143,7 +143,7 @@
 			
 		function drawData(obj, area){
 			if(obj.tmp != "undefined"){
-				$("#" + area + "_S_TEMP").html("<h5>" + obj.tmp + "</h5>");
+				$("#" + area + "_S_TEMP").text(obj.tmp);
 				if(obj.tmp <= 23){
 					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
 				}else if(obj.tmp > 23 && obj.tmp <= 25){
@@ -153,13 +153,33 @@
 				}
 			}
 			if(obj.hum != "undefined"){
-				$("#" + area + "_S_HUM").html("<h5>" + obj.hum + "</h5>");
+				$("#" + area + "_S_HUM").text(obj.hum);
 				if(obj.hum <= 72){
 					$("#" + area + "_S_HUM").css('background-color', '#f7b924');
 				}else if(obj.hum > 72 && obj.hum <= 73){
 					$("#" + area + "_S_HUM").css('background-color', '#00aeef');
 				}else if(obj.hum > 73){
 					$("#" + area + "_S_HUM").css('background-color', '#f42a2f');
+				}
+			}
+			if(obj.tmp != "undefined"){
+				$("#" + area + "_S_TEMP").text(obj.tmp);
+				if(obj.tmp <= 23){
+					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
+				}else if(obj.tmp > 23 && obj.tmp <= 25){
+					$("#" + area + "_S_TEMP").css('background-color', '#00aeef');
+				}else if(obj.tmp > 25){
+					$("#" + area + "_S_TEMP").css('background-color', '#f42a2f');
+				}
+			}
+			if(obj.dst != "undefined"){
+				$("#" + area + "_S_DUST").text(obj.dst);
+				if(obj.dst <= 30){
+					$("#" + area + "_S_DUST").css('background-color', '#f7b924');
+				}else if(obj.dst > 30 && obj.dst <= 80){
+					$("#" + area + "_S_DUST").css('background-color', '#00aeef');
+				}else if(obj.dst > 80){
+					$("#" + area + "_S_DUST").css('background-color', '#f42a2f');
 				}
 			}
 		}
