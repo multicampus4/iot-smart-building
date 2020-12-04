@@ -3,7 +3,7 @@
 // pin 설정
 const int temphumPin = A0;
 const int dustPin = A1;
-const int ledPin = A2;
+const int lightPin = A2;
 
 // 온습도 변수
 float tmp = 0;
@@ -16,6 +16,11 @@ unsigned long lowpulseoccupancy = 0;
 float ratio = 0;
 float concentration = 0;
 float dustDensity = 0;
+
+// 조도 변수
+const int ledPin = 13;
+int lightVal;
+int ledVal;
 
 // 온습도 설정
 DHT11 dht11(temphumPin); 
@@ -61,11 +66,18 @@ void calDust(){
  
 }
 
+void calLight(){
+  lightVal = analogRead(lightPin);
+  ledVal = map(analogRead(lightPin),0,1100,0,255);
+  analogWrite(ledPin, ledVal);
+}
+
 void loop() {
   delay(2000);
 
   calTempHum();
   calDust();
+  calLight();
 
   // 출력
   Serial.print("tmp");
@@ -74,8 +86,11 @@ void loop() {
   Serial.print(hum);
   Serial.print(";dst");
   Serial.print(dustDensity);
+  Serial.print(";lgt");
+  Serial.print(lightVal);
   Serial.print(";\n");
 
+/*
   // LED 센서
   String cmd="";
   if(Serial.available()){
@@ -87,6 +102,6 @@ void loop() {
       digitalWrite(ledPin, LOW);
     }
   }
-
+*/
 
 }
