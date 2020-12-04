@@ -25,7 +25,7 @@ void loop() {
     String cmdMsg = "";       // cmd 예시 : AIR_ON 
     cmdMsg = Serial.readString();
     Serial.println(cmdMsg);
-    // Split(cmdMsg, '_');
+    
     if(cmdMsg.equals("AIR_ON")){
       runAir = true;
     } else if(cmdMsg.equals("AIR_OFF")){
@@ -35,46 +35,29 @@ void loop() {
   }
 
   if(runAir == true){
-    Serial.println("AIRCON_ON");
-    fakeAmountTmp += 0.2;
+    fakeAmountTmp += 0.1;
     temp -= fakeAmountTmp;
-    Serial.println(fakeAmountTmp);
+//    Serial.println(fakeAmountTmp);
   } else if(runAir == false){
     fakeAmountTmp = 0;
   }
+  
   Serial.print("tmp");
   Serial.print(temp);
-  
-/*
-  if(deviceName.equals("AIR")){
-      if(deviceAction.equals("ON")){
-        Serial.println("AIRCON_ON");
-        fakeAmountTmp += 0.2;
-        temp -= fakeAmountTmp;
-        Serial.println(fakeAmountTmp);
-
-      } else {  // OFF
-        fakeAmountTmp = 0;
-      }
-    }
-    */
-  
-  // 평시 상태
-  // Serial.print("tmp");
-  // Serial.print(temp);
   Serial.print(";hum");
   Serial.print(temp+52.12);
    
-  Serial.print(";acx");
-  Serial.print(temp+1.01);
-  Serial.print(";acy");
-  Serial.print(temp+2.19);
-  Serial.print(";acz");
-  Serial.print(temp+1.84);
+//  Serial.print(";acx");
+//  Serial.print(temp+1.01);
+//  Serial.print(";acy");
+//  Serial.print(temp+2.19);
+//  Serial.print(";acz");
+//  Serial.print(temp+1.84);
   Serial.print(";\n");
   
 }
 
+// Split(cmdMsg, '_');
 void Split(String sData, char cSeparator) {	
     int nCount = 0;
     int nGetIndex = 0 ;
