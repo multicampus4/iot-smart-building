@@ -162,16 +162,6 @@
 					$("#" + area + "_S_HUM").css('background-color', '#f42a2f');
 				}
 			}
-			if(obj.tmp != "undefined"){
-				$("#" + area + "_S_TEMP").text(obj.tmp);
-				if(obj.tmp <= 23){
-					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
-				}else if(obj.tmp > 23 && obj.tmp <= 25){
-					$("#" + area + "_S_TEMP").css('background-color', '#00aeef');
-				}else if(obj.tmp > 25){
-					$("#" + area + "_S_TEMP").css('background-color', '#f42a2f');
-				}
-			}
 			if(obj.dst != "undefined"){
 				$("#" + area + "_S_DUST").text(obj.dst);
 				if(obj.dst <= 30){
@@ -180,6 +170,16 @@
 					$("#" + area + "_S_DUST").css('background-color', '#00aeef');
 				}else if(obj.dst > 80){
 					$("#" + area + "_S_DUST").css('background-color', '#f42a2f');
+				}
+			}
+			if(obj.lgt != "undefined"){
+				$("#" + area + "_S_ILLM").text(obj.lgt);
+				if(obj.lgt <= 500){
+					$("#" + area + "_S_ILLM").css('background-color', '#f7b924');
+				}else if(obj.lgt > 500 && obj.lgt <= 1000){
+					$("#" + area + "_S_ILLM").css('background-color', '#00aeef');
+				}else if(obj.lgt > 1000){
+					$("#" + area + "_S_ILLM").css('background-color', '#f42a2f');
 				}
 			}
 		}
