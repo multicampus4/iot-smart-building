@@ -154,7 +154,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">TEMPERATURE</div>
-											<div class="widget-subheading">(Ã¢ÂÂ)</div>
+											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_TEMP">
@@ -169,7 +169,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">HUMIDITY</div>
-											<div class="widget-subheading">(%)</div>
+											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_HUM">
@@ -184,7 +184,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">FINE DUST</div>
-											<div class="widget-subheading">(ÃÂ¼m)</div>
+											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_DUST">
@@ -284,7 +284,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">TEMPERATURE</div>
-											<div class="widget-subheading">(Ã¢ÂÂ)</div>
+											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_TEMP">
@@ -299,7 +299,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">HUMIDITY</div>
-											<div class="widget-subheading">(%)</div>
+											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_HUM">
@@ -314,7 +314,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">FINE DUST</div>
-											<div class="widget-subheading">(ÃÂ¼m)</div>
+											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_DUST">
