@@ -3,6 +3,7 @@ const int ledPin = A2;
 
 String deviceName = "";   // AIR
 String deviceAction = ""; // ON
+float fakeAmountTmp = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -15,7 +16,7 @@ void loop() {
   // 온도 센서
   int data = analogRead(tempPin);
   float temp = ((5.0 * data) / 1024.0) * 100;
-  int fakeAmountTmp = 0;
+  
   
   if(Serial.available()){
     String cmdMsg = "";       // cmd 예시 : AIR_ON 
@@ -24,20 +25,17 @@ void loop() {
     Split(cmdMsg, '_');
     Serial.println(deviceName);
     Serial.println(deviceAction);
-    switch(deviceName) {
-    case "AIR":     // 에어컨
-      switch(deviceAction){
-      case "ON":
-        fakeAmountTmp += 0.1;
+    if(deviceName.equals("AIR")){
+      if(deviceAction.equals("ON")){
+        Serial.println("AIRCON_ON");
+        fakeAmountTmp += 0.2;
         temp -= fakeAmountTmp;
-        break;
-      case "OFF":
-        fakeAmountTmp = 0;
-        break;  
-      }
-      
-    }
+        Serial.println(fakeAmountTmp);
 
+      } else {  // OFF
+        fakeAmountTmp = 0;
+      }
+    }
   }
   
   // 평시 상태
@@ -72,11 +70,7 @@ void Split(String sData, char cSeparator) {
         deviceName = sTemp;
 
       } else {  // 없으면 end
-<<<<<<< HEAD
         // Serial.println( sCopy );  // ON or OFF
-=======
-        Serial.println( sCopy );  // ON or OFF
->>>>>>> c672c4777c2125f9ade20831e547118fd8da76e7
         deviceAction = sCopy;
         break;
       }
