@@ -23,7 +23,8 @@ public class Server {
 	// 루트 로컬의 my.properties 저장할 변수
 	static int tcpipPort;
 
-	ServerSocket serverSocket;											// SErverSocket 객체
+	ServerSocket serverSocket;											// ServerSocket 객체
+	static AutoController autoController;
 	
 	// client들의 메세지를 받는다.
 	HashMap<String, ObjectOutputStream> maps;	// HashMap<IP주소, 해당 아웃풋스트림>
@@ -123,7 +124,14 @@ public class Server {
 				            System.out.println(key+" ::: "+value);
 				        }
 						break;
-					case "ssRaw":	// (라떼)에서 오는 센서데이터 > 안드로이드로 Send Target
+					case "ssRaw":
+						System.out.println(autoController.whatToDo(msg.getMsg()));
+						
+//						if(idipMaps.get(cmdTargetL) != null) {	// Target : Latte
+//							sendTarget(idipMaps.get(cmdTargetL), msg.getId(), msg.getType(), cmdAction);
+//						}
+						
+						// (라떼)에서 오는 센서데이터 > 안드로이드로 Send Target
 						if(idipMaps.get("mobileApp") != null) {
 							sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
 						}
@@ -205,6 +213,7 @@ public class Server {
 					}
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
 					// 해쉬맵에서 연결된 IP주소 삭제
+					e.printStackTrace();
 					maps.remove(socket.getInetAddress().toString());			
 
 					// idipMaps는 IP주소가 Value값이므로 위의 방법처럼 삭제할 수 없음
@@ -320,6 +329,7 @@ public class Server {
 	public static void main(String[] args) {
 		getProp();
 		Server server = new Server(tcpipPort);								// Server 객체에  포트를 넣어 선언
+		autoController = new AutoController();
 		
 		// 서버 실행
 		try {

@@ -5,15 +5,11 @@ boolean check = false;
 void setup() {
   Serial.begin(9600);
   pinMode(ledPin, OUTPUT);
+  
 }
 
 void loop() {
   delay(2000);
-  float temp = analogRead(tempPin);
-  temp = (temp * 5.0/1024.0)*100;
-  Serial.print("humidity");
-  Serial.print(temp+52.12);
-  Serial.print("\n");
   // LED 센서
   String cmd="";
   if(Serial.available()){
@@ -23,17 +19,18 @@ void loop() {
       digitalWrite(ledPin, HIGH);
     }else if(cmd.equals("ledStop")){
       digitalWrite(ledPin, LOW);
-    }else if(cmd.equals("tempStart")){
+    }else if(cmd.equals("Sensor is started")){
       digitalWrite(tempPin, HIGH);
       check = true;
-    }else if(cmd.equals("tempStop")){
+    }else if(cmd.equals("Sensor is stopped")){
       digitalWrite(tempPin, LOW);
       check = false;
     }
   }
     if(check){
       float temp = analogRead(tempPin);
-      temp = (temp * 5.0/1024.0)*100;
-      Serial.println(temp);
+      temp = (temp * 5.0/1024.0)*100-20;
+      String temp_str=(String)temp;
+      Serial.println("temp:"+temp_str);
   }
 }
