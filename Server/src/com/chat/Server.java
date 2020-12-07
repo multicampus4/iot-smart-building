@@ -6,12 +6,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 
+import com.msg.DeviceVO;
 import com.msg.Msg;
 
 public class Server {
@@ -22,6 +28,9 @@ public class Server {
 	
 	// 루트 로컬의 my.properties 저장할 변수
 	static int tcpipPort;
+	static String oracleHostname;
+	static String oracleId;
+	static String oraclePwd;
 
 	ServerSocket serverSocket;											// ServerSocket 객체
 	static AutoController autoController;
@@ -30,6 +39,7 @@ public class Server {
 	HashMap<String, ObjectOutputStream> maps;	// HashMap<IP주소, 해당 아웃풋스트림>
 	HashMap<String, String> idipMaps;			// HashMap<클라이언트id, 클라이언트ip> for sendTarget
 												// ex) <latte_1_A, 192.168.1.11>
+	static HashMap<String, String> deviceStat;
 	
 	// sendTarget 위한 ip주소 선언 >> hashMap 관리방식으로 변경하기!
 	String targetIp = null;
@@ -44,6 +54,7 @@ public class Server {
 		this.port = port;
 		maps = new HashMap<>();
 		idipMaps = new HashMap<>();
+		deviceStat = new HashMap<>();
 		
 	}
 	
@@ -110,8 +121,8 @@ public class Server {
 					msg = (Msg) oi.readObject();
 					System.out.println(msg);
 					String[] split;
-					String cmdTargetLatte;
-					String cmdTargetTab;
+					String cmdTargetLatteId;
+					String cmdTargetTabId;
 					
 					switch(msg.getType()) {	// first :: ssRaw :: command 
 					case "first":
@@ -128,53 +139,56 @@ public class Server {
 				        }
 						break;
 					case "ssRaw":
-						String whatToDo = autoController.whatToDo(msg.getMsg());
+						String autoControlCmd = autoController.whatToDo(msg.getMsg());
 						
-						if(whatToDo.equals("nothing")) {
+						if(autoControlCmd.equals("nothing")) {	// 제어할 내용 없음 
 							System.out.println("Auto Controller : Fine! Nothing to control");
 							break;
 						} else {
-							split = whatToDo.split("_");
-							cmdTargetLatte = "latte_" + split[0] + "_" + split[1];
-							cmdTargetTab = "tablet_" + split[0] + "_" + split[1];
+							// 제어명령 반환받음
+							// 반환값 예: 1_A_D_AIR_ON
+							// 전송 대상 : 라떼, 태블릿, DB
+							System.out.println("Auto Contoller : " + autoControlCmd);
+							split = autoControlCmd.split("_");
+							cmdTargetLatteId = "latte_" + split[0] + "_" + split[1];
+							cmdTargetTabId = "tablet_" + split[0] + "_" + split[1];
 							String cmdAction = split[3] + "_" + split[4];
 							
-							System.out.println(whatToDo);
-							if(idipMaps.get(cmdTargetLatte) != null) {	// Target : Latte
-								sendTarget(
-										idipMaps.get(cmdTargetLatte), 
-										"MAIN Server", 	// 발송 주체
+							if(idipMaps.get(cmdTargetLatteId) != null) {	// Target : Latte
+								sendTarget(idipMaps.get(cmdTargetLatteId),
+										"MAIN Server (Auto)", 	// 발송 주체
 										"command", 		// 메시지 유형
 										cmdAction);		// 제어명령 ex) AIR_ON
 							}
+							
+							if(idipMaps.get(cmdTargetTabId) != null) {		// Target : Tablet
+								sendTarget(idipMaps.get(cmdTargetTabId), 
+										"MAIN Server (Auto)", 	// 발송 주체
+										"command", 		// 메시지 유형
+										autoControlCmd);		// 제어명령 ex) 1_A_D_AIR_ON
+							}
 						}
 						
-//						if(idipMaps.get(cmdTargetL) != null) {	// Target : Latte
-//							sendTarget(idipMaps.get(cmdTargetL), msg.getId(), msg.getType(), cmdAction);
-//						}
 						
 						// (라떼)에서 오는 센서데이터 > 안드로이드로 Send Target
 						if(idipMaps.get("mobileApp") != null) {
 							sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
-						}
-						if(idipMaps.get(cmdTargetTab) != null) {	// Target : Tablet
-							sendTarget(idipMaps.get(cmdTargetTab), msg.getId(), msg.getType(), msg.getMsg());
 						}
 						break;
 					case "command":	// (웹),(안드로이드)에서 오는 제어명령 > 라떼로 Send Target
 						// 라떼 구분 ID : 1_A, 2_A, 2_B
 						// 제어명령의 예: 1_A_D_AIR_OFF
 						split = msg.getMsg().split("_");
-						cmdTargetLatte = "latte_" + split[0] + "_" + split[1];
-						cmdTargetTab = "tablet_" + split[0] + "_" + split[1];
+						cmdTargetLatteId = "latte_" + split[0] + "_" + split[1];
+						cmdTargetTabId = "tablet_" + split[0] + "_" + split[1];
 						
-						if(idipMaps.get(cmdTargetLatte) != null) {	// Target : Latte
+						if(idipMaps.get(cmdTargetLatteId) != null) {	// Target : Latte
 							String cmdAction = split[2] + "_" + split[3] + "_" + split[4];
-							sendTarget(idipMaps.get(cmdTargetLatte), msg.getId(), msg.getType(), cmdAction);
+							sendTarget(idipMaps.get(cmdTargetLatteId), msg.getId(), msg.getType(), cmdAction);
 						}
 						
-						if(idipMaps.get(cmdTargetTab) != null) {	// Target : Tablet
-							sendTarget(idipMaps.get(cmdTargetTab), msg.getId(), msg.getType(), msg.getMsg());
+						if(idipMaps.get(cmdTargetTabId) != null) {	// Target : Tablet
+							sendTarget(idipMaps.get(cmdTargetTabId), msg.getId(), msg.getType(), msg.getMsg());
 						}
 						
 						if(idipMaps.get("mobileApp") != null) {	// Target : Mobile App
@@ -240,7 +254,7 @@ public class Server {
 					// 해쉬맵에서 연결된 IP주소 삭제
 					e.printStackTrace();
 					maps.remove(socket.getInetAddress().toString());			
-
+					
 					// idipMaps는 IP주소가 Value값이므로 위의 방법처럼 삭제할 수 없음
 					// 따라서 Value 값으로 Key값을 찾아 삭제한다.
 					// ===================== 그런데 =====================
@@ -348,7 +362,41 @@ public class Server {
 		}
 
 		tcpipPort = Integer.parseInt(properties.getProperty("tcpipPort"));
+		oracleHostname = properties.getProperty("oracleHostname");
+		oracleId = properties.getProperty("oracleId");
+		oraclePwd = properties.getProperty("oraclePwd");
 
+	}
+	
+	// Oracle DB의 DEVICE 테이블에서 상태정보 저장 
+	public static void getDeviceStat() throws SQLException {
+		String url = "jdbc:oracle:thin:@" + oracleHostname + ":1521:ORCL";
+		String dbid = oracleId;
+		String dbpwd = oraclePwd;
+				
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			System.out.println(url + dbid + dbpwd);
+			con = DriverManager.getConnection(url, dbid, dbpwd);
+			pstmt = con.prepareStatement("SELECT * FROM DEVICE");
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				String device_id = rset.getString(1);
+				String device_stat = rset.getString(8);
+				deviceStat.put(device_id, device_stat);
+			}
+			System.out.println(deviceStat);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			rset.close();
+			pstmt.close();
+			con.close();
+		}
 	}
 
 	public static void main(String[] args) {
@@ -356,9 +404,9 @@ public class Server {
 		Server server = new Server(tcpipPort);								// Server 객체에  포트를 넣어 선언
 		autoController = new AutoController();
 		
-		// 서버 실행
 		try {
-			server.startServer();											// 서버 시작
+			getDeviceStat();		// DB의 디바이스 상태 받아옴 
+			server.startServer();	// 서버 실
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
