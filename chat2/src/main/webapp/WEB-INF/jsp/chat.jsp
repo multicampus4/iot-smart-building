@@ -233,19 +233,6 @@
 </script>
 <body>
 
-<%@ page import="org.apache.log4j.*" %>
-<%
-	// http 온도데이터
-	String data = request.getParameter("data");
-	System.out.println("data(jsp) : " +  data);
-	
-	Logger LOGGER = Logger.getLogger("temp");
-	LOGGER.info(data);
-	
-	Logger log_earthquake = Logger.getLogger("earthquake");
-	LOGGER.info(data);
-%>
-
 	<!-- 층별 제어 화면 -->
 	<div class="app-main__inner">
 		<jsp:include page="controlFloors.jsp"></jsp:include>
