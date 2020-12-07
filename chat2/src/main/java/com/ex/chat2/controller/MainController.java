@@ -12,13 +12,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +47,7 @@ public class MainController {
 	private String dbid;
 	private String dbpwd;
 	
+	Logger LOGGER;
 	
 	public MainController() {
 		getProp();
@@ -77,6 +78,21 @@ public class MainController {
 		return mv;
 	}
 	
+	@RequestMapping("/log")
+	public void log(String data) throws Exception {
+		// http 온도데이터
+		System.out.println("<"+data+"> 로그데이터를 받았습니다.");
+		System.out.println(data.substring(0,3));
+		switch (data.substring(0,3)) {
+		case "AcX":
+			LOGGER = Logger.getLogger("earthquake");
+			break;
+		case "tmp":
+			LOGGER = Logger.getLogger("temp");
+			break;
+		}
+		LOGGER.info(data);
+	}
 
 	@RequestMapping("/chat")
 	public ModelAndView chat(ModelAndView mv, HttpServletResponse res) throws Exception {
