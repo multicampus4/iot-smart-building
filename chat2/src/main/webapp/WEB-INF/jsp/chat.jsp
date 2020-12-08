@@ -164,6 +164,7 @@
 			}
 			if(obj.dst != "undefined"){
 				$("#" + area + "_S_DUST").text(obj.dst);
+				$(".tooltip #dd").text(obj.dst);
 				if(obj.dst <= 30){
 					$("#" + area + "_S_DUST").css('background-color', '#f7b924');
 				}else if(obj.dst > 30 && obj.dst <= 80){
@@ -174,6 +175,9 @@
 			}
 			if(obj.lgt != "undefined"){
 				$("#" + area + "_S_ILLM").text(obj.lgt);
+				$(".tooltip #ss").text(obj.lgt);
+				//if(obj.lgt > 50){$(".tooltip #ss").css('background-color', '#f7b924');}
+				
 				if(obj.lgt <= 500){
 					$("#" + area + "_S_ILLM").css('background-color', '#f7b924');
 				}else if(obj.lgt > 500 && obj.lgt <= 1000){

@@ -697,14 +697,14 @@ function getHumAvg(){
 	} 
  
 $(document).ready(function(){
-	
+	/*
 	alert(123)
  	  getTempAvg();
 	  getHumAvg();
  	  getDustSat();
  	  getLightAvg();
  	  getTable();
- 	  getTimeTempHum();
+ 	  getTimeTempHum();*/
 	});
 	
 </script>

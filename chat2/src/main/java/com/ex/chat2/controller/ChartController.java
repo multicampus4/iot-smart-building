@@ -26,7 +26,7 @@ public class ChartController {
 	String password = "111111";
 	
 	public ChartController() throws Exception {
-		Class.forName("org.apache.hive.jdbc.HiveDriver");
+		//Class.forName("org.apache.hive.jdbc.HiveDriver");
 	} 
 	
 
