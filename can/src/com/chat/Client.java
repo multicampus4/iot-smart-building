@@ -32,7 +32,7 @@ public class Client implements SerialPortEventListener {
 	// LattePanda ID
 	// latte_1_A : 1A 구역에서 가동되는 IoT 클라이언트
 	static String AREA = "1_A";
-	static String latteId = "latte_" + AREA;	// latte_1_A
+	static String LATTE_ID = "latte_" + AREA;	// latte_1_A
 	
 	// 아두이노 센서에서 받아올 데이터의 가짓수
 	// 예) tmp, hum, acX, acY, acZ -> 5
@@ -364,8 +364,10 @@ public class Client implements SerialPortEventListener {
 		JSONObject jsonObj = new JSONObject();
 		String[] dataArr = ss.split(";");
 		
-		jsonObj.put("latteId", latteId);
+		jsonObj.put("latteId", LATTE_ID);
 		jsonObj.put("area", AREA);
+		jsonObj.put("msgType", "ssRaw");
+		
 		for(int i=0; i<dataArr.length; i++) {
 			String dataName = dataArr[i].substring(0,3);
 			String dataValue = dataArr[i].substring(3);
@@ -381,7 +383,7 @@ public class Client implements SerialPortEventListener {
 			JSONObject accelXyz = new JSONObject();
 			String[] dataArr = ss.split(";");
 			
-			jsonObj.put("latteId", latteId);
+			jsonObj.put("latteId", LATTE_ID);
 			for(int i=0; i<dataArr.length; i++) {
 				String tempStr = dataArr[i].substring(0,3);
 				switch(tempStr) {
@@ -466,7 +468,7 @@ public class Client implements SerialPortEventListener {
 		getProp();
 		try {
 			// TCP/IP Server 연결 초기화
-			Client client = new Client(tcpipIp, tcpipPort, latteId);
+			Client client = new Client(tcpipIp, tcpipPort, LATTE_ID);
 			client.connect();
 			
 		} catch (Exception e) {
