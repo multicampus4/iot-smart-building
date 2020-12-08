@@ -11,6 +11,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -81,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
                 myArea = "1_A";
                 break;
             case R.id.button2:
-                myArea = "2_A";
+                myArea = "1_B";
                 break;
             case R.id.button3:
-                myArea = "2_B";
+                myArea = "2_A";
                 break;
         }
 
@@ -178,35 +179,36 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
 
                             // 1층 A구역의 센서 상태 처리
-//                            if (!finalMsg.getMsg().equals("iamTablet")) {
-                            if (finalMsg.getType().equals("command")) {
-                                System.out.println(finalMsg);
+                            if(myArea.equals(finalMsg.getMsg().trim().substring(0, 3))){
+                                if (finalMsg.getType().equals("command")) {
+                                    System.out.println(finalMsg);
 
-                                // cmd : 들어오는 메세지, deviceId : 디바이스 이름, deviceStat : ON or OFF
-                                String cmd = finalMsg.getMsg().trim();
-                                String deviceId = cmd.substring(0, cmd.lastIndexOf("_"));
-                                String deviceStat = cmd.substring(cmd.lastIndexOf("_") + 1);
+                                    // cmd : 들어오는 메세지(1_A_D_AIR_OFF,...), deviceId : (AIR, HUM, ...), deviceStat : ON or OFF
+                                    String cmd = finalMsg.getMsg().trim();
+                                    String deviceId = cmd.substring(6, cmd.lastIndexOf("_"));
+                                    String deviceStat = cmd.substring(cmd.lastIndexOf("_") + 1);
 
-                                try {
-                                    // id 이름 앞에는 문자로 시작해야 하기 때문에 id 앞에 T와 L로 구분
-                                    // T_ : ON/OFF를 표시하는 TextView, L : 각 디바이스의 LinearLayout
-                                    // DEVICE들의 상태를 표시하는 TextView에 deviceStat를 반영
-                                    int dT = getResources().getIdentifier("T_" + deviceId, "id", getPackageName());
-                                    ((TextView) findViewById(dT)).setText(deviceStat);
+                                    try {
+                                        // id 이름 앞에는 문자로 시작해야 하기 때문에 id 앞에 T와 L로 구분
+                                        // T_ : ON/OFF를 표시하는 TextView, L : 각 디바이스의 LinearLayout
+                                        // DEVICE들의 상태를 표시하는 TextView에 deviceStat를 반영
+                                        int dT = getResources().getIdentifier("T_D_" + deviceId, "id", getPackageName());
+                                        ((TextView) findViewById(dT)).setText(deviceStat);
 
-                                    // DEVICE들의 상태를 따른 배경색을 각각의 LinearLayout에 반영
-                                    int dL = getResources().getIdentifier("L_" + deviceId, "id", getPackageName());
-                                    if (deviceStat.equals("ON")) {
-                                        ((LinearLayout) findViewById(dL)).setBackgroundColor(Color.parseColor(onColor));
-                                        soundManager.playSound(0);
-                                    } else if (deviceStat.equals("OFF")) {
-                                        ((LinearLayout) findViewById(dL)).setBackgroundColor(Color.parseColor(offColor));
-                                        soundManager.playSound(1);
+                                        // DEVICE들의 상태를 따른 배경색을 각각의 LinearLayout에 반영
+                                        int dL = getResources().getIdentifier("L_D_" + deviceId, "id", getPackageName());
+                                        if (deviceStat.equals("ON")) {
+                                            ((LinearLayout) findViewById(dL)).setBackgroundColor(Color.parseColor(onColor));
+                                            soundManager.playSound(0);
+                                        } else if (deviceStat.equals("OFF")) {
+                                            ((LinearLayout) findViewById(dL)).setBackgroundColor(Color.parseColor(offColor));
+                                            soundManager.playSound(1);
+                                        }
+                                    } catch (Exception e) {
+                                        // 다른 층이나 구역의 DEVICE 신호가 들어올 때 에러
                                     }
-                                } catch (Exception e) {
-                                    // 다른 층이나 구역의 DEVICE 신호가 들어올 때 에러
                                 }
-                            }
+                            } // end if(myArea.equals)
 
                         }
                     });

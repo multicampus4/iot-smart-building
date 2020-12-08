@@ -342,7 +342,7 @@ public class Client implements SerialPortEventListener {
 	// http요청 > 로그 기록 목적
 	public static void sendHttp(String data) {
 		HttpSender sender = null;
-		String urlstr = "http://" + wsIp + ":" + wsPort + "/chat";
+		String urlstr = "http://" + wsIp + ":" + wsPort + "/log";
 		URL url = null;
 		try {
 			//double temp = Double.parseDouble(data);

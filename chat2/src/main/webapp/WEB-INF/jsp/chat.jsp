@@ -145,6 +145,7 @@
 			}
 			if(obj.dst != "undefined"){
 				$("#" + area + "_S_DUST").text(obj.dst);
+				$(".tooltip #dd").text(obj.dst);
 				if(obj.dst <= 30){
 					$("#" + area + "_S_DUST").css('background-color', '#f7b924');
 				}else if(obj.dst > 30 && obj.dst <= 80){
@@ -155,6 +156,9 @@
 			}
 			if(obj.lgt != "undefined"){
 				$("#" + area + "_S_ILLM").text(obj.lgt);
+				$(".tooltip #ss").text(obj.lgt);
+				//if(obj.lgt > 50){$(".tooltip #ss").css('background-color', '#f7b924');}
+				
 				if(obj.lgt <= 500){
 					$("#" + area + "_S_ILLM").css('background-color', '#f7b924');
 				}else if(obj.lgt > 500 && obj.lgt <= 1000){
@@ -235,17 +239,6 @@
 </script>
 <body>
 
-<%@ page import="org.apache.log4j.*" %>
-<%
-	// http 온도데이터
-	String data = request.getParameter("data");
-	System.out.println("data(jsp) : " +  data);
-	
-	Logger LOGGER = Logger.getLogger("temp");
-	LOGGER.info(data);
-	
-%>
-
 	<!-- 층별 제어 화면 -->
 	<div class="app-main__inner">
 		<jsp:include page="controlFloors.jsp"></jsp:include>
@@ -269,12 +262,6 @@
 
 
 	<div id="container" class="containerBottom">
-		<div class="btn1">
-			<a class="btn" id="ledStart" href="#">LED START</a>
-		</div>
-		<div class="btn2">
-			<a class="btn" id="ledStop" href="#">LED STOP</a>
-		</div>
 		<div class="btn3">
 			<a class="btn" id= "alert" href = "#">Alert</a>
 		</div>

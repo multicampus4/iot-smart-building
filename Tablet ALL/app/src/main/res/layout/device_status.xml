@@ -56,7 +56,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/L_1_A_D_AIR"
+            android:id="@+id/L_D_AIR"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -76,7 +76,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/T_1_A_D_AIR"
+                android:id="@+id/T_D_AIR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -86,7 +86,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/L_1_A_D_HUM"
+            android:id="@+id/L_D_HUM"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -106,7 +106,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/T_1_A_D_HUM"
+                android:id="@+id/T_D_HUM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -116,7 +116,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/L_1_A_D_AIRCL"
+            android:id="@+id/L_D_AIRCL"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -136,7 +136,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/T_1_A_D_AIRCL"
+                android:id="@+id/T_D_AIRCL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -146,7 +146,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/L_1_A_D_LED"
+            android:id="@+id/L_D_LED"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -166,7 +166,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/T_1_A_D_LED"
+                android:id="@+id/T_D_LED"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -184,7 +184,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/L_1_A_D_ELEC"
+            android:id="@+id/L_D_ELEC"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -204,7 +204,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/T_1_A_D_ELEC"
+                android:id="@+id/T_D_ELEC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -214,7 +214,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/L_1_A_D_WAT"
+            android:id="@+id/L_D_WAT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -234,7 +234,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/T_1_A_D_WAT"
+                android:id="@+id/T_D_WAT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -244,7 +244,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/L_1_A_D_GAS"
+            android:id="@+id/L_D_GAS"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -264,7 +264,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/T_1_A_D_GAS"
+                android:id="@+id/T_D_GAS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
