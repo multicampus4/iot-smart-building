@@ -32,7 +32,7 @@
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers">
+											<div class="widget-numbers" id="P_1_A_S_TEMP">
 												<span></span>
 											</div>
 										</div>
@@ -47,7 +47,7 @@
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers">
+											<div class="widget-numbers" id="P_1_A_S_HUM">
 												<span></span>
 											</div>
 										</div>
@@ -62,7 +62,7 @@
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers">
+											<div class="widget-numbers" id="P_1_A_S_DUST">
 												<span></span>
 											</div>
 										</div>
@@ -77,7 +77,7 @@
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" >
+											<div class="widget-numbers text-white" id="P_1_A_S_ILLM">
 												<span></span>
 											</div>
 										</div>
@@ -157,7 +157,7 @@
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="1_B_S_TEMP">
+											<div class="widget-numbers text-white" id="P_1_B_S_TEMP">
 												<span></span>
 											</div>
 										</div>
@@ -172,7 +172,7 @@
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="1_B_S_HUM">
+											<div class="widget-numbers text-white" id="P_1_B_S_HUM">
 												<span></span>
 											</div>
 										</div>
@@ -187,7 +187,7 @@
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="1_B_S_DUST">
+											<div class="widget-numbers text-white" id="P_1_B_S_DUST">
 												<span></span>
 											</div>
 										</div>
@@ -202,7 +202,7 @@
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="1_B_S_ILLM">
+											<div class="widget-numbers text-white" id="P_1_B_S_ILLM">
 												<span></span>
 											</div>
 										</div>
@@ -328,7 +328,7 @@
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="2_A_S_TEMP">
+											<div class="widget-numbers text-white" id="P_2_A_S_TEMP">
 												<span></span>
 											</div>
 										</div>
@@ -343,7 +343,7 @@
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="2_A_S_HUM">
+											<div class="widget-numbers text-white" id="P_2_A_S_HUM">
 												<span></span>
 											</div>
 										</div>
@@ -358,7 +358,7 @@
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="2_A_S_DUST">
+											<div class="widget-numbers text-white" id="P_2_A_S_DUST">
 												<span></span>
 											</div>
 										</div>
@@ -373,7 +373,7 @@
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="2_A_S_ILLM">
+											<div class="widget-numbers text-white" id="P_2_A_S_ILLM">
 												<span></span>
 											</div>
 										</div>
