@@ -97,46 +97,27 @@
 			var msg = data.data;
 			$("#chatting0").prepend("<p>" + msg + "</p>");
 			// ex: { "latteId":"latte_1_A", "tmp":"28.00", "hum":"80.00" }
+			// ex2:{"area":"1_A","msgType":"command","from":"MAIN Server","cmd":"AIR_ON"}
+
 			
 			if(msg != null && msg.trim() != ''){
 				var obj = JSON.parse(msg);
-				var area = obj.latteId.substring(6, 9);
-				drawData(obj,area);
+				
+				switch(obj.msgType){
+				// 메시지 타입이 ssRaw(Sensor Raw)일 경우
+				// 화면에 센서데이터 표시
+				case "ssRaw":
+					var area = obj.latteId.substring(6, 9);
+					drawData(obj,area);
+					break;
+				// 메시지 타입이 command일 경우
+				// 버튼의 on/off 상태 업데이트
+				case "command":
+					setButtonStateRealTime(obj);
+				}
 				
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
 				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
-				
-				// 실시간 데이터 상태에 따른 색상 표시(실시간 데이터 규격 결정 시 변경)
-				/*
-				switch(obj.latteId){
-				case "latte" :
-					if(obj.tmp != "undefined"){
-						$("#1_A_S_TEMP").html("<h5>" + obj.tmp + "</h5>");
-						if(obj.tmp <= 23){
-							$("#1_A_S_TEMP").css('background-color', '#f7b924');
-						}else if(obj.tmp > 23 && obj.tmp <= 25){
-							$("#1_A_S_TEMP").css('background-color', '#00aeef');
-						}else if(obj.tmp > 25){
-							$("#1_A_S_TEMP").css('background-color', '#f42a2f');
-						}
-					}
-					if(obj.hum != "undefined"){
-						$("#1_A_S_HUM").html("<h5>" + obj.hum + "</h5>");
-						if(obj.hum <= 72){
-							$("#1_A_S_HUM").css('background-color', '#f7b924');
-						}else if(obj.hum > 72 && obj.hum <= 73){
-							$("#1_A_S_HUM").css('background-color', '#00aeef');
-						}else if(obj.hum > 73){
-							$("#1_A_S_HUM").css('background-color', '#f42a2f');
-						}
-					}
-					break;
-				case "latte_1_B" :
-					break;
-				case "latte_2_A" :
-					break;
-				}*/
-				
 				
 			}
 		}
@@ -198,6 +179,7 @@
 	}
 	
 	// 버튼 체크 상태 변경(DB 데이터 반영)
+	// 버튼 id 예) 1_A_D_AIR
 	function setButtonState(){
 		<c:forEach var="d" items="${devicelist}">
 			// on인 상태일 때 버튼 색상 유지
@@ -213,6 +195,22 @@
 			
 			//$("#${d.DEVICE_ID}").text("${d.DEVICE_STAT}");
 		</c:forEach>
+	}
+	
+	// 버튼 체크 상태 변경(자동제어 실시간 데이터 반영)
+	// {"area":"1_A","msgType":"command","from":"MAIN Server","cmd":"AIR_ON"}
+	function setButtonStateRealTime(obj){
+		var cmdSplit = obj.cmd.split('_');
+		var deviceId = obj.area + "_D_" + cmdSplit[0];	// 1_A_D_AIR
+		switch(cmdSplit[1]){
+		case "ON":
+			$("input[id=" + deviceId + "]").prop("checked", true);
+			break;
+		case "OFF":
+			$("input[id=" + deviceId + "]").prop("checked", false);
+			break;
+		
+		}
 	}
 	
 	$(document).ready(function() {
