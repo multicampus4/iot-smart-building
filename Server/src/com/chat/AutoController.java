@@ -1,31 +1,23 @@
 package com.chat;
 
 import java.sql.Connection;
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.msg.DeviceVO;
-
 public class AutoController {
 	static int MAX_QUE_SIZE = 5;
 	static float NORMAL_TEMP = (float) 24.00;
 	
-	// 여기서 디바이스 상태를 알아야 함
-	// 디비 로드하여 저장할 필요음
-	
 	Queue<Float> q_1_A_TEMP = new LinkedList<>();
 	
-		
+	
 	public String whatToDo(String ssRaw) throws Exception  {
 		
 	    JSONParser jsonParser = new JSONParser();
@@ -69,6 +61,7 @@ public class AutoController {
 		return null;
 	}
 	
+	// queue에 저장된 값들의 평균 반환 
 	public float getQueAvg(Queue<Float> q) {
 		float avg = 0;
 		float temporary = 0;
@@ -79,6 +72,7 @@ public class AutoController {
 		return avg;
 	}
 	
+	// ON/OFF 제어 명령 DEVICE_STAT 테이블에 업데이트 
 	public void upDeviceStat(String deviceId, String command) throws SQLException {
 		String url = "jdbc:oracle:thin:@" + Server.oracleHostname + ":1521:ORCL";
 		String dbid = Server.oracleId;
@@ -93,7 +87,7 @@ public class AutoController {
 			pstmt = con.prepareStatement("UPDATE DEVICE SET DEVICE_STAT='" + command + 
 										"' WHERE DEVICE_ID='" + deviceId + "'");
 			rset = pstmt.executeQuery();
-			Server.getDeviceStat();		// 변경사항 다시 로드
+			Server.getDeviceStat();		// DB 조회하여 변경사항 저장 
 
 		} catch (SQLException e) {
 			e.printStackTrace();
