@@ -197,14 +197,18 @@
 		$('#chatting').val("");
 	}
 	
-	// 버튼 상태 변경(DB 데이터 반영)
+	// 버튼 체크 상태 변경(DB 데이터 반영)
 	function setButtonState(){
 		<c:forEach var="d" items="${devicelist}">
 			// on인 상태일 때 버튼 색상 유지
 			<c:choose>
 			    <c:when test="${d.DEVICE_STAT eq 'ON'}">
-					$("input[id='${d.DEVICE_ID}']").click();
+					// `.click()`은 제어명령 이벤트가 발생하는 문제 > 이벤트 없이 버튼 상태만 바뀌도록 수정 
+	 				$("input[id='${d.DEVICE_ID}']").prop("checked", true);	
 			    </c:when>
+			    <c:otherwise>
+			    	$("input[id='${d.DEVICE_ID}']").prop("checked", false);	
+			    </c:otherwise>
 			</c:choose>
 			
 			//$("#${d.DEVICE_ID}").text("${d.DEVICE_STAT}");
