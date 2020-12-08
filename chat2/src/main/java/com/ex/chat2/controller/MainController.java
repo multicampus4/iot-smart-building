@@ -82,8 +82,8 @@ public class MainController {
 	public void log(String data) throws Exception {
 		// http 온도데이터
 		System.out.println("<"+data+"> 로그데이터를 받았습니다.");
-		System.out.println(data.substring(0,3));
-		switch (data.substring(0,3)) {
+		String [] array = data.split(":");
+		switch (array[0]) {
 		case "AcX":
 			LOGGER = Logger.getLogger("earthquake");
 			break;
