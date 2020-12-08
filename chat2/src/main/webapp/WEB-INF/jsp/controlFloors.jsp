@@ -16,12 +16,12 @@
 	<div class="card-body">
 		<div class="tab-content">
 
-			<!-- 1ì¸µ -->
+			<!-- 1층 -->
 			<div class="tab-pane active" id="tab-eg4-0" role="tabpanel">
 				<div class="row">
 					<div class="col-md-12">
 
-						<!-- Aêµ¬ì­ ì¤ìê° ë°ì´í° -->
+						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
 							<div class="col-lg-6 col-xl-3">
@@ -86,7 +86,7 @@
 							</div>
 						</div>
 
-						<!-- Aêµ¬ì­ ì ì´ ë²í¼ -->
+						<!-- A구역 제어 버튼 -->
 						<div class="main-card mb-1 text-center">
 							<div class="card-body table-responsive">
 								<table class="mb-0 table">
@@ -146,7 +146,7 @@
 
 						<div class="divider"></div>
 
-						<!-- Bêµ¬ì­ ì¤ìê° ë°ì´í° -->
+						<!-- B구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  B</div>
 						<div class="row text-center">
 							<div class="col-lg-6 col-xl-3">
@@ -211,7 +211,7 @@
 							</div>
 						</div>
 
-						<!-- Bêµ¬ì­ ì ì´ ë²í¼ -->
+						<!-- B구역 제어 버튼 -->
 						<div class="main-card mb-1 text-center">
 							<div class="card-body table-responsive pb-0">
 								<table class="mb-0 table">
@@ -279,9 +279,8 @@
 
 					<!-- 1_A tooltip-->
 					<div class="Area_1A">
-						<div class="con-tooltip right">
-							<p>1_A</p>
-							<div class="tooltip ">
+						<div class="con-tooltip right" id="tt_1A">
+							<div class="tooltip">
 								TEMPERATURE :
 								<p id="1_A_S_TEMP"></p>
 								HUMIDITY :
@@ -296,9 +295,8 @@
 					
 					<!-- 1_B tooltip-->
 					<div class="Area_1B">
-						<div class="con-tooltip right">
-							<p>1_B</p>
-							<div class="tooltip ">
+						<div class="con-tooltip right" id="tt_1B">
+							<div class="tooltip">
 								TEMPERATURE :
 								<p id="1_B_S_TEMP"></p>
 								HUMIDITY :
@@ -310,15 +308,16 @@
 							</div>
 						</div>
 					</div>
+					
+				</div> <!-- End wrap -->
+			</div> <!-- End tab-eg4-0 -->
 
-				</div>
-			</div>
-
-			<!-- 2ì¸µ -->
+			<!-- 2층 -->
 			<div class="tab-pane" id="tab-eg4-1" role="tabpanel">
 				<div class="row">
 					<div class="col-md-12">
-
+						
+						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
 							<div class="col-lg-6 col-xl-3">
@@ -384,7 +383,7 @@
 						</div>
 
 
-						<!-- Aêµ¬ì­ ì ì´ ë²í¼ -->
+						<!-- A구역 제어 버튼 -->
 						<div class="main-card mb-1 text-center">
 							<div class="card-body table-responsive">
 								<table class="mb-0 table">
@@ -448,9 +447,6 @@
 			
 		</div>
 	</div>
-	<div id='c'>
-		<div class='s'></div>
-	</div>
 </div>
 
 
@@ -492,7 +488,7 @@
 	background-color: #f1f3f5;
 }
 
-/* on, off button css */
+/* on, off 토글 버튼 css */
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -564,7 +560,8 @@ input:checked + .slider:before {
 	width: 100%;
 	vertical-align: middle;
 }
-/* 구역별 css */
+
+/* 구역별 css - 위치 설정 */
 .Area_1A {
 	padding: 5px 10px;
 	text-align: center;
@@ -581,36 +578,30 @@ input:checked + .slider:before {
 	left: 20%;
 	transform: translate( -30%, -50% );
 }
-.tooltip
-{
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
+
 /*tooltip Box*/
 .con-tooltip {
 
-  position: relative;
-  background: #F2D1C9;
-  
-  border-radius: 9px;
-  padding: 0 20px;
-  margin: 10px;
-  
-  display: inline-block;
-  
-  transition: all 0.3s ease-in-out;
-  cursor: default;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  float: left;
+  transition: all 0.2s;
 
 }
 
 /*tooltip */
 .tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  
   visibility: hidden;
   z-index: 1;
   opacity: .40;
   
-  width: 270%;
+  width: 400%;
   padding: 0px 20px;
 
   background: #333;
@@ -620,7 +611,6 @@ input:checked + .slider:before {
   top:-140%;
   left: -25%;
   
-
   border-radius: 9px;
   font: 16px;
 
@@ -646,16 +636,17 @@ input:checked + .slider:before {
 
 }
 
+/* tooltip 보이기 */
 .con-tooltip:hover .tooltip{
   visibility: visible;
   transform: translateY(-10px);
   opacity: 1;
-    transition: .3s linear;
+  transition: .3s linear;
   animation: odsoky 1s ease-in-out infinite  alternate;
 
 }
 
-/*right*/
+/* tooltip 방향 (오른쪽 ) */
 .right .tooltip { top:-20%; left:115%; }
 
 .right .tooltip::after{
@@ -665,32 +656,14 @@ input:checked + .slider:before {
 }
 
 
-
-#c {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -260px;
-}
-
-.s {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  float: left;
-  transition: all 0.2s;
-}
-.s:nth-child(1) {
+/* 색상 변경 애니메이션 css */
+.con-tooltip:nth-child(1) {
   background: #3399ff;
-  animation: r5 1.75s 1s ease-out infinite;
-}
-.s:nth-child(1):hover {
-  background: #ff9933;
-  animation: r25 0.5s 0.4s ease-out infinite;
+  animation: k1 1.75s 1s ease-out infinite;
 }
 
-@keyframes r5 {
+/* 센서 기준치 : 정상 (파랑색) */
+@keyframes k1 {
   0% {
     box-shadow: 0 0 8px 6px rgba(26, 140, 255, 0), 0 0 0px 0px #fff, 0 0 0px 0px rgba(26, 140, 255, 0);
   }
@@ -702,7 +675,8 @@ input:checked + .slider:before {
   }
 }
 
-@keyframes r6 {
+/* 센서 기준치 : 비정상 (빨강색) */
+@keyframes k2 {
   0% {
     box-shadow: 0 0 8px 6px #FF0000, 0 0 0px 0px #fff, 0 0 0px 0px #FF0000;
   }
@@ -713,5 +687,5 @@ input:checked + .slider:before {
     box-shadow: 0 0 6px 4px #FF0000, 0 0 0px 20px #fff, 0 0 0px 20px #FF0000;
   }
 }
-<!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외-->
+<!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
 </style>
