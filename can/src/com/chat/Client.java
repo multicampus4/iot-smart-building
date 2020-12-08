@@ -274,7 +274,6 @@ public class Client implements SerialPortEventListener {
 				}
 
 				String ss = new String(readBuffer).trim();	// Data From Aruduino : "tmp26;hum80;"
-//				ss = ss.trim();
 				if(ss.length() != numOfDataType*9) {
 					System.out.println("Return ... Crashed Data ..." + ss);
 					break;
