@@ -646,7 +646,7 @@ input:checked + .slider:before {
 }
 
 /* tooltip 방향 (오른쪽 ) */
-.right .tooltip { top:-20%; left:115%; }
+.right .tooltip { top:-130%; left:115%; }
 
 .right .tooltip::after{
   top:40%;
