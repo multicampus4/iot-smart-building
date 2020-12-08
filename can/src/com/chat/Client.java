@@ -377,41 +377,41 @@ public class Client implements SerialPortEventListener {
 	}
 	
 	// 아두이노에서 받은 센서데이터 > JSON 형식으로 변환 
-		public JSONObject convertJson2(String ss) {
-			JSONObject jsonObj = new JSONObject();
-			JSONArray accelArray = new JSONArray();
-			JSONObject accelXyz = new JSONObject();
-			String[] dataArr = ss.split(";");
-			
-			jsonObj.put("latteId", LATTE_ID);
-			for(int i=0; i<dataArr.length; i++) {
-				String tempStr = dataArr[i].substring(0,3);
-				switch(tempStr) {
-				case "tmp":
+	public JSONObject convertJson2(String ss) {
+		JSONObject jsonObj = new JSONObject();
+		JSONArray accelArray = new JSONArray();
+		JSONObject accelXyz = new JSONObject();
+		String[] dataArr = ss.split(";");
+
+		jsonObj.put("latteId", LATTE_ID);
+		for (int i = 0; i < dataArr.length; i++) {
+			String tempStr = dataArr[i].substring(0, 3);
+			switch (tempStr) {
+			case "tmp":
 //					System.out.println("온도"+dataArr[i].substring(3));
-					jsonObj.put("tmp", dataArr[i].substring(3));
-					continue;
-				case "hum":
+				jsonObj.put("tmp", dataArr[i].substring(3));
+				continue;
+			case "hum":
 //					System.out.println("습도"+dataArr[i].substring(3));
-					jsonObj.put("hum", dataArr[i].substring(3));
-					continue;
-				case "acX":
-					System.out.println("ACC-X: " + dataArr[i].substring(3));
-					accelXyz.put("x", dataArr[i].substring(3));
-					continue;
-				case "acY":
-					System.out.println("ACC-X: " + dataArr[i].substring(3));
-					accelXyz.put("y", dataArr[i].substring(3));
-					continue;
-				case "acZ":
-					System.out.println("ACC-X: " + dataArr[i].substring(3));
-					accelXyz.put("z", dataArr[i].substring(3));
-					jsonObj.put("acc", accelXyz);
-					continue;
-				}
+				jsonObj.put("hum", dataArr[i].substring(3));
+				continue;
+			case "acX":
+				System.out.println("ACC-X: " + dataArr[i].substring(3));
+				accelXyz.put("x", dataArr[i].substring(3));
+				continue;
+			case "acY":
+				System.out.println("ACC-X: " + dataArr[i].substring(3));
+				accelXyz.put("y", dataArr[i].substring(3));
+				continue;
+			case "acZ":
+				System.out.println("ACC-X: " + dataArr[i].substring(3));
+				accelXyz.put("z", dataArr[i].substring(3));
+				jsonObj.put("acc", accelXyz);
+				continue;
 			}
-			return jsonObj;
 		}
+		return jsonObj;
+	}
 
 	static class HttpSender implements Runnable {
 
