@@ -45,6 +45,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
 
 		<!-- View JSP -->
 		<dependency>
@@ -69,11 +74,11 @@
 			<version>1.2.17</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc6 -->
+		<!-- https://mvnrepository.com/artifact/oracle/ojdbc6 -->
 		<dependency>
-		    <groupId>com.oracle.database.jdbc</groupId>
+		    <groupId>oracle</groupId>
 		    <artifactId>ojdbc6</artifactId>
-		    <version>11.2.0.4</version>
+		    <version>11.2.0.3</version>
 		</dependency>
 		
 		<!-- for Export WAR -->
@@ -82,7 +87,6 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -109,10 +113,14 @@
 			</snapshots>
 		</repository>
 		<repository>
-			<id>Spring Plugins</id>
-			<url>http://repo.spring.io/plugins-release/</url>
+
+			<id>oracle</id>
+			<name>ORACLE JDBC Repository</name>
+			<url>http://www.datanucleus.org/downloads/maven2/</url>
 		</repository>
+
 	</repositories>
+	
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-milestones</id>

@@ -154,7 +154,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">TEMPERATURE</div>
-											<div class="widget-subheading">(Ã¢ÂÂ)</div>
+											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_TEMP">
@@ -169,7 +169,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">HUMIDITY</div>
-											<div class="widget-subheading">(%)</div>
+											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_HUM">
@@ -184,7 +184,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">FINE DUST</div>
-											<div class="widget-subheading">(ÃÂ¼m)</div>
+											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="1_B_S_DUST">
@@ -270,21 +270,62 @@
 
 					</div>
 				</div>
-			</div>
+				
+				<!-- 평면도 -->
+				<div class="fp-wrap">
+					<div class="fp-image">
+						<img src="images/floorPlan.jpg" alt="">
+					</div>
+
+					<!-- 1_A tooltip-->
+					<div class="Area_1A">
+						<div class="con-tooltip right" id="tt_1A">
+							<div class="tooltip">
+								TEMPERATURE :
+								<p id="1_A_S_TEMP"></p>
+								HUMIDITY :
+								<p id="1_A_S_HUM"></p>
+								FINE DUST :
+								<p id="1_A_S_DUST"></p>
+								AMBIENT LIGHT :
+								<p id="1_A_S_ILLM"></p>
+							</div>
+						</div>
+					</div>
+					
+					<!-- 1_B tooltip-->
+					<div class="Area_1B">
+						<div class="con-tooltip right" id="tt_1B">
+							<div class="tooltip">
+								TEMPERATURE :
+								<p id="1_B_S_TEMP"></p>
+								HUMIDITY :
+								<p id="1_B_S_HUM"></p>
+								FINE DUST :
+								<p id="1_B_S_DUST"></p>
+								AMBIENT LIGHT :
+								<p id="1_B_S_ILLM"></p>
+							</div>
+						</div>
+					</div>
+					
+				</div> <!-- End wrap -->
+			</div> <!-- End tab-eg4-0 -->
 
 			<!-- 2층 -->
 			<div class="tab-pane" id="tab-eg4-1" role="tabpanel">
 				<div class="row">
 					<div class="col-md-12">
-
-						<h5>Area A</h5>
+						
+						<!-- A구역 실시간 데이터 -->
+						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
 							<div class="col-lg-6 col-xl-3">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">TEMPERATURE</div>
-											<div class="widget-subheading">(Ã¢ÂÂ)</div>
+											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_TEMP">
@@ -299,7 +340,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">HUMIDITY</div>
-											<div class="widget-subheading">(%)</div>
+											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_HUM">
@@ -314,7 +355,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">FINE DUST</div>
-											<div class="widget-subheading">(ÃÂ¼m)</div>
+											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers text-white" id="2_A_S_DUST">
@@ -428,7 +469,7 @@
 		var stat;
 		var device;
 
-		// on, off ui Ã­ÂÂÃ¬ÂÂ¤Ã­ÂÂ¸
+		// on, off button control
 		$("input[type='checkbox']").click(function(){
 			device = $(this).attr('id');
 			if ($(this).is(":checked")) {
@@ -447,7 +488,7 @@
 	background-color: #f1f3f5;
 }
 
-/* on, off ui Ã­ÂÂÃ¬ÂÂ¤Ã­ÂÂ¸ */
+/* on, off 토글 버튼 css */
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -508,4 +549,143 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+/* 평면도 css */
+.fp-wrap {
+	width: 40%;
+	margin: 10px auto;
+	border: 1px solid #000000;
+	position: relative;
+}
+.fp-wrap img {
+	width: 100%;
+	vertical-align: middle;
+}
+
+/* 구역별 css - 위치 설정 */
+.Area_1A {
+	padding: 5px 10px;
+	text-align: center;
+	position: absolute;
+	top: 25%;
+	left: 55%;
+	transform: translate( -30%, -50% );
+}
+.Area_1B {
+	padding: 5px 10px;
+	text-align: center;
+	position: absolute;
+	top: 60%;
+	left: 20%;
+	transform: translate( -30%, -50% );
+}
+
+/*tooltip Box*/
+.con-tooltip {
+
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  float: left;
+  transition: all 0.2s;
+
+}
+
+/*tooltip */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  
+  visibility: hidden;
+  z-index: 1;
+  opacity: .40;
+  
+  width: 400%;
+  padding: 0px 20px;
+
+  background: #333;
+  color: #E086D3;
+  
+  position: absolute;
+  top:-140%;
+  left: -25%;
+  
+  border-radius: 9px;
+  font: 16px;
+
+  transform: translateY(9px);
+  transition: all 0.3s ease-in-out;
+  
+  box-shadow: 0 0 3px rgba(56, 54, 54, 0.86);
+}
+
+
+/* tooltip  after*/
+.tooltip::after {
+  content: " ";
+  width: 0;
+  height: 0;
+  
+  border-style: solid;
+  border-width: 12px 12.5px 0 12.5px;
+  border-color: #333 transparent transparent transparent;
+
+  position: absolute;
+  left: 40%;
+
+}
+
+/* tooltip 보이기 */
+.con-tooltip:hover .tooltip{
+  visibility: visible;
+  transform: translateY(-10px);
+  opacity: 1;
+  transition: .3s linear;
+  animation: odsoky 1s ease-in-out infinite  alternate;
+
+}
+
+/* tooltip 방향 (오른쪽 ) */
+.right .tooltip { top:-20%; left:115%; }
+
+.right .tooltip::after{
+  top:40%;
+  left:-12%;
+  transform: rotate(90deg);
+}
+
+
+/* 색상 변경 애니메이션 css */
+.con-tooltip:nth-child(1) {
+  background: #3399ff;
+  animation: k1 1.75s 1s ease-out infinite;
+}
+
+/* 센서 기준치 : 정상 (파랑색) */
+@keyframes k1 {
+  0% {
+    box-shadow: 0 0 8px 6px rgba(26, 140, 255, 0), 0 0 0px 0px #fff, 0 0 0px 0px rgba(26, 140, 255, 0);
+  }
+  10% {
+    box-shadow: 0 0 8px 6px #1a8cff, 0 0 12px 10px #fff, 0 0 12px 14px #1a8cff;
+  }
+  100% {
+    box-shadow: 0 0 6px 4px rgba(26, 140, 255, 0), 0 0 0px 20px #fff, 0 0 0px 20px rgba(26, 140, 255, 0);
+  }
+}
+
+/* 센서 기준치 : 비정상 (빨강색) */
+@keyframes k2 {
+  0% {
+    box-shadow: 0 0 8px 6px #FF0000, 0 0 0px 0px #fff, 0 0 0px 0px #FF0000;
+  }
+  10% {
+    box-shadow: 0 0 8px 6px #FF0000, 0 0 12px 10px #fff, 0 0 12px 14px #FF0000;
+  }
+  100% {
+    box-shadow: 0 0 6px 4px #FF0000, 0 0 0px 20px #fff, 0 0 0px 20px #FF0000;
+  }
+}
+<!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
 </style>
