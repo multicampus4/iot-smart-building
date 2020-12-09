@@ -121,50 +121,59 @@
 				
 			}
 		}
-			
+		
+		// 실시간 데이터 반영 및 상태에 따른 색상 표시
 		function drawData(obj, area){
 			if(obj.tmp != "undefined"){
 				$("#" + area + "_S_TEMP").text(obj.tmp);
 				if(obj.tmp <= 23){
 					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
+					changeStateLightColor(area, true);
 				}else if(obj.tmp > 23 && obj.tmp <= 25){
 					$("#" + area + "_S_TEMP").css('background-color', '#00aeef');
+					changeStateLightColor(area, false);
 				}else if(obj.tmp > 25){
 					$("#" + area + "_S_TEMP").css('background-color', '#f42a2f');
+					changeStateLightColor(area, true);
 				}
 			}
 			if(obj.hum != "undefined"){
 				$("#" + area + "_S_HUM").text(obj.hum);
 				if(obj.hum <= 72){
 					$("#" + area + "_S_HUM").css('background-color', '#f7b924');
+					changeStateLightColor(area, true);
 				}else if(obj.hum > 72 && obj.hum <= 73){
 					$("#" + area + "_S_HUM").css('background-color', '#00aeef');
+					changeStateLightColor(area, false);
 				}else if(obj.hum > 73){
 					$("#" + area + "_S_HUM").css('background-color', '#f42a2f');
+					changeStateLightColor(area, true);
 				}
 			}
 			if(obj.dst != "undefined"){
 				$("#" + area + "_S_DUST").text(obj.dst);
-				$(".tooltip #dd").text(obj.dst);
 				if(obj.dst <= 30){
 					$("#" + area + "_S_DUST").css('background-color', '#f7b924');
+					changeStateLightColor(area, true);
 				}else if(obj.dst > 30 && obj.dst <= 80){
 					$("#" + area + "_S_DUST").css('background-color', '#00aeef');
+					changeStateLightColor(area, false);
 				}else if(obj.dst > 80){
 					$("#" + area + "_S_DUST").css('background-color', '#f42a2f');
+					changeStateLightColor(area, true);
 				}
 			}
 			if(obj.lgt != "undefined"){
 				$("#" + area + "_S_ILLM").text(obj.lgt);
-				$(".tooltip #ss").text(obj.lgt);
-				//if(obj.lgt > 50){$(".tooltip #ss").css('background-color', '#f7b924');}
-				
 				if(obj.lgt <= 500){
-					$("#" + area + "_S_ILLM").css('background-color', '#f7b924');
+					//$("#" + area + "_S_ILLM").css('background-color', '#ff0000');
+					changeStateLightColor(area, true);
 				}else if(obj.lgt > 500 && obj.lgt <= 1000){
-					$("#" + area + "_S_ILLM").css('background-color', '#00aeef');
+					//$("#" + area + "_S_ILLM").css('background-color', '#fff');
+					changeStateLightColor(area, false);
 				}else if(obj.lgt > 1000){
-					$("#" + area + "_S_ILLM").css('background-color', '#f42a2f');
+					//$("#" + area + "_S_ILLM").css('background-color', '#f42a2f');
+					changeStateLightColor(area, true);
 				}
 			}
 		}
@@ -214,6 +223,14 @@
 			$("input[id=" + deviceId + "]").prop("checked", false);
 			break;
 		
+	// 깜박임 색상 변경
+	function changeStateLightColor(area, state){
+		if(state){
+			$("#tt_" + area).css("background", "#ff0000");
+			$("#tt_" + area).css("animation","k2 1.75s 1s ease-out infinite");
+		}else{
+			$("#tt_" + area).css("background", "#1a8cff");
+			$("#tt_" + area).css("animation","k1 1.75s 1s ease-out infinite");
 		}
 	}
 	

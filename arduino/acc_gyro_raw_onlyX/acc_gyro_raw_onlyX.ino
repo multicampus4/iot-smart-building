@@ -21,7 +21,8 @@ void loop(){
   AcX=Wire.read()<<8|Wire.read();  // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)    
   
   //시리얼 모니터에 출력
-  Serial.print("AcX"); Serial.println(AcX);
+  Serial.print("AcX:"); 
+  Serial.println(AcX);
  
   delay(500);
 }
