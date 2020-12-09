@@ -63,6 +63,11 @@
 					</div> <!-- End col-md -->
 						
 					<div class="col-md-6">
+					
+						<!-- 비활성화 제어 버튼 -->
+						<div>
+						
+						</div>
 
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>

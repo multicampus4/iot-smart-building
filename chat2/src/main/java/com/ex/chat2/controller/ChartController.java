@@ -1,47 +1,48 @@
 package com.ex.chat2.controller;
 
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletResponse;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
-public class ChartController {
 
-
-    String url = "jdbc:hive2://3.35.240.16:10000/default";
-	String userid = "root";
-	String password = "111111";
-	
-	public ChartController() throws Exception {
-		//Class.forName("org.apache.hive.jdbc.HiveDriver");
-	} 
-	
-
-	@RequestMapping("/getdata1.mc")
-	@ResponseBody
-	public void getdata1(HttpServletResponse res) throws Exception {
-		Connection con =null;
-		JSONArray ja = new JSONArray();
-		try {
-			con = DriverManager.getConnection(url,userid,password);
-			//System.out.println(con);
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Stest");
-			ResultSet rset = pstmt.executeQuery();
-			System.out.println(rset);
-			while(rset.next()) {
+	@Controller
+	public class ChartController {
+        String url = "jdbc:hive2://3.35.240.16:10000/default";
+		
+		String userid = "root";
+		String password = "111111";
+		public ChartController() {
+			try {
+				Class.forName("org.apache.hive.jdbc.HiveDriver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		@RequestMapping("/getdata1.mc")
+		@ResponseBody
+		public void getdata1(HttpServletResponse res) throws Exception {
+			Connection con =null;
+			JSONArray ja = new JSONArray();
+			try {
+				con = DriverManager.getConnection(url,userid,password);
+				//System.out.println(con);
+				PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Stest");
+				ResultSet rset = pstmt.executeQuery();
+				System.out.println(rset);
+				while(rset.next()) {
 
                JSONObject data = new JSONObject();
 				
