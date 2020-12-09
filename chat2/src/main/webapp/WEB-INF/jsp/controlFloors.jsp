@@ -281,14 +281,14 @@
 					<div class="Area_1A">
 						<div class="con-tooltip right" id="tt_1_A">
 							<div class="tooltip">
-								TEMPERATURE :
-								<p id="1_A_S_TEMP"></p>
-								HUMIDITY :
-								<p id="1_A_S_HUM"></p>
-								FINE DUST :
-								<p id="1_A_S_DUST"></p>
-								AMBIENT LIGHT :
-								<p id="1_A_S_ILLM"></p>
+								TEMPERATURE :<br>
+								<div id="1_A_S_TEMP"></div>
+								HUMIDITY :<br>
+								<div id="1_A_S_HUM"></div>
+								FINE DUST :<br>
+								<div id="1_A_S_DUST"></div>
+								AMBIENT LIGHT :<br>
+								<div id="1_A_S_ILLM"></div>
 							</div>
 						</div>
 					</div>
@@ -602,7 +602,9 @@ input:checked + .slider:before {
   opacity: .40;
   
   width: 400%;
-  padding: 0px 20px;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  padding: 20px;
 
   background: #333;
   color: #E086D3;
@@ -646,7 +648,7 @@ input:checked + .slider:before {
 }
 
 /* tooltip 방향 (오른쪽 ) */
-.right .tooltip { top:-130%; left:115%; }
+.right .tooltip { top:-205%; left:115%; }
 
 .right .tooltip::after{
   top:40%;
