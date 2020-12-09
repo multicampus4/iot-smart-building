@@ -1,7 +1,7 @@
 <div class="main-card mb-1 card m-10">
 	<div class="card-header ch_height">
-		<i class="header-icon lnr-gift icon-gradient bg-grow-early"> </i>The
-		Floor View
+		<i class="header-icon lnr-gift icon-gradient bg-grow-early"> </i><h3>The
+		Floor View</h3>
 		<div class="btn-actions-pane-right">
 
 			<div class="nav">
@@ -74,7 +74,7 @@
 						</div><!-- End wrap -->
 					</div> <!-- End col-md -->
 						
-					<div class="col-md-7">
+					<div class="col-md-7 mt-5 mb-5">
 					
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
@@ -357,7 +357,7 @@
 						</div> <!-- End wrap -->
 					</div> <!-- End col-md -->
 				
-					<div class="col-md-7">
+					<div class="col-md-7 mt-5 mb-5">
 						
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
@@ -654,7 +654,7 @@ input:checked + .slider:before {
 	padding: 20px;
 
 	background: #333;
-	color: #E086D3;
+	color: #fff;
   
 	position: absolute;
 	top:-140%;
