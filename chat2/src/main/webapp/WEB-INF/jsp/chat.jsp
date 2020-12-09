@@ -126,19 +126,21 @@
 		function drawData(obj, area){
 			if(obj.tmp != "undefined"){
 				$("#" + area + "_S_TEMP").text(obj.tmp);
+				$("#P_" + area + "_S_TEMP").text(obj.tmp);
 				if(obj.tmp <= 23){
-					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
+ 					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
 				}else if(obj.tmp > 23 && obj.tmp <= 25){
-					$("#" + area + "_S_TEMP").css('background-color', '#00aeef');
+ 					$("#" + area + "_S_TEMP").css('background-color', '#00aeef');
 					changeStateLightColor(area, false);
 				}else if(obj.tmp > 25){
-					$("#" + area + "_S_TEMP").css('background-color', '#f42a2f');
+ 					$("#" + area + "_S_TEMP").css('background-color', '#f42a2f');
 					changeStateLightColor(area, true);
 				}
 			}
 			if(obj.hum != "undefined"){
 				$("#" + area + "_S_HUM").text(obj.hum);
+				$("#P_" + area + "_S_HUM").text(obj.hum);
 				if(obj.hum <= 72){
 					$("#" + area + "_S_HUM").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
@@ -165,6 +167,7 @@
 			}
 			if(obj.lgt != "undefined"){
 				$("#" + area + "_S_ILLM").text(obj.lgt);
+				$("#P_" + area + "_S_ILLM").text(obj.lgt);
 				if(obj.lgt <= 500){
 					//$("#" + area + "_S_ILLM").css('background-color', '#ff0000');
 					changeStateLightColor(area, true);
@@ -222,6 +225,8 @@
 		case "OFF":
 			$("input[id=" + deviceId + "]").prop("checked", false);
 			break;
+		}
+	}
 		
 	// 깜박임 색상 변경
 	function changeStateLightColor(area, state){
