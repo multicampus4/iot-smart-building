@@ -702,26 +702,26 @@ input:checked + .slider:before {
 /* 센서 기준치 : 정상 (파랑색) */
 @keyframes k1 {
   0% {
-    box-shadow: 0 0 8px 6px rgba(26, 140, 255, 0), 0 0 0px 0px #fff, 0 0 0px 0px rgba(26, 140, 255, 0);
+    box-shadow: 0 0 8px 6px rgba(26, 140, 255, 0), 0 0 0px 0px transparent, 0 0 0px 0px rgba(26, 140, 255, 0);
   }
   10% {
-    box-shadow: 0 0 8px 6px #1a8cff, 0 0 12px 10px #fff, 0 0 12px 14px #1a8cff;
+    box-shadow: 0 0 8px 6px #1a8cff, 0 0 12px 10px transparent, 0 0 12px 14px #1a8cff;
   }
   100% {
-    box-shadow: 0 0 6px 4px rgba(26, 140, 255, 0), 0 0 0px 20px #fff, 0 0 0px 20px rgba(26, 140, 255, 0);
+    box-shadow: 0 0 6px 4px rgba(26, 140, 255, 0), 0 0 0px 20px transparent, 0 0 0px 20px rgba(26, 140, 255, 0);
   }
 }
 
 /* 센서 기준치 : 비정상 (빨강색) */
 @keyframes k2 {
   0% {
-    box-shadow: 0 0 8px 6px rgba(255, 0, 0, 0), 0 0 0px 0px #fff, 0 0 0px 0px rgba(255, 0, 0, 0);
+    box-shadow: 0 0 8px 6px rgba(255, 0, 0, 0), 0 0 0px 0px transparent, 0 0 0px 0px rgba(255, 0, 0, 0);
   }
   10% {
-    box-shadow: 0 0 8px 6px #ff0000, 0 0 12px 10px #fff, 0 0 12px 14px #ff0000;
+    box-shadow: 0 0 8px 6px #ff0000, 0 0 12px 10px transparent, 0 0 12px 14px #ff0000;
   }
   100% {
-    box-shadow: 0 0 6px 4px rgba(255, 0, 0, 0), 0 0 0px 20px #fff, 0 0 0px 20px rgba(255, 0, 0, 0);
+    box-shadow: 0 0 6px 4px rgba(255, 0, 0, 0), 0 0 0px 20px transparent, 0 0 0px 20px rgba(255, 0, 0, 0);
   }
 }
 <!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
