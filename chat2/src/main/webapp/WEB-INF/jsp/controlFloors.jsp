@@ -1,14 +1,26 @@
 <div class="main-card mb-1 card m-10">
-	<div class="card-header">
+	<div class="card-header ch_height">
 		<i class="header-icon lnr-gift icon-gradient bg-grow-early"> </i>The
 		Floor View
 		<div class="btn-actions-pane-right">
+
 			<div class="nav">
 				<a data-toggle="tab" href="#tab-eg4-0"
 					class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-danger">Floor 1</a>
 				<a data-toggle="tab" href="#tab-eg4-1"
 					class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-danger">Floor 2</a>
 			</div>
+			<!-- 비활성화 제어 버튼 -->
+			<div class="Atv_content">
+				<div class="toggle_Atv" id="switch_Atv">
+					<div class="toggle-text-off">OFF</div>
+					<div class="glow-comp"></div>
+					<div class="toggle-button"></div>
+					<div class="toggle-text-on">ON</div>
+				</div>
+			</div>
+
+
 		</div>
 	</div> <!-- End card-header -->
 
@@ -20,7 +32,7 @@
 			<div class="tab-pane active" id="tab-eg4-0" role="tabpanel">
 				<div class="row">
 					
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<!-- 평면도 -->
 						<div class="fp-wrap">
 							<div class="fp-image">
@@ -62,13 +74,8 @@
 						</div><!-- End wrap -->
 					</div> <!-- End col-md -->
 						
-					<div class="col-md-6">
+					<div class="col-md-7">
 					
-						<!-- 비활성화 제어 버튼 -->
-						<div>
-						
-						</div>
-
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
@@ -325,7 +332,7 @@
 			<div class="tab-pane" id="tab-eg4-1" role="tabpanel">
 				<div class="row">
 				
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<!-- 평면도 -->
 						<div class="fp-wrap">
 							<div class="fp-image">
@@ -350,7 +357,7 @@
 						</div> <!-- End wrap -->
 					</div> <!-- End col-md -->
 				
-					<div class="col-md-6">
+					<div class="col-md-7">
 						
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
@@ -515,11 +522,19 @@
 			}
 			execAjax(stat, device);
 		});
+		
+		$(".toggle_Atv").click(function(){
+			$(this).toggleClass("toggle-on");
+		});
+		
 
 	});
 </script>
 
 <style>
+.ch_height{
+	height: 8rem;
+}
 .sensordata {
 	background-color: #f1f3f5;
 }
@@ -527,11 +542,11 @@
 /* on, off 토글 버튼 css */
 /* The switch - the box around the slider */
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  vertical-align:middle;
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+	vertical-align:middle;
 }
 
 /* Hide default HTML checkbox */
@@ -539,50 +554,46 @@
 
 /* The slider */
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	transition: .4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .2s;
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	transition: .2s;
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+	background-color: #2196F3;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+	box-shadow: 0 0 1px #2196F3;
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+	transform: translateX(26px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+	border-radius: 34px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+	border-radius: 50%;
 }
 
 /* 평면도 css */
@@ -618,68 +629,68 @@ input:checked + .slider:before {
 /*tooltip Box*/
 .con-tooltip {
 
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  float: left;
-  transition: all 0.2s;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	cursor: pointer;
+	float: left;
+	transition: all 0.2s;
 
 }
 
 /*tooltip */
 .tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black;
   
-  visibility: hidden;
-  z-index: 1;
-  opacity: .40;
+	visibility: hidden;
+	z-index: 1;
+	opacity: .40;
   
-  width: 400%;
-  padding-top: 10px;
-  padding-bottom: 0px;
-  padding: 20px;
+	width: 400%;
+	padding-top: 10px;
+	padding-bottom: 0px;
+	padding: 20px;
 
-  background: #333;
-  color: #E086D3;
+	background: #333;
+	color: #E086D3;
   
-  position: absolute;
-  top:-140%;
-  left: -25%;
+	position: absolute;
+	top:-140%;
+	left: -25%;
   
-  border-radius: 9px;
-  font: 16px;
+	border-radius: 9px;
+	font: 16px;
 
-  transform: translateY(9px);
-  transition: all 0.3s ease-in-out;
+	transform: translateY(9px);
+	transition: all 0.3s ease-in-out;
   
-  box-shadow: 0 0 3px rgba(56, 54, 54, 0.86);
+	box-shadow: 0 0 3px rgba(56, 54, 54, 0.86);
 }
 
 /* tooltip  after*/
 .tooltip::after {
-  content: " ";
-  width: 0;
-  height: 0;
+	content: " ";
+	width: 0;
+	height: 0;
   
-  border-style: solid;
-  border-width: 12px 12.5px 0 12.5px;
-  border-color: #333 transparent transparent transparent;
+	border-style: solid;
+	border-width: 12px 12.5px 0 12.5px;
+	border-color: #333 transparent transparent transparent;
 
-  position: absolute;
-  left: 40%;
+	position: absolute;
+	left: 40%;
 
 }
 
 /* tooltip 보이기 */
 .con-tooltip:hover .tooltip{
-  visibility: visible;
-  transform: translateY(-10px);
-  opacity: 1;
-  transition: .3s linear;
-  animation: odsoky 1s ease-in-out infinite  alternate;
+	visibility: visible;
+	transform: translateY(-10px);
+	opacity: 1;
+	transition: .3s linear;
+	animation: odsoky 1s ease-in-out infinite  alternate;
 
 }
 
@@ -687,42 +698,152 @@ input:checked + .slider:before {
 .right .tooltip { top:-205%; left:115%; }
 
 .right .tooltip::after{
-  top:40%;
-  left:-12%;
-  transform: rotate(90deg);
+	top:40%;
+	left:-12%;
+	transform: rotate(90deg);
 }
 
 
 /* 색상 변경 애니메이션 css */
 .con-tooltip:nth-child(1) {
-  background: #3399ff;
-  animation: k1 1.75s 1s ease-out infinite;
+	background: #3399ff;
+	animation: k1 1.75s 1s ease-out infinite;
 }
 
 /* 센서 기준치 : 정상 (파랑색) */
 @keyframes k1 {
-  0% {
-    box-shadow: 0 0 8px 6px rgba(26, 140, 255, 0), 0 0 0px 0px transparent, 0 0 0px 0px rgba(26, 140, 255, 0);
-  }
-  10% {
-    box-shadow: 0 0 8px 6px #1a8cff, 0 0 12px 10px transparent, 0 0 12px 14px #1a8cff;
-  }
-  100% {
-    box-shadow: 0 0 6px 4px rgba(26, 140, 255, 0), 0 0 0px 20px transparent, 0 0 0px 20px rgba(26, 140, 255, 0);
-  }
+  	0% {
+    	box-shadow: 0 0 8px 6px rgba(26, 140, 255, 0), 0 0 0px 0px transparent, 0 0 0px 0px rgba(26, 140, 255, 0);
+  	}
+  	10% {
+    	box-shadow: 0 0 8px 6px #1a8cff, 0 0 12px 10px transparent, 0 0 12px 14px #1a8cff;
+  	}
+  	100% {
+    	box-shadow: 0 0 6px 4px rgba(26, 140, 255, 0), 0 0 0px 20px transparent, 0 0 0px 20px rgba(26, 140, 255, 0);
+  	}
 }
 
 /* 센서 기준치 : 비정상 (빨강색) */
 @keyframes k2 {
-  0% {
-    box-shadow: 0 0 8px 6px rgba(255, 0, 0, 0), 0 0 0px 0px transparent, 0 0 0px 0px rgba(255, 0, 0, 0);
-  }
-  10% {
-    box-shadow: 0 0 8px 6px #ff0000, 0 0 12px 10px transparent, 0 0 12px 14px #ff0000;
-  }
-  100% {
-    box-shadow: 0 0 6px 4px rgba(255, 0, 0, 0), 0 0 0px 20px transparent, 0 0 0px 20px rgba(255, 0, 0, 0);
-  }
+	0% {
+		box-shadow: 0 0 8px 6px rgba(255, 0, 0, 0), 0 0 0px 0px transparent, 0 0 0px 0px rgba(255, 0, 0, 0);
+	}
+	10% {
+   		box-shadow: 0 0 8px 6px #ff0000, 0 0 12px 10px transparent, 0 0 12px 14px #ff0000;
+  	}
+  	100% {
+    	box-shadow: 0 0 6px 4px rgba(255, 0, 0, 0), 0 0 0px 20px transparent, 0 0 0px 20px rgba(255, 0, 0, 0);
+  	}
 }
+
+/* 활성화 버튼 */
+#switch_Atv{
+    top: 50%;
+    left: 50%;
+    width: 75px;
+    height: 40px;
+}
+
+.toggle_Atv{
+    position: relative;
+    border: 2px solid #444249;
+    border-radius: 20px;
+    transition: border-color .6s  ease-out;
+    box-sizing: border-box;
+}
+
+.toggle_Atv.toggle-on{
+    border-color: rgba(137, 194, 217, .4);
+    transition: all .5s .15s ease-out;
+}
+
+.toggle-button{
+    position: absolute;
+    top: 4px;
+    width: 28px;
+    bottom: 4px;
+    right: 39px;
+    background-color: #444249;
+    border-radius: 19px; 
+    cursor: pointer;
+    transition: all .3s .1s, width .1s, top .1s, bottom .1s;
+}
+
+.toggle-on .toggle-button{
+    top: 3px;
+    width: 65px;
+    bottom: 3px;
+    right: 3px;
+    border-radius: 23px;
+    background-color: #ABF200;
+    box-shadow: 0 0 16px #ABF200;
+    transition: all .2s .1s, right .1s;
+}
+
+
+.toggle-text-on{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    line-height: 36px;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    cursor: pointer;
+    color: rgba(0,0,0,0);
+}
+
+.toggle-on .toggle-text-on{
+    color: #3b6a7d;
+    transition: color .3s .15s ;
+}
+
+.toggle-text-off{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 6px;
+    line-height: 36px;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #444249;
+}
+
+.toggle-on .toggle-text-off{
+    color: rgba(0,0,0,0);
+}
+
+/* used for streak effect */
+.glow-comp{
+    position: absolute;
+    opacity: 0;
+    top: 10px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    border-radius: 6px;
+    background-color: rgba(75, 122, 141, .1);
+    box-shadow: 0 0 12px rgba(75, 122, 141, .2);
+    transition: opacity 4.5s 1s;
+}
+
+.toggle-on .glow-comp{
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+/* 활성화 버튼 div */
+.Atv_content{
+	padding-right: 40px;
+    padding-top: 15px;
+}
+
+
 <!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
 </style>
