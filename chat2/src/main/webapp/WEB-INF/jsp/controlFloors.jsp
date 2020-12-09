@@ -32,7 +32,7 @@
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers" id="1_A_S_TEMP">
+											<div class="widget-numbers" id="P_1_A_S_TEMP">
 												<span></span>
 											</div>
 										</div>
@@ -47,7 +47,7 @@
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers" id="1_A_S_HUM">
+											<div class="widget-numbers" id="P_1_A_S_HUM">
 												<span></span>
 											</div>
 										</div>
@@ -62,7 +62,7 @@
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers" id="1_A_S_DUST">
+											<div class="widget-numbers" id="P_1_A_S_DUST">
 												<span></span>
 											</div>
 										</div>
@@ -77,7 +77,7 @@
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="1_A_S_ILLM">
+											<div class="widget-numbers text-white" id="P_1_A_S_ILLM">
 												<span></span>
 											</div>
 										</div>
@@ -157,7 +157,7 @@
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="1_B_S_TEMP">
+											<div class="widget-numbers text-white" id="P_1_B_S_TEMP">
 												<span></span>
 											</div>
 										</div>
@@ -172,7 +172,7 @@
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="1_B_S_HUM">
+											<div class="widget-numbers text-white" id="P_1_B_S_HUM">
 												<span></span>
 											</div>
 										</div>
@@ -187,7 +187,7 @@
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="1_B_S_DUST">
+											<div class="widget-numbers text-white" id="P_1_B_S_DUST">
 												<span></span>
 											</div>
 										</div>
@@ -202,7 +202,7 @@
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="1_B_S_ILLM">
+											<div class="widget-numbers text-white" id="P_1_B_S_ILLM">
 												<span></span>
 											</div>
 										</div>
@@ -279,7 +279,7 @@
 
 					<!-- 1_A tooltip-->
 					<div class="Area_1A">
-						<div class="con-tooltip right" id="tt_1A">
+						<div class="con-tooltip right" id="tt_1_A">
 							<div class="tooltip">
 								TEMPERATURE :
 								<p id="1_A_S_TEMP"></p>
@@ -295,7 +295,7 @@
 					
 					<!-- 1_B tooltip-->
 					<div class="Area_1B">
-						<div class="con-tooltip right" id="tt_1B">
+						<div class="con-tooltip right" id="tt_1_B">
 							<div class="tooltip">
 								TEMPERATURE :
 								<p id="1_B_S_TEMP"></p>
@@ -328,7 +328,7 @@
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="2_A_S_TEMP">
+											<div class="widget-numbers text-white" id="P_2_A_S_TEMP">
 												<span></span>
 											</div>
 										</div>
@@ -343,7 +343,7 @@
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="2_A_S_HUM">
+											<div class="widget-numbers text-white" id="P_2_A_S_HUM">
 												<span></span>
 											</div>
 										</div>
@@ -358,7 +358,7 @@
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="2_A_S_DUST">
+											<div class="widget-numbers text-white" id="P_2_A_S_DUST">
 												<span></span>
 											</div>
 										</div>
@@ -373,7 +373,7 @@
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="2_A_S_ILLM">
+											<div class="widget-numbers text-white" id="P_2_A_S_ILLM">
 												<span></span>
 											</div>
 										</div>
@@ -620,7 +620,6 @@ input:checked + .slider:before {
   box-shadow: 0 0 3px rgba(56, 54, 54, 0.86);
 }
 
-
 /* tooltip  after*/
 .tooltip::after {
   content: " ";
@@ -647,7 +646,7 @@ input:checked + .slider:before {
 }
 
 /* tooltip 방향 (오른쪽 ) */
-.right .tooltip { top:-20%; left:115%; }
+.right .tooltip { top:-130%; left:115%; }
 
 .right .tooltip::after{
   top:40%;
@@ -665,26 +664,26 @@ input:checked + .slider:before {
 /* 센서 기준치 : 정상 (파랑색) */
 @keyframes k1 {
   0% {
-    box-shadow: 0 0 8px 6px rgba(26, 140, 255, 0), 0 0 0px 0px #fff, 0 0 0px 0px rgba(26, 140, 255, 0);
+    box-shadow: 0 0 8px 6px rgba(26, 140, 255, 0), 0 0 0px 0px transparent, 0 0 0px 0px rgba(26, 140, 255, 0);
   }
   10% {
-    box-shadow: 0 0 8px 6px #1a8cff, 0 0 12px 10px #fff, 0 0 12px 14px #1a8cff;
+    box-shadow: 0 0 8px 6px #1a8cff, 0 0 12px 10px transparent, 0 0 12px 14px #1a8cff;
   }
   100% {
-    box-shadow: 0 0 6px 4px rgba(26, 140, 255, 0), 0 0 0px 20px #fff, 0 0 0px 20px rgba(26, 140, 255, 0);
+    box-shadow: 0 0 6px 4px rgba(26, 140, 255, 0), 0 0 0px 20px transparent, 0 0 0px 20px rgba(26, 140, 255, 0);
   }
 }
 
 /* 센서 기준치 : 비정상 (빨강색) */
 @keyframes k2 {
   0% {
-    box-shadow: 0 0 8px 6px #FF0000, 0 0 0px 0px #fff, 0 0 0px 0px #FF0000;
+    box-shadow: 0 0 8px 6px rgba(255, 0, 0, 0), 0 0 0px 0px transparent, 0 0 0px 0px rgba(255, 0, 0, 0);
   }
   10% {
-    box-shadow: 0 0 8px 6px #FF0000, 0 0 12px 10px #fff, 0 0 12px 14px #FF0000;
+    box-shadow: 0 0 8px 6px #ff0000, 0 0 12px 10px transparent, 0 0 12px 14px #ff0000;
   }
   100% {
-    box-shadow: 0 0 6px 4px #FF0000, 0 0 0px 20px #fff, 0 0 0px 20px #FF0000;
+    box-shadow: 0 0 6px 4px rgba(255, 0, 0, 0), 0 0 0px 20px transparent, 0 0 0px 20px rgba(255, 0, 0, 0);
   }
 }
 <!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
