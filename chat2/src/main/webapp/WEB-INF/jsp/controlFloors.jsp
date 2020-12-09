@@ -10,7 +10,7 @@
 					class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-danger">Floor 2</a>
 			</div>
 		</div>
-	</div>
+	</div> <!-- End card-header -->
 
 	<!-- tab contents (Real-time Data, ON/OFF Button) -->
 	<div class="card-body">
@@ -19,7 +19,50 @@
 			<!-- 1층 -->
 			<div class="tab-pane active" id="tab-eg4-0" role="tabpanel">
 				<div class="row">
-					<div class="col-md-12">
+					
+					<div class="col-md-6">
+						<!-- 평면도 -->
+						<div class="fp-wrap">
+							<div class="fp-image">
+								<img src="images/floorPlan.jpg" alt="">
+							</div>
+	
+							<!-- 1_A tooltip-->
+							<div class="Area_1A">
+								<div class="con-tooltip right" id="tt_1_A">
+									<div class="tooltip">
+										TEMPERATURE :<br>
+										<div id="1_A_S_TEMP"></div>
+										HUMIDITY :<br>
+										<div id="1_A_S_HUM"></div>
+										FINE DUST :<br>
+										<div id="1_A_S_DUST"></div>
+										AMBIENT LIGHT :<br>
+										<div id="1_A_S_ILLM"></div>
+									</div>
+								</div>
+							</div>
+	
+							<!-- 1_B tooltip-->
+							<div class="Area_1B">
+								<div class="con-tooltip right" id="tt_1_B">
+									<div class="tooltip">
+										TEMPERATURE :
+										<p id="1_B_S_TEMP"></p>
+										HUMIDITY :
+										<p id="1_B_S_HUM"></p>
+										FINE DUST :
+										<p id="1_B_S_DUST"></p>
+										AMBIENT LIGHT :
+										<p id="1_B_S_ILLM"></p>
+									</div>
+								</div>
+							</div>
+	
+						</div><!-- End wrap -->
+					</div> <!-- End col-md -->
+						
+					<div class="col-md-6">
 
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
@@ -268,54 +311,41 @@
 							</div>
 						</div>
 
-					</div>
-				</div>
-				
-				<!-- 평면도 -->
-				<div class="fp-wrap">
-					<div class="fp-image">
-						<img src="images/floorPlan.jpg" alt="">
-					</div>
-
-					<!-- 1_A tooltip-->
-					<div class="Area_1A">
-						<div class="con-tooltip right" id="tt_1_A">
-							<div class="tooltip">
-								TEMPERATURE :<br>
-								<div id="1_A_S_TEMP"></div>
-								HUMIDITY :<br>
-								<div id="1_A_S_HUM"></div>
-								FINE DUST :<br>
-								<div id="1_A_S_DUST"></div>
-								AMBIENT LIGHT :<br>
-								<div id="1_A_S_ILLM"></div>
-							</div>
-						</div>
-					</div>
+					</div> <!-- End col-md -->
 					
-					<!-- 1_B tooltip-->
-					<div class="Area_1B">
-						<div class="con-tooltip right" id="tt_1_B">
-							<div class="tooltip">
-								TEMPERATURE :
-								<p id="1_B_S_TEMP"></p>
-								HUMIDITY :
-								<p id="1_B_S_HUM"></p>
-								FINE DUST :
-								<p id="1_B_S_DUST"></p>
-								AMBIENT LIGHT :
-								<p id="1_B_S_ILLM"></p>
-							</div>
-						</div>
-					</div>
-					
-				</div> <!-- End wrap -->
+				</div> <!-- End row -->
 			</div> <!-- End tab-eg4-0 -->
 
 			<!-- 2층 -->
 			<div class="tab-pane" id="tab-eg4-1" role="tabpanel">
 				<div class="row">
-					<div class="col-md-12">
+				
+					<div class="col-md-6">
+						<!-- 평면도 -->
+						<div class="fp-wrap">
+							<div class="fp-image">
+								<img src="images/floorPlan.jpg" alt="">
+							</div>
+		
+							<!-- 1_A tooltip-->
+							<div class="Area_1A">
+								<div class="con-tooltip right" id="tt_2_A">
+									<div class="tooltip">
+										TEMPERATURE :<br>
+										<div id="2_A_S_TEMP"></div>
+										HUMIDITY :<br>
+										<div id="2_A_S_HUM"></div>
+										FINE DUST :<br>
+										<div id="2_A_S_DUST"></div>
+										AMBIENT LIGHT :<br>
+										<div id="2_A_S_ILLM"></div>
+									</div>
+								</div>
+							</div>
+						</div> <!-- End wrap -->
+					</div> <!-- End col-md -->
+				
+					<div class="col-md-6">
 						
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
@@ -441,14 +471,15 @@
 							</div>
 						</div>
 
-					</div>
-				</div>
-			</div>
+					</div> <!-- End col-md -->
+				
+				</div><!-- End row -->
+			</div> <!-- End tab-eg4-0 -->
 			
-		</div>
-	</div>
-</div>
-
+		</div> <!-- End tab-content -->
+	</div><!-- End card-body -->
+	
+</div> <!-- End card-body -->
 
 
 <script>
@@ -551,7 +582,7 @@ input:checked + .slider:before {
 
 /* 평면도 css */
 .fp-wrap {
-	width: 40%;
+	width: 100%;
 	margin: 10px auto;
 	border: 1px solid #000000;
 	position: relative;
