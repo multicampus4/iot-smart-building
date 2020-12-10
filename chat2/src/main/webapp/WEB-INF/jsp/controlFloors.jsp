@@ -4,22 +4,24 @@
 		Floor View</h3>
 		<div class="btn-actions-pane-right">
 
-			<div class="nav">
+			<div class="nav nav_ml">
 				<a data-toggle="tab" href="#tab-eg4-0"
 					class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-danger">Floor 1</a>
 				<a data-toggle="tab" href="#tab-eg4-1"
 					class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-danger">Floor 2</a>
 			</div>
+
 			<!-- 비활성화 제어 버튼 -->
-			<div class="Atv_content">
-				<div class="toggle_Atv" id="switch_Atv">
+			
+			<div class="nav Dis_content">
+				<div class="Dis_title">DEVICE DISABLED : </div>
+				<div class="toggle_Dis" id="switch_Dis">
 					<div class="toggle-text-off">OFF</div>
 					<div class="glow-comp"></div>
 					<div class="toggle-button"></div>
 					<div class="toggle-text-on">ON</div>
 				</div>
 			</div>
-
 
 		</div>
 	</div> <!-- End card-header -->
@@ -524,7 +526,7 @@
 		});
 		
 		// 비활성화 버튼 제어
-		$(".toggle_Atv").click(function(){
+		$(".toggle_Dis").click(function(){
 			// UI 상태 변경
 			$(this).toggleClass("toggle-on");
 			
@@ -746,22 +748,21 @@ input:checked + .slider:before {
 }
 
 /* 활성화 버튼 */
-#switch_Atv{
-    top: 50%;
-    left: 50%;
+#switch_Dis{
     width: 75px;
     height: 40px;
 }
 
-.toggle_Atv{
+.toggle_Dis{
     position: relative;
     border: 2px solid #444249;
     border-radius: 20px;
     transition: border-color .6s  ease-out;
     box-sizing: border-box;
+    margin-left: 5px;
 }
 
-.toggle_Atv.toggle-on{
+.toggle_Dis.toggle-on{
     border-color: rgba(137, 194, 217, .4);
     transition: all .5s .15s ease-out;
 }
@@ -847,11 +848,39 @@ input:checked + .slider:before {
     transition: opacity 1s;
 }
 
-/* 활성화 버튼 div */
-.Atv_content{
-	padding-right: 40px;
+/* 비활성화 버튼 div */
+.Dis_content{
+	margin-right: 30px;
     padding-top: 15px;
 }
+.Dis_title{
+	padding-top: 10px;
+    padding-right: 10px;
+}
+.nav_ml{
+	margin-left: 90px;
+}
+/*
+.Dis_content::before{
+	content: "device disabled";
+	background: #fff;
+	font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px;
+    margin-top: 3px;
+    min-width: 19px;
+	display: inline-block;
+    font-size: 85%;
+	line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+	box-sizing: border-box;
+	box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
+    width: 120px;
+    height: 30px;
+}*/
 
 
 <!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
