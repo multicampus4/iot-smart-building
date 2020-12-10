@@ -126,7 +126,7 @@
 		function drawData(obj, area){
 			if(obj.tmp != "undefined"){
 				$("#" + area + "_S_TEMP").text(obj.tmp);
-				$("#P_" + area + "_S_TEMP").text(obj.tmp);
+				$("#P_" + area + "_S_TEMP span").text(obj.tmp);
 				if(obj.tmp <= 18){
  					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
@@ -140,7 +140,7 @@
 			}
 			if(obj.hum != "undefined"){
 				$("#" + area + "_S_HUM").text(obj.hum);
-				$("#P_" + area + "_S_HUM").text(obj.hum);
+				$("#P_" + area + "_S_HUM span").text(obj.hum);
 				if(obj.hum <= 40){
 					$("#" + area + "_S_HUM").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
@@ -154,7 +154,7 @@
 			}
 			if(obj.dst != "undefined"){
 				$("#" + area + "_S_DUST").text(obj.dst);
-				$("#P_" + area + "_S_DUST").text(obj.dst);
+				$("#P_" + area + "_S_DUST span").text(obj.dst);
 				if(obj.dst <= 30){
 					$("#" + area + "_S_DUST").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
@@ -168,7 +168,7 @@
 			}
 			if(obj.lgt != "undefined"){
 				$("#" + area + "_S_ILLM").text(obj.lgt);
-				$("#P_" + area + "_S_ILLM").text(obj.lgt);
+				$("#P_" + area + "_S_ILLM span").text(obj.lgt);
 				if(obj.lgt <= 300){
 					//$("#" + area + "_S_ILLM").css('background-color', '#ff0000');
 					changeStateLightColor(area, true);

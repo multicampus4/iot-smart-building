@@ -23,12 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		
 		String userid = "root";
 		String password = "111111";
-		public ChartController() {
+		public ChartController() {/*
 			try {
 				Class.forName("org.apache.hive.jdbc.HiveDriver");
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
 		
 		@RequestMapping("/getdata1.mc")

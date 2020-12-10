@@ -341,8 +341,8 @@
 								<img src="images/floorPlan.jpg" alt="">
 							</div>
 		
-							<!-- 1_A tooltip-->
-							<div class="Area_1A">
+							<!-- 2_A tooltip-->
+							<div class="Area_2A">
 								<div class="con-tooltip right" id="tt_2_A">
 									<div class="tooltip">
 										TEMPERATURE :<br>
@@ -637,6 +637,14 @@ input:checked + .slider:before {
 	position: absolute;
 	top: 60%;
 	left: 20%;
+	transform: translate( -30%, -50% );
+}
+.Area_2A {
+	padding: 5px 10px;
+	text-align: center;
+	position: absolute;
+	top: 41%;
+	left: 68%;
 	transform: translate( -30%, -50% );
 }
 
