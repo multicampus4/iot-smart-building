@@ -777,22 +777,13 @@ function getDayAvg(){
 		});
 	} 
 $(document).ready(function(){
-<<<<<<< HEAD
+
 	
 	//alert(123)
  	  getDayAvg();
  	  getTable();
  	  getTimeGph();
-=======
-	/*
-	alert(123)
- 	  getTempAvg();
-	  getHumAvg();
- 	  getDustSat();
- 	  getLightAvg();
- 	  getTable();
- 	  getTimeTempHum();*/
->>>>>>> bac0bfb6e90187333c1e8954a75182a706964387
+
 	});
 	
 </script>
