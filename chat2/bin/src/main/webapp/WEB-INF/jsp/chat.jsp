@@ -96,36 +96,91 @@
 		ws.onmessage = function(data) {
 			var msg = data.data;
 			$("#chatting0").prepend("<p>" + msg + "</p>");
-			var obj = JSON.parse(msg);
-			
-			// ex: { "tmp":"28", "hum":"80" }
+			// ex: { "latteId":"latte_1_A", "tmp":"28.00", "hum":"80.00" }
 			
 			if(msg != null && msg.trim() != ''){
+				var obj = JSON.parse(msg);
+				var area = obj.latteId.substring(6, 9);
+				drawData(obj,area);
+				
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
 				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
 				
 				// 실시간 데이터 상태에 따른 색상 표시(실시간 데이터 규격 결정 시 변경)
-				if(obj.tmp != "undefined"){
-					$("#1_A_S_TEMP").html("<h5>" + obj.tmp + "</h5>");
-					if(obj.tmp <= 23){
-						$("#1_A_S_TEMP").css('background-color', '#f7b924');
-					}else if(obj.tmp > 23 && obj.tmp <= 25){
-						$("#1_A_S_TEMP").css('background-color', '#00aeef');
-					}else if(obj.tmp > 25){
-						$("#1_A_S_TEMP").css('background-color', '#f42a2f');
+				/*
+				switch(obj.latteId){
+				case "latte" :
+					if(obj.tmp != "undefined"){
+						$("#1_A_S_TEMP").html("<h5>" + obj.tmp + "</h5>");
+						if(obj.tmp <= 23){
+							$("#1_A_S_TEMP").css('background-color', '#f7b924');
+						}else if(obj.tmp > 23 && obj.tmp <= 25){
+							$("#1_A_S_TEMP").css('background-color', '#00aeef');
+						}else if(obj.tmp > 25){
+							$("#1_A_S_TEMP").css('background-color', '#f42a2f');
+						}
 					}
-				}
-				if(obj.hum != "undefined"){
-					$("#1_A_S_HUM").html("<h5>" + obj.hum + "</h5>");
-					if(obj.hum <= 72){
-						$("#1_A_S_HUM").css('background-color', '#f7b924');
-					}else if(obj.hum > 72 && obj.hum <= 73){
-						$("#1_A_S_HUM").css('background-color', '#00aeef');
-					}else if(obj.hum > 73){
-						$("#1_A_S_HUM").css('background-color', '#f42a2f');
+					if(obj.hum != "undefined"){
+						$("#1_A_S_HUM").html("<h5>" + obj.hum + "</h5>");
+						if(obj.hum <= 72){
+							$("#1_A_S_HUM").css('background-color', '#f7b924');
+						}else if(obj.hum > 72 && obj.hum <= 73){
+							$("#1_A_S_HUM").css('background-color', '#00aeef');
+						}else if(obj.hum > 73){
+							$("#1_A_S_HUM").css('background-color', '#f42a2f');
+						}
 					}
-				}
+					break;
+				case "latte_1_B" :
+					break;
+				case "latte_2_A" :
+					break;
+				}*/
 				
+				
+			}
+		}
+			
+		function drawData(obj, area){
+			if(obj.tmp != "undefined"){
+				$("#" + area + "_S_TEMP").text(obj.tmp);
+				if(obj.tmp <= 23){
+					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
+				}else if(obj.tmp > 23 && obj.tmp <= 25){
+					$("#" + area + "_S_TEMP").css('background-color', '#00aeef');
+				}else if(obj.tmp > 25){
+					$("#" + area + "_S_TEMP").css('background-color', '#f42a2f');
+				}
+			}
+			if(obj.hum != "undefined"){
+				$("#" + area + "_S_HUM").text(obj.hum);
+				if(obj.hum <= 72){
+					$("#" + area + "_S_HUM").css('background-color', '#f7b924');
+				}else if(obj.hum > 72 && obj.hum <= 73){
+					$("#" + area + "_S_HUM").css('background-color', '#00aeef');
+				}else if(obj.hum > 73){
+					$("#" + area + "_S_HUM").css('background-color', '#f42a2f');
+				}
+			}
+			if(obj.dst != "undefined"){
+				$("#" + area + "_S_DUST").text(obj.dst);
+				if(obj.dst <= 30){
+					$("#" + area + "_S_DUST").css('background-color', '#f7b924');
+				}else if(obj.dst > 30 && obj.dst <= 80){
+					$("#" + area + "_S_DUST").css('background-color', '#00aeef');
+				}else if(obj.dst > 80){
+					$("#" + area + "_S_DUST").css('background-color', '#f42a2f');
+				}
+			}
+			if(obj.lgt != "undefined"){
+				$("#" + area + "_S_ILLM").text(obj.lgt);
+				if(obj.lgt <= 500){
+					$("#" + area + "_S_ILLM").css('background-color', '#f7b924');
+				}else if(obj.lgt > 500 && obj.lgt <= 1000){
+					$("#" + area + "_S_ILLM").css('background-color', '#00aeef');
+				}else if(obj.lgt > 1000){
+					$("#" + area + "_S_ILLM").css('background-color', '#f42a2f');
+				}
 			}
 		}
 
@@ -148,20 +203,18 @@
 			// on인 상태일 때 버튼 색상 유지
 			<c:choose>
 			    <c:when test="${d.DEVICE_STAT eq 'ON'}">
-				    $("#${d.DEVICE_ID}").addClass('active');
-					$("#${d.DEVICE_ID}").css('background-color', '#3ac47d');
-					$("#${d.DEVICE_ID}").css('border-color', '#3ac47d');
+					$("input[id='${d.DEVICE_ID}']").click();
 			    </c:when>
 			</c:choose>
 			
-			$("#${d.DEVICE_ID}").text("${d.DEVICE_STAT}");
+			//$("#${d.DEVICE_ID}").text("${d.DEVICE_STAT}");
 		</c:forEach>
 	}
 	
 	$(document).ready(function() {
 		// 실시간 데이터 text 삽입 테스트, 배경색 변경 테스트
-		$("#1_A_S_TEMP span").text("12345");
-		$('#1_A_S_HUM span').css("color", "#e0201a");
+		//$("#1_A_S_TEMP span").text("12345");
+		//$('#1_A_S_HUM span').css("color", "#e0201a");
 		// ----- 테스트 끝 ------
 		
 		setButtonState();
@@ -189,6 +242,8 @@
 	Logger LOGGER = Logger.getLogger("temp");
 	LOGGER.info(data);
 	
+	Logger log_earthquake = Logger.getLogger("earthquake");
+	LOGGER.info(data);
 %>
 
 	<!-- 층별 제어 화면 -->
@@ -214,12 +269,6 @@
 
 
 	<div id="container" class="containerBottom">
-		<div class="btn1">
-			<a class="btn" id="ledStart" href="#">LED START</a>
-		</div>
-		<div class="btn2">
-			<a class="btn" id="ledStop" href="#">LED STOP</a>
-		</div>
 		<div class="btn3">
 			<a class="btn" id= "alert" href = "#">Alert</a>
 		</div>

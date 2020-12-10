@@ -12,13 +12,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +47,7 @@ public class MainController {
 	private String dbid;
 	private String dbpwd;
 	
+	Logger LOGGER;
 	
 	public MainController() {
 		getProp();
@@ -71,28 +72,27 @@ public class MainController {
 	
 	@RequestMapping("/main")
 	public ModelAndView main() throws Exception {
-		SimpleDateFormat rtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		System.out.println(rtime);
-		String usl = "jdbc:hive2://192.168.111.101:10000/default";
-		String id = "root";
-		String password = "111111";
-		Class.forName("org.apache.hive.jdbc.HiveDriver");
-		Connection con = DriverManager.getConnection(url, id, password);
-		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM ENV LIMIT 5 WHERE REALTIME "+ rtime);
-		ResultSet rset = pstmt.executeQuery();
-		while(rset.next()) {
-			int ul_finedust = rset.getInt(2);
-			int finedust = rset.getInt(3);
-			float temp = rset.getFloat(4);
-			int humd = rset.getInt(5);
-			int illm = rset.getInt(6);
-		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("centerpage", "mainCenter.jsp");
 		mv.setViewName("index");
 		return mv;
 	}
 	
+	@RequestMapping("/log")
+	public void log(String data) throws Exception {
+		// http 온도데이터
+		System.out.println("<"+data+"> 로그데이터를 받았습니다.");
+		String [] array = data.split(":");
+		switch (array[0]) {
+		case "AcX":
+			LOGGER = Logger.getLogger("earthquake");
+			break;
+		case "tmp":
+			LOGGER = Logger.getLogger("temp");
+			break;
+		}
+		LOGGER.info(data);
+	}
 
 	@RequestMapping("/chat")
 	public ModelAndView chat(ModelAndView mv, HttpServletResponse res) throws Exception {

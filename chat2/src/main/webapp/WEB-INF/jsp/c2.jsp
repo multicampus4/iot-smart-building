@@ -73,7 +73,6 @@ th, td {
 
 </style>
 
-
 <script type="text/javascript" >
 
 //하루 평균 온도 값 차트 
@@ -261,9 +260,9 @@ function displayTempAvg(data){
 			            valueSuffix: ' km/h'
 			        }
 			    }]
-			   
-
-			})); 
+			}
+		)
+	); 
 } 
 //하루 평균 미세먼지 농도 차트 
  function displayDustSat(data){
@@ -778,11 +777,22 @@ function getDayAvg(){
 		});
 	} 
 $(document).ready(function(){
+<<<<<<< HEAD
 	
 	//alert(123)
  	  getDayAvg();
  	  getTable();
  	  getTimeGph();
+=======
+	/*
+	alert(123)
+ 	  getTempAvg();
+	  getHumAvg();
+ 	  getDustSat();
+ 	  getLightAvg();
+ 	  getTable();
+ 	  getTimeTempHum();*/
+>>>>>>> bac0bfb6e90187333c1e8954a75182a706964387
 	});
 	
 </script>

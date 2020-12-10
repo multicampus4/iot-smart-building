@@ -1,15 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script type="text/javascript" src="./assets/scripts/main_ws.js"></script></body>
-
 <style>
- 
 .highcharts-figure .chart-container {
 	width: 300px;
 	height: 200px;
@@ -80,10 +72,13 @@ th, td {
 	text-align: center;
 }
 </style>
+
+
 <script type="text/javascript" >
 
-//하루 평균 온도 값 차트 
-function displayTempAvg(data){
+// 현재 온도 값 차트 
+function displayTempNow(temp){
+	alert(temp)
 	 var gaugeOptions = {
 			    chart: {
 			        type: 'solidgauge'
@@ -136,20 +131,20 @@ function displayTempAvg(data){
 			        }
 			    }
 			};
-			var chartdust = Highcharts.chart('daytemp', Highcharts.merge(gaugeOptions, {
+			var chartdust = Highcharts.chart('nowtemp', Highcharts.merge(gaugeOptions, {
 			    yAxis: {
 			        min: 0,
 			        max: 200,
 			        title: {
-			            text: 'Speed'
+			            text: 'temperature'
 			        }
 			    },
 			    credits: {
 			        enabled: false
 			    },
 			    series: [{ 
-			        name: 'Speed',
-			        data:data,
+			        name: 'temperature',
+			        data:[temp],
 			        dataLabels: {
 			            format:
 			                '<div style="text-align:center">' +
@@ -166,7 +161,8 @@ function displayTempAvg(data){
 	); 
 } 
 //하루 평균 습도 차트 
- function displayHumAvg(data){
+ function displayHumNow(hum){
+	 alert(hum)
 	 var gaugeOptions = {
 			    chart: {
 			        type: 'solidgauge'
@@ -219,20 +215,20 @@ function displayTempAvg(data){
 			        }
 			    }
 			};
-			var chartdust = Highcharts.chart('dayhumid', Highcharts.merge(gaugeOptions, {
+			var chartdust = Highcharts.chart('nowhumid', Highcharts.merge(gaugeOptions, {
 			    yAxis: {
 			        min: 0,
 			        max: 200,
 			        title: {
-			            text: 'Speed'
+			            text: 'humidity'
 			        }
 			    },
 			    credits: {
 			        enabled: false
 			    },
 			    series: [{ 
-			        name: 'Speed',
-			        data:data,
+			        name: 'humidity',
+			        data:[hum],
 			        dataLabels: {
 			            format:
 			                '<div style="text-align:center">' +
@@ -249,7 +245,8 @@ function displayTempAvg(data){
 	); 
 } 
 //하루 평균 미세먼지 농도 차트 
- function displayDustSat(data){
+ function displayDustSatNow(dust){
+	 alert(dust)
 	 var gaugeOptions = {
 			    chart: {
 			        type: 'solidgauge'
@@ -302,20 +299,20 @@ function displayTempAvg(data){
 			        }
 			    }
 			};
-			var chartdust = Highcharts.chart('dustgraph', Highcharts.merge(gaugeOptions, {
+			var chartdust = Highcharts.chart('nowdust', Highcharts.merge(gaugeOptions, {
 			    yAxis: {
 			        min: 0,
 			        max: 200,
 			        title: {
-			            text: 'Speed'
+			            text: 'Fine dust'
 			        }
 			    },
 			    credits: {
 			        enabled: false
 			    },
 			    series: [{ 
-			        name: 'Speed',
-			        data:data,
+			        name: 'Fine dust',
+			        data:[dust],
 			        dataLabels: {
 			            format:
 			                '<div style="text-align:center">' +
@@ -333,7 +330,8 @@ function displayTempAvg(data){
  } //console.log(data);
  
 //하루 평균 조도 차트 
- function displayLightAvg(data){
+ function displayLightNow(illm){
+	 alert(illm)
 	 var gaugeOptions = {
 			    chart: {
 			        type: 'solidgauge'
@@ -386,7 +384,7 @@ function displayTempAvg(data){
 			        }
 			    }
 			};
-			var chartdust = Highcharts.chart('daylight', Highcharts.merge(gaugeOptions, {
+			var chartdust = Highcharts.chart('nowlight', Highcharts.merge(gaugeOptions, {
 			    yAxis: {
 			        min: 0,
 			        max: 200,
@@ -399,7 +397,7 @@ function displayTempAvg(data){
 			    },
 			    series: [{ 
 			        name: 'Speed',
-			        data:data,
+			        data:[illm],
 			        dataLabels: {
 			            format:
 			                '<div style="text-align:center">' +
@@ -415,66 +413,27 @@ function displayTempAvg(data){
 		)
 	); 
  } 
- function getDustSat(){
-		$.ajax({
-			url:'getdata2.mc',
-			success:function(data){
-			/* console.log(data[2].y);
-			datas = data[2].y; */
-				displayDustSat(data);
-				//alert(data2);
-			},
-			error:function(){
-			}
-		});
-		displayDustSat();
-}
-function getTempAvg(){
-		$.ajax({
-			url:'getdata3.mc',
-			//alert(123)
-			success:function(data){
-				displayTempAvg(data);
-			},
-			error:function(){
-				}
-		});
-		displayTempAvg();
-	}
 
-function getHumAvg(){
-	$.ajax({
-		url:'getdata1.mc',
-		//alert(123)
-		success:function(data){
-			displayHumAvg(data);
-		},
-		error:function(){
+ 
+ function getData(){
+		$.ajax({
+			url:'getNow.mc',
+			success:function(data){
+				console.log(data)
+				displayDustSatNow(data[0].finedust)
+				displayTempNow(data[0].temperature)
+				displayLightNow(data[0].illuminance)
+				displayHumNow(data[0].humidity)
 			}
-	});
-	displayHumAvg();
-}
-function getLightAvg(){
-	$.ajax({
-		url:'getdata2.mc',
-		//alert(123)
-		success:function(data){
-			
-			displayLightAvg(data);
-			
-		},
-		error:function(){
-		}
-	});
-	displayLightAvg();
-}
+		});
+	}
+ 
  $(document).ready(function(){
-	  getTempAvg();
-	  getHumAvg();
-	  getDustSat();
-	  getLightAvg();
+	getData();
 	});
+
 </script>
+
 <div class="row">
 	<div class="col-md-12 col-lg-6">
 		<div class="main-card mb-3 card">
@@ -483,7 +442,7 @@ function getLightAvg(){
 			</div>
 			 <div class="tab-content">
 				<figure class="highcharts-figure">
-    				<div id="daytemp" class="chart-container"></div>
+    				<div id="nowtemp" class="chart-container"></div>
 				</figure>
 				<button type="button" id="PopoverCustomT-1"
 				        class="btn btn-primary btn-sm" >Details</button>
@@ -498,7 +457,7 @@ function getLightAvg(){
 			</div>
 			 <div class="tab-content">
 				<figure class="highcharts-figure">
-    <div id="dayhumid" class="chart-container"></div>
+    				<div id="nowhumid" class="chart-container"></div>
 				</figure>
 				<button type="button" id="PopoverCustomT-1"
 									class="btn btn-primary btn-sm" >Details</button>
@@ -516,7 +475,7 @@ function getLightAvg(){
 			</div>
 			 <div class="tab-content">
 				<figure class="highcharts-figure">
-			   		<div id="dustgraph" class="chart-container"></div>
+			   		<div id="nowdust" class="chart-container"></div>
 				</figure>
 			</div> 
 		</div>
@@ -529,7 +488,7 @@ function getLightAvg(){
 			</div>
 			 <div class="tab-content">
 				<figure class="highcharts-figure">
-					<div id="daylight" class="chart-container"></div>
+					<div id="nowlight" class="chart-container"></div>
 				</figure>
 			</div> 
 		</div>

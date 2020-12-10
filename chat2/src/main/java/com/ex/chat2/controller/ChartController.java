@@ -1,6 +1,7 @@
 package com.ex.chat2.controller;
 
 
+
 	import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,14 +14,26 @@ import java.util.Properties;
 
 import javax.servlet.http.HttpServletResponse;
 
-	import org.json.simple.JSONArray;
-	import org.json.simple.JSONObject;
-	import org.springframework.stereotype.Controller;
-	import org.springframework.web.bind.annotation.RequestMapping;
-	import org.springframework.web.bind.annotation.ResponseBody;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
 
 	@Controller
 	public class ChartController {
+
 
 		static String oracleHostname;
 		static String oracleId;
@@ -28,6 +41,12 @@ import javax.servlet.http.HttpServletResponse;
 		private String url;
 		private String dbid;
 		private String dbpwd;
+
+
+        //String url = "jdbc:hive2://3.35.240.16:10000/default";
+		
+		String userid = "root";
+		String password = "111111";
 
 		public ChartController() {
 			getProp();
@@ -94,6 +113,7 @@ import javax.servlet.http.HttpServletResponse;
 				ResultSet rset = pstmt.executeQuery();
 				System.out.println(rset);
 				while(rset.next()) {
+
 
                    JSONObject data = new JSONObject();
 					
@@ -242,14 +262,54 @@ import javax.servlet.http.HttpServletResponse;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}finally {
-			}
-			con.close();
-			res.setCharacterEncoding("UTF-8");
-			res.setContentType("application/json");
-			PrintWriter out = res.getWriter();
-			out.print(ja.toJSONString());
-			out.close();
+
 		}
+		con.close();
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("application/json");
+		PrintWriter out = res.getWriter();
+		out.print(ja.toJSONString());
+		out.close();
+	}
+	
+	
+	
+	@RequestMapping("/getNow.mc")
+	@ResponseBody
+	public void getNow1(HttpServletResponse res) throws Exception{
+		
+		Connection con = null;	
+//		SimpleDateFormat rtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		System.out.println(rtime);
+		JSONArray ja = new JSONArray();
+		try {
+			con = DriverManager.getConnection(url, userid, password);
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM ENV WHERE REALTIME ='2020-12-01 23:05:41'");
+			ResultSet rset = pstmt.executeQuery();
+			// [{name: 'Sweden',data:[0.904 81.0 11.0]},{}]
+			while(rset.next()) {
+				JSONObject jo =new JSONObject();
+				jo.put("ultra_finedust", rset.getInt(2));
+				jo.put("finedust", rset.getInt(3));
+				jo.put("temperature", rset.getFloat(4));
+				jo.put("humidity", rset.getInt(5));
+				jo.put("illuminance", rset.getInt(6));
+				ja.add(jo);
+				System.out.println(ja);
+
+			}
+		}catch(Exception e) {
+			throw e;
+		}finally {
+		}
+		con.close();
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("application/json");
+		PrintWriter out = res.getWriter();
+		out.print(ja.toJSONString());
+		out.close();
+	}
+
 		@RequestMapping("/getdata1208.mc")
 		@ResponseBody
 		public void getdata8(HttpServletResponse res) throws Exception {

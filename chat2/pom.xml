@@ -192,12 +192,10 @@
 			</snapshots>
 		</repository>
 		<repository>
-
 			<id>oracle</id>
 			<name>ORACLE JDBC Repository</name>
 			<url>http://www.datanucleus.org/downloads/maven2/</url>
 		</repository>
-
 	</repositories>
 	
 	<pluginRepositories>
