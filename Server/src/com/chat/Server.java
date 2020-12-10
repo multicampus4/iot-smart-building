@@ -245,7 +245,7 @@ public class Server {
 					}
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
 					// 해쉬맵에서 연결된 IP주소 삭제
-//					e.printStackTrace();
+					e.printStackTrace();
 					maps.remove(socket.getInetAddress().toString());
 
 					// idipMaps는 IP주소가 Value값이므로 위의 방법처럼 삭제할 수 없음
@@ -282,7 +282,7 @@ public class Server {
 		// 제어명령 반환받음
 		// 반환값 예: 1_A_D_AIR_ON
 		// 전송 대상 : 라떼, 태블릿, DB
-		System.out.println("Auto Contoller : " + autoControlCmdArr);
+		System.out.println("Auto Contoller Cmd: " + autoControlCmdArr);
 		
 		for(int i=0; i<autoControlCmdArr.size(); i++) {
 			String autoControlCmd = autoControlCmdArr.get(i);

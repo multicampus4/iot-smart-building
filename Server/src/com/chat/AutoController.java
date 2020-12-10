@@ -19,18 +19,25 @@ import com.msg.DeviceVO;
 
 public class AutoController {
 	static int MAX_QUE_SIZE = 5;
-	static float NORMAL_TEMP = (float) 22.00;
+	static float NORMAL_TEMP_MIN = (float) 18.00;	// 섭씨
+	static float NORMAL_TEMP_MAX = (float) 21.00;	// 섭씨
+	static float NORMAL_HUM_MIN = (float) 40.00;	// 퍼센트
+	static float NORMAL_HUM_MAX = (float) 40.00;	// 퍼센트
 	
-	
-	Queue<Float> q_1_A_TEMP = new LinkedList<>();
 	
 	
 	public ArrayList<String> whatToDo(String ssRaw) throws Exception  {
+		String deviceType;
+		String deviceId;
+		String ssRawType;
+		float ssRawValue;
+		String autoControlCmd;
 		ArrayList<String> autoControlCmdArr = new ArrayList<String>();
 		
 	    JSONParser jsonParser = new JSONParser();
 	    JSONObject jsonObj = null;
 		jsonObj = (JSONObject)jsonParser.parse(ssRaw);
+		String deviceArea = (String) jsonObj.get("area");
 		// {"area":"1_A","hum":"76.81","msgType":"ssRaw","latteId":"latte_1_A","tmp":"24.69"}
 		
 		// json key값 찾기
@@ -41,51 +48,29 @@ public class AutoController {
         	String keyName = iterator.next();
         	switch(keyName){
         	case "tmp":
-        		String deviceId = jsonObj.get("area") + "_D_AIR";	// 1_A_D_AIR
-        		DeviceVO dv = new DeviceVO();
-        		Queue<Float> rawQueue = new LinkedList<>();
+        		// 온도 데이터 >> 냉난방기 제어
+        		deviceType = "AIR";
+        		deviceId = deviceArea + "_D_" + deviceType;	// 1_A_D_AIR
+        		ssRawType = keyName;
+        		ssRawValue = Float.parseFloat((String) jsonObj.get(ssRawType));
         		
-        		dv = Server.deviceStat.get(deviceId);
-        		if(dv.getRAW_QUEUE() == null)
-        			rawQueue.add(Float.parseFloat((String) jsonObj.get(keyName)));
-        		else {
-        			rawQueue = dv.getRAW_QUEUE();
-        			rawQueue.add(Float.parseFloat((String) jsonObj.get(keyName)));
-        		}
-        		
-        		// Queue 데이터 5개 초과 시 queue.poll
-        		if (rawQueue.size() > MAX_QUE_SIZE) {
-    				rawQueue.poll();
-    			}
-        		dv.setRAW_QUEUE(rawQueue);
-
-        		System.out.println(dv.getRAW_QUEUE());
-        		System.out.println(jsonObj.get("area") + "의 현재 평균 온도: " +getQueAvg(rawQueue));
-    			// 센서 평균값 & 적정 기준치 값 비교
-    			// return 예) 1_A_D_AIR_ON
-    			String command = null;
-    			
-    			// 기준치에 따른 디바이스 작동상태 판단 
-    			if(getQueAvg(rawQueue) > NORMAL_TEMP) {
-    				command = "ON";
-    			} else {
-    				command = "OFF";
-    			}
-    			
-    			// 현재 디바이스 작동상태와 제어명령 같은지 판단
-    			// 같으면: 상태 변경할 필요 없음 
-    			// 다르면: DB 업데이트 & 제어 메시지 전송
-    			if(isCommandEqualsDeviceStat(command)){
-    				continue;
-    			} else {
-    				upDeviceStat(deviceId, command);
-    				String autoControlCmd = jsonObj.get("area") + "_D_AIR_" + command;	// 1_A_D_AIR_ON
-    				autoControlCmdArr.add(autoControlCmd);
-    				continue;
-    			}
-    			
+        		autoControlCmd = testFunction(deviceId, deviceArea, deviceType, ssRawType, ssRawValue, 
+        											NORMAL_TEMP_MIN, NORMAL_TEMP_MAX);
+        		if(autoControlCmd != null)
+        			autoControlCmdArr.add(autoControlCmd);
+    			continue;
         	case "hum":
-        		continue;
+        		// 습도 데이터 >> 냉난방기 제어
+        		deviceType = "HUM";	// 가습기 
+        		deviceId = deviceArea + "_D_" + deviceType;	// 1_A_D_HUM
+        		ssRawType = keyName;
+        		ssRawValue = Float.parseFloat((String) jsonObj.get(ssRawType));
+        		
+        		autoControlCmd = testFunction(deviceId, deviceArea, deviceType, ssRawType, ssRawValue, 
+        											NORMAL_HUM_MIN, NORMAL_HUM_MAX);
+        		if(autoControlCmd != null)
+        			autoControlCmdArr.add(autoControlCmd);
+    			continue;
         	}
         	
         }
@@ -93,8 +78,55 @@ public class AutoController {
         return autoControlCmdArr;
 	}
 	
-	public boolean isCommandEqualsDeviceStat(String command) {
-		if(Server.deviceStat.get("1_A_D_AIR").getDEVICE_STAT().equals(command)) {
+	public String testFunction(String deviceId, String deviceArea, String deviceType, String ssRawType, Float ssRawValue, Float standardMin, Float standardMax) throws SQLException {
+		DeviceVO dv = new DeviceVO();
+		Queue<Float> rawQueue = new LinkedList<>();
+		
+		dv = Server.deviceStat.get(deviceId);
+		if(dv.getRAW_QUEUE() == null)
+			rawQueue.add(ssRawValue);
+		else {
+			rawQueue = dv.getRAW_QUEUE();
+			rawQueue.add(ssRawValue);
+		}
+		
+		// Queue 데이터 5개 초과 시 queue.poll
+		if (rawQueue.size() > MAX_QUE_SIZE) {
+			rawQueue.poll();
+		}
+		dv.setRAW_QUEUE(rawQueue);
+		float queAvg = getQueAvg(rawQueue);
+
+		System.out.println(dv.getRAW_QUEUE());
+		System.out.println(deviceId + "의 현재 평균 값: " + queAvg);
+		// 센서 평균값 & 적정 기준치 값 비교
+		// return 예) 1_A_D_AIR_ON
+		String command = null;
+		
+		// 기준치에 따른 디바이스 작동상태 판단 
+//		if(getQueAvg(rawQueue) > standardMin) {
+		if(standardMin < queAvg && queAvg < standardMax) {
+			command = "OFF";
+		} else {
+			command = "ON";
+		}
+		
+		// 현재 디바이스 작동상태와 제어명령 같은지 판단
+		// 같으면: 상태 변경할 필요 없음 
+		// 다르면: DB 업데이트 & 제어 메시지 전송
+		if(isCommandEqualsDeviceStat(command, deviceId)){
+			return null;
+		} else {
+			upDeviceStat(deviceId, command);
+			String autoControlCmd = deviceArea + "_D_" + deviceType + "_" + command;	// 1_A_D_AIR_ON
+//			autoControlCmdArr.add(autoControlCmd);
+			return autoControlCmd;
+		}
+	}
+	
+	public boolean isCommandEqualsDeviceStat(String command, String deviceId) {
+//		if(Server.deviceStat.get("1_A_D_AIR").getDEVICE_STAT().equals(command)) {
+		if(Server.deviceStat.get(deviceId).getDEVICE_STAT().equals(command)) {
 			return true;
 		} else {
 			return false;
