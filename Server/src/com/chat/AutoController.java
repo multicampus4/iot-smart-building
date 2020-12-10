@@ -18,7 +18,7 @@ import com.msg.DeviceVO;
 
 public class AutoController {
 	static int MAX_QUE_SIZE = 5;
-	static float NORMAL_TEMP = (float) 24.00;
+	static float NORMAL_TEMP = (float) 22.00;
 	
 	Queue<Float> q_1_A_TEMP = new LinkedList<>();
 	
@@ -38,10 +38,11 @@ public class AutoController {
         	String keyName = iterator.next();
         	switch(keyName){
         	case "tmp":
+        		String deviceId = jsonObj.get("area") + "_D_AIR";	// 1_A_D_AIR
         		DeviceVO dv = new DeviceVO();
         		Queue<Float> rawQueue = new LinkedList<>();
         		
-        		dv = Server.deviceStat.get(jsonObj.get("area") + "_D_AIR");
+        		dv = Server.deviceStat.get(deviceId);
         		if(dv.getRAW_QUEUE() == null)
         			rawQueue.add(Float.parseFloat((String) jsonObj.get(keyName)));
         		else {
@@ -49,15 +50,38 @@ public class AutoController {
         			rawQueue.add(Float.parseFloat((String) jsonObj.get(keyName)));
         		}
         		
+        		// Queue 데이터 5개 초과 시 queue.poll
         		if (rawQueue.size() > MAX_QUE_SIZE) {
     				rawQueue.poll();
     			}
-
-
         		dv.setRAW_QUEUE(rawQueue);
 
+        		
+        		System.out.println(jsonObj.get("area") + "의 현재 평균 온도: " +getQueAvg(rawQueue));
+    			// 센서 평균값 & 적정 기준치 값 비교
+    			// return 예) 1_A_D_AIR_ON
+    			String command = null;
     			
-        		System.out.println("QQQQ:"+dv.getRAW_QUEUE());
+    			// 기준치에 따른 디바이스 작동상태 판단 
+    			if(getQueAvg(rawQueue) > NORMAL_TEMP) {
+    				command = "ON";
+    			} else {
+    				command = "OFF";
+    			}
+    			
+    			// 현재 디바이스 작동상태와 제어명령 같은지 판단
+    			// 같으면: 상태 변경할 필요 없음 
+    			// 다르면: DB 업데이트 & 제어 메시지 전송
+    			if(isCommandEqualsDeviceStat(command)){
+    				continue;
+//    				return "nothing";
+    			} else {
+    				upDeviceStat(deviceId, command);
+    				String cmdMsg = jsonObj.get("area") + "_D_AIR_" + command;	// 1_A_D_AIR_ON
+    				
+    				return jsonObj.get("area") + "_D_AIR_" + command;
+    			}
+    			        		
         		continue;
         	case "hum":
         		continue;
