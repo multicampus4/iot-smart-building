@@ -5,11 +5,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
+import com.msg.DeviceVO;
 
 public class AutoController {
 	static int MAX_QUE_SIZE = 5;
@@ -23,7 +28,43 @@ public class AutoController {
 	    JSONParser jsonParser = new JSONParser();
 	    JSONObject jsonObj = null;
 		jsonObj = (JSONObject)jsonParser.parse(ssRaw);
+		// {"area":"1_A","hum":"76.81","msgType":"ssRaw","latteId":"latte_1_A","tmp":"24.69"}
+		
+		// json key값 찾기
+        Set key = jsonObj.keySet();
+        Iterator<String> iterator = key.iterator();
+        
+        while(iterator.hasNext()) {
+        	String keyName = iterator.next();
+        	switch(keyName){
+        	case "tmp":
+        		DeviceVO dv = new DeviceVO();
+        		Queue<Float> rawQueue = new LinkedList<>();
+        		
+        		dv = Server.deviceStat.get(jsonObj.get("area") + "_D_AIR");
+        		if(dv.getRAW_QUEUE() == null)
+        			rawQueue.add(Float.parseFloat((String) jsonObj.get(keyName)));
+        		else {
+        			rawQueue = dv.getRAW_QUEUE();
+        			rawQueue.add(Float.parseFloat((String) jsonObj.get(keyName)));
+        		}
+        		
+        		if (rawQueue.size() > MAX_QUE_SIZE) {
+    				rawQueue.poll();
+    			}
 
+
+        		dv.setRAW_QUEUE(rawQueue);
+
+    			
+        		System.out.println("QQQQ:"+dv.getRAW_QUEUE());
+        		continue;
+        	case "hum":
+        		continue;
+        	}
+
+        }
+		
 		switch ((String) jsonObj.get("area")) {
 		case "1_A":
 			// queue에 add
@@ -47,7 +88,7 @@ public class AutoController {
 			// 현재 디바이스 작동상태와 제어명령 같은지 판단
 			// 같으면: 상태 변경할 필요 없음 
 			// 다르면: DB 업데이트 & 제어 메시지 전송
-			if((Server.deviceStat.get("1_A_D_AIR").equals(command))){
+			if(isCommandEqualsDeviceStat(command)){
 				return "nothing";
 			} else {
 				upDeviceStat("1_A_D_AIR", command);
@@ -59,6 +100,14 @@ public class AutoController {
 		}
 		
 		return null;
+	}
+	
+	public boolean isCommandEqualsDeviceStat(String command) {
+		if(Server.deviceStat.get("1_A_D_AIR").getDEVICE_STAT().equals(command)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	// queue에 저장된 값들의 평균 반환 
@@ -103,6 +152,8 @@ public class AutoController {
 		
 		//-------------------- queue test
 		AutoController ac = new AutoController();
+		HashMap<String, DeviceVO> hashtest = new HashMap<>();
+		
 		
 		Queue<Float> temp = new LinkedList<>();
 		temp.add((float) 5.12);
@@ -110,14 +161,25 @@ public class AutoController {
 		temp.add((float) 15.13);
 		temp.add((float) 1.18);
 		
-		System.out.println(temp);
+		DeviceVO dv = new DeviceVO("1_A_D_AIR", "ON", temp);
+		String deviceId = "1_A_D_AIR";
+		hashtest.put(deviceId, dv);
+		
+		Queue<Float> temp2 = new LinkedList<>();
+		temp2 = hashtest.get("1_A_D_AIR").getRAW_QUEUE();
+		temp.add((float) 3.33333);
+		
+		System.out.println(hashtest.get("1_A_D_AIR"));
+		
+//		System.out.println(temp);
 		
 		float t = 0;
 		for(float f : temp) {
 			t += f;
 		}
-		System.out.println(t/temp.size());
 		
+		
+//		System.out.println(t/temp.size());
 		
 		// ------------- db test
 /*		deviceStat = new HashMap<>();

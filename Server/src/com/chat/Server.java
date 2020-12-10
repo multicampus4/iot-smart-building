@@ -22,6 +22,7 @@ import java.util.Properties;
 import org.java_websocket.client.WebSocketClient;
 import org.json.simple.JSONObject;
 
+import com.msg.DeviceVO;
 import com.msg.Msg;
 import com.ws.WsClient;
 
@@ -47,7 +48,7 @@ public class Server {
 	HashMap<String, ObjectOutputStream> maps; // HashMap<IP주소, 해당 아웃풋스트림>
 	HashMap<String, String> idipMaps; // HashMap<클라이언트id, 클라이언트ip> for sendTarget
 										// ex) <latte_1_A, 192.168.1.11>
-	static HashMap<String, String> deviceStat;
+	static HashMap<String, DeviceVO> deviceStat;
 	static boolean isConnectWebsocket = false; // WebSocket 연결여부 확인 FLAG
 
 	// sendTarget 위한 ip주소 선언 >> hashMap 관리방식으로 변경하기!
@@ -435,7 +436,8 @@ public class Server {
 			while (rset.next()) {
 				String device_id = rset.getString(1);
 				String device_stat = rset.getString(8);
-				deviceStat.put(device_id, device_stat);
+				DeviceVO dv = new DeviceVO(device_id, device_stat, null);
+				deviceStat.put(device_id, dv);
 			}
 
 		} catch (SQLException e) {
