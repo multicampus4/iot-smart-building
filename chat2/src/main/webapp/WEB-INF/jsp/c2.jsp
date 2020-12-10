@@ -77,6 +77,8 @@ th, td {
 
 //하루 평균 온도 값 차트 
 function displayTempAvg(data){
+	//alert(data[1].data[1]);
+	//alert(data[0].data);
 	 var gaugeOptions = {
 			    chart: {
 			        type: 'solidgauge'
@@ -133,9 +135,9 @@ function displayTempAvg(data){
 			var chartdust = Highcharts.chart('daytemp', Highcharts.merge(gaugeOptions, {
 			    yAxis: {
 			        min: 0,
-			        max: 200,
+			        max:40,
 			        title: {
-			            text: 'Speed'
+			            text: 'Temperature'
 			        }
 			    },
 			    credits: {
@@ -143,16 +145,17 @@ function displayTempAvg(data){
 			    },
 			    series: [{
 			        name: 'Speed',
-			        data:data,
+			        //data:[data[0].data[1]],
+			        data:[data[0].data],
 			        dataLabels: {
 			            format:
 			                '<div style="text-align:center">' +
 			                '<span style="font-size:25px">{y}</span><br/>' +
-			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '<span style="font-size:12px;opacity:0.4">°C</span>' +
 			                '</div>'
 			        },
 			        tooltip: {
-			            valueSuffix: ' km/h'
+			            valueSuffix: 'c'
 			        }
 			    }]
 			})); 
@@ -227,9 +230,9 @@ function displayTempAvg(data){
 				
 			    yAxis: {
 			        min: 0,
-			        max: 200,
+			        max: 100,
 			        title: {
-			            text: 'Speed'
+			            text: 'Humid'
 			        }
 			    },
 
@@ -242,7 +245,7 @@ function displayTempAvg(data){
 			        name: 'Speed',
 			        
 			        
-			        data:data,
+			        data:[data[1].data],
 			   
 			        
 			        
@@ -250,7 +253,7 @@ function displayTempAvg(data){
 			            format:
 			                '<div style="text-align:center">' +
 			                '<span style="font-size:25px">{y}</span><br/>' +
-			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '<span style="font-size:12px;opacity:0.4">%</span>' +
 			                '</div>'
 			        },
 			        tooltip: {
@@ -331,7 +334,7 @@ function displayTempAvg(data){
 			        min: 0,
 			        max: 200,
 			        title: {
-			            text: 'Speed'
+			            text: 'FineDust'
 			        }
 			    },
 
@@ -344,7 +347,7 @@ function displayTempAvg(data){
 			        name: 'Speed',
 			        
 			        
-			        data:data,
+			        data:[data[2].data],
 			   
 			        
 			        
@@ -352,7 +355,7 @@ function displayTempAvg(data){
 			            format:
 			                '<div style="text-align:center">' +
 			                '<span style="font-size:25px">{y}</span><br/>' +
-			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '<span style="font-size:14px;opacity:0.4">㎍/㎥</span>' +
 			                '</div>'
 			        },
 			        tooltip: {
@@ -367,6 +370,7 @@ function displayTempAvg(data){
  
 //하루 평균 조도 차트 
  function displayLightAvg(data){
+	
 	 var gaugeOptions = {
 			    chart: {
 			        type: 'solidgauge'
@@ -430,9 +434,9 @@ function displayTempAvg(data){
 				
 			    yAxis: {
 			        min: 0,
-			        max: 200,
+			        max: 4000,
 			        title: {
-			            text: 'Speed'
+			            text: 'Light'
 			        }
 			    },
 
@@ -445,7 +449,7 @@ function displayTempAvg(data){
 			        name: 'Speed',
 			        
 			        
-			        data:data,
+			        data:[data[3].data],
 			   
 			        
 			        
@@ -453,7 +457,7 @@ function displayTempAvg(data){
 			            format:
 			                '<div style="text-align:center">' +
 			                '<span style="font-size:25px">{y}</span><br/>' +
-			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '<span style="font-size:12px;opacity:0.4">lx(lux)</span>' +
 			                '</div>'
 			        },
 			        tooltip: {
@@ -466,7 +470,8 @@ function displayTempAvg(data){
 			
  } 
  //시간 별 쾌적지수 그래프 출력 
- function displayTimeTempHum(data){
+ function displayTimeGph(data){
+	 alert(data[0].data)
 	 var colors = Highcharts.getOptions().colors;
 
 	 Highcharts.chart('timetempcontainer', {
@@ -524,7 +529,9 @@ function displayTempAvg(data){
 	     series: [
 	         {
 	        	 name: '온도',
-	        	 data : data, 
+	        	 data :[data[4].data[0],data[4].data[1],data[4].data[2],data[4].data[3],
+	        		 data[4].data[4],data[4].data[5],data[4].data[6],data[4].data[7],
+	        		 data[4].data[8],data[4].data[9],data[4].data[10]], 
 	        	 dashStyle: 'Dash',
 	        	 color: colors[1]
 	            
@@ -532,14 +539,18 @@ function displayTempAvg(data){
 	         {
 	            
 	             name: '습도',
-	             data: [42.6, 51.5, 54.2, 45.8, 20.2, 15.4],
+	             data: [data[5].data[0],data[5].data[1],data[5].data[2],data[5].data[3],
+	        		 data[5].data[4],data[5].data[5],data[5].data[6],data[5].data[7],
+	        		 data[5].data[8],data[5].data[9],data[5].data[10]],
 	             dashStyle: 'ShortDash',
 	             color: colors[3]
 	         },
 	         
 	         {
 	        	 name: '미세먼지',
-	        	 data :[12.6, 21.5, 44.2, 39.8, 10.2, 52.4,12.6, 21.5, 44.2, 39.8, 10.2, 52.4], 
+	        	 data :[data[6].data[0],data[6].data[1],data[6].data[2],data[6].data[3],
+	        		 data[6].data[4],data[6].data[5],data[6].data[6],data[6].data[7],
+	        		 data[6].data[8],data[6].data[9],data[6].data[10]],
 	        	 dashStyle: 'ShortDot',
 	        	 color: colors[2]
 	            
@@ -547,7 +558,7 @@ function displayTempAvg(data){
 	         
 	         {
 	        	 name: '조도',
-	        	 data : [35.6, 21.5, 14.2, 41.8, 24.2, 10.4], 
+	        	 //data : [35.6, 21.5, 14.2, 41.8, 24.2, 10.4], 
 	        	 dashStyle: 'ShortDashDot',
 	        	 color: colors[4]
 	            
@@ -583,51 +594,52 @@ function displayTempAvg(data){
  function displayTable(data){
 	 var str='';
 	 $.each(data, function(index,item){
+		 //alert(item.data[0])
 			str += '<tr>';
 			str += '<td>' + item.name+'</td>';
-			str += '<td>' + item.y+ '</td>';
-			str += '<td>' + item.y+ '</td>'; //str += '<td>' + item.y+ '</td>'; 이렇게 계속 추가하면 데이터 표에 입력됨 
-		    str += '</tr>';
+			str += '<td>' + item.data[0]+ '</td>';
+			str += '<td>' + item.data[1]+ '</td>'; //str += '<td>' + item.y+ '</td>'; 이렇게 계속 추가하면 데이터 표에 입력됨 
+			str += '<td>' + item.data[2]+ '</td>';
+			str += '<td>' + item.data[3]+ '</td>';
+			str += '<td>' + item.data[4]+ '</td>';
+			str += '<td>' + item.data[6]+ '</td>';
+			str += '<td>' + item.data[7]+ '</td>';
+			str += '<td>' + item.data[8]+ '</td>';
+			str += '<td>' + item.data[9]+ '</td>';
+			str += '<td>' + item.data[10]+ '</td>';
+			str += '<td>' + item.data[11]+ '</td>';
+			str += '<td>' + item.data[12]+ '</td>';
+			
+		
+			
+			str += '</tr>';
 		}); 
 		$('#htable').html(str);	
  }
  
- function getTimeTempHum(){
+ function getTimeGph(){
 		$.ajax({
-			url:'getdata1.mc',
+			url:'getTimeGph.mc',
 			success:function(data){
-			console.log(data);
-				displayTimeTempHum(data);
+			
+				displayTimeGph(data);
 				
 			},
 			error:function(){
 				}
 		});
-		displayTimeTempHum();
+		//displayTimeGph();
+		
 	}
 
- function getDustSat(){
-		$.ajax({
-			url:'getdata2.mc',
-			success:function(data){
-			/* console.log(data[2].y);
-			datas = data[2].y; */
-				displayDustSat(data);
-				//alert(data2);
-			},
-			error:function(){
-			}
-		});
-		displayDustSat();
-	}
- 
  function getTable(){
 		$.ajax({
-			url:'getdata1.mc',
+			url:'getdatatable.mc',
 			
 			success:function(data){
 				displayTable(data);
-	        alert(data)
+	        //alert(data)
+	        console.log(data)
 				
 
 			},
@@ -637,20 +649,29 @@ function displayTempAvg(data){
 		displayTable();
 	}
  
-function getTempAvg(){
+function getDayAvg(){
 		$.ajax({
-			url:'getdata3.mc',
-			//alert(123)
+			url:'getdata1204.mc',
+			
 			success:function(data){
+				//alert(data[0].data);
 				displayTempAvg(data);
+				displayHumAvg(data);
+				displayDustSat(data);
+				displayLightAvg(data);
+				console.log(data);
 			},
 			error:function(){
 				}
 		});
-		displayTempAvg();
+		/* displayTempAvg();
+		displayHumAvg();
+		displayDustSat();
+		displayLightAvg(); */
+		
 	}
  
-function getHumAvg(){
+/* function getHumAvg(){
 	$.ajax({
 		url:'getdata1.mc',
 		//alert(123)
@@ -677,34 +698,92 @@ function getHumAvg(){
 		});
 		displayLightAvg();
 	}
- 
+  */
  //body의 onclick에 의해 실행되는 함수 
  //클릭하면 아래의 함수가 호출되고 아래의 함수에 따른 데이터로 그래프와 표가 업데이트 된다.
  //추후 실제 로그데이터가 만들어지면 해당 날짜에 onclick이벤트 실행하여 해당 데이터로 업데이트 되는 함수 작성해 주면 됨 
- function getMon(){
+ function getdata1204(){
 		$.ajax({
-			url:'getdata3.mc',
+			url:'getdata1204.mc',
 			//alert(123)
 			success:function(data){
-				displayDustSat(data)
+				displayTempAvg(data)
 				displayHumAvg(data)
-				displayTable(data)
-				displayTimeTempHum(data)
+				displayDustSat(data);
+				displayLightAvg(data);
 			},
 			error:function(){
 			}
 		});
 	} 
- 
+  function getdata1205(){
+		$.ajax({
+			url:'getdata1205.mc',
+			//alert(123)
+			success:function(data){
+				displayTempAvg(data)
+				displayHumAvg(data)
+				displayDustSat(data);
+				displayLightAvg(data);
+				console.log(data)
+			},
+			error:function(){
+			}
+		});
+	} 
+  function getdata1206(){
+		$.ajax({
+			url:'getdata1206.mc',
+			//alert(123)
+			success:function(data){
+				displayTempAvg(data)
+				displayHumAvg(data)
+				displayDustSat(data);
+				displayLightAvg(data);
+				console.log(data)
+			},
+			error:function(){
+			}
+		});
+	} 
+  function getdata1207(){
+		$.ajax({
+			url:'getdata1207.mc',
+			//alert(123)
+			success:function(data){
+				displayTempAvg(data)
+				displayHumAvg(data)
+				displayTable(data)
+				displayTimeTempHum(data)
+				console.log(data)
+			},
+			error:function(){
+			}
+		});
+	} 
+  function getdata1208(){
+		$.ajax({
+			url:'getdata1208.mc',
+			//alert(123)
+			success:function(data){
+				displayTempAvg(data)
+				displayHumAvg(data)
+				displayDustSat(data);
+				displayLightAvg(data);
+				console.log(data)
+			},
+			error:function(){
+			}
+		});
+	} 
 $(document).ready(function(){
-	/*
-	alert(123)
- 	  getTempAvg();
-	  getHumAvg();
- 	  getDustSat();
- 	  getLightAvg();
+
+	
+	//alert(123)
+ 	  getDayAvg();
  	  getTable();
- 	  getTimeTempHum();*/
+ 	  getTimeGph();
+
 	});
 	
 </script>
@@ -813,10 +892,11 @@ $(document).ready(function(){
                      <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle-split dropdown-toggle btn btn-secondary"><span class="sr-only">Toggle Dropdown</span>
                      </button>
                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getMon()">월요일</button>
-                         <button type="button" tabindex="0" class="dropdown-item">화요일</button>
-                         <button type="button" tabindex="0" class="dropdown-item">수요일</button>
-                         <button type="button" tabindex="0" class="dropdown-item">목요일</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1204()">1204</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1205()">1205</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1206()">1206</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1207()">1207</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1208()">1208</button>
                         </div>
                    </div>
 				</div>

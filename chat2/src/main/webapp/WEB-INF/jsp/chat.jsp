@@ -126,34 +126,35 @@
 		function drawData(obj, area){
 			if(obj.tmp != "undefined"){
 				$("#" + area + "_S_TEMP").text(obj.tmp);
-				$("#P_" + area + "_S_TEMP").text(obj.tmp);
-				if(obj.tmp <= 23){
+				$("#P_" + area + "_S_TEMP span").text(obj.tmp);
+				if(obj.tmp <= 18){
  					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
-				}else if(obj.tmp > 23 && obj.tmp <= 25){
+				}else if(obj.tmp > 18 && obj.tmp <= 21){
  					$("#" + area + "_S_TEMP").css('background-color', '#00aeef');
 					changeStateLightColor(area, false);
-				}else if(obj.tmp > 25){
+				}else if(obj.tmp > 21){
  					$("#" + area + "_S_TEMP").css('background-color', '#f42a2f');
 					changeStateLightColor(area, true);
 				}
 			}
 			if(obj.hum != "undefined"){
 				$("#" + area + "_S_HUM").text(obj.hum);
-				$("#P_" + area + "_S_HUM").text(obj.hum);
-				if(obj.hum <= 72){
+				$("#P_" + area + "_S_HUM span").text(obj.hum);
+				if(obj.hum <= 40){
 					$("#" + area + "_S_HUM").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
-				}else if(obj.hum > 72 && obj.hum <= 73){
+				}else if(obj.hum > 40 && obj.hum <= 40.99){
 					$("#" + area + "_S_HUM").css('background-color', '#00aeef');
 					changeStateLightColor(area, false);
-				}else if(obj.hum > 73){
+				}else if(obj.hum > 40.99){
 					$("#" + area + "_S_HUM").css('background-color', '#f42a2f');
 					changeStateLightColor(area, true);
 				}
 			}
 			if(obj.dst != "undefined"){
 				$("#" + area + "_S_DUST").text(obj.dst);
+				$("#P_" + area + "_S_DUST span").text(obj.dst);
 				if(obj.dst <= 30){
 					$("#" + area + "_S_DUST").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
@@ -167,14 +168,14 @@
 			}
 			if(obj.lgt != "undefined"){
 				$("#" + area + "_S_ILLM").text(obj.lgt);
-				$("#P_" + area + "_S_ILLM").text(obj.lgt);
-				if(obj.lgt <= 500){
+				$("#P_" + area + "_S_ILLM span").text(obj.lgt);
+				if(obj.lgt <= 300){
 					//$("#" + area + "_S_ILLM").css('background-color', '#ff0000');
 					changeStateLightColor(area, true);
-				}else if(obj.lgt > 500 && obj.lgt <= 1000){
+				}else if(obj.lgt > 300 && obj.lgt <= 600){
 					//$("#" + area + "_S_ILLM").css('background-color', '#fff');
 					changeStateLightColor(area, false);
-				}else if(obj.lgt > 1000){
+				}else if(obj.lgt > 600){
 					//$("#" + area + "_S_ILLM").css('background-color', '#f42a2f');
 					changeStateLightColor(area, true);
 				}

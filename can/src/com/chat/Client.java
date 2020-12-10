@@ -36,7 +36,7 @@ public class Client implements SerialPortEventListener {
 	
 	// 아두이노 센서에서 받아올 데이터의 가짓수
 	// 예) tmp, hum, acX, acY, acZ -> 5
-	static int numOfDataType = 5;
+	static int numOfDataType = 2;
 	
 	// 멤버 변수
 	int port;
@@ -274,7 +274,6 @@ public class Client implements SerialPortEventListener {
 				}
 
 				String ss = new String(readBuffer).trim();	// Data From Aruduino : "tmp26;hum80;"
-//				ss = ss.trim();
 				if(ss.length() != numOfDataType*9) {
 					System.out.println("Return ... Crashed Data ..." + ss);
 					break;
