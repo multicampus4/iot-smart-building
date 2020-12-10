@@ -549,6 +549,9 @@
 .sensordata {
 	background-color: #f1f3f5;
 }
+.widget-numbers span{
+	font-size: 77%;
+}
 
 /* on, off 토글 버튼 css */
 /* The switch - the box around the slider */
@@ -860,27 +863,6 @@ input:checked + .slider:before {
 .nav_ml{
 	margin-left: 90px;
 }
-/*
-.Dis_content::before{
-	content: "device disabled";
-	background: #fff;
-	font-weight: bold;
-    text-transform: uppercase;
-    padding: 10px;
-    margin-top: 3px;
-    min-width: 19px;
-	display: inline-block;
-    font-size: 85%;
-	line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25rem;
-	box-sizing: border-box;
-	box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
-    width: 120px;
-    height: 30px;
-}*/
 
 
 <!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
