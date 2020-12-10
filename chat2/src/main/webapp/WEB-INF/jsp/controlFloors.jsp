@@ -523,8 +523,17 @@
 			execAjax(stat, device);
 		});
 		
+		// 비활성화 버튼 제어
 		$(".toggle_Atv").click(function(){
+			// UI 상태 변경
 			$(this).toggleClass("toggle-on");
+			
+			// 비활성화 상태 on, off
+			if($(this).hasClass("toggle-on")){
+				$(".switch input").attr("disabled", true);
+			}else{
+				$(".switch input").attr("disabled", false);
+			}
 		});
 		
 
