@@ -136,7 +136,7 @@ public class Server {
 				try {
 					msg = (Msg) oi.readObject();
 					System.out.println(msg);
-					String[] split;
+					String[] split = null;
 					String cmdTargetLatteId;
 					String cmdTargetTabId;
 
@@ -155,47 +155,15 @@ public class Server {
 						}
 						break;
 					case "ssRaw":
-						String autoControlCmd = autoController.whatToDo(msg.getMsg());
-
-						if (autoControlCmd.equals("nothing")) { // 제어할 내용 없음
+						ArrayList<String> autoControlCmd = autoController.whatToDo(msg.getMsg());
+						if (autoControlCmd.isEmpty()) { // 제어할 내용 없음
 							System.out.println("Auto Controller : Fine! Nothing to control");
 							break;
 						} else {
-							// 제어명령 반환받음
-							// 반환값 예: 1_A_D_AIR_ON
-							// 전송 대상 : 라떼, 태블릿, DB
-							System.out.println("Auto Contoller : " + autoControlCmd);
-							split = autoControlCmd.split("_");
-							cmdTargetLatteId = "latte_" + split[0] + "_" + split[1];
-							cmdTargetTabId = "tablet_" + split[0] + "_" + split[1];
-							String cmdArea = split[0] + "_" + split[1];
-							String cmdAction = split[3] + "_" + split[4];
-
-							// Target : Latte
-							if (idipMaps.get(cmdTargetLatteId) != null) {
-								sendTarget(idipMaps.get(cmdTargetLatteId), "MAIN Server (Auto)", // 발송 주체
-										"command", // 메시지 유형
-										cmdAction); // 제어명령 ex) AIR_ON
-							}
-
-							// Target : Tablet
-							if (idipMaps.get(cmdTargetTabId) != null) {
-								sendTarget(idipMaps.get(cmdTargetTabId), "MAIN Server (Auto)", // 발송 주체
-										"command", // 메시지 유형
-										autoControlCmd); // 제어명령 ex) 1_A_D_AIR_ON
-							}
-
-							// Target : Web DashBoard
-							// 웹소켓으로 전송 : can > Client.java에서 웹소켓으로 보내는거랑 똑같은 방식으로 보내야할듯
-							// json으로 변환하여 전송
-							if (isConnectWebsocket) {
-								String cmdMsgForWeb = convertJson(cmdArea, cmdAction).toJSONString();
-								WsClient.send(cmdMsgForWeb);
-								System.out.println("웹소켓 전송 완료 : " + cmdMsgForWeb);
-							}
-
+							sendAutoControlCmdToClients(autoControlCmd);
 						}
 
+						// ======================== legacy ==========================
 						// (라떼)에서 오는 센서데이터 > 안드로이드로 Send Target
 						if (idipMaps.get("mobileApp") != null) {
 							sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
@@ -277,7 +245,7 @@ public class Server {
 					}
 				} catch (Exception e) { // client가 갑자기 접속 중단된 경우
 					// 해쉬맵에서 연결된 IP주소 삭제
-					e.printStackTrace();
+//					e.printStackTrace();
 					maps.remove(socket.getInetAddress().toString());
 
 					// idipMaps는 IP주소가 Value값이므로 위의 방법처럼 삭제할 수 없음
@@ -308,6 +276,52 @@ public class Server {
 			}
 		}
 
+	}
+	
+	public void sendAutoControlCmdToClients(ArrayList<String> autoControlCmdArr) {
+		// 제어명령 반환받음
+		// 반환값 예: 1_A_D_AIR_ON
+		// 전송 대상 : 라떼, 태블릿, DB
+		System.out.println("Auto Contoller : " + autoControlCmdArr);
+		
+		for(int i=0; i<autoControlCmdArr.size(); i++) {
+			String autoControlCmd = autoControlCmdArr.get(i);
+			
+			String[] split = autoControlCmd.split("_");
+			String cmdTargetLatteId = "latte_" + split[0] + "_" + split[1];
+			String cmdTargetTabId = "tablet_" + split[0] + "_" + split[1];
+			String cmdArea = split[0] + "_" + split[1];
+			String cmdAction = split[3] + "_" + split[4];
+
+			// Target : Latte
+			if (idipMaps.get(cmdTargetLatteId) != null) {
+				sendTarget(idipMaps.get(cmdTargetLatteId), "MAIN Server (Auto)", // 발송 주체
+						"command", // 메시지 유형
+						cmdAction); // 제어명령 ex) AIR_ON
+			}
+
+			// Target : Tablet
+			if (idipMaps.get(cmdTargetTabId) != null) {
+				sendTarget(idipMaps.get(cmdTargetTabId), "MAIN Server (Auto)", // 발송 주체
+						"command", // 메시지 유형
+						autoControlCmd); // 제어명령 ex) 1_A_D_AIR_ON
+			}
+
+			// Target : Web DashBoard
+			// 웹소켓으로 전송 : can > Client.java에서 웹소켓으로 보내는거랑 똑같은 방식으로 보내야할듯
+			// json으로 변환하여 전송
+			if (isConnectWebsocket) {
+				String cmdMsgForWeb = convertJson(cmdArea, cmdAction).toJSONString();
+				WsClient.send(cmdMsgForWeb);
+				System.out.println("웹소켓 전송 완료 : " + cmdMsgForWeb);
+			}
+		}
+		
+		
+	}
+	
+	public void autoController(String msg) {
+		
 	}
 
 	// 1_A +++ AIR_OFF
