@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,10 +21,12 @@ public class AutoController {
 	static int MAX_QUE_SIZE = 5;
 	static float NORMAL_TEMP = (float) 22.00;
 	
+	
 	Queue<Float> q_1_A_TEMP = new LinkedList<>();
 	
 	
-	public String whatToDo(String ssRaw) throws Exception  {
+	public ArrayList<String> whatToDo(String ssRaw) throws Exception  {
+		ArrayList<String> autoControlCmdArr = new ArrayList<String>();
 		
 	    JSONParser jsonParser = new JSONParser();
 	    JSONObject jsonObj = null;
@@ -56,7 +59,7 @@ public class AutoController {
     			}
         		dv.setRAW_QUEUE(rawQueue);
 
-        		
+        		System.out.println(dv.getRAW_QUEUE());
         		System.out.println(jsonObj.get("area") + "의 현재 평균 온도: " +getQueAvg(rawQueue));
     			// 센서 평균값 & 적정 기준치 값 비교
     			// return 예) 1_A_D_AIR_ON
@@ -74,56 +77,20 @@ public class AutoController {
     			// 다르면: DB 업데이트 & 제어 메시지 전송
     			if(isCommandEqualsDeviceStat(command)){
     				continue;
-//    				return "nothing";
     			} else {
     				upDeviceStat(deviceId, command);
-    				String cmdMsg = jsonObj.get("area") + "_D_AIR_" + command;	// 1_A_D_AIR_ON
-    				
-    				return jsonObj.get("area") + "_D_AIR_" + command;
+    				String autoControlCmd = jsonObj.get("area") + "_D_AIR_" + command;	// 1_A_D_AIR_ON
+    				autoControlCmdArr.add(autoControlCmd);
+    				continue;
     			}
-    			        		
-        		continue;
+    			
         	case "hum":
         		continue;
         	}
-
+        	
         }
-		
-		switch ((String) jsonObj.get("area")) {
-		case "1_A":
-			// queue에 add
-			if (q_1_A_TEMP.size() >= MAX_QUE_SIZE) {
-				q_1_A_TEMP.poll();
-			}
-			q_1_A_TEMP.add(Float.parseFloat((String) jsonObj.get("tmp")));
-			
-			System.out.println(jsonObj.get("area") + "의 현재 평균 온도: " +getQueAvg(q_1_A_TEMP));
-			// 센서 평균값 & 적정 기준치 값 비교
-			// return 예) 1_A_D_AIR_ON
-			String command = null;
-			
-			// 기준치에 따른 디바이스 작동상태 판단 
-			if(getQueAvg(q_1_A_TEMP) > NORMAL_TEMP) {
-				command = "ON";
-			} else {
-				command = "OFF";
-			}
-			
-			// 현재 디바이스 작동상태와 제어명령 같은지 판단
-			// 같으면: 상태 변경할 필요 없음 
-			// 다르면: DB 업데이트 & 제어 메시지 전송
-			if(isCommandEqualsDeviceStat(command)){
-				return "nothing";
-			} else {
-				upDeviceStat("1_A_D_AIR", command);
-				return jsonObj.get("area") + "_D_AIR_" + command;
-			}
-			
-		case "1_B":
-			break;
-		}
-		
-		return null;
+        
+        return autoControlCmdArr;
 	}
 	
 	public boolean isCommandEqualsDeviceStat(String command) {
