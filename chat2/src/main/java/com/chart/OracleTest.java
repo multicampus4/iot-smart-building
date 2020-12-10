@@ -9,19 +9,19 @@ public class OracleTest {
 
 	
 	public static void main(String[] args) throws Exception {
-		String url="jdbc:oracle:thin:@192.168.25.57:1521:xe";
-		String id ="final_db";
-		String password ="111111";
+		String url="jdbc:oracle:thin:@database-1.chookpxses6b.ap-northeast-2.rds.amazonaws.com:1521:ORCL";
+		String id ="admin";
+		String password ="2020final";
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = DriverManager.getConnection(url,id,password);
-		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM SENSOR2");
+		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM T1201");
 		ResultSet rset = pstmt.executeQuery();
 		
 		while(rset.next()) {
-			String did = rset.getString("SNAME");
+			String did = rset.getString("DATA");
 			
-			int data = rset.getInt("SOUT");
-			System.out.println(did+""+data);
+			float data = rset.getFloat("T12");
+			System.out.println(did+"/"+data);
 			}
 		con.close();
 	
