@@ -21,8 +21,10 @@ public class AutoController {
 	static int MAX_QUE_SIZE = 5;
 	static float NORMAL_TEMP_MIN = (float) 18.00;	// 섭씨
 	static float NORMAL_TEMP_MAX = (float) 21.00;	// 섭씨
-	static float NORMAL_HUM_MIN = (float) 40.00;	// 퍼센트
-	static float NORMAL_HUM_MAX = (float) 40.00;	// 퍼센트
+	static float NORMAL_HUM_MIN = (float) 20.00;	// 퍼센트
+	static float NORMAL_HUM_MAX = (float) 50.00;	// 퍼센트
+	static float NORMAL_DUST_MIN = (float) 15.00;	// 마이크로그램
+	static float NORMAL_DUST_MAX = (float) 40.00;	// 마이크로그램 
 	
 	
 	
@@ -71,14 +73,28 @@ public class AutoController {
         		if(autoControlCmd != null)
         			autoControlCmdArr.add(autoControlCmd);
     			continue;
+        	case "dst":
+        		// 미세먼지 데이터 >> 공기청정기 제어
+        		deviceType = "AIRCL";	// 공기청정기 
+        		deviceId = deviceArea + "_D_" + deviceType;	// 1_A_D_AIRCL
+        		ssRawType = keyName;
+        		ssRawValue = Float.parseFloat((String) jsonObj.get(ssRawType));
+        		
+        		autoControlCmd = testFunction(deviceId, deviceArea, deviceType, ssRawType, ssRawValue, 
+        											NORMAL_DUST_MIN, NORMAL_DUST_MAX);
+        		if(autoControlCmd != null)
+        			autoControlCmdArr.add(autoControlCmd);
+    			continue;
         	}
+        	
         	
         }
         
         return autoControlCmdArr;
 	}
 	
-	public String testFunction(String deviceId, String deviceArea, String deviceType, String ssRawType, Float ssRawValue, Float standardMin, Float standardMax) throws SQLException {
+	public String testFunction(String deviceId, String deviceArea, String deviceType, String ssRawType, Float ssRawValue, 
+								Float standardMin, Float standardMax) throws SQLException {
 		DeviceVO dv = new DeviceVO();
 		Queue<Float> rawQueue = new LinkedList<>();
 		
@@ -193,9 +209,7 @@ public class AutoController {
 		temp.add((float) 3.33333);
 		
 		System.out.println(hashtest.get("1_A_D_AIR"));
-		
-//		System.out.println(temp);
-		
+				
 		float t = 0;
 		for(float f : temp) {
 			t += f;
