@@ -28,7 +28,7 @@ public class AutoController {
 	
 	
 	
-	public ArrayList<String> whatToDo(String ssRaw) throws Exception  {
+	public ArrayList<String> getCmdArr(String ssRaw) throws Exception  {
 		String deviceType;
 		String deviceId;
 		String ssRawType;
@@ -40,12 +40,16 @@ public class AutoController {
 	    JSONObject jsonObj = null;
 		jsonObj = (JSONObject)jsonParser.parse(ssRaw);
 		String deviceArea = (String) jsonObj.get("area");
-		// {"area":"1_A","hum":"76.81","msgType":"ssRaw","latteId":"latte_1_A","tmp":"24.69"}
+		// json ex) {"area":"1_A","hum":"76.81","msgType":"ssRaw","latteId":"latte_1_A","tmp":"24.69"}
 		
 		// json key값 찾기
         Set key = jsonObj.keySet();
         Iterator<String> iterator = key.iterator();
         
+        // tmp, hum, dst 등 ssRawType별로 제어기기 각각 다름
+        // 1. 각 센서에 해당하는 디바이스 정보 등을 whatToDo에 전달
+        // 2. 반환받은 제어명령을 ArrayList에 저장
+        // 3. Server로 ArrayList 반환하여 제어명령 전
         while(iterator.hasNext()) {
         	String keyName = iterator.next();
         	switch(keyName){
@@ -56,8 +60,8 @@ public class AutoController {
         		ssRawType = keyName;
         		ssRawValue = Float.parseFloat((String) jsonObj.get(ssRawType));
         		
-        		autoControlCmd = testFunction(deviceId, deviceArea, deviceType, ssRawType, ssRawValue, 
-        											NORMAL_TEMP_MIN, NORMAL_TEMP_MAX);
+        		autoControlCmd = whatToDo(deviceId, deviceArea, deviceType, ssRawType, ssRawValue, 
+        									NORMAL_TEMP_MIN, NORMAL_TEMP_MAX);
         		if(autoControlCmd != null)
         			autoControlCmdArr.add(autoControlCmd);
     			continue;
@@ -68,8 +72,8 @@ public class AutoController {
         		ssRawType = keyName;
         		ssRawValue = Float.parseFloat((String) jsonObj.get(ssRawType));
         		
-        		autoControlCmd = testFunction(deviceId, deviceArea, deviceType, ssRawType, ssRawValue, 
-        											NORMAL_HUM_MIN, NORMAL_HUM_MAX);
+        		autoControlCmd = whatToDo(deviceId, deviceArea, deviceType, ssRawType, ssRawValue, 
+        									NORMAL_HUM_MIN, NORMAL_HUM_MAX);
         		if(autoControlCmd != null)
         			autoControlCmdArr.add(autoControlCmd);
     			continue;
@@ -80,8 +84,8 @@ public class AutoController {
         		ssRawType = keyName;
         		ssRawValue = Float.parseFloat((String) jsonObj.get(ssRawType));
         		
-        		autoControlCmd = testFunction(deviceId, deviceArea, deviceType, ssRawType, ssRawValue, 
-        											NORMAL_DUST_MIN, NORMAL_DUST_MAX);
+        		autoControlCmd = whatToDo(deviceId, deviceArea, deviceType, ssRawType, ssRawValue, 
+        									NORMAL_DUST_MIN, NORMAL_DUST_MAX);
         		if(autoControlCmd != null)
         			autoControlCmdArr.add(autoControlCmd);
     			continue;
@@ -93,8 +97,13 @@ public class AutoController {
         return autoControlCmdArr;
 	}
 	
-	public String testFunction(String deviceId, String deviceArea, String deviceType, String ssRawType, Float ssRawValue, 
-								Float standardMin, Float standardMax) throws SQLException {
+	// 1. 전달받은 센서값(ssRawValue)을 queue에 저장
+	// 2. queue의 평균값과 쾌적기준 비교하여 ON/OFF 여부 판단
+	// 3. 디바이스의 현재상태와 ON/OFF 상태 같은지 판단
+	// 4. 같으면 제어할 필요 없으므로 null 반환
+	// 5. 다르면 제어명령(1_A_D_AIR_ON) 반환 
+	public String whatToDo(String deviceId, String deviceArea, String deviceType, String ssRawType, Float ssRawValue, 
+							Float standardMin, Float standardMax) throws SQLException {
 		DeviceVO dv = new DeviceVO();
 		Queue<Float> rawQueue = new LinkedList<>();
 		
@@ -135,7 +144,6 @@ public class AutoController {
 		} else {
 			upDeviceStat(deviceId, command);
 			String autoControlCmd = deviceArea + "_D_" + deviceType + "_" + command;	// 1_A_D_AIR_ON
-//			autoControlCmdArr.add(autoControlCmd);
 			return autoControlCmd;
 		}
 	}
