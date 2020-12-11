@@ -38,7 +38,7 @@
 						<!-- 평면도 -->
 						<div class="fp-wrap">
 							<div class="fp-image">
-								<img src="images/floorPlan.jpg" alt="">
+								<img src="images/floorPlan7.jpg" alt="">
 							</div>
 	
 							<!-- 1_A tooltip-->
