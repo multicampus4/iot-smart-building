@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_vertical"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context="com.example.tablet_all.MainActivity">
 
     <LinearLayout
@@ -61,7 +63,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#CCCCCC"
+            android:background="@drawable/custom_shape_off"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="40dp">
@@ -71,8 +73,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="냉난방기"
-                android:textSize="18sp"
+                android:textSize="28sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -80,9 +83,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="OFF"
-                android:textSize="36sp" />
+                android:textSize="40sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -91,7 +95,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#CCCCCC"
+            android:background="@drawable/custom_shape_off"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="30dp">
@@ -101,8 +105,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="가습기"
-                android:textSize="18sp"
+                android:textSize="28sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -110,9 +115,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="OFF"
-                android:textSize="36sp" />
+                android:textSize="40sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -121,18 +127,19 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="30dp">
+            android:padding="30dp"
+            android:background="@drawable/custom_shape_off">
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="공기청정기"
-                android:textSize="18sp"
+                android:textSize="28sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -140,9 +147,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="OFF"
-                android:textSize="36sp" />
+                android:textSize="40sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -151,18 +159,19 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="30dp">
+            android:padding="30dp"
+            android:background="@drawable/custom_shape_off">
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="조명"
-                android:textSize="18sp"
+                android:textSize="28sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -170,9 +179,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="OFF"
-                android:textSize="36sp" />
+                android:textSize="40sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -189,28 +199,29 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="30dp">
+            android:padding="30dp"
+            android:background="@drawable/custom_shape_on">
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:text="전기"
-                android:textSize="18sp" />
+                android:textSize="28sp" />
 
             <TextView
                 android:id="@+id/T_D_ELEC"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="OFF"
-                android:textSize="36sp" />
+                android:textSize="40sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -219,28 +230,29 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="30dp">
+            android:padding="30dp"
+            android:background="@drawable/custom_shape_on">
 
             <TextView
                 android:id="@+id/textView6"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:text="수도"
-                android:textSize="18sp" />
+                android:textSize="28sp" />
 
             <TextView
                 android:id="@+id/T_D_WAT"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="OFF"
-                android:textSize="36sp" />
+                android:textSize="40sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -249,28 +261,98 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#CCCCCC"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="30dp">
+            android:padding="30dp"
+            android:background="@drawable/custom_shape_on">
 
             <TextView
                 android:id="@+id/textView7"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:text="가스"
-                android:textSize="18sp" />
+                android:textSize="28sp" />
 
             <TextView
                 android:id="@+id/T_D_GAS"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="OFF"
-                android:textSize="36sp" />
+                android:textSize="40sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/L_D_BRDCAST"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_shape_off"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="30dp">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="안내방송 / 경보"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:id="@+id/T_D_BRDCAST"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:text="OFF"
+                    android:textSize="40sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/L_D_ROUTE"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_shape_off"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="30dp">
+
+                <TextView
+                    android:id="@+id/textView_route"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="비상대피로"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:id="@+id/T_D_ROUTE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:text="CLOSED"
+                    android:textSize="40sp" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
