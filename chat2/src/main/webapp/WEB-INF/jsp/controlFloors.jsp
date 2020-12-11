@@ -34,11 +34,11 @@
 			<div class="tab-pane active" id="tab-eg4-0" role="tabpanel">
 				<div class="row">
 					
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<!-- 평면도 -->
 						<div class="fp-wrap">
 							<div class="fp-image">
-								<img src="images/floorPlan.jpg" alt="">
+								<img src="images/floorPlan7.jpg" alt="">
 							</div>
 	
 							<!-- 1_A tooltip-->
@@ -76,7 +76,7 @@
 						</div><!-- End wrap -->
 					</div> <!-- End col-md -->
 						
-					<div class="col-md-7 mt-5 mb-5">
+					<div class="col-md-6">
 					
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
@@ -90,7 +90,7 @@
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_A_S_TEMP">
-												<span></span>
+												<span>12.12</span>
 											</div>
 										</div>
 									</div>
@@ -145,7 +145,7 @@
 
 						<!-- A구역 제어 버튼 -->
 						<div class="main-card mb-1 text-center">
-							<div class="card-body table-responsive">
+							<div class="card-body table-responsive p-0 pb-0">
 								<table class="mb-0 table">
 									<thead>
 										<tr>
@@ -201,7 +201,7 @@
 							</div>
 						</div>
 
-						<div class="divider"></div>
+						<div class="divider mt-0 mb-2"></div>
 
 						<!-- B구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  B</div>
@@ -214,8 +214,8 @@
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="P_1_B_S_TEMP">
-												<span></span>
+											<div class="widget-numbers" id="P_1_B_S_TEMP">
+												<span>12.12</span>
 											</div>
 										</div>
 									</div>
@@ -229,7 +229,7 @@
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="P_1_B_S_HUM">
+											<div class="widget-numbers" id="P_1_B_S_HUM">
 												<span></span>
 											</div>
 										</div>
@@ -244,7 +244,7 @@
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="P_1_B_S_DUST">
+											<div class="widget-numbers" id="P_1_B_S_DUST">
 												<span></span>
 											</div>
 										</div>
@@ -259,7 +259,7 @@
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="P_1_B_S_ILLM">
+											<div class="widget-numbers" id="P_1_B_S_ILLM">
 												<span></span>
 											</div>
 										</div>
@@ -270,7 +270,7 @@
 
 						<!-- B구역 제어 버튼 -->
 						<div class="main-card mb-1 text-center">
-							<div class="card-body table-responsive pb-0">
+							<div class="card-body table-responsive p-0 pb-0">
 								<table class="mb-0 table">
 									<thead>
 										<tr>
@@ -334,15 +334,15 @@
 			<div class="tab-pane" id="tab-eg4-1" role="tabpanel">
 				<div class="row">
 				
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<!-- 평면도 -->
 						<div class="fp-wrap">
 							<div class="fp-image">
-								<img src="images/floorPlan.jpg" alt="">
+								<img src="images/floorPlan2.jpg" alt="">
 							</div>
 		
-							<!-- 1_A tooltip-->
-							<div class="Area_1A">
+							<!-- 2_A tooltip-->
+							<div class="Area_2A">
 								<div class="con-tooltip right" id="tt_2_A">
 									<div class="tooltip">
 										TEMPERATURE :<br>
@@ -359,7 +359,7 @@
 						</div> <!-- End wrap -->
 					</div> <!-- End col-md -->
 				
-					<div class="col-md-7 mt-5 mb-5">
+					<div class="col-md-6">
 						
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
@@ -372,8 +372,8 @@
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="P_2_A_S_TEMP">
-												<span></span>
+											<div class="widget-numbers" id="P_2_A_S_TEMP">
+												<span>12.12</span>
 											</div>
 										</div>
 									</div>
@@ -387,7 +387,7 @@
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="P_2_A_S_HUM">
+											<div class="widget-numbers" id="P_2_A_S_HUM">
 												<span></span>
 											</div>
 										</div>
@@ -402,7 +402,7 @@
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="P_2_A_S_DUST">
+											<div class="widget-numbers" id="P_2_A_S_DUST">
 												<span></span>
 											</div>
 										</div>
@@ -417,7 +417,7 @@
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="P_2_A_S_ILLM">
+											<div class="widget-numbers" id="P_2_A_S_ILLM">
 												<span></span>
 											</div>
 										</div>
@@ -429,7 +429,7 @@
 
 						<!-- A구역 제어 버튼 -->
 						<div class="main-card mb-1 text-center">
-							<div class="card-body table-responsive">
+							<div class="card-body table-responsive p-0 pb-0">
 								<table class="mb-0 table">
 									<thead>
 										<tr>
@@ -543,14 +543,27 @@
 </script>
 
 <style>
+/* 기타 사이즈 조정 */
 .ch_height{
-	height: 8rem;
+	height: 7rem;
 }
 .sensordata {
 	background-color: #f1f3f5;
+	padding-left: 7px;
+	padding-right: 7px;
+	height: 80%;
 }
 .widget-numbers span{
 	font-size: 77%;
+}
+.widget-content-left{
+	font-size: 77%;
+}
+.widget-content .widget-content-wrapper{
+	display: block;
+}
+th {
+	font-size: 55%;
 }
 
 /* on, off 토글 버튼 css */
@@ -558,8 +571,8 @@
 .switch {
 	position: relative;
 	display: inline-block;
-	width: 60px;
-	height: 34px;
+	width: 47px;
+	height: 25px;
 	vertical-align:middle;
 }
 
@@ -580,11 +593,11 @@
 
 .slider:before {
 	position: absolute;
-	content: "";
-	height: 26px;
-	width: 26px;
+	content: ""; /* off */
+	height: 21.5px;
+	width: 19px;
 	left: 4px;
-	bottom: 4px;
+	bottom: 1.7px;
 	background-color: white;
 	transition: .2s;
 }
@@ -598,23 +611,24 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-	transform: translateX(26px);
+	transform: translateX(20px);
+	content: ""; /* on */
 }
 
 /* Rounded sliders */
 .slider.round {
-	border-radius: 34px;
+	border-radius: 7px;
 }
 
 .slider.round:before {
-	border-radius: 50%;
+	border-radius: 5px;
 }
 
 /* 평면도 css */
 .fp-wrap {
 	width: 100%;
 	margin: 10px auto;
-	border: 1px solid #000000;
+	/*border: 1px solid #000000;*/
 	position: relative;
 }
 .fp-wrap img {
@@ -627,16 +641,24 @@ input:checked + .slider:before {
 	padding: 5px 10px;
 	text-align: center;
 	position: absolute;
-	top: 25%;
-	left: 55%;
+	top: 58%;
+	left: 80%;
 	transform: translate( -30%, -50% );
 }
 .Area_1B {
 	padding: 5px 10px;
 	text-align: center;
 	position: absolute;
-	top: 60%;
-	left: 20%;
+	top: 85%;
+	left: 10%;
+	transform: translate( -30%, -50% );
+}
+.Area_2A {
+	padding: 5px 10px;
+	text-align: center;
+	position: absolute;
+	top: 37%;
+	left: 15%;
 	transform: translate( -30%, -50% );
 }
 

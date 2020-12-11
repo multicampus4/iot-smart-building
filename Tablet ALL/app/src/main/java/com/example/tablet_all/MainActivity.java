@@ -3,6 +3,7 @@ package com.example.tablet_all;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     TextView serverstat;        // 서버의 ON, OFF 상태
     TextView areastat;          // 상태 표시할 구역
     String onColor = "#3ac47d",
-            offColor = "#D5D5D5";   // ON, OFF 배경색
+            offColor = "#CCCCCC";   // ON, OFF 배경색
     String myArea;              // 1_A, 2_A 등의 구역
 
     // TCP/IP 연결 정보
@@ -198,10 +199,12 @@ public class MainActivity extends AppCompatActivity {
                                         // DEVICE들의 상태를 따른 배경색을 각각의 LinearLayout에 반영
                                         int dL = getResources().getIdentifier("L_D_" + deviceId, "id", getPackageName());
                                         if (deviceStat.equals("ON")) {
-                                            ((LinearLayout) findViewById(dL)).setBackgroundColor(Color.parseColor(onColor));
+                                            ((LinearLayout) findViewById(dL)).setBackground(
+                                                    ContextCompat.getDrawable(findViewById(dL).getContext(), R.drawable.custom_shape_on));
                                             soundManager.playSound(0);
                                         } else if (deviceStat.equals("OFF")) {
-                                            ((LinearLayout) findViewById(dL)).setBackgroundColor(Color.parseColor(offColor));
+                                            ((LinearLayout) findViewById(dL)).setBackground(
+                                                    ContextCompat.getDrawable(findViewById(dL).getContext(), R.drawable.custom_shape_off));
                                             soundManager.playSound(1);
                                         }
                                     } catch (Exception e) {
