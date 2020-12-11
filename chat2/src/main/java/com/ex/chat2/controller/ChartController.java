@@ -34,19 +34,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 	@Controller
 	public class ChartController {
 
-
+        //oracle
 		static String oracleHostname;
 		static String oracleId;
 		static String oraclePwd;
+		//hive
+		static String hiveHostname;
+		static String hiveId;
+		static String hivePwd;
+		//oracle
 		private String url;
 		private String dbid;
 		private String dbpwd;
-
-
-        //String url = "jdbc:hive2://3.35.240.16:10000/default";
+		//hive
+		private String url2;
+		private String hid;
+		private String hpwd;
 		
-		String userid = "root";
-		String password = "111111";
 
 		public ChartController() {
 			getProp();
@@ -55,9 +59,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
+			try {
+				Class.forName("org.apache.hive.jdbc.HiveDriver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			
 			this.url = "jdbc:oracle:thin:@" + oracleHostname + ":1521:ORCL";
 			this.dbid = oracleId;
 			this.dbpwd = oraclePwd;
+			
+			this.url2 = "jdbc:hive2://" + hiveHostname +"/default";
+			this.hid = hiveId;
+			this.hpwd = hivePwd;
 		}
 		
 		@RequestMapping("/getTimeGph.mc")
@@ -283,7 +297,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //		System.out.println(rtime);
 		JSONArray ja = new JSONArray();
 		try {
-			con = DriverManager.getConnection(url, userid, password);
+			con = DriverManager.getConnection(url2, hid, hpwd);
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM ENV WHERE REALTIME ='2020-12-01 23:05:41'");
 			ResultSet rset = pstmt.executeQuery();
 			// [{name: 'Sweden',data:[0.904 81.0 11.0]},{}]
@@ -353,7 +367,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 			oracleHostname = properties.getProperty("oracleHostname");
 			oracleId = properties.getProperty("oracleId");
 			oraclePwd = properties.getProperty("oraclePwd");
-
+			hiveHostname = properties.getProperty("hiveHostname");
+			hiveId = properties.getProperty("hiveId");
+			hivePwd = properties.getProperty("hivePwd");
+			
 		}
 		
 	}

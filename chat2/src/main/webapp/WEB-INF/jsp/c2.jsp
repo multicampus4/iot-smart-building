@@ -145,7 +145,7 @@ function displayTempAvg(data){
 			    },
 			    series: [{
 			        name: 'Speed',
-			        //data:[data[0].data[1]],
+			        //data:[data[0].data[1]] 행 배열로 받은 경우,
 			        data:[data[0].data],
 			        dataLabels: {
 			            format:
@@ -471,7 +471,7 @@ function displayTempAvg(data){
  } 
  //시간 별 쾌적지수 그래프 출력 
  function displayTimeGph(data){
-	 alert(data[0].data)
+	 //alert(data[0].data)
 	 var colors = Highcharts.getOptions().colors;
 
 	 Highcharts.chart('timetempcontainer', {
@@ -671,34 +671,6 @@ function getDayAvg(){
 		
 	}
  
-/* function getHumAvg(){
-	$.ajax({
-		url:'getdata1.mc',
-		//alert(123)
-		success:function(data){
-			displayHumAvg(data);
-		},
-		error:function(){
-			}
-	});
-	displayHumAvg();
-}
- 
- function getLightAvg(){
-		$.ajax({
-			url:'getdata2.mc',
-			//alert(123)
-			success:function(data){
-				
-				displayLightAvg(data);
-				
-			},
-			error:function(){
-			}
-		});
-		displayLightAvg();
-	}
-  */
  //body의 onclick에 의해 실행되는 함수 
  //클릭하면 아래의 함수가 호출되고 아래의 함수에 따른 데이터로 그래프와 표가 업데이트 된다.
  //추후 실제 로그데이터가 만들어지면 해당 날짜에 onclick이벤트 실행하여 해당 데이터로 업데이트 되는 함수 작성해 주면 됨 
@@ -740,7 +712,7 @@ function getDayAvg(){
 				displayHumAvg(data)
 				displayDustSat(data);
 				displayLightAvg(data);
-				console.log(data)
+				//console.log(data)
 			},
 			error:function(){
 			}
@@ -778,8 +750,6 @@ function getDayAvg(){
 	} 
 $(document).ready(function(){
 
-	
-	//alert(123)
  	  getDayAvg();
  	  getTable();
  	  getTimeGph();
