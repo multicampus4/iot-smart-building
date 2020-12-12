@@ -9,17 +9,27 @@
 * [my.properties](https://github.com/multicampus4/semi/blob/master/my.properties)
 
   ```properties
-  # TCP/IP 서버-클라이언트 IP주소 & 포트
-  tcpipIp = 192.168.0.6
+  # TCP/IP Main Server IP & Port
+  tcpipIp = 192.168.0.0
   tcpipPort = 5253
   	
-  # 웹소켓 IP주소
+  # WebSocket IP & Port (Spring)
   # AWS : 3.35.240.16
-  websocketIp = 192.168.0.6
+  websocketIp = 192.168.0.0
   websocketPort = 88
   	
-  # 아두이노 시리얼 포트 넘버 (ex. COM5)
+  # Arduino Serial Port (ex. COM5)
   serialPort = COM5
+  
+  # Oracle IP
+  oracleHostname = database-1.chookpxses6b.ap-northeast-2.rds.amazonaws.com
+  oracleId = admin
+  oraclePwd = 2020final
+  
+  #Hive IP
+  hiveHostname = 3.35.240.16:10000
+  hiveId = root
+  hivePwd = 111111
   ```
 
 * 적용되는 프로젝트 목록
