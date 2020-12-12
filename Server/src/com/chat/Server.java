@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.java_websocket.client.WebSocketClient;
 import org.json.simple.JSONObject;
 
@@ -27,6 +29,8 @@ import com.msg.Msg;
 import com.ws.WsClient;
 
 public class Server {
+	private static final char A = 0;
+	private static final char t = 0;
 	// 멤버 변수 선언
 	int port;
 	String address;
@@ -54,7 +58,10 @@ public class Server {
 	// 기본 생성자
 	public Server() {
 	}
-
+	
+	// 로그
+	Logger LOGGER;
+	
 	// 포트를 담은 생성자
 	public Server(int port) {
 		this.port = port;
@@ -189,6 +196,8 @@ public class Server {
 						// 기타 메시지 처리
 						System.out.println("기타메시지: " + msg);
 						break;
+					case "RawToLog":
+						logdata(msg.getMsg());
 					}
 
 					// =========================== Legacy ==================================
@@ -389,7 +398,7 @@ public class Server {
 		String url = "jdbc:oracle:thin:@" + oracleHostname + ":1521:ORCL";
 		String dbid = oracleId;
 		String dbpwd = oraclePwd;
-
+		System.out.println(url +";;;"+ dbid +";;;"+ dbpwd);
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -414,12 +423,22 @@ public class Server {
 		}
 		System.out.println("Load deviceStat OK ... (FROM table `DEVICE`)");
 	}
-
+	public void logdata(String data) throws Exception {
+		// tmp
+		System.out.println("<"+data+"> 로그데이터를 받았습니다.");
+		String [] array = data.split(";");
+		if(array[0].charAt(0)=='A') {
+			LOGGER = Logger.getLogger("earthquake");
+		}else if(array[0].charAt(0)=='t') {
+			LOGGER = Logger.getLogger("tmp&hum&dst&lgt");
+		}
+		LOGGER.info(data);
+	}
 	public static void main(String[] args) {
 		getProp();
 		Server server = new Server(tcpipPort); // tcpipPort 번호로 Server 객체 선언
 		autoController = new AutoController();
-
+		PropertyConfigurator.configure("log4j.properties");
 		try {
 			getDeviceStat(); // DB의 디바이스 상태 받아옴
 			server.startServer(); // 서버 실행
@@ -427,5 +446,4 @@ public class Server {
 			e.printStackTrace();
 		}
 	}
-
 }
