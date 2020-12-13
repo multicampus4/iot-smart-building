@@ -27,20 +27,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
-public class ChartController {
+	@Controller
+	public class ChartController {
 
-	static String oracleHostname;
-	static String oracleId;
-	static String oraclePwd;
-	private String url;
-	private String dbid;
-	private String dbpwd;
-
-	// String url = "jdbc:hive2://3.35.240.16:10000/default";
-
-	String userid = "root";
-	String password = "111111";
+        //oracle
+		static String oracleHostname;
+		static String oracleId;
+		static String oraclePwd;
+		//hive
+		static String hiveHostname;
+		static String hiveId;
+		static String hivePwd;
+		//oracle
+		private String url;
+		private String dbid;
+		private String dbpwd;
+		//hive
+		private String url2;
+		private String hid;
+		private String hpwd;
+		
 
 	public ChartController() {
 		getProp();
@@ -49,9 +55,17 @@ public class ChartController {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		try {
+			Class.forName("org.apache.hive.jdbc.HiveDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		this.url = "jdbc:oracle:thin:@" + oracleHostname + ":1521:ORCL";
 		this.dbid = oracleId;
 		this.dbpwd = oraclePwd;
+		this.url2 = "jdbc:hive2://" + hiveHostname +"/default";
+		this.hid = hiveId;
+		this.hpwd = hivePwd;
 	}
 
 	@RequestMapping("/getTimeGph.mc")
@@ -83,6 +97,8 @@ public class ChartController {
 				ja.add(data);
 				// System.out.println(ja);
 			}
+
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -274,7 +290,7 @@ public class ChartController {
 //		System.out.println(rtime);
 		JSONArray ja = new JSONArray();
 		try {
-			con = DriverManager.getConnection(url, userid, password);
+			con = DriverManager.getConnection(url2, hid, hpwd);
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM ENV WHERE REALTIME ='2020-12-01 23:05:41'");
 			ResultSet rset = pstmt.executeQuery();
 			// [{name: 'Sweden',data:[0.904 81.0 11.0]},{}]
@@ -330,6 +346,7 @@ public class ChartController {
 		out.close();
 	}
 
+
 	public static void getProp() {
 		FileReader resources = null;
 		Properties properties = new Properties();
@@ -344,7 +361,10 @@ public class ChartController {
 		oracleHostname = properties.getProperty("oracleHostname");
 		oracleId = properties.getProperty("oracleId");
 		oraclePwd = properties.getProperty("oraclePwd");
-
+        hiveHostname = properties.getProperty("hiveHostname");
+	    hiveId = properties.getProperty("hiveId");
+		hivePwd = properties.getProperty("hivePwd");
+			
 	}
 
 }

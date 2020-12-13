@@ -49,13 +49,13 @@ void loop(){
 //  GyZ=Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
   
   //시리얼 모니터에 출력 ( 첫번째 )
-  Serial.print("AcX = "); 
-  Serial.print(AcX);
+//  Serial.print("AcX = "); 
+  Serial.print(AcX);Serial.print(",");
   first_acX = AcX;
-  Serial.print(" | AcY = "); 
-  Serial.print(AcY);
+//  Serial.print(" | AcY = "); 
+  Serial.print(AcY);Serial.print(",");
   first_acY = AcY;
-  Serial.print(" | AcZ = "); 
+//  Serial.print(" | AcZ = "); 
   Serial.println(AcZ);
   first_acZ = AcZ;
 //  Serial.print(" | Tmp = "); Serial.print(Tmp/340.00+36.53);  
@@ -63,7 +63,6 @@ void loop(){
 //  Serial.print(" | GyY = "); Serial.print(GyY);
 //  Serial.print(" | GyZ = "); Serial.println(GyZ);
 
-  delay(2000);
 
   //데이터 한 바이트 씩 읽어서 반환
   AcX=Wire.read()<<8|Wire.read();  // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)    
@@ -71,25 +70,27 @@ void loop(){
   AcZ=Wire.read()<<8|Wire.read();  // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L)
 
   //시리얼 모니터에 출력 ( 두번째 )
-  Serial.print("AcX = "); 
-  Serial.print(AcX);
+//  Serial.print("AcX = "); 
+  Serial.print(AcX);Serial.print(",");
   second_acX=AcX;
-  Serial.print(" | AcY = "); 
-  Serial.print(AcY);
+//  Serial.print(" | AcY = "); 
+  Serial.print(AcY);Serial.print(",");
   second_acY=AcY;
-  Serial.print(" | AcZ = "); 
+//  Serial.print(" | AcZ = "); 
   Serial.println(AcZ);
   second_acZ=AcZ;
 //  // 가속도 차 계산 & 절대값
-  int diff_x = abs(first_acX-second_acX);Serial.print("abs_diff_X: ");Serial.println(diff_x);
-  int diff_y = abs(first_acY-second_acY);Serial.print("abs_diff_Y: ");Serial.println(diff_y);
-  int diff_z = abs(first_acZ-second_acZ);Serial.print("abs_diff_Z: ");Serial.println(diff_z);
+  int diff_x = abs(first_acX-second_acX);//Serial.print("abs_diff_X: ");Serial.println(diff_x);
+  int diff_y = abs(first_acY-second_acY);//Serial.print("abs_diff_Y: ");Serial.println(diff_y);
+  int diff_z = abs(first_acZ-second_acZ);//Serial.print("abs_diff_Z: ");Serial.println(diff_z);
   if((1000<=diff_x && diff_x<3000)||(1000<=diff_y && diff_y<3000)||(1000<=diff_z && diff_z<3000)){
     Serial.println("aaa");
   }else if((3000<=diff_x && diff_x<5000)||(3000<=diff_y && diff_y<5000)||(3000<=diff_z && diff_z<5000)){
     Serial.println("bbb");
   }else if((5000<=diff_x)||(5000<=diff_y)||(5000<=diff_z)){
     Serial.println("ccc");
+  }else{
+    Serial.println("normal");
   }
   Serial.println("----------------------------------------------------------------------------------");
 

@@ -123,15 +123,11 @@ public class Client implements SerialPortEventListener {
 		Msg msg = new Msg(id, "ssRaw", ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
-//		if (socket != null) {
-//			try {
-//				socket.close();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		System.out.println("bye ...");
-
+	}
+	public void sendTcpip2(String ss) {
+		Msg msg = new Msg(id, "RawToLog", ss);
+		sender.setMsg(msg);
+		new Thread(sender).start();
 	}
 
 	// 메세지 전송
@@ -274,22 +270,19 @@ public class Client implements SerialPortEventListener {
 				}
 
 				String ss = new String(readBuffer).trim();	// Data From Aruduino : "tmp26;hum80;"
-				if(ss.length() != numOfDataType*9) {
+				String [] array = ss.split(";");
+				if(array.length != 4 || array[0].charAt(0)!='A' || array[0].charAt(0)!='t') {
 					System.out.println("Return ... Crashed Data ..." + ss);
 					break;
 				}
-				System.out.println("RAW DATA From ARDUINO:" + ss + "||");
-
-//				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
-				sendHttp(ss);		// Send raw to chat.jsp (LOG)
-				
+				System.out.println("RAW DATA From ARDUINO:" + ss );
+				sendTcpip2(ss);					
 				// Send JSON to DashBoard (Websocket)
-//				JSONObject jsonTemp = new JSONObject();
+				JSONObject jsonTemp = new JSONObject();
 				String rawToJson = convertJson(ss).toJSONString();
 				System.out.println(rawToJson);
 				WsClient.send(rawToJson);
 				sendTcpip(rawToJson);
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -363,9 +356,9 @@ public class Client implements SerialPortEventListener {
 		JSONObject jsonObj = new JSONObject();
 		String[] dataArr = ss.split(";");
 		
-		jsonObj.put("latteId", LATTE_ID);
-		jsonObj.put("area", AREA);
-		jsonObj.put("msgType", "ssRaw");
+		jsonObj.put("latteId", LATTE_ID);			// {latteId: LATTE_ID}
+		jsonObj.put("area", AREA);					// {latteId: LATTE_ID, area: AREA}
+		jsonObj.put("msgType", "ssRaw");			// {latteId: LATTE_ID, area: AREA, msgType: ssRaw}
 		
 		for(int i=0; i<dataArr.length; i++) {
 			String dataName = dataArr[i].substring(0,3);
@@ -459,7 +452,6 @@ public class Client implements SerialPortEventListener {
 		wsIp = properties.getProperty("websocketIp");
 		wsPort = Integer.parseInt(properties.getProperty("websocketPort"));
 		serialComPort = properties.getProperty("serialPort");
-
 	}
 	
 
@@ -473,8 +465,5 @@ public class Client implements SerialPortEventListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-
 	}
-
 }
