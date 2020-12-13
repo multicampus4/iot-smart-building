@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="5"
-        android:background="#E91E63"
+        android:background="#DFDFDF"
         android:gravity="center"
         android:text="switch"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/black"
         android:textSize="36sp"
         android:textStyle="bold" />
 
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:fillViewport="true"
         android:gravity="center"
         android:orientation="vertical">
@@ -39,27 +39,16 @@
                 android:id="@+id/tx_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FAE5EC"
                 android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:background="#F89DBC"
+        android:layout_height="wrap_content"
+        android:background="#E3E3E3"
         android:orientation="vertical"
         android:padding="5dp">
-
-        <Button
-            android:id="@+id/bt_conn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="2.5dp"
-            android:layout_weight="1"
-            android:onClick="clickBt"
-            android:text="Connect" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,7 +62,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="2.5dp"
                 android:layout_weight="1"
-                android:onClick="clickBt"
                 android:text="LED ON"
                 app:iconTint="#FFFFFF" />
 
@@ -83,7 +71,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2.5dp"
                 android:layout_weight="1"
-                android:onClick="clickBt"
                 android:text="LED OFF" />
         </LinearLayout>
 
