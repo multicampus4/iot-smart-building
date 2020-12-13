@@ -40,7 +40,7 @@ public class Server {
 	static String oracleId;
 	static String oraclePwd;
 
-	ServerSocket serverSocket; // ServerSocket 객체
+	ServerSocket serverSocket; //TCP/IP ServerSocket 객체
 	static WebSocketClient WsClient; // WebSocket Client 객체 (대시보드에 데이터 전송)
 	static AutoController autoController;
 
@@ -183,6 +183,15 @@ public class Server {
 
 						if (idipMaps.get("mobileApp") != null) { // Target : Mobile App
 							sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
+						}
+						break;
+					case "nfc":
+						// nfcadminid;	>> "nfc" + "관리자 계정 ID"
+						// Mobile APP으로 OK 메시지 전송 (TCP/IP)
+						String userId = msg.getMsg().substring(3);
+						if (idipMaps.get("mobileApp") != null) {
+							// Target : Mobile App
+							sendTarget(idipMaps.get("mobileApp"), msg.getId(), "nfc", "현재시각을 넣어보자");
 						}
 						break;
 					case "etc":

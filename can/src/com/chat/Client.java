@@ -283,6 +283,7 @@ public class Client implements SerialPortEventListener {
 				
 				// nfc 데이터와 ssRaw 데이터 구분 
 				if(ss.substring(0,2).equals("nfc")) {
+					// nfc 데이터인 경우 
 					System.out.println("NFC? ::" + ss.substring(0,2) + ss);
 					rawToJson = convertJson(ss, "nfc").toJSONString();
 					System.out.println("rawToJson >> " + rawToJson);
