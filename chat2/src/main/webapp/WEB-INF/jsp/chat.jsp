@@ -170,13 +170,13 @@
 				$("#" + area + "_S_ILLM").text(obj.lgt);
 				$("#P_" + area + "_S_ILLM span").text(obj.lgt);
 				if(obj.lgt <= 300){
-					//$("#" + area + "_S_ILLM").css('background-color', '#ff0000');
+					$("#" + area + "_S_ILLM").css('background-color', '#ff0000');
 					changeStateLightColor(area, true);
 				}else if(obj.lgt > 300 && obj.lgt <= 600){
-					//$("#" + area + "_S_ILLM").css('background-color', '#fff');
+					$("#" + area + "_S_ILLM").css('background-color', '#fff');
 					changeStateLightColor(area, false);
 				}else if(obj.lgt > 600){
-					//$("#" + area + "_S_ILLM").css('background-color', '#f42a2f');
+					$("#" + area + "_S_ILLM").css('background-color', '#f42a2f');
 					changeStateLightColor(area, true);
 				}
 			}
@@ -244,6 +244,11 @@
 		// 실시간 데이터 text 삽입 테스트, 배경색 변경 테스트
 		//$("#1_A_S_TEMP span").text("12345");
 		//$('#1_A_S_HUM span').css("color", "#e0201a");
+		$("#tt_1_B").css("background", "#ff0000");
+		$("#tt_1_B").css("animation","k2 1.75s 1s ease-out infinite");
+		$("#1_B_S_HUM").css('background-color', '#f42a2F');
+		$("#1_B_S_DUST").css('background-color', '#f42a2f');
+		$("#1_B_S_ILLM").css('background-color', '#f7b924');
 		// ----- 테스트 끝 ------
 		
 		setButtonState();
