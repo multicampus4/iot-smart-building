@@ -593,7 +593,7 @@ th {
 .switch {
 	position: relative;
 	display: inline-block;
-	width: 47px;
+	width: 42px;
 	height: 25px;
 	vertical-align:middle;
 }
@@ -617,7 +617,7 @@ th {
 	position: absolute;
 	content: ""; /* off */
 	height: 19px;
-	width: 17px;
+	width: 13px;
 	left: 4px;
 	bottom: 3px;
 	background-color: white;
@@ -633,7 +633,7 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-	transform: translateX(21.5px);
+	transform: translateX(21px);
 	content: ""; /* on */
 }
 
