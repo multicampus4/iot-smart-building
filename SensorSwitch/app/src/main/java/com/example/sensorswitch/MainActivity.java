@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 //        fragment2 = new Fragment2(this);  // this : fragment에 현재 메인액티비티 전달
 //        fragment3 = new Fragment3();
 
+        MyGlobals.getInstance().setFrgment3on(false);
+
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment1).commit();
 
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         if(fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
                         if(fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
 
-                        Toast.makeText(MainActivity.this, "tab1", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "tab1", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.tab2:
                         if(fragment2 == null) {
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                         if(fragment2 != null) fragmentManager.beginTransaction().show(fragment2).commit();
                         if(fragment3 != null) fragmentManager.beginTransaction().hide(fragment3).commit();
 
-                        Toast.makeText(MainActivity.this, "tab2", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "tab2", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.tab3:
                         if(fragment3 == null) {
@@ -100,11 +103,21 @@ public class MainActivity extends AppCompatActivity {
                             fragmentManager.beginTransaction().add(R.id.frameLayout, fragment3).commit();
                         }
 
+                        if(MyGlobals.getInstance().getFrgment3on()){
+                            TextView txMsg = fragment3.getView().findViewById(R.id.textView3);
+                            TextView tx1 = fragment3.getView().findViewById(R.id.textView4);
+                            txMsg.setText("정상적으로 처리되었습니다");
+                            tx1.setText("태깅 기록된 시각  ");
+
+                            LottieAnimationView animationView = fragment3.getView().findViewById(R.id.lottieAniView);
+                            fragment3.setUpAnimation(animationView, R.raw.nfc_scan_ok,1);
+                        }
+
                         if(fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
                         if(fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
                         if(fragment3 != null) fragmentManager.beginTransaction().show(fragment3).commit();
 
-                        Toast.makeText(MainActivity.this, "tab3", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "tab3", Toast.LENGTH_SHORT).show();
                         return true;
                 }
                 return false;
@@ -233,11 +246,26 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             Log.d(String.valueOf(finalMsg), String.valueOf(finalMsg));
                             System.out.println(finalMsg);
-                            if(fragment2 != null){
-                                fragment2 = (Fragment2) fragmentManager.findFragmentById(R.id.frameLayout);
-                                String tx = fragment2.getText();
-                                fragment2.setText(finalMsg.toString() +"\n"+ tx);
+                            switch (finalMsg.getType()){
+                                case "ssRaw":
+                                    if(fragment2 != null){
+                                        fragment2 = (Fragment2) fragmentManager.findFragmentById(R.id.frameLayout);
+                                        String tx = fragment2.getText();
+                                        fragment2.setText(finalMsg.toString() +"\n"+ tx);
+                                    }
+                                    break;
+                                case "nfc":
+                                    if(fragment3 != null){
+                                        fragment3 = (Fragment3) fragmentManager.findFragmentById(R.id.frameLayout);
+
+//                                        LottieAnimationView animationView = view.findViewById(R.id.lottieAniView);
+//                                        setUpAnimation(animationView, R.raw.nfc_scanning2);
+
+                                    }
+                                    break;
                             }
+
+
 
 //                            tx_data.setText("[ID]" + finalMsg.getId()
 //                                    + " [TYPE]" + finalMsg.getType()
