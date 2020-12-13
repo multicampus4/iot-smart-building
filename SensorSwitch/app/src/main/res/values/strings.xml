@@ -2,4 +2,7 @@
     <string name="app_name">SensorSwitch</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="guide_message" />
+    <string name="통신기록" />
+    <string name="lottie_test" />
 </resources>
