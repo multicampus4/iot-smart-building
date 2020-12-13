@@ -47,15 +47,17 @@
 							<div class="Area_1A">
 								<div class="con-tooltip right" id="tt_1_A">
 									<div class="tooltip">
-										<div class="border_rd">A구역</div>
-										온도 :<br>
-										<div id="1_A_S_TEMP"></div>
-										습도 :<br>
-										<div id="1_A_S_HUM"></div>
-										미세먼지 :<br>
-										<div id="1_A_S_DUST"></div>
-										조도 :<br>
-										<div id="1_A_S_ILLM"></div>
+										<div class="border_rd mb-2">A구역</div>
+										<div class="tooltip_inbl">
+											온도 :
+											<div id="1_A_S_TEMP"></div><br>
+											습도 :
+											<div id="1_A_S_HUM"></div><br>
+											미세먼지 :
+											<div id="1_A_S_DUST"></div><br>
+											조도 :
+											<div id="1_A_S_ILLM"></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -64,15 +66,18 @@
 							<div class="Area_1B">
 								<div class="con-tooltip right" id="tt_1_B">
 									<div class="tooltip">
-										<div class="border_rd">Area B</div>
-										온도 :
-										<p id="1_B_S_TEMP">17.12</p>
-										습도 :
-										<p id="1_B_S_HUM">88.50</p>
-										미세먼지 :
-										<p id="1_B_S_DUST">63.27</p>
-										조도 :
-										<p id="1_B_S_ILLM">282</p>
+										<div class="border_rd mb-2">B구역</div>
+										<div class="tooltip_inbl">
+											온도 :
+											<div id="1_B_S_TEMP">17.12</div><br>
+											습도 :
+											<div id="1_B_S_HUM">88.50</div><br>
+											미세먼지 :
+											<div id="1_B_S_DUST">63.27</div><br>
+											조도 :
+											<div id="1_B_S_ILLM">282</div>
+										</div>
+										
 									</div>
 								</div>
 							</div>
@@ -349,14 +354,16 @@
 							<div class="Area_2A">
 								<div class="con-tooltip right" id="tt_2_A">
 									<div class="tooltip">
-										온도 :<br>
-										<div id="2_A_S_TEMP"></div>
-										습도 :<br>
-										<div id="2_A_S_HUM"></div>
-										미세먼지 :<br>
-										<div id="2_A_S_DUST"></div>
-										조도 :<br>
-										<div id="2_A_S_ILLM"></div>
+										<div class="tooltip_inbl mb-2">
+											온도 :
+											<div id="2_A_S_TEMP"></div><br>
+											습도 :
+											<div id="2_A_S_HUM"></div><br>
+											미세먼지 :
+											<div id="2_A_S_DUST"></div><br>
+											조도 :
+											<div id="2_A_S_ILLM"></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -366,7 +373,7 @@
 					<div class="col-md-6">
 						
 						<!-- A구역 실시간 데이터 -->
-						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
+						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">A구역</div>
 						<div class="row text-center">
 							<div class="col-lg-6 col-xl-3">
 								<div class="card mb-1 widget-content sensordata">
@@ -576,6 +583,11 @@ th {
 	padding: 1px;
 }
 
+.tooltip_inbl div{
+	display: inline-block;
+	margin-bottom: 3px;
+}
+
 /* on, off 토글 버튼 css */
 /* The switch - the box around the slider */
 .switch {
@@ -648,6 +660,7 @@ input:checked + .slider:before {
 
 /* 구역별 css - 위치 설정 */
 .Area_1A {
+	z-index:1;
 	padding: 5px 10px;
 	text-align: center;
 	position: absolute;
@@ -656,6 +669,7 @@ input:checked + .slider:before {
 	transform: translate( -30%, -50% );
 }
 .Area_1B {
+	z-index:1;
 	padding: 5px 10px;
 	text-align: center;
 	position: absolute;
@@ -664,6 +678,7 @@ input:checked + .slider:before {
 	transform: translate( -30%, -50% );
 }
 .Area_2A {
+	z-index:1;
 	padding: 5px 10px;
 	text-align: center;
 	position: absolute;
@@ -674,7 +689,6 @@ input:checked + .slider:before {
 
 /*tooltip Box*/
 .con-tooltip {
-
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
@@ -697,7 +711,7 @@ input:checked + .slider:before {
 	width: 400%;
 	padding-top: 10px;
 	padding-bottom: 0px;
-	padding: 20px;
+	padding: 13px;
 
 	background: #333;
 	color: #fff;
@@ -741,7 +755,7 @@ input:checked + .slider:before {
 }
 
 /* tooltip 방향 (오른쪽 ) */
-.right .tooltip { top:-205%; left:115%; }
+.right .tooltip { top:-150%; left:115%; }
 
 .right .tooltip::after{
 	top:40%;
@@ -781,6 +795,7 @@ input:checked + .slider:before {
     	box-shadow: 0 0 6px 4px rgba(255, 0, 0, 0), 0 0 0px 20px transparent, 0 0 0px 20px rgba(255, 0, 0, 0);
   	}
 }
+
 
 /* 활성화 버튼 */
 #switch_Dis{
