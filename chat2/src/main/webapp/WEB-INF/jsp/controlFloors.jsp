@@ -50,13 +50,13 @@
 										<div class="border_rd mb-2">A구역</div>
 										<div class="tooltip_inbl">
 											온도&nbsp:&nbsp
-											<div id="1_A_S_TEMP"></div><br>
+											<div id="1_A_S_TEMP">21.34</div><br>
 											습도&nbsp:&nbsp
-											<div id="1_A_S_HUM"></div><br>
+											<div id="1_A_S_HUM">67.0</div><br>
 											미세먼지&nbsp:&nbsp
-											<div id="1_A_S_DUST"></div><br>
+											<div id="1_A_S_DUST">17.23</div><br>
 											조도&nbsp:&nbsp
-											<div id="1_A_S_ILLM"></div>
+											<div id="1_A_S_ILLM">348</div>
 										</div>
 									</div>
 								</div>
@@ -90,7 +90,7 @@
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -105,7 +105,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -120,7 +120,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -129,13 +129,13 @@
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_A_S_DUST">
-												<span>65.01</span>
+												<span>17.23</span>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -215,7 +215,7 @@
 						<!-- B구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  B</div>
 						<div class="row text-center">
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -230,7 +230,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -245,7 +245,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -260,7 +260,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -375,7 +375,7 @@
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">A구역</div>
 						<div class="row text-center">
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -390,7 +390,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -405,7 +405,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -414,13 +414,13 @@
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_2_A_S_DUST">
-												<span>76.58</span>
+												<span>27.11</span>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -429,7 +429,7 @@
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_2_A_S_ILLM">
-												<span>750</span>
+												<span>357</span>
 											</div>
 										</div>
 									</div>
@@ -587,6 +587,9 @@ th {
 	display: inline-block;
 	margin-bottom: 3px;
 }
+.sensordata_div{
+	height: 110px;
+}
 
 /* on, off 토글 버튼 css */
 /* The switch - the box around the slider */
@@ -594,7 +597,7 @@ th {
 	position: relative;
 	display: inline-block;
 	width: 42px;
-	height: 25px;
+	height: 20px;
 	vertical-align:middle;
 }
 
@@ -616,10 +619,10 @@ th {
 .slider:before {
 	position: absolute;
 	content: ""; /* off */
-	height: 19px;
+	height: 15px;
 	width: 13px;
 	left: 4px;
-	bottom: 3px;
+	bottom: 2.6px;
 	background-color: white;
 	transition: .2s;
 }

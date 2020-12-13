@@ -254,11 +254,13 @@
 		$("#1_B_S_HUM").css('background-color', '#f42a2F');
 		$("#1_B_S_DUST").css('background-color', '#f42a2f');
 		$("#1_B_S_ILLM").css('background-color', '#f7b924');
-		
+		$("#1_A_S_DUST").css('background-color', '#00aeef');
 
 		$("#P_1_B_S_HUM").css('color', '#f42a2F');
 		$("#P_1_B_S_DUST").css('color', '#f42a2f');
 		$("#P_1_B_S_ILLM").css('color', '#f7b924');
+		$("#P_1_A_S_DUST").css('color', '#00aeef');
+		
 		// ----- 테스트 끝 ------
 		
 		setButtonState();
