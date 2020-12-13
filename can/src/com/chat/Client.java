@@ -273,22 +273,32 @@ public class Client implements SerialPortEventListener {
 					int numBytes = bin.read(readBuffer);	// ??? 뭐하는 코드?
 				}
 
-				String ss = new String(readBuffer).trim();	// Data From Aruduino : "tmp26;hum80;"
+				String ss = new String(readBuffer).trim();	// Data From Aruduino : "tmp26.00;hum80.00;"
+				String rawToJson = null;
 				if(ss.length() != numOfDataType*9) {
 					System.out.println("Return ... Crashed Data ..." + ss);
 					break;
 				}
 				System.out.println("RAW DATA From ARDUINO:" + ss + "||");
-
-//				sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
-				sendHttp(ss);		// Send raw to chat.jsp (LOG)
 				
-				// Send JSON to DashBoard (Websocket)
-//				JSONObject jsonTemp = new JSONObject();
-				String rawToJson = convertJson(ss).toJSONString();
-				System.out.println(rawToJson);
-				WsClient.send(rawToJson);
-				sendTcpip(rawToJson);
+				// nfc 데이터와 ssRaw 데이터 구분 
+				if(ss.substring(0,2).equals("nfc")) {
+					System.out.println("NFC? ::" + ss.substring(0,2) + ss);
+					rawToJson = convertJson(ss, "nfc").toJSONString();
+					System.out.println("rawToJson >> " + rawToJson);
+
+				} else {
+					// ssRaw 데이터인 경우 
+//					sendTcpip(ss);		// Send raw to TCP/IP Server -> Mobile App
+					sendHttp(ss);		// Send raw to chat.jsp (LOG)
+					
+					// Send JSON to DashBoard (Websocket)
+					rawToJson = convertJson(ss, "ssRaw").toJSONString();
+					System.out.println("rawToJson >> " + rawToJson);
+					WsClient.send(rawToJson);
+				}
+				
+				sendTcpip(rawToJson);	// Send raw to TCP/IP Server
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -359,13 +369,13 @@ public class Client implements SerialPortEventListener {
 	}
 
 	// 아두이노에서 받은 센서데이터 > JSON 형식으로 변환 
-	public JSONObject convertJson(String ss) {
+	public JSONObject convertJson(String ss, String msgType) {
 		JSONObject jsonObj = new JSONObject();
 		String[] dataArr = ss.split(";");
 		
 		jsonObj.put("latteId", LATTE_ID);
 		jsonObj.put("area", AREA);
-		jsonObj.put("msgType", "ssRaw");
+		jsonObj.put("msgType", msgType);
 		
 		for(int i=0; i<dataArr.length; i++) {
 			String dataName = dataArr[i].substring(0,3);
