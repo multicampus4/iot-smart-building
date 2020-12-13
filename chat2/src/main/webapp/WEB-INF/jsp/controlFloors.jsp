@@ -49,13 +49,13 @@
 									<div class="tooltip">
 										<div class="border_rd mb-2">A구역</div>
 										<div class="tooltip_inbl">
-											온도 :
+											온도&nbsp:&nbsp
 											<div id="1_A_S_TEMP"></div><br>
-											습도 :
+											습도&nbsp:&nbsp
 											<div id="1_A_S_HUM"></div><br>
-											미세먼지 :
+											미세먼지&nbsp:&nbsp
 											<div id="1_A_S_DUST"></div><br>
-											조도 :
+											조도&nbsp:&nbsp
 											<div id="1_A_S_ILLM"></div>
 										</div>
 									</div>
@@ -68,13 +68,13 @@
 									<div class="tooltip">
 										<div class="border_rd mb-2">B구역</div>
 										<div class="tooltip_inbl">
-											온도 :
+											온도&nbsp:&nbsp
 											<div id="1_B_S_TEMP">17.12</div><br>
-											습도 :
+											습도&nbsp:&nbsp
 											<div id="1_B_S_HUM">88.50</div><br>
-											미세먼지 :
+											미세먼지&nbsp:&nbsp
 											<div id="1_B_S_DUST">63.27</div><br>
-											조도 :
+											조도&nbsp:&nbsp
 											<div id="1_B_S_ILLM">282</div>
 										</div>
 										
@@ -355,13 +355,13 @@
 								<div class="con-tooltip right" id="tt_2_A">
 									<div class="tooltip">
 										<div class="tooltip_inbl mb-2">
-											온도 :
+											온도&nbsp:&nbsp
 											<div id="2_A_S_TEMP"></div><br>
-											습도 :
+											습도&nbsp:&nbsp
 											<div id="2_A_S_HUM"></div><br>
-											미세먼지 :
+											미세먼지&nbsp:&nbsp
 											<div id="2_A_S_DUST"></div><br>
-											조도 :
+											조도&nbsp:&nbsp
 											<div id="2_A_S_ILLM"></div>
 										</div>
 									</div>
@@ -565,7 +565,7 @@
 	height: 80%;
 }
 .widget-numbers span{
-	font-size: 77%
+	font-size: 77%;
 }
 .widget-content-left{
 	font-size: 100%;
@@ -708,7 +708,7 @@ input:checked + .slider:before {
 	z-index: 1;
 	opacity: .40;
   
-	width: 400%;
+	width: 330%;
 	padding-top: 10px;
 	padding-bottom: 0px;
 	padding: 13px;

@@ -128,13 +128,14 @@
 				$("#" + area + "_S_TEMP").text(obj.tmp);
 				$("#P_" + area + "_S_TEMP span").text(obj.tmp);
 				if(obj.tmp <= 18){
- 					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
+ 					$("#" + area + "_S_TEMP").css("background-color", "#f7b924");
+ 					$("#P_" + area + "_S_TEMP").css("color", "#f7b924");
 					changeStateLightColor(area, true);
 				}else if(obj.tmp > 18 && obj.tmp <= 21){
- 					$("#" + area + "_S_TEMP").css('background-color', '#00aeef');
 					changeStateLightColor(area, false);
 				}else if(obj.tmp > 21){
- 					$("#" + area + "_S_TEMP").css('background-color', '#f42a2f');
+ 					$("#" + area + "_S_TEMP").css("background-color", "#f42a2f");
+ 					$("#P_" + area + "_S_TEMP").css("color", "#f42a2f");
 					changeStateLightColor(area, true);
 				}
 			}
@@ -142,13 +143,14 @@
 				$("#" + area + "_S_HUM").text(obj.hum);
 				$("#P_" + area + "_S_HUM span").text(obj.hum);
 				if(obj.hum <= 40){
-					$("#" + area + "_S_HUM").css('background-color', '#f7b924');
+					$("#" + area + "_S_HUM").css("background-color", "#f7b924");
+					$("#P_" + area + "_S_HUM").css("color", "#f7b924");
 					changeStateLightColor(area, true);
 				}else if(obj.hum > 40 && obj.hum <= 40.99){
-					$("#" + area + "_S_HUM").css('background-color', '#00aeef');
 					changeStateLightColor(area, false);
 				}else if(obj.hum > 40.99){
-					$("#" + area + "_S_HUM").css('background-color', '#f42a2f');
+					$("#" + area + "_S_HUM").css("background-color", "#f42a2f");
+					$("#P_" + area + "_S_HUM").css("color", "#f42a2f");
 					changeStateLightColor(area, true);
 				}
 			}
@@ -156,13 +158,15 @@
 				$("#" + area + "_S_DUST").text(obj.dst);
 				$("#P_" + area + "_S_DUST span").text(obj.dst);
 				if(obj.dst <= 30){
-					$("#" + area + "_S_DUST").css('background-color', '#f7b924');
+					// 미세먼지가 상태가 매우 좋음일 경우 파란색으로 표시
+					$("#" + area + "_S_DUST").css("background-color", "#00aeef");
+					$("#P_" + area + "_S_DUST").css("color", "#00aeef");
 					changeStateLightColor(area, true);
 				}else if(obj.dst > 30 && obj.dst <= 80){
-					$("#" + area + "_S_DUST").css('background-color', '#00aeef');
 					changeStateLightColor(area, false);
 				}else if(obj.dst > 80){
-					$("#" + area + "_S_DUST").css('background-color', '#f42a2f');
+					$("#" + area + "_S_DUST").css("background-color", "#f42a2f");
+					$("#P_" + area + "_S_DUST").css("color", "#f42a2f");
 					changeStateLightColor(area, true);
 				}
 			}
@@ -170,13 +174,14 @@
 				$("#" + area + "_S_ILLM").text(obj.lgt);
 				$("#P_" + area + "_S_ILLM span").text(obj.lgt);
 				if(obj.lgt <= 300){
-					$("#" + area + "_S_ILLM").css('background-color', '#ff0000');
+					$("#" + area + "_S_ILLM").css("background-color", "#f7b924");
+					$("#P_" + area + "_S_ILLM").css("color", "#f7b924");
 					changeStateLightColor(area, true);
 				}else if(obj.lgt > 300 && obj.lgt <= 600){
-					$("#" + area + "_S_ILLM").css('background-color', '#fff');
 					changeStateLightColor(area, false);
 				}else if(obj.lgt > 600){
-					$("#" + area + "_S_ILLM").css('background-color', '#f42a2f');
+					$("#" + area + "_S_ILLM").css("background-color", "#f42a2f");
+					$("#P_" + area + "_S_ILLM").css("color", "#f42a2f");
 					changeStateLightColor(area, true);
 				}
 			}
@@ -249,6 +254,11 @@
 		$("#1_B_S_HUM").css('background-color', '#f42a2F');
 		$("#1_B_S_DUST").css('background-color', '#f42a2f');
 		$("#1_B_S_ILLM").css('background-color', '#f7b924');
+		
+
+		$("#P_1_B_S_HUM").css('color', '#f42a2F');
+		$("#P_1_B_S_DUST").css('color', '#f42a2f');
+		$("#P_1_B_S_ILLM").css('color', '#f7b924');
 		// ----- 테스트 끝 ------
 		
 		setButtonState();
