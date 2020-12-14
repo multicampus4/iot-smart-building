@@ -63,6 +63,8 @@ public class Client implements SerialPortEventListener {
 	// 웹소켓
 	static WebSocketClient WsClient;
 
+	String bufferStr;
+
 	// 기본생성자
 	public Client() throws Exception {
 	}
@@ -269,7 +271,11 @@ public class Client implements SerialPortEventListener {
 					int numBytes = bin.read(readBuffer);	// ??? 뭐하는 코드?
 				}
 
-				String ss = new String(readBuffer).trim();	// Data From Aruduino : "tmp26;hum80;"
+				String ss = new String(readBuffer).trim();	// Data From Aruduino : "tmp26.00;hum80.00;^"
+				
+				bufferStr += ss;
+				System.out.println("bufferStr : " + bufferStr);
+				
 				String [] array = ss.split(";");
 				if(array.length != 4 || array[0].charAt(0)!='A' || array[0].charAt(0)!='t') {
 					System.out.println("Return ... Crashed Data ..." + ss);
