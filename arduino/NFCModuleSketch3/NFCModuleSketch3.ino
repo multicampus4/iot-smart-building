@@ -123,7 +123,8 @@ void UART1_Send_Byte(unsigned char command_data){//send byte to device
 #if defined(ARDUINO) && ARDUINO >= 100
   Serial1.flush();// complete the transmission of outgoing serial data
 #endif
-Serial.println("UART1_Send_Byte");
+//Serial.println("UART1_Send_Byte");
+// 무한반복됨
 }
 
 void UART_Send_Byte(unsigned char command_data){//send byte to PC
