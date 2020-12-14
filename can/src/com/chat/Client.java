@@ -271,9 +271,26 @@ public class Client implements SerialPortEventListener {
 					int numBytes = bin.read(readBuffer);	// ??? 뭐하는 코드?
 				}
 
-				String ss = new String(readBuffer).trim();	// Data From Aruduino : "tmp26.00;hum80.00;^"
-				bufferStr = bufferStr.concat(ss);
-				System.out.println("bufferStr : " + bufferStr);
+				String newBufferStr = new String(readBuffer).trim();	// Data From Aruduino : "tmp26.00;hum80.00;^"
+				
+				String correctedBufferStr = bufferCorrection(newBufferStr);
+				
+				if(correctedBufferStr != null) {
+					// 정상수행
+					String ss = correctedBufferStr;
+					System.out.println("hi :" + ss);
+				} else {
+					break;
+				}
+				
+//				if(bufferIsCorrect(correctedBufferString)) {
+//					// 정상 수행
+					// String ss = makePureRawData(ss);
+//				} else {
+//					break;
+//				}
+
+				String ss = "";
 				
 				String [] array = ss.split(";");
 				if(array.length != 4 || array[0].charAt(0)!='A' || array[0].charAt(0)!='t') {
@@ -292,6 +309,39 @@ public class Client implements SerialPortEventListener {
 				e.printStackTrace();
 			}
 			break;
+		}
+	}
+
+	// 끊겨서 들어오는 데이터 ex) "p26.00;hum80.00;^$tm"
+	// master 메시지 "tmp26.00;hum80.00;"
+	// 시작 문자 : "$"
+	// 종료 문자 : "^"
+	public String bufferCorrection(String newBufferStr) {
+		if (newBufferStr.contains("$") && newBufferStr.contains("^")) {
+			bufferStr = bufferStr.concat(newBufferStr);
+			
+			int start = bufferStr.indexOf("$");
+			int end = bufferStr.indexOf("^");
+			System.out.println("start: " + start + "; end: " + end);
+			if (start == end + 1) {
+				// ^$ 붙어있는 경우
+				// $ 이후의 string만 보존하여 저장 후 null 리턴
+				bufferStr = bufferStr.substring(end+1);
+				return null;
+			} else {
+				String correctBufferStr = bufferStr.substring(start + 1, end);
+				bufferStr = bufferStr.substring(end + 1);
+				
+				System.out.println("bufferStr" + bufferStr);
+				System.out.println("correctBufferStr = " + correctBufferStr);
+				return correctBufferStr;
+			}
+			
+
+		} else {
+			// 기존 버퍼에 new버퍼 붙여서 저장 후 null 리턴
+			bufferStr = bufferStr.concat(newBufferStr);
+			return null;
 		}
 	}
 
