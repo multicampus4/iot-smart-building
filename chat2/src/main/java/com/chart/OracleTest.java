@@ -14,17 +14,15 @@ public class OracleTest {
 		String password ="2020final";
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = DriverManager.getConnection(url,id,password);
-		//PreparedStatement pstmt = con.prepareStatement("SELECT * FROM (SELECT DATA,T5 FROM T1130)"
-																	//+ "WHERE ROWNUM <= 3");
-															
-		PreparedStatement pstmt = con.prepareStatement("SELECT DATA,T5 FROM T1130");		
+		PreparedStatement pstmt = con.prepareStatement("SELECT TIME,VAL FROM ACCTABLE WHERE VAL = -228");
+				
 		ResultSet rset = pstmt.executeQuery();
 		
 		while(rset.next()) {
-			String did = rset.getString("DATA");
+			String did = rset.getString("TIME");
 			
-			Float data = rset.getFloat("T5");
-			System.out.println(data+"/"+did);
+			String data = rset.getString("VAL");
+			System.out.println(did+"/"+data);
 			}
 		con.close();
 	
