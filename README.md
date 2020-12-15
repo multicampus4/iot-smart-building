@@ -64,3 +64,5 @@ git reset --hard d5c9d764ddf335663c32ff0f833dbb7726798a6a
 - **ON, OFF 명령**은 뒤에 _ON 또는 _OFF를 붙입니다. 
 
   예) 1_A_D_AIR_ON
+
+​    
