@@ -263,6 +263,13 @@ public class MainActivity extends AppCompatActivity {
 
                                     }
                                     break;
+                                case "command":
+                                    if(fragment2 != null){
+                                        fragment2 = (Fragment2) fragmentManager.findFragmentById(R.id.frameLayout);
+                                        String tx = fragment2.getText();
+                                        fragment2.setText(finalMsg.toString() +"\n"+ tx);
+                                    }
+                                    break;
                             }
 
 

@@ -39,6 +39,7 @@
                 android:id="@+id/tx_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:text="testText"
                 android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
