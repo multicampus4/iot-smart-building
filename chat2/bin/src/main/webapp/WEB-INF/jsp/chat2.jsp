@@ -4,165 +4,172 @@
 <html>
 <head>
 <link href="css/btn.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/earthquakeGraph.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <meta charset="UTF-8">
-	<title>WebSocket Data</title>
-	<style>
-	.container h2 {
-		text-align: left;
-		padding: 5px 5px 5px 15px;
-		color: #FFBB00;
-		border-left: 3px solid #FFBB00;
-		margin-bottom: 20px;
-	}
-	
-	.containerBottom {
-		width: 500px;
-		height: 100px;
-		margin: 0 auto;
-		padding: 25px
-	}
-	
-	.btn1 {
-		float: left;
-	}
-	
-	.btn2 {
-		float: left;
-	}
-	
-	.btn3 {
-		float: left;
-	}
-	
-	.innerContainer0 {
-		width: 30%;
-		float: left;
-		margin: 0 auto;
-		padding: 5px
-	}
-	
-	.innerContainer1 {
-		width: 30%;
-		float: left;
-		margin: 0 auto;
-		padding: 5px
-	}
-	
-	.innerContainer2 {
-		width: 30%;
-		float: left;
-		margin: 0 auto;
-		padding: 5px
-	}
-	
-	.chatting {
-		background-color: #000;
-		width: 100%;
-		height: 500px;
-		overflow: auto;
-	}
-	
-	.chatting p {
-		color: #fff;
-		text-align: left;
-	}
-	
-	input {
-		width: 330px;
-		height: 25px;
-	}
-	
-	#yourMsg {
-		display: none;
-	}
-	
-	.highcharts-figure, .highcharts-data-table table {
-		min-width: 360px;
-		max-width: 800px;
-		margin: 1em auto;
-	}
-	
-	.highcharts-data-table table {
-		font-family: Verdana, sans-serif;
-		border-collapse: collapse;
-		border: 1px solid #EBEBEB;
-		margin: 10px auto;
-		text-align: center;
-		width: 100%;
-		max-width: 500px;
-	}
-	
-	.highcharts-data-table caption {
-		padding: 1em 0;
-		font-size: 1.2em;
-		color: #555;
-	}
-	
-	.highcharts-data-table th {
-		font-weight: 600;
-		padding: 0.5em;
-	}
-	
-	.highcharts-data-table td, .highcharts-data-table th,
-		.highcharts-data-table caption {
-		padding: 0.5em;
-	}
-	
-	.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even)
-		{
-		background: #f8f8f8;
-	}
-	
-	.highcharts-data-table tr:hover {
-		background: #f1f7ff;
-	}
-	</style>
+<title>WebSocket Data</title>
 </head>
 
 <script type="text/javascript">
 	var ws;
 	var chart;
+	var obj = null;
 
 	$(document).ready(function() {
 		wsOpen();
 		$("#yourMsg").show();
-		
 		chart = new Highcharts.chart('hcontainer', {
+			chart: {
+		        type: 'spline',
+		        animation: Highcharts.svg, // don't animate in old IE
+		        marginRight: 10,
+		        events: {
+		            load: 
+		            	function () {
+		        		chart = new Highcharts.chart('hcontainer', {
+		        			chart: {
+		        		        type: 'spline',
+		        		        animation: Highcharts.svg, // don't animate in old IE
+		        		        marginRight: 10,
+		        		        events: {
+		        		            load: 
+		        		            	function () {
+		        		                // set up the updating of the chart each second
+		        			                var series = this.series[0];
+		        			                setInterval(function () {
+		        			                    var x = (new Date()).getTime(), // current time
+		        			                        y = parseFloat(obj.AcX);
+		        			                    series.addPoint([x, y], true, true);
+		        			                }, 1000);
+		        		            }
+		        		        }
+		        		    },
+
+		        			  title: {
+		        			    text: 'Logarithmic axis demo'
+		        			  },
+
+		        			  xAxis: {
+		        				tickPixelInterval: 150,
+		        			    type: 'datetime'
+		        			  },
+		        			  yAxis: {
+		        			        title: {
+		        			            text: 'AcX'
+		        			        },
+		        			        plotLines: [{
+		        			            value: 0,
+		        			            width: 1,
+		        			            color: '#808080'
+		        			        }]
+		        			    }, 
+		        			  accessibility: {
+		        			        announceNewData: {
+		        			            enabled: true,
+		        			            minAnnounceInterval: 15000,
+		        			            announcementFormatter: function (allSeries, newSeries, newPoint) {
+		        			                if (newPoint) {
+		        			                    return 'New point added. Value: ' + newPoint.y;
+		        			                }
+		        			                return false;
+		        			            }
+		        			        }
+		        			    },
+		        			    time: {
+		        			        useUTC: false
+		        			    },
+		        			  tooltip: {
+		        			    headerFormat: '<b>{series.name}</b><br />',
+		        			    pointFormat: 'x = {point.x}, y = {point.y}'
+		        			  },
+
+		        			  series: [{
+		        			        name: 'Random data',
+		        			        data: (function () {
+		        			            // generate an array of random data
+		        			            var data = [],
+		        			                time = (new Date()).getTime(),
+		        			                i;
+
+		        			            for (i = -19; i <= 0; i += 1) {
+		        			                data.push({
+		        			                    x: time + i * 1000,
+		        			                    y: 0
+		        			                });
+		        			            }
+		        			            return data;
+		        			        })
+		        			    }]
+		        			});		                // set up the updating of the chart each second
+			                var series = this.series[0];
+			                setInterval(function () {
+			                    var x = (new Date()).getTime(), // current time
+			                        y = parseFloat(obj.AcX);
+			                    series.addPoint([x, y], true, true);
+			                }, 1000);
+		            }
+		        }
+		    },
 
 			  title: {
 			    text: 'Logarithmic axis demo'
 			  },
 
 			  xAxis: {
-			    tickInterval: 1,
-			    type: 'logarithmic',
-			    accessibility: {
-			      rangeDescription: 'Range: 1 to 10'
-			    }
+				tickPixelInterval: 150,
+			    type: 'datetime'
 			  },
-
 			  yAxis: {
-			    type: 'logarithmic',
-			    minorTickInterval: 0.1,
-			    accessibility: {
-			      rangeDescription: 'Range: 0.1 to 1000'
-			    }
-			  },
-
+			        title: {
+			            text: 'AcX'
+			        },
+			        plotLines: [{
+			            value: 0,
+			            width: 1,
+			            color: '#808080'
+			        }]
+			    }, 
+			  accessibility: {
+			        announceNewData: {
+			            enabled: true,
+			            minAnnounceInterval: 15000,
+			            announcementFormatter: function (allSeries, newSeries, newPoint) {
+			                if (newPoint) {
+			                    return 'New point added. Value: ' + newPoint.y;
+			                }
+			                return false;
+			            }
+			        }
+			    },
+			    time: {
+			        useUTC: false
+			    },
 			  tooltip: {
 			    headerFormat: '<b>{series.name}</b><br />',
 			    pointFormat: 'x = {point.x}, y = {point.y}'
 			  },
 
 			  series: [{
-			    data: [28, 22, 24, 28, 16, 32, 24, 28, 25, 22],
-			    pointStart: 1
-			  }]
+			        name: 'Random data',
+			        data: (function () {
+			            // generate an array of random data
+			            var data = [],
+			                time = (new Date()).getTime(),
+			                i;
+
+			            for (i = -19; i <= 0; i += 1) {
+			                data.push({
+			                    x: time + i * 1000,
+			                    y: 0
+			                });
+			            }
+			            return data;
+			        }())
+			    }]
 			});
 		
 	});
@@ -180,16 +187,14 @@
 		// onmessage: 메시지가 도착하면 호출
 		ws.onmessage = function(data) {
 			var msg = data.data;
+			console.log(msg);
 			$("#chatting0").prepend("<p>" + msg + "</p>");
-			var obj = JSON.parse(msg);
-
+			obj = JSON.parse(msg);
 			// ex: { "tmp":"28", "hum":"80" }
 
 			if (msg != null && msg.trim() != '') {
-				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
-				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
-				
-				chart.series[0].addPoint(parseFloat(obj.tmp), true, true);
+				$("#chatting1").prepend("<p>" + obj.AcX + "</p>");
+				$("#chatting2").prepend("<p>" + obj.AcY + "</p>");
 			}
 		}
 
@@ -205,37 +210,6 @@
 		ws.send(msg);
 		$('#chatting').val("");
 	}
-
-	$(document).ready(function() {
-		// Buttons Action for TCP/IP Cmd
-		$('#ledStart').click(function() {
-			$.ajax({
-				url : 'ledStart',
-				success : function(data) {
-					//alert('LED START...');
-				}
-			});
-		});
-
-		$('#ledStop').click(function() {
-			$.ajax({
-				url : 'ledStop',
-				success : function(data) {
-					//alert('LED STOP...');
-				}
-			});
-		});
-		$('#alert').click(function() {
-			$.ajax({
-				url : 'alert',
-				success : function(data) {
-					alert('Send Complete...');
-				}
-			});
-		});
-	});
-	
-	
 	
 </script>
 <body>
