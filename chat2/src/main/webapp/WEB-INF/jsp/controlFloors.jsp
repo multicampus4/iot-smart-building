@@ -263,7 +263,7 @@
 												<span>63.27</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_A_S_DUST_bdg">normal</div>
+										<div class="badge badge-pill badge-focus" id="P_1_B_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -279,7 +279,7 @@
 												<span>282</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_A_S_ILLM_bdg">normal</div>
+										<div class="badge badge-pill badge-focus" id="P_1_B_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>

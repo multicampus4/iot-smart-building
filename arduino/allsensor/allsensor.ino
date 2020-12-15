@@ -31,6 +31,7 @@ const int ledPin = 13;
 int lightVal;
 int ledVal;
 
+
 void setup() {
   Serial.begin(9600);
   pinMode(dustPin, INPUT);
