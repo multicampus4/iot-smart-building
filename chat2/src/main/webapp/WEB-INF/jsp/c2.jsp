@@ -1093,9 +1093,6 @@ $(document).ready(function(){
                                 </div>
                             </div>
                             </div>
-<<<<<<< HEAD
-=======
 
->>>>>>> ed071db8b65d39ef056503b09dbde92299d67ad2
                             
                             
