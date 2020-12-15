@@ -124,10 +124,12 @@
 		
 		// 실시간 데이터 반영 및 상태에 따른 색상 표시
 		function drawData(obj, area){
+			var state = false;
 			if(obj.tmp != "undefined"){
 				$("#" + area + "_S_TEMP").text(obj.tmp);
 				$("#P_" + area + "_S_TEMP span").text(obj.tmp);
 				if(obj.tmp <= 18){
+<<<<<<< HEAD
  					$("#" + area + "_S_TEMP").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
 				}else if(obj.tmp > 18 && obj.tmp <= 21){
@@ -136,12 +138,31 @@
 				}else if(obj.tmp > 21){
  					$("#" + area + "_S_TEMP").css('background-color', '#f42a2f');
 					changeStateLightColor(area, true);
+=======
+ 					$("#" + area + "_S_TEMP").css("background-color", "#f7b924");
+					$("#P_" + area + "_S_TEMP_bdg").removeClass();
+					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-warning");
+					$("#P_" + area + "_S_TEMP_bdg").text("warning");
+					
+				}else if(obj.tmp > 18 && obj.tmp <= 21){
+					$("#" + area + "_S_TEMP").css("background-color", "transparent");
+					$("#P_" + area + "_S_TEMP_bdg").removeClass();
+					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-focus");
+					$("#P_" + area + "_S_TEMP_bdg").text("normal");
+					
+				}else if(obj.tmp > 21){
+ 					$("#" + area + "_S_TEMP").css("background-color", "#f42a2f");
+					$("#P_" + area + "_S_TEMP_bdg").removeClass();
+					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-danger");
+					$("#P_" + area + "_S_TEMP_bdg").text("danger");
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 				}
 			}
 			if(obj.hum != "undefined"){
 				$("#" + area + "_S_HUM").text(obj.hum);
 				$("#P_" + area + "_S_HUM span").text(obj.hum);
 				if(obj.hum <= 40){
+<<<<<<< HEAD
 					$("#" + area + "_S_HUM").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
 				}else if(obj.hum > 40 && obj.hum <= 40.99){
@@ -150,12 +171,31 @@
 				}else if(obj.hum > 40.99){
 					$("#" + area + "_S_HUM").css('background-color', '#f42a2f');
 					changeStateLightColor(area, true);
+=======
+					$("#" + area + "_S_HUM").css("background-color", "#f7b924");
+					$("#P_" + area + "_S_HUM_bdg").removeClass();
+					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-warning");
+					$("#P_" + area + "_S_HUM_bdg").text("warning");
+					
+				}else if(obj.hum > 40 && obj.hum <= 40.99){
+					$("#" + area + "_S_HUM").css("background-color", "transparent");
+					$("#P_" + area + "_S_HUM_bdg").removeClass();
+					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-focus");
+					$("#P_" + area + "_S_HUM_bdg").text("normal");
+				
+				}else if(obj.hum > 40.99){
+					$("#" + area + "_S_HUM").css("background-color", "#f42a2f");
+					$("#P_" + area + "_S_HUM_bdg").removeClass();
+					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-danger");
+					$("#P_" + area + "_S_HUM_bdg").text("danger");
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 				}
 			}
 			if(obj.dst != "undefined"){
 				$("#" + area + "_S_DUST").text(obj.dst);
 				$("#P_" + area + "_S_DUST span").text(obj.dst);
 				if(obj.dst <= 30){
+<<<<<<< HEAD
 					$("#" + area + "_S_DUST").css('background-color', '#f7b924');
 					changeStateLightColor(area, true);
 				}else if(obj.dst > 30 && obj.dst <= 80){
@@ -164,12 +204,32 @@
 				}else if(obj.dst > 80){
 					$("#" + area + "_S_DUST").css('background-color', '#f42a2f');
 					changeStateLightColor(area, true);
+=======
+					// 미세먼지가 상태가 매우 좋음일 경우 파란색으로 표시
+					$("#" + area + "_S_DUST").css("background-color", "#00aeef");
+					$("#P_" + area + "_S_DUST_bdg").removeClass();
+					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-info");
+					$("#P_" + area + "_S_DUST_bdg").text("good");
+					
+				}else if(obj.dst > 30 && obj.dst <= 80){
+					$("#" + area + "_S_DUST").css("background-color", "transparent");
+					$("#P_" + area + "_S_DUST_bdg").removeClass();
+					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-focus");
+					$("#P_" + area + "_S_DUST_bdg").text("normal");
+					
+				}else if(obj.dst > 80){
+					$("#" + area + "_S_DUST").css("background-color", "#f42a2f");
+					$("#P_" + area + "_S_DUST_bdg").removeClass();
+					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-danger");
+					$("#P_" + area + "_S_DUST_bdg").text("danger");
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 				}
 			}
 			if(obj.lgt != "undefined"){
 				$("#" + area + "_S_ILLM").text(obj.lgt);
 				$("#P_" + area + "_S_ILLM span").text(obj.lgt);
 				if(obj.lgt <= 300){
+<<<<<<< HEAD
 					//$("#" + area + "_S_ILLM").css('background-color', '#ff0000');
 					changeStateLightColor(area, true);
 				}else if(obj.lgt > 300 && obj.lgt <= 600){
@@ -177,6 +237,29 @@
 					changeStateLightColor(area, false);
 				}else if(obj.lgt > 600){
 					//$("#" + area + "_S_ILLM").css('background-color', '#f42a2f');
+=======
+					$("#" + area + "_S_ILLM").css("background-color", "#f7b924");
+					$("#P_" + area + "_S_ILLM_bdg").removeClass();
+					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-warning");
+					$("#P_" + area + "_S_ILLM_bdg").text("warning");
+					
+				}else if(obj.lgt > 300 && obj.lgt <= 600){
+					$("#" + area + "_S_ILLM").css("background-color", "transparent");
+					$("#P_" + area + "_S_ILLM_bdg").removeClass();
+					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-focus");
+					$("#P_" + area + "_S_ILLM_bdg").text("normal");
+					
+				}else if(obj.lgt > 600){
+					$("#" + area + "_S_ILLM").css("background-color", "#f42a2f");
+					$("#P_" + area + "_S_ILLM_bdg").removeClass();
+					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-danger");
+					$("#P_" + area + "_S_ILLM_bdg").text("danger");
+				}
+				
+				if(obj.tmp > 18 && obj.tmp <= 21 && obj.hum > 40 && obj.hum <= 40.99 && obj.dst <= 80 && obj.lgt > 300 && obj.lgt <= 600){
+					changeStateLightColor(area, false);
+				}else{
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 					changeStateLightColor(area, true);
 				}
 			}
@@ -244,6 +327,24 @@
 		// 실시간 데이터 text 삽입 테스트, 배경색 변경 테스트
 		//$("#1_A_S_TEMP span").text("12345");
 		//$('#1_A_S_HUM span').css("color", "#e0201a");
+<<<<<<< HEAD
+=======
+		/*
+		$("#tt_1_B").css("background", "#ff0000");
+		$("#tt_1_B").css("animation","k2 1.75s 1s ease-out infinite");
+		$("#1_B_S_HUM").css('background-color', '#f42a2F');
+		$("#1_B_S_DUST").css('background-color', '#f42a2f');
+		$("#1_B_S_ILLM").css('background-color', '#f7b924');
+		$("#1_A_S_DUST").css('background-color', '#00aeef');
+
+		$("#P_1_B_S_HUM").css('color', '#f42a2F');
+		$("#P_1_B_S_DUST").css('color', '#f42a2f');
+		$("#P_1_B_S_ILLM").css('color', '#f7b924');
+		$("#P_1_A_S_DUST").css('color', '#00aeef');*/
+		
+	
+		
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 		// ----- 테스트 끝 ------
 		
 		setButtonState();

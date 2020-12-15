@@ -45,6 +45,7 @@
 							<div class="Area_1A">
 								<div class="con-tooltip right" id="tt_1_A">
 									<div class="tooltip">
+<<<<<<< HEAD
 										TEMPERATURE :<br>
 										<div id="1_A_S_TEMP"></div>
 										HUMIDITY :<br>
@@ -53,6 +54,19 @@
 										<div id="1_A_S_DUST"></div>
 										AMBIENT LIGHT :<br>
 										<div id="1_A_S_ILLM"></div>
+=======
+										<div class="border_rd mb-2">A구역</div>
+										<div class="tooltip_inbl">
+											온도&nbsp:&nbsp
+											<div id="1_A_S_TEMP">21.34</div><br>
+											습도&nbsp:&nbsp
+											<div id="1_A_S_HUM">67.0</div><br>
+											미세먼지&nbsp:&nbsp
+											<div id="1_A_S_DUST">17.23</div><br>
+											조도&nbsp:&nbsp
+											<div id="1_A_S_ILLM">348</div>
+										</div>
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 									</div>
 								</div>
 							</div>
@@ -81,7 +95,7 @@
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -93,10 +107,11 @@
 												<span>12.12</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_A_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -108,10 +123,11 @@
 												<span></span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_A_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -120,13 +136,18 @@
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_A_S_DUST">
+<<<<<<< HEAD
 												<span></span>
+=======
+												<span>17.23</span>
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_A_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -138,6 +159,7 @@
 												<span></span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_A_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -206,7 +228,7 @@
 						<!-- B구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  B</div>
 						<div class="row text-center">
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -218,10 +240,11 @@
 												<span>12.12</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_B_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -233,10 +256,11 @@
 												<span></span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_B_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -248,10 +272,11 @@
 												<span></span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_B_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -263,6 +288,7 @@
 												<span></span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_B_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -364,7 +390,7 @@
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -376,10 +402,11 @@
 												<span>12.12</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_2_A_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -391,10 +418,11 @@
 												<span></span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_2_A_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -403,13 +431,18 @@
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_2_A_S_DUST">
+<<<<<<< HEAD
 												<span></span>
+=======
+												<span>27.11</span>
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_2_A_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
@@ -418,9 +451,14 @@
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_2_A_S_ILLM">
+<<<<<<< HEAD
 												<span></span>
+=======
+												<span>357</span>
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_2_A_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -565,14 +603,22 @@
 th {
 	font-size: 55%;
 }
+.sensordata_div{
+	height: 147px;
+}
 
 /* on, off 토글 버튼 css */
 /* The switch - the box around the slider */
 .switch {
 	position: relative;
 	display: inline-block;
+<<<<<<< HEAD
 	width: 47px;
 	height: 25px;
+=======
+	width: 42px;
+	height: 20px;
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 	vertical-align:middle;
 }
 
@@ -594,10 +640,17 @@ th {
 .slider:before {
 	position: absolute;
 	content: ""; /* off */
+<<<<<<< HEAD
 	height: 21.5px;
 	width: 19px;
 	left: 4px;
 	bottom: 1.7px;
+=======
+	height: 15px;
+	width: 13px;
+	left: 4px;
+	bottom: 2.6px;
+>>>>>>> 64a4d1d7b0eaa2e35935a253511271708900c212
 	background-color: white;
 	transition: .2s;
 }
