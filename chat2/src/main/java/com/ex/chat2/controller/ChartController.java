@@ -1,23 +1,14 @@
 package com.ex.chat2.controller;
 
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Properties;
-
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -286,14 +277,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 	public void getNow1(HttpServletResponse res) throws Exception {
 
 		Connection con = null;
+		Calendar cal = Calendar.getInstance();
+		int d = cal.get(Calendar.DAY_OF_MONTH)+6;
+		int h = cal.get(Calendar.HOUR);
+		System.out.println("select avg(humd) as avgHum from env where day(realtime)="+d+" and hour(realtime)="+h);
 //		SimpleDateFormat rtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		System.out.println(rtime);
 		JSONArray ja = new JSONArray();
 		try {
-			con = DriverManager.getConnection(url2, hid, hpwd);
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM ENV WHERE REALTIME ='2020-12-01 23:05:41'");
+			con = DriverManager.getConnection(url2, hid, hpwd);  
+//			PreparedStatement pstmt1 = con.prepareStatement("load data local inpath '/root/)
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM ENV WHERE REALTIME ='2020-12-01 20:55:41'"); 
 			ResultSet rset = pstmt.executeQuery();
-			// [{name: 'Sweden',data:[0.904 81.0 11.0]},{}]
 			while (rset.next()) {
 				JSONObject jo = new JSONObject();
 				jo.put("ultra_finedust", rset.getInt(2));
@@ -306,6 +301,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 			}
 		} catch (Exception e) {
+			
 			throw e;
 		} finally {
 		}
