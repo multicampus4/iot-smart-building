@@ -106,7 +106,7 @@ function displayTempAvg(data){
 			    // the value axis
 			    yAxis: {
 			        stops: [
-			            [1.5, '#FF8000'] //red
+			            [1.5, '#DF5353'] //red
 			            /* [0.5, ''], // yellow
 			            [0.9, '#DF5353'] */ // red
 			        ],
@@ -146,7 +146,7 @@ function displayTempAvg(data){
 			    series: [{
 			        name: 'Speed',
 			        //data:[data[0].data[1]] 행 배열로 받은 경우,
-			        data:[data[0].data[10]],
+			        data:[data[0].data],
 			        dataLabels: {
 			            format:
 			                '<div style="text-align:center">' +
@@ -196,8 +196,9 @@ function displayTempAvg(data){
 			    // the value axis
 			    yAxis: {
 			        stops: [
-			            [1.5, '#FFFF00'] //yellow
-			           
+			            [1.5, '#DDDF0D'] //yellow
+			            /* [0.5, ''], // yellow
+			            [0.9, '#DF5353'] */ // red
 			        ],
 			        lineWidth: 0,
 			        tickWidth: 0,
@@ -244,7 +245,7 @@ function displayTempAvg(data){
 			        name: 'Speed',
 			        
 			        
-			        data:[data[1].data[10]],
+			        data:[data[1].data],
 			   
 			        
 			        
@@ -297,7 +298,7 @@ function displayTempAvg(data){
 			    // the value axis
 			    yAxis: {
 			        stops: [
-			            [1.5, '#31B404'] // green
+			            [1.5, '#8041D9'] // green
 			            /* [0.5, '#DDDF0D'], // yellow
 			            [0.9, '#DF5353'] */ // red
 			        ],
@@ -346,7 +347,7 @@ function displayTempAvg(data){
 			        name: 'Speed',
 			        
 			        
-			        data:[data[2].data[10]],
+			        data:[data[2].data],
 			   
 			        
 			        
@@ -402,7 +403,7 @@ function displayTempAvg(data){
 			    // the value axis
 			    yAxis: {
 			        stops: [
-			            [1.5, '#9A2EFE'] // green
+			            [1.5, '#8041D9'] // green
 			            /* [0.5, '#DDDF0D'], // yellow
 			            [0.9, '#DF5353'] */ // red
 			        ],
@@ -433,7 +434,7 @@ function displayTempAvg(data){
 				
 			    yAxis: {
 			        min: 0,
-			        max: 1000,
+			        max: 4000,
 			        title: {
 			            text: 'Light'
 			        }
@@ -448,7 +449,7 @@ function displayTempAvg(data){
 			        name: 'Speed',
 			        
 			        
-			        data:[data[3].data[10]],
+			        data:[data[3].data],
 			   
 			        
 			        
@@ -486,13 +487,13 @@ function displayTempAvg(data){
 	         text: '빌딩 내 쾌적지수'
 	     },
 
-	    /*  subtitle: {
+	     subtitle: {
 	         text: '빌딩 내 평균 쾌적지수'
-	     }, */
+	     },
 
 	     yAxis: {
 	         title: {
-	             text: 'Average Score'
+	             text: 'Percentage usage'
 	         }
 	     },
 
@@ -500,14 +501,14 @@ function displayTempAvg(data){
 	         title: {
 	             text: 'Time'
 	         },
-	        /*  accessibility: {
+	         accessibility: {
 	             description: 'Time from December 2010 to September 2019'
-	         }, */
-	         categories: ['05:00', '07:00', '09:00', '11:00', '13:00', '15:00', '17:00', '19:00', '21:00', '23:00']
+	         },
+	         categories: ['01:00', '03:00', '05:00', '07:00', '09:00', '11:00', '13:00', '15:00', '17:00', '19:00', '21:00', '23:00']
 	     },
 
 	     tooltip: {
-	         valueSuffix: ''
+	         valueSuffix: '%'
 	     },
 
 	     plotOptions: {
@@ -530,9 +531,9 @@ function displayTempAvg(data){
 	        	 name: '온도',
 	        	 data :[data[4].data[0],data[4].data[1],data[4].data[2],data[4].data[3],
 	        		 data[4].data[4],data[4].data[5],data[4].data[6],data[4].data[7],
-	        		 data[4].data[8],data[4].data[9]], 
+	        		 data[4].data[8],data[4].data[9],data[4].data[10]], 
 	        	 dashStyle: 'Dash',
-	        	 color: colors[3]
+	        	 color: colors[1]
 	            
 	         },
 	         {
@@ -540,16 +541,16 @@ function displayTempAvg(data){
 	             name: '습도',
 	             data: [data[5].data[0],data[5].data[1],data[5].data[2],data[5].data[3],
 	        		 data[5].data[4],data[5].data[5],data[5].data[6],data[5].data[7],
-	        		 data[5].data[8],data[5].data[9]],
+	        		 data[5].data[8],data[5].data[9],data[5].data[10]],
 	             dashStyle: 'ShortDash',
-	             color: colors[7]
+	             color: colors[3]
 	         },
 	         
 	         {
 	        	 name: '미세먼지',
 	        	 data :[data[6].data[0],data[6].data[1],data[6].data[2],data[6].data[3],
 	        		 data[6].data[4],data[6].data[5],data[6].data[6],data[6].data[7],
-	        		 data[6].data[8],data[6].data[9]],
+	        		 data[6].data[8],data[6].data[9],data[6].data[10]],
 	        	 dashStyle: 'ShortDot',
 	        	 color: colors[2]
 	            
@@ -557,9 +558,7 @@ function displayTempAvg(data){
 	         
 	         {
 	        	 name: '조도',
-	        	 data : [data[7].data[0],data[7].data[1],data[7].data[2],data[7].data[3],
-	        	 		data[7].data[4],data[7].data[5],data[7].data[6],data[7].data[7],
-	        	 		data[7].data[8],data[7].data[9]], 
+	        	 //data : [35.6, 21.5, 14.2, 41.8, 24.2, 10.4], 
 	        	 dashStyle: 'ShortDashDot',
 	        	 color: colors[4]
 	            
@@ -593,12 +592,9 @@ function displayTempAvg(data){
  }
  
  function displayTable(data){
-	
 	 var str='';
-	/*  $.each(data, function(index,item){
-		//for(int index=0; index<4; index++){
-		  
-			alert([index.length]<3)
+	 $.each(data, function(index,item){
+		 //alert(item.data[0])
 			str += '<tr>';
 			str += '<td>' + item.name+'</td>';
 			str += '<td>' + item.data[0]+ '</td>';
@@ -606,43 +602,27 @@ function displayTempAvg(data){
 			str += '<td>' + item.data[2]+ '</td>';
 			str += '<td>' + item.data[3]+ '</td>';
 			str += '<td>' + item.data[4]+ '</td>';
-			str += '<td>' + item.data[5]+ '</td>';
 			str += '<td>' + item.data[6]+ '</td>';
 			str += '<td>' + item.data[7]+ '</td>';
 			str += '<td>' + item.data[8]+ '</td>';
 			str += '<td>' + item.data[9]+ '</td>';
+			str += '<td>' + item.data[10]+ '</td>';
+			str += '<td>' + item.data[11]+ '</td>';
+			str += '<td>' + item.data[12]+ '</td>';
+			
+		
 			
 			str += '</tr>';
-		//}
-			
-		});  */
-		for(var i=0;i<4;i++){
-			//alert(data.length[4])
-			str += '<tr>';
-			str += '<td>' + data[i].name+'</td>';
-			str += '<td>' + data[i].data[0]+ '</td>';
-			str += '<td>' + data[i].data[1]+ '</td>'; //str += '<td>' + item.y+ '</td>'; 이렇게 계속 추가하면 데이터 표에 입력됨 
-			str += '<td>' + data[i].data[2]+ '</td>';
-			str += '<td>' + data[i].data[3]+ '</td>';
-			str += '<td>' + data[i].data[4]+ '</td>';
-			str += '<td>' + data[i].data[5]+ '</td>';
-			str += '<td>' + data[i].data[6]+ '</td>';
-			str += '<td>' + data[i].data[7]+ '</td>';
-			str += '<td>' + data[i].data[8]+ '</td>';
-			str += '<td>' + data[i].data[9]+ '</td>';
-			
-			str += '</tr>';
-		};
+		}); 
 		$('#htable').html(str);	
  }
  
  function getTimeGph(){
 		$.ajax({
-			url:'getMain.mc',
+			url:'getTimeGph.mc',
 			success:function(data){
 			
 				displayTimeGph(data);
-				console.log(data)
 				
 			},
 			error:function(){
@@ -659,19 +639,19 @@ function displayTempAvg(data){
 			success:function(data){
 				displayTable(data);
 	        //alert(data)
-	        //console.log(data)
+	        console.log(data)
 				
 
 			},
 			error:function(){
 				}
 		});
-		//displayTable();
+		displayTable();
 	}
  
 function getDayAvg(){
 		$.ajax({
-			url:'getMain.mc',
+			url:'getdata1204.mc',
 			
 			success:function(data){
 				//alert(data[0].data);
@@ -684,65 +664,30 @@ function getDayAvg(){
 			error:function(){
 				}
 		});
+		/* displayTempAvg();
+		displayHumAvg();
+		displayDustSat();
+		displayLightAvg(); */
 		
 	}
-	
+ 
  //body의 onclick에 의해 실행되는 함수 
  //클릭하면 아래의 함수가 호출되고 아래의 함수에 따른 데이터로 그래프와 표가 업데이트 된다.
  //추후 실제 로그데이터가 만들어지면 해당 날짜에 onclick이벤트 실행하여 해당 데이터로 업데이트 되는 함수 작성해 주면 됨 
- function getdata1201(){
+ function getdata1204(){
 		$.ajax({
-			url:'getdata1201.mc?cmd=1',
-		 	
-		 
+			url:'getdata1204.mc',
+			//alert(123)
 			success:function(data){
-			
-				/* if(data.cmd="1"){
-				displayTempAvg(data);
-				displayHumAvg(data);
+				displayTempAvg(data)
+				displayHumAvg(data)
 				displayDustSat(data);
 				displayLightAvg(data);
-				//displayTable(data);
-					console.log(data)
-				}if(data.cmd="2"){alert("cmd ok")
-					displayTimeGph(data);
-					
-				} */
-				displayTempAvg(data);
-				displayHumAvg(data);
-				displayDustSat(data);
-				displayLightAvg(data);
-				displayTable(data);
-		
 			},
 			error:function(){
 			}
-			
-				});
-		$.ajax({
-			url:'getdata1201.mc?cmd=2',
-					success:function(data){
-						displayTimeGph(data);
-					},
-					error:function(){
-						
-					}
 		});
 	} 
- /* function getdata1201(){
-	 $.ajax({
-		 
-		 url:'getTable1201.mc',
-		 success:function(data){
-			 displayTable(data);alert("ok?")
-		 },
-		 error:function(){
-			 
-		 }
-		 
-	 });
- } */
- 
   function getdata1205(){
 		$.ajax({
 			url:'getdata1205.mc',
@@ -917,18 +862,18 @@ $(document).ready(function(){
                      <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle-split dropdown-toggle btn btn-secondary"><span class="sr-only">Toggle Dropdown</span>
                      </button>
                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1130()">2020-11-30</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1201()">2020-12-01</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1202()">2020-12-02</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1203()">2020-12-03</button>
-                         <!-- <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1208()">1208</button> -->
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1204()">1204</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1205()">1205</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1206()">1206</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1207()">1207</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1208()">1208</button>
                         </div>
                    </div>
 				</div>
 			</div> 
 		</div>
 	</div>
-	 <div class="col-md-6 col-xl-4">
+	<div class="col-md-6 col-xl-4">
 		<div class="card mb-3 widget-content bg-grow-early">
 			<div class="widget-content-wrapper text-white">
 				<div class="widget-content-left">
@@ -942,7 +887,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-	</div> 
+	</div>
 	<div class="d-xl-none d-lg-block col-md-6 col-xl-4">
 		<div class="card mb-3 widget-content bg-premium-dark">
 			 <div class="widget-content-wrapper text-white">
@@ -1054,6 +999,8 @@ $(document).ready(function(){
                                             <thead>
                                             <tr>
                                                 <th class='backslash'><div>시간</div>센서</th>
+                                                <th>01:00</th>
+                                                <th>03:00</th>
                                                 <th>05:00</th>
                                                 <th>07:00</th>
                                                 <th>09:00</th>
@@ -1093,6 +1040,322 @@ $(document).ready(function(){
                                 </div>
                             </div>
                             </div>
+<div class="row">
+	<div class="col-md-6 col-xl-4">
+		<div class="card mb-3 widget-content">
+			<div class="widget-content-outer">
+				<div class="widget-content-wrapper">
+					<div class="widget-content-left">
+						<div class="widget-heading">Total Orders</div>
+						<div class="widget-subheading">Last year expenses</div>
+					</div>
+					<div class="widget-content-right">
+						<div class="widget-numbers text-success">1896</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-xl-4">
+		<div class="card mb-3 widget-content">
+			<div class="widget-content-outer">
+				<div class="widget-content-wrapper">
+					<div class="widget-content-left">
+						<div class="widget-heading">Products Sold</div>
+						<div class="widget-subheading">Revenue streams</div>
+					</div>
+					<div class="widget-content-right">
+						<div class="widget-numbers text-warning">$3M</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-xl-4">
+		<div class="card mb-3 widget-content">
+			<div class="widget-content-outer">
+				<div class="widget-content-wrapper">
+					<div class="widget-content-left">
+						<div class="widget-heading">Followers</div>
+						<div class="widget-subheading">People Interested</div>
+					</div>
+					<div class="widget-content-right">
+						<div class="widget-numbers text-danger">45,9%</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+		<div class="card mb-3 widget-content">
+			<div class="widget-content-outer">
+				<div class="widget-content-wrapper">
+					<div class="widget-content-left">
+						<div class="widget-heading">Income</div>
+						<div class="widget-subheading">Expected totals</div>
+					</div>
+					<div class="widget-content-right">
+						<div class="widget-numbers text-focus">$147</div>
+					</div>
+				</div>
+				<div class="widget-progress-wrapper">
+					<div class="progress-bar-sm progress-bar-animated-alt progress">
+						<div class="progress-bar bg-info" role="progressbar"
+							aria-valuenow="54" aria-valuemin="0" aria-valuemax="100"
+							style="width: 54%;"></div>
+					</div>
+					<div class="progress-sub-label">
+						<div class="sub-label-left">Expenses</div>
+						<div class="sub-label-right">100%</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="main-card mb-3 card">
+			<div class="card-header">
+				Active Users
+				<div class="btn-actions-pane-right">
+					<div role="group" class="btn-group-sm btn-group">
+						<button class="active btn btn-focus">Last Week</button>
+						<button class="btn btn-focus">All Month</button>
+					</div>
+				</div>
+			</div>
+			<div class="table-responsive">
+				<table
+					class="align-middle mb-0 table table-borderless table-striped table-hover">
+					<thead>
+						<tr>
+							<th class="text-center">#</th>
+							<th>Name</th>
+							<th class="text-center">City</th>
+							<th class="text-center">Status</th>
+							<th class="text-center">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center text-muted">#345</td>
+							<td>
+								<div class="widget-content p-0">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left mr-3">
+											<div class="widget-content-left">
+												<img width="40" class="rounded-circle"
+													src="assets/images/avatars/4.jpg" alt="">
+											</div>
+										</div>
+										<div class="widget-content-left flex2">
+											<div class="widget-heading">John Doe</div>
+											<div class="widget-subheading opacity-7">Web Developer</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">Madrid</td>
+							<td class="text-center">
+								<div class="badge badge-warning">Pending</div>
+							</td>
+							<td class="text-center">
+								<button type="button" id="PopoverCustomT-1"
+									class="btn btn-primary btn-sm">Details</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center text-muted">#347</td>
+							<td>
+								<div class="widget-content p-0">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left mr-3">
+											<div class="widget-content-left">
+												<img width="40" class="rounded-circle"
+													src="assets/images/avatars/3.jpg" alt="">
+											</div>
+										</div>
+										<div class="widget-content-left flex2">
+											<div class="widget-heading">Ruben Tillman</div>
+											<div class="widget-subheading opacity-7">Etiam sit amet
+												orci eget</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">Berlin</td>
+							<td class="text-center">
+								<div class="badge badge-success">Completed</div>
+							</td>
+							<td class="text-center">
+								<button type="button" id="PopoverCustomT-2"
+									class="btn btn-primary btn-sm">Details</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center text-muted">#321</td>
+							<td>
+								<div class="widget-content p-0">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left mr-3">
+											<div class="widget-content-left">
+												<img width="40" class="rounded-circle"
+													src="assets/images/avatars/2.jpg" alt="">
+											</div>
+										</div>
+										<div class="widget-content-left flex2">
+											<div class="widget-heading">Elliot Huber</div>
+											<div class="widget-subheading opacity-7">Lorem ipsum
+												dolor sic</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">London</td>
+							<td class="text-center">
+								<div class="badge badge-danger">In Progress</div>
+							</td>
+							<td class="text-center">
+								<button type="button" id="PopoverCustomT-3"
+									class="btn btn-primary btn-sm">Details</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center text-muted">#55</td>
+							<td>
+								<div class="widget-content p-0">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left mr-3">
+											<div class="widget-content-left">
+												<img width="40" class="rounded-circle"
+													src="assets/images/avatars/1.jpg" alt="">
+											</div>
+										</div>
+										<div class="widget-content-left flex2">
+											<div class="widget-heading">Vinnie Wagstaff</div>
+											<div class="widget-subheading opacity-7">UI Designer</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">Amsterdam</td>
+							<td class="text-center">
+								<div class="badge badge-info">On Hold</div>
+							</td>
+							<td class="text-center">
+								<button type="button" id="PopoverCustomT-4"
+									class="btn btn-primary btn-sm">Details</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="d-block text-center card-footer">
+				<button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
+					<i class="pe-7s-trash btn-icon-wrapper"> </i>
+				</button>
+				<button class="btn-wide btn btn-success">Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6 col-lg-3">
+		<div
+			class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<div class="widget-content-wrapper">
+						<div class="widget-content-left pr-2 fsize-1">
+							<div class="widget-numbers mt-0 fsize-3 text-danger" id=dustavg></div>
+						</div>
+						<div class="widget-content-right w-100">
+							<div class="progress-bar-xs progress">
+								<div class="progress-bar bg-danger" role="progressbar"
+									aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"
+									style="width: 50%;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="widget-content-left fsize-1">
+						<div class="text-muted opacity-6">Income Target</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-3">
+		<div
+			class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card">
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<div class="widget-content-wrapper">
+						<div class="widget-content-left pr-2 fsize-1">
+							<div class="widget-numbers mt-0 fsize-3 text-success">54%</div>
+						</div>
+						<div class="widget-content-right w-100">
+							<div class="progress-bar-xs progress">
+								<div class="progress-bar bg-success" role="progressbar"
+									aria-valuenow="54" aria-valuemin="0" aria-valuemax="100"
+									style="width: 54%;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="widget-content-left fsize-1">
+						<div class="text-muted opacity-6">Expenses Target</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-3">
+		<div
+			class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card">
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<div class="widget-content-wrapper">
+						<div class="widget-content-left pr-2 fsize-1">
+							<div class="widget-numbers mt-0 fsize-3 text-warning">32%</div>
+						</div>
+						<div class="widget-content-right w-100">
+							<div class="progress-bar-xs progress">
+								<div class="progress-bar bg-warning" role="progressbar"
+									aria-valuenow="32" aria-valuemin="0" aria-valuemax="100"
+									style="width: 32%;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="widget-content-left fsize-1">
+						<div class="text-muted opacity-6">Spendings Target</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-3">
+		<div
+			class="card-shadow-info mb-3 widget-chart widget-chart2 text-left card">
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<div class="widget-content-wrapper">
+						<div class="widget-content-left pr-2 fsize-1">
+							<div class="widget-numbers mt-0 fsize-3 text-info">89%</div>
+						</div>
+						<div class="widget-content-right w-100">
+							<div class="progress-bar-xs progress">
+								<div class="progress-bar bg-info" role="progressbar"
+									aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"
+									style="width: 89%;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="widget-content-left fsize-1">
+						<div class="text-muted opacity-6">Totals Target</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-                            
-                            
