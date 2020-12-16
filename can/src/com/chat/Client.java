@@ -36,7 +36,7 @@ public class Client implements SerialPortEventListener {
 	
 	// 아두이노 센서에서 받아올 데이터의 가짓수
 	// 예) tmp, hum, acX, acY, acZ -> 5
-	static int numOfDataType = 2;
+//	static int numOfDataType = 2;
 	
 	// 멤버 변수
 	int port;
@@ -279,13 +279,10 @@ public class Client implements SerialPortEventListener {
 				if(correctedBufferStr != null) {
 					// 정상수행
 					ss = correctedBufferStr;
-					System.out.println("hi :" + ss);
+					System.out.println("Corrected buffer : " + ss);
 				} else {
 					break;
 				}
-				
-
-//				String ss = "";
 				
 //				String [] array = ss.split(";");
 //				if(array.length != 4 || array[0].charAt(0)!='A' || array[0].charAt(0)!='t') {
@@ -293,16 +290,21 @@ public class Client implements SerialPortEventListener {
 //					break;
 //				}
 				
-				sendTcpip2(ss);					
-				// Send JSON to DashBoard (Websocket)
-				JSONObject jsonTemp = new JSONObject();
+//				sendTcpip2(ss);					
+				
 				String rawToJson = convertJson(ss).toJSONString();
 				System.out.println(rawToJson);
-				WsClient.send(rawToJson);
 				sendTcpip(rawToJson);
+				
+				// Send JSON to DashBoard (Websocket)
+				if(WsClient.isOpen()) {
+					WsClient.send(rawToJson);
+				} else {
+					System.out.println("WebSocket is not opend");
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
-//				System.out.println("연결오류");
 			}
 			break;
 		}
@@ -321,7 +323,7 @@ public class Client implements SerialPortEventListener {
 			
 			int start = bufferStr.indexOf("$");
 			int end = bufferStr.indexOf("^");
-			System.out.println("start: " + start + "; end: " + end);
+//			System.out.println("start: " + start + "; end: " + end);
 			if (start == end + 1) {
 				// ^$ 붙어있는 경우
 				// $ 이후의 string만 보존하여 저장 후 null 리턴
@@ -334,8 +336,7 @@ public class Client implements SerialPortEventListener {
 //				bufferStr = bufferStr.substring(end + 1);
 				bufferStr = "";
 				
-				System.out.println("bufferStr" + bufferStr);
-				System.out.println("correctBufferStr = " + correctBufferStr);
+//				System.out.println("correctBufferStr = " + correctBufferStr);
 				return correctBufferStr;
 			}
 			
