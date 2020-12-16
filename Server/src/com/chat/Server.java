@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.java_websocket.client.WebSocketClient;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.msg.DeviceVO;
 import com.msg.Msg;
@@ -44,16 +45,16 @@ public class Server {
 	static String oracleId;
 	static String oraclePwd;
 
-	ServerSocket serverSocket; // ServerSocket 객체
-	static WebSocketClient WsClient; // WebSocket Client 객체 (대시보드에 데이터 전송)
+	ServerSocket serverSocket; 							// ServerSocket 객체
+	static WebSocketClient WsClient; 					// WebSocket Client 객체 (대시보드에 데이터 전송)
 	static AutoController autoController;
 
 	// client들의 메세지를 받는다.
-	HashMap<String, ObjectOutputStream> maps;	// HashMap<IP주소, 해당 아웃풋스트림>
-	HashMap<String, String> idipMaps; 			// HashMap<클라이언트id, 클라이언트ip> for sendTarget
-												// ex) <latte_1_A, 192.168.1.11>
-	static boolean isConnectWebsocket = false;	// WebSocket 연결여부 확인 FLAG
-	static HashMap<String, DeviceVO> deviceStat;// DB Device 테이블의 디바이스 상태 저장 ex) <1_A_D_AIR, ON>
+	HashMap<String, ObjectOutputStream> maps;			// HashMap<IP주소, 해당 아웃풋스트림>
+	HashMap<String, String> idipMaps; 					// HashMap<클라이언트id, 클라이언트ip> for sendTarget
+														// ex) <latte_1_A, 192.168.1.11>
+	static boolean isConnectWebsocket = false;			// WebSocket 연결여부 확인 FLAG
+	static HashMap<String, DeviceVO> deviceStat;		// DB Device 테이블의 디바이스 상태 저장 ex) <1_A_D_AIR, ON>
 
 	// 기본 생성자
 	public Server() {
@@ -73,8 +74,8 @@ public class Server {
 
 	// 서버를 시작하는 startServer() 함수
 	public void startServer() throws Exception {
-		serverSocket = new ServerSocket(port); // serverSocket에 포트를 입력하여 선언
-		System.out.println("Strat Server ..."); // "서버를 시작합니다."
+		serverSocket = new ServerSocket(port); 			// serverSocket에 포트를 입력하여 선언
+		System.out.println("Strat Server ..."); 		// "서버를 시작합니다."
 
 		// 네트워크는 스레드에서 동작시켜야 한다.
 		Runnable r = new Runnable() {
@@ -108,9 +109,9 @@ public class Server {
 	// 각각의 client들의 outputstream을 hashmap에 저장한다.
 	public void makeOut(Socket socket) throws IOException {
 		ObjectOutputStream oo; // 아웃풋스트림 객체인 oo 선언
-		oo = new ObjectOutputStream(socket.getOutputStream()); // 소켓으로부터 아웃풋 스트림을 가져와 대입
-		maps.put(socket.getInetAddress().toString(), oo); // IP주소와 아웃풋스트림을 해쉬맵에 저장
-		System.out.println("접속자수: " + maps.size()); // 해쉬맵의 크기로 접속자 수를 출력
+		oo = new ObjectOutputStream(socket.getOutputStream());	// 소켓으로부터 아웃풋 스트림을 가져와 대입
+		maps.put(socket.getInetAddress().toString(), oo); 		// IP주소와 아웃풋스트림을 해쉬맵에 저장
+		System.out.println("접속자수: " + maps.size());			// 해쉬맵의 크기로 접속자 수를 출력
 	}
 
 	// client들을 받는다.
@@ -426,10 +427,11 @@ public class Server {
 	public void logdata(String data) throws Exception {
 		// tmp
 		System.out.println("<"+data+"> 로그데이터를 받았습니다.");
-		String [] array = data.split(";");
-		if(array[0].charAt(0)=='A') {
+		String [] array_semicolon = data.split(";");
+		System.out.println(array_semicolon[0]);
+		if(array_semicolon[0].charAt(0) == 'A') {
 			LOGGER = Logger.getLogger("earthquake");
-		}else if(array[0].charAt(0)=='t') {
+		}else if(array_semicolon[0].charAt(0)== 't') {
 			LOGGER = Logger.getLogger("tmp&hum&dst&lgt");
 		}
 		LOGGER.info(data);
