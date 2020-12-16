@@ -23,9 +23,11 @@ void loop() {
     concentration = 1.1*pow(ratio,3)-3.8*pow(ratio,2)+520*ratio+0.62; // using spec sheet curve
     ugm3= concentration * 100 /13000;
     
+    Serial.print("$");  // start char
     Serial.print("ugm3 = " );
     Serial.print(ugm3);
-    Serial.println("ug/m3" );
+    Serial.print("ug/m3" );
+    Serial.print(";^\n"); // end char
     //Serial.print(ratio); Low pulse Occupancy %를 알고 싶을때
     //Serial.print(concentration); concentration 를 알고 싶을때
     lowpulseoccupancy = 0;
