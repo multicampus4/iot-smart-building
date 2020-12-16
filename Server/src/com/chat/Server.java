@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -158,6 +159,7 @@ public class Server {
 						}
 						break;
 					case "ssRaw":
+						logdata(msg.getMsg());	// 로그데이터 먼저 보내기
 						ArrayList<String> autoControlCmd = autoController.getCmdArr(msg.getMsg());
 						if (autoControlCmd.isEmpty()) { // 제어할 내용 없음
 							System.out.println("Auto Controller : Fine! Nothing to control");
@@ -197,8 +199,8 @@ public class Server {
 						// 기타 메시지 처리
 						System.out.println("기타메시지: " + msg);
 						break;
-					case "RawToLog":
-						logdata(msg.getMsg());
+//					case "RawToLog":
+////						logdata(msg.getMsg());
 					}
 
 					// =========================== Legacy ==================================
@@ -425,16 +427,53 @@ public class Server {
 		System.out.println("Load deviceStat OK ... (FROM table `DEVICE`)");
 	}
 	public void logdata(String data) throws Exception {
+	    JSONParser jsonParser = new JSONParser();
+	    JSONObject jsonObj = null;
+		jsonObj = (JSONObject)jsonParser.parse(data);
+        Set key = jsonObj.keySet();
+        Iterator<String> iterator = key.iterator();
+        String log = "";
+        while(iterator.hasNext()) {
+        	String keyName = iterator.next();
+        	switch(keyName) {
+        	case "AcX":
+    	        log += (String) jsonObj.get("AcX")+",";
+    	        continue;
+        	case "AcY":
+        		log += (String) jsonObj.get("AcY")+",";
+        		continue;
+        	case "AcZ":
+        		log += (String) jsonObj.get("AcZ")+",";
+        		continue;
+        	case "dng":
+        		log += (String) jsonObj.get("dng");
+    			LOGGER = Logger.getLogger("earthquake");
+    			continue;
+        	case "tmp":
+    			log += (String) jsonObj.get("tmp")+",";
+        		continue;
+        	case "hum":
+    			log += (String) jsonObj.get("hum")+",";
+        		continue;
+        	case "dst":
+    			log += (String) jsonObj.get("dst")+",";
+        		continue;
+        	case "lgt":
+    			log += (String) jsonObj.get("lgt");
+    			LOGGER = Logger.getLogger("tmp&hum&dst&lgt");
+    			continue;
+        	}
+        }
+        LOGGER.info(log);
 		// tmp
-		System.out.println("<"+data+"> 로그데이터를 받았습니다.");
-		String [] array_semicolon = data.split(";");
-		System.out.println(array_semicolon[0]);
-		if(array_semicolon[0].charAt(0) == 'A') {
-			LOGGER = Logger.getLogger("earthquake");
-		}else if(array_semicolon[0].charAt(0)== 't') {
-			LOGGER = Logger.getLogger("tmp&hum&dst&lgt");
-		}
-		LOGGER.info(data);
+//		System.out.println("<"+log+"> 로그데이터를 받았습니다.");
+//		String [] array_semicolon = data.split(";");
+//		System.out.println(array_semicolon[0]);
+//		if(array_semicolon[0].charAt(0) == 'A') {
+//			LOGGER = Logger.getLogger("earthquake");
+//		}else if(array_semicolon[0].charAt(0)== 't') {
+//			LOGGER = Logger.getLogger("tmp&hum&dst&lgt");
+//		}
 	}
 	public static void main(String[] args) {
 		getProp();
