@@ -284,12 +284,6 @@ public class Client implements SerialPortEventListener {
 					break;
 				}
 				
-//				if(bufferIsCorrect(correctedBufferString)) {
-//					// 정상 수행
-					// String ss = makePureRawData(ss);
-//				} else {
-//					break;
-//				}
 
 //				String ss = "";
 				
@@ -335,7 +329,10 @@ public class Client implements SerialPortEventListener {
 				return null;
 			} else {
 				String correctBufferStr = bufferStr.substring(start + 1, end);
-				bufferStr = bufferStr.substring(end + 1);
+				// 병목 현상이 생기는 문제
+				// 임시방편 : 정상 처리 되면 나머지는 버리자
+//				bufferStr = bufferStr.substring(end + 1);
+				bufferStr = "";
 				
 				System.out.println("bufferStr" + bufferStr);
 				System.out.println("correctBufferStr = " + correctBufferStr);
