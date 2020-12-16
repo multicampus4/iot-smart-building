@@ -42,6 +42,7 @@ void loop() {
     fakeAmountTmp = 0;
   }
   
+  Serial.print("$");
   Serial.print("tmp");
   Serial.print(temp);
   Serial.print(";hum");
@@ -53,7 +54,7 @@ void loop() {
 //  Serial.print(temp+2.19);
 //  Serial.print(";acz");
 //  Serial.print(temp+1.84);
-  Serial.print(";\n");
+  Serial.print(";^\n");
   
 }
 
