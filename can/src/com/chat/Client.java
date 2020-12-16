@@ -34,6 +34,7 @@ public class Client implements SerialPortEventListener {
 	// latte_1_A : 1A 구역에서 가동되는 IoT 클라이언트
 	static String AREA = "1_A";
 	static String LATTE_ID = "latte_" + AREA;	// latte_1_A
+	
 	// 멤버 변수
 	int port;
 	String address;
@@ -58,6 +59,8 @@ public class Client implements SerialPortEventListener {
 
 	// 웹소켓
 	static WebSocketClient WsClient;
+
+	String bufferStr = "";
 
 	// 기본생성자
 	public Client() throws Exception {
@@ -259,27 +262,87 @@ public class Client implements SerialPortEventListener {
 		case SerialPortEvent.OUTPUT_BUFFER_EMPTY:
 			break;
 		case SerialPortEvent.DATA_AVAILABLE:
+			String ss = "";
 			byte[] readBuffer = new byte[128];
 			try {
 				while (bin.available() > 0) {
 					int numBytes = bin.read(readBuffer);	// ??? 뭐하는 코드?
 				}
-				String ss = new String(readBuffer).trim();
-				String [] array = ss.split(";");
-				if(array.length != 4) {
-					System.out.println("Return ... Crashed Data ..." + ss);
+
+				String newBufferStr = new String(readBuffer).trim();	// Data From Aruduino : "tmp26.00;hum80.00;^"
+				System.out.println("RAW DATA From ARDUINO:" + newBufferStr );
+				String correctedBufferStr = bufferCorrection(newBufferStr);	// crahed data 보정
+				
+				if(correctedBufferStr != null) {
+					// 정상수행
+					ss = correctedBufferStr;
+					System.out.println("Corrected buffer : " + ss);
+				} else {
+					// 보정결과 불완전 메시지일 경우 return;
 					break;
 				}
-				System.out.println("RAW DATA From ARDUINO:" + ss);
-				sendTcpip2(ss);
-				// Send JSON to DashBoard (Websocket)
+				
+//				String [] array = ss.split(";");
+//				if(array.length != 4 || array[0].charAt(0)!='A' || array[0].charAt(0)!='t') {
+//					System.out.println("Return ... Crashed Data ..." + ss);
+//					break;
+//				}
+				
+//				sendTcpip2(ss);					
+				
 				String rawToJson = convertJson(ss).toJSONString();
-				WsClient.send(rawToJson);
+				System.out.println(rawToJson);
 				sendTcpip(rawToJson);
+				
+				// Send JSON to DashBoard (Websocket)
+				if(WsClient.isOpen()) {
+					WsClient.send(rawToJson);
+				} else {
+					System.out.println("WebSocket is not opend");
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
+		}
+	}
+
+	// 끊겨서 들어오는 데이터 ex) "p26.00;hum80.00;^$tm"
+	// master 메시지 "tmp26.00;hum80.00;"
+	// 시작 문자 : "$"
+	// 종료 문자 : "^"
+	public String bufferCorrection(String newBufferStr) {
+		// 개행문자 제거
+		newBufferStr = newBufferStr.replaceAll("(\r | \n | \r\n | \n\r)", "");
+		
+		if (newBufferStr.contains("$") && newBufferStr.contains("^")) {
+			bufferStr = bufferStr.concat(newBufferStr);
+			
+			int start = bufferStr.indexOf("$");
+			int end = bufferStr.indexOf("^");
+//			System.out.println("start: " + start + "; end: " + end);
+			if (start == end + 1) {
+				// ^$ 붙어있는 경우
+				// $ 이후의 string만 보존하여 저장 후 null 리턴
+				bufferStr = bufferStr.substring(end+1);
+				return null;
+			} else {
+				String correctBufferStr = bufferStr.substring(start + 1, end);
+				// 병목 현상이 생기는 문제
+				// 임시방편 : 정상 처리 되면 나머지는 버리자
+//				bufferStr = bufferStr.substring(end + 1);
+				bufferStr = "";
+				
+//				System.out.println("correctBufferStr = " + correctBufferStr);
+				return correctBufferStr;
+			}
+			
+
+		} else {
+			// 기존 버퍼에 new버퍼 붙여서 저장 후 null 리턴
+			bufferStr = bufferStr.concat(newBufferStr);
+			return null;
 		}
 	}
 
