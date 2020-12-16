@@ -1,20 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <div class="main-card mb-1 card m-10">
 	<div class="card-header ch_height">
-		<i class="header-icon lnr-gift icon-gradient bg-grow-early"> </i><h3>The
-		Floor View</h3>
+		<i class="header-icon lnr-gift icon-gradient bg-grow-early"> </i><h3>
+		층별제어</h3>
 		<div class="btn-actions-pane-right">
 
 			<div class="nav nav_ml">
 				<a data-toggle="tab" href="#tab-eg4-0"
-					class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-danger">Floor 1</a>
+					class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-danger"><h6 class="mb-0">1층</h6></a>
 				<a data-toggle="tab" href="#tab-eg4-1"
-					class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-danger">Floor 2</a>
+					class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-danger"><h6 class="mb-0">2층</h6></a>
 			</div>
 
 			<!-- 비활성화 제어 버튼 -->
-			
 			<div class="nav Dis_content">
-				<div class="Dis_title">DEVICE DISABLED : </div>
+				<div class="Dis_title">디바이스 비활성화 : </div>
 				<div class="toggle_Dis" id="switch_Dis">
 					<div class="toggle-text-off">OFF</div>
 					<div class="glow-comp"></div>
@@ -34,25 +35,57 @@
 			<div class="tab-pane active" id="tab-eg4-0" role="tabpanel">
 				<div class="row">
 					
-					<div class="col-md-6">
+					<div class="col-md-6 pr-0 pl-2">
 						<!-- 평면도 -->
 						<div class="fp-wrap">
 							<div class="fp-image">
 								<img src="images/floorPlan7.jpg" alt="">
 							</div>
-	
+							
+							<!-- 비상대피로 -->
+							<!-- 길표시 -->
+							<div class="escape_road_container1">
+								<div class="escape_road1"></div>
+							</div>
+							<div class="escape_road2"></div>
+
+							<div class="escape_road_container3">
+								<div class="escape_road3"></div>
+							</div>
+							<div class="escape_road4"></div>
+
+							<div class="escape_road_container5">
+								<div class="escape_road5"></div>
+							</div>
+							<div class="escape_road6"></div>
+							
+							<div class="escape_road_container7">
+								<div class="escape_road7"></div>
+							</div>
+
+							<div class="escape_road8"></div>
+							
+							<div class="escape_road9"></div>
+
+							<!-- 길 애니메이션 -->
+							<div class="escape_ani infinite">infinite</div>
+							
+
 							<!-- 1_A tooltip-->
 							<div class="Area_1A">
 								<div class="con-tooltip right" id="tt_1_A">
 									<div class="tooltip">
-										TEMPERATURE :<br>
-										<div id="1_A_S_TEMP"></div>
-										HUMIDITY :<br>
-										<div id="1_A_S_HUM"></div>
-										FINE DUST :<br>
-										<div id="1_A_S_DUST"></div>
-										AMBIENT LIGHT :<br>
-										<div id="1_A_S_ILLM"></div>
+										<div class="border_rd mb-2">A구역</div>
+										<div class="tooltip_inbl">
+											온도&nbsp:&nbsp
+											<div id="1_A_S_TEMP">21.34</div><br>
+											습도&nbsp:&nbsp
+											<div id="1_A_S_HUM">67.0</div><br>
+											미세먼지&nbsp:&nbsp
+											<div id="1_A_S_DUST">17.23</div><br>
+											조도&nbsp:&nbsp
+											<div id="1_A_S_ILLM">348</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -61,18 +94,22 @@
 							<div class="Area_1B">
 								<div class="con-tooltip right" id="tt_1_B">
 									<div class="tooltip">
-										TEMPERATURE :
-										<p id="1_B_S_TEMP"></p>
-										HUMIDITY :
-										<p id="1_B_S_HUM"></p>
-										FINE DUST :
-										<p id="1_B_S_DUST"></p>
-										AMBIENT LIGHT :
-										<p id="1_B_S_ILLM"></p>
+										<div class="border_rd mb-2">B구역</div>
+										<div class="tooltip_inbl">
+											온도&nbsp:&nbsp
+											<div id="1_B_S_TEMP">17.12</div><br>
+											습도&nbsp:&nbsp
+											<div id="1_B_S_HUM">88.50</div><br>
+											미세먼지&nbsp:&nbsp
+											<div id="1_B_S_DUST">63.27</div><br>
+											조도&nbsp:&nbsp
+											<div id="1_B_S_ILLM">282</div>
+										</div>
+										
 									</div>
 								</div>
 							</div>
-	
+							
 						</div><!-- End wrap -->
 					</div> <!-- End col-md -->
 						
@@ -81,63 +118,67 @@
 						<!-- A구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
 						<div class="row text-center">
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">TEMPERATURE</div>
+											<div class="widget-heading">온도</div>
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_A_S_TEMP">
-												<span>12.12</span>
+												<span>21.34</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_A_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">HUMIDITY</div>
+											<div class="widget-heading">습도</div>
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_A_S_HUM">
-												<span></span>
+												<span>67.0</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_A_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">FINE DUST</div>
+											<div class="widget-heading">미세먼지</div>
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_A_S_DUST">
-												<span></span>
+												<span>17.23</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_A_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">AMBIENT LIGHT</div>
+											<div class="widget-heading">조도</div>
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
-											<div class="widget-numbers text-white" id="P_1_A_S_ILLM">
-												<span></span>
+											<div class="widget-numbers" id="P_1_A_S_ILLM">
+												<span>348</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_A_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -149,13 +190,13 @@
 								<table class="mb-0 table">
 									<thead>
 										<tr>
-											<th>AIR CONDITIONER</th>
-											<th>HUMIDIFIER</th>
-											<th>AIR CLEANER</th>
-											<th>LED</th>
-											<th>ELECTRICITY</th>
-											<th>WATER</th>
-											<th>GAS</th>
+											<th>냉난방기</th>
+											<th>가습기</th>
+											<th>공기청정기</th>
+											<th>조명</th>
+											<th>전기</th>
+											<th>수도</th>
+											<th>가스</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -206,63 +247,67 @@
 						<!-- B구역 실시간 데이터 -->
 						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  B</div>
 						<div class="row text-center">
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">TEMPERATURE</div>
+											<div class="widget-heading">온도</div>
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_B_S_TEMP">
-												<span>12.12</span>
+												<span>17.12</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_B_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">HUMIDITY</div>
+											<div class="widget-heading">습도</div>
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_B_S_HUM">
-												<span></span>
+												<span>88.50</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_B_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">FINE DUST</div>
+											<div class="widget-heading">미세먼지</div>
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_B_S_DUST">
-												<span></span>
+												<span>63.27</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_B_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">AMBIENT LIGHT</div>
+											<div class="widget-heading">조도</div>
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_B_S_ILLM">
-												<span></span>
+												<span>282</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_1_B_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -274,13 +319,13 @@
 								<table class="mb-0 table">
 									<thead>
 										<tr>
-											<th>AIR CONDITIONER</th>
-											<th>HUMIDIFIER</th>
-											<th>AIR CLEANER</th>
-											<th>LED</th>
-											<th>ELECTRICITY</th>
-											<th>WATER</th>
-											<th>GAS</th>
+											<th>냉난방기</th>
+											<th>가습기</th>
+											<th>공기청정기</th>
+											<th>조명</th>
+											<th>전기</th>
+											<th>수도</th>
+											<th>가스</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -334,25 +379,27 @@
 			<div class="tab-pane" id="tab-eg4-1" role="tabpanel">
 				<div class="row">
 				
-					<div class="col-md-6">
+					<div class="col-md-6 pr-0 pl-2">
 						<!-- 평면도 -->
 						<div class="fp-wrap">
 							<div class="fp-image">
-								<img src="images/floorPlan2.jpg" alt="">
+								<img src="images/floorPlan7_2.jpg" alt="">
 							</div>
 		
 							<!-- 2_A tooltip-->
 							<div class="Area_2A">
 								<div class="con-tooltip right" id="tt_2_A">
 									<div class="tooltip">
-										TEMPERATURE :<br>
-										<div id="2_A_S_TEMP"></div>
-										HUMIDITY :<br>
-										<div id="2_A_S_HUM"></div>
-										FINE DUST :<br>
-										<div id="2_A_S_DUST"></div>
-										AMBIENT LIGHT :<br>
-										<div id="2_A_S_ILLM"></div>
+										<div class="tooltip_inbl mb-2">
+											온도&nbsp:&nbsp
+											<div id="2_A_S_TEMP"></div><br>
+											습도&nbsp:&nbsp
+											<div id="2_A_S_HUM"></div><br>
+											미세먼지&nbsp:&nbsp
+											<div id="2_A_S_DUST"></div><br>
+											조도&nbsp:&nbsp
+											<div id="2_A_S_ILLM"></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -362,65 +409,69 @@
 					<div class="col-md-6">
 						
 						<!-- A구역 실시간 데이터 -->
-						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">Area  A</div>
+						<div class="mb-1 mr-1 badge badge-pill bg-asteroid text-white">A구역</div>
 						<div class="row text-center">
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">TEMPERATURE</div>
+											<div class="widget-heading">온도</div>
 											<div class="widget-subheading">(&#186;C)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_2_A_S_TEMP">
-												<span>12.12</span>
+												<span>22.41</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_2_A_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">HUMIDITY</div>
+											<div class="widget-heading">습도</div>
 											<div class="widget-subheading">(&#37;)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_2_A_S_HUM">
-												<span></span>
+												<span>65.1</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_2_A_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">FINE DUST</div>
+											<div class="widget-heading">미세먼지</div>
 											<div class="widget-subheading">(&#181;m)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_2_A_S_DUST">
-												<span></span>
+												<span>27.11</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_2_A_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-xl-3">
+							<div class="col-lg-6 col-xl-3 sensordata_div">
 								<div class="card mb-1 widget-content sensordata">
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
-											<div class="widget-heading">AMBIENT LIGHT</div>
+											<div class="widget-heading">조도</div>
 											<div class="widget-subheading">(lx)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_2_A_S_ILLM">
-												<span></span>
+												<span>357</span>
 											</div>
 										</div>
+										<div class="badge badge-pill badge-focus" id="P_2_A_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -433,13 +484,13 @@
 								<table class="mb-0 table">
 									<thead>
 										<tr>
-											<th>AIR CONDITIONER</th>
-											<th>HUMIDIFIER</th>
-											<th>AIR CLEANER</th>
-											<th>LED</th>
-											<th>ELECTRICITY</th>
-											<th>WATER</th>
-											<th>GAS</th>
+											<th>냉난방기</th>
+											<th>가습기</th>
+											<th>공기청정기</th>
+											<th>조명</th>
+											<th>전기</th>
+											<th>수도</th>
+											<th>가스</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -538,6 +589,19 @@
 			}
 		});
 		
+		 // 비상대피로 표시
+	     $(".escape_road_container1").css("display","block");
+	     $(".escape_road2").css("display","block");
+	     setTimeout(function() {
+	        $(".escape_road_container3").css("display","block");
+	     }, 1000);
+	     setTimeout(function() {
+	        $(".escape_road_container5").css("display","block");
+	     }, 2500);
+	     setTimeout(function() {
+		    $(".escape_road_container7").css("display","block");
+		 }, 3600);
+		
 
 	});
 </script>
@@ -557,13 +621,27 @@
 	font-size: 77%;
 }
 .widget-content-left{
-	font-size: 77%;
+	font-size: 100%;
 }
 .widget-content .widget-content-wrapper{
 	display: block;
 }
 th {
-	font-size: 55%;
+	/*font-size: 77%;*/
+}
+.border_rd{
+	border: 1px groove #fff;
+	border-radius: 5px;
+	text-align: center;
+	padding: 1px;
+}
+
+.tooltip_inbl div{
+	display: inline-block;
+	margin-bottom: 3px;
+}
+.sensordata_div{
+	height: 147px;
 }
 
 /* on, off 토글 버튼 css */
@@ -571,8 +649,8 @@ th {
 .switch {
 	position: relative;
 	display: inline-block;
-	width: 47px;
-	height: 25px;
+	width: 42px;
+	height: 20px;
 	vertical-align:middle;
 }
 
@@ -594,10 +672,10 @@ th {
 .slider:before {
 	position: absolute;
 	content: ""; /* off */
-	height: 21.5px;
-	width: 19px;
+	height: 15px;
+	width: 13px;
 	left: 4px;
-	bottom: 1.7px;
+	bottom: 2.6px;
 	background-color: white;
 	transition: .2s;
 }
@@ -611,7 +689,7 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-	transform: translateX(20px);
+	transform: translateX(21px);
 	content: ""; /* on */
 }
 
@@ -638,33 +716,35 @@ input:checked + .slider:before {
 
 /* 구역별 css - 위치 설정 */
 .Area_1A {
+	z-index:1;
 	padding: 5px 10px;
 	text-align: center;
 	position: absolute;
-	top: 58%;
-	left: 80%;
+	top: 61.5%;
+	left: 16%;
 	transform: translate( -30%, -50% );
 }
 .Area_1B {
+	z-index:1;
 	padding: 5px 10px;
 	text-align: center;
 	position: absolute;
-	top: 85%;
-	left: 10%;
+	top: 23.4%;
+	left: 70%;
 	transform: translate( -30%, -50% );
 }
 .Area_2A {
+	z-index:1;
 	padding: 5px 10px;
 	text-align: center;
 	position: absolute;
-	top: 37%;
-	left: 15%;
+	top: 27%;
+	left: 40%;
 	transform: translate( -30%, -50% );
 }
 
 /*tooltip Box*/
 .con-tooltip {
-
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
@@ -684,10 +764,10 @@ input:checked + .slider:before {
 	z-index: 1;
 	opacity: .40;
   
-	width: 400%;
+	width: 330%;
 	padding-top: 10px;
 	padding-bottom: 0px;
-	padding: 20px;
+	padding: 13px;
 
 	background: #333;
 	color: #fff;
@@ -731,7 +811,7 @@ input:checked + .slider:before {
 }
 
 /* tooltip 방향 (오른쪽 ) */
-.right .tooltip { top:-205%; left:115%; }
+.right .tooltip { top:-150%; left:115%; }
 
 .right .tooltip::after{
 	top:40%;
@@ -771,6 +851,7 @@ input:checked + .slider:before {
     	box-shadow: 0 0 6px 4px rgba(255, 0, 0, 0), 0 0 0px 20px transparent, 0 0 0px 20px rgba(255, 0, 0, 0);
   	}
 }
+
 
 /* 활성화 버튼 */
 #switch_Dis{
@@ -883,9 +964,258 @@ input:checked + .slider:before {
     padding-right: 10px;
 }
 .nav_ml{
-	margin-left: 90px;
+	margin-left: 48%;
+}
+
+/* 비상대피로 */
+/* 길표시*/
+.escape_road_container1{
+  position:absolute;
+  width:2%;
+  height: 15%;
+  margin-left:-50px;
+
+  top: 48%;
+  left: 25.6%;
+  display: none;
+  animation-name: road_key1;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.escape_road1{
+  width:100%;
+  height: 100%;
+  background-color: #50c1c2;
+  /* border-radius: 7px 7px 7px 7px / 7px 7px 7px 7px; */
+}
+
+.escape_road2{
+  position:absolute;
+  height: 3%;
+  margin-left:-50px;
+  background-color: #50c1c2;
+  display: none;
+  
+  top:48%;
+  left: 25.6%;
+  
+  animation-name: road_key2;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.4s;
+}
+.escape_road_container3{
+  position:absolute;
+  width:2%;
+  height: 7%;
+  margin-left:-50px;
+
+  top: 43%;
+  left: 35.6%;
+  display: none;
+  animation-name: road_key1;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.escape_road3{
+  width:100%;
+  height: 100%;
+  background-color: #50c1c2;
+}
+
+.escape_road4{
+  position:absolute;
+  height: 3%;
+  margin-left:-50px;
+  background-color: #50c1c2;
+  /*display: none;*/
+  
+  top:43%;
+  left: 37%;
+  
+  animation-name: road_key3;
+  animation-timing-function: linear;
+  animation-duration: 0.9s;
+  animation-fill-mode: forwards;
+  animation-delay: 1.8s;
+}
+
+.escape_road_container5{
+  position:absolute;
+  width:2%;
+  height: 9%;
+  margin-left:-50px;
+
+  top: 35%;
+  left: 97%;
+  display: none;
+  animation-name: road_key1;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.escape_road5{
+  width:100%;
+  height: 100%;
+  background-color: #50c1c2;
+}
+
+.escape_road6{
+  position:absolute;
+  height: 3%;
+  margin-left:-50px;
+  background-color: #50c1c2;
+  /*display: none;*/
+  
+  top:35%;
+  left: 97%;
+  
+  animation-name: road_key6;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 3.3s;
+}
+
+.escape_road_container7{
+  position:absolute;
+  width:2%;
+  height: 10%;
+  margin-left:-50px;
+
+  top: 27%;
+  left: 103.7%;
+  display: none;
+  animation-name: road_key1;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.escape_road7{
+  width:100%;
+  height: 100%;
+  background-color: #50c1c2;
+}
+
+.escape_road8{
+  position:absolute;
+  height: 3%;
+  margin-left:-50px;
+  background-color: #50c1c2;
+  /*display: none;*/
+  
+  top:27%;
+  left: 103.7%;
+  
+  animation-name: road_key8;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 4.5s;
+}
+
+.escape_road9{
+  position:absolute;
+  width: 2%;
+  margin-left:-50px;
+  background-color: #50c1c2;
+  /*display: none;*/
+  
+  top:23%;
+  left: 79.6%;
+  
+  animation-name: road_key9;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 2.3s;
+}
+
+@keyframes road_key1 {
+   from{
+       padding-top: 7%;
+     }
+     to{
+      padding-top: 0%;
+     }
+}
+ 
+@keyframes road_key2 {
+   from{
+       width: 0%;
+     }
+     to{
+      width: 12%;
+     }
+}
+ 
+@keyframes road_key3 {
+   from{
+       width: 0%;
+     }
+     to{
+      width: 62%;
+     }
+}
+
+@keyframes road_key6 {
+   from{
+       width: 0%;
+     }
+     to{
+      width: 8.7%;
+     }
+}
+
+@keyframes road_key8 {
+   from{
+       width: 0%;
+     }
+     to{
+      width: 4%;
+     }
+}
+
+@keyframes road_key9 {
+   from{
+       height: 0%;
+     }
+     to{
+      height: 22.5%;
+     }
 }
 
 
+/* 길 따라 움직이는 애니메이션 */
+.escape_ani{
+  position:absolute;
+  left:100px;
+  width:100px;
+  height:50px;
+  margin-left:-50px;
+  background-color:#000;
+  color:#fff;
+  display: none;
+  /*animation-name:iteration-count; */
+  animation-timing-function:linear;
+  animation-duration:2s;
+  
+}
+.infinite{
+  top:140px;
+  animation-name: road_key2;
+  animation-iteration-count:infinite;
+}
+@keyframes road_key123 {
+     from{
+       left:100px;
+     }
+     to{
+       left:300px;
+     }
+}
 <!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
 </style>
