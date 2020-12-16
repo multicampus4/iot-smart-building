@@ -1,5 +1,6 @@
 package com.example.sensorswitch;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     MainActivity.Sender sender;
     MainActivity mainActivity;
 
+    lottieDialogFragment lottieDialogFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.hide();
         mainActivity = this;
+
+        lottieDialogFragment = new lottieDialogFragment(this);
 
         fragment1 = new Fragment1();
 //        fragment2 = new Fragment2(this);  // this : fragment에 현재 메인액티비티 전달
@@ -157,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     // FCM을 받아오는 Broadcast Receiver
     public BroadcastReceiver receiver = new BroadcastReceiver() {
+        @SuppressLint("ResourceType")
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent != null) {
@@ -173,26 +179,26 @@ public class MainActivity extends AppCompatActivity {
 
                 // noti 타입 disaster 인 경우 팝업창(dialog) 띄움
                 if(type.equals("disaster")){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
-                    builder.setTitle("경보!!");
-                    builder.setMessage("CONTINUE?");
-                    builder.setIcon(R.raw.alert);
-
-                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    });
-
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    lottieDialogFragment.show();
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+//                    builder.setTitle("경보!!");
+//                    builder.setMessage("CONTINUE?");
+//
+//                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            finish();
+//                        }
+//                    });
+//
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
                 }
             }
         }
