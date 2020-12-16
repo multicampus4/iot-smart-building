@@ -265,6 +265,7 @@ public class Client implements SerialPortEventListener {
 		case SerialPortEvent.OUTPUT_BUFFER_EMPTY:
 			break;
 		case SerialPortEvent.DATA_AVAILABLE:
+			String ss = "";
 			byte[] readBuffer = new byte[128];
 			try {
 				while (bin.available() > 0) {
@@ -272,12 +273,12 @@ public class Client implements SerialPortEventListener {
 				}
 
 				String newBufferStr = new String(readBuffer).trim();	// Data From Aruduino : "tmp26.00;hum80.00;^"
-				
+				System.out.println("RAW DATA From ARDUINO:" + newBufferStr );
 				String correctedBufferStr = bufferCorrection(newBufferStr);
 				
 				if(correctedBufferStr != null) {
 					// 정상수행
-					String ss = correctedBufferStr;
+					ss = correctedBufferStr;
 					System.out.println("hi :" + ss);
 				} else {
 					break;
@@ -290,14 +291,14 @@ public class Client implements SerialPortEventListener {
 //					break;
 //				}
 
-				String ss = "";
+//				String ss = "";
 				
-				String [] array = ss.split(";");
-				if(array.length != 4 || array[0].charAt(0)!='A' || array[0].charAt(0)!='t') {
-					System.out.println("Return ... Crashed Data ..." + ss);
-					break;
-				}
-				System.out.println("RAW DATA From ARDUINO:" + ss );
+//				String [] array = ss.split(";");
+//				if(array.length != 4 || array[0].charAt(0)!='A' || array[0].charAt(0)!='t') {
+//					System.out.println("Return ... Crashed Data ..." + ss);
+//					break;
+//				}
+				
 				sendTcpip2(ss);					
 				// Send JSON to DashBoard (Websocket)
 				JSONObject jsonTemp = new JSONObject();
@@ -307,6 +308,7 @@ public class Client implements SerialPortEventListener {
 				sendTcpip(rawToJson);
 			} catch (Exception e) {
 				e.printStackTrace();
+//				System.out.println("연결오류");
 			}
 			break;
 		}
@@ -317,6 +319,9 @@ public class Client implements SerialPortEventListener {
 	// 시작 문자 : "$"
 	// 종료 문자 : "^"
 	public String bufferCorrection(String newBufferStr) {
+		// 개행문자 제거
+		newBufferStr = newBufferStr.replaceAll("(\r | \n | \r\n | \n\r)", "");
+		
 		if (newBufferStr.contains("$") && newBufferStr.contains("^")) {
 			bufferStr = bufferStr.concat(newBufferStr);
 			
