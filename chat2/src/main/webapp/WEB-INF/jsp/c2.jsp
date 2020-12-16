@@ -1110,9 +1110,8 @@ $(document).ready(function(){
                                 </div>
                             </div>
                             </div>
-<<<<<<< HEAD
 
-<!-- 
+
 <div class="row">
 	<div class="col-md-6 col-xl-4">
 		<div class="card mb-3 widget-content">
@@ -1430,12 +1429,4 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-</div>	
- -->
-	
-
-
-=======
-                            
-                            
->>>>>>> 2c34fe99cd48456c567dc12b722775c8d3381e5a
+</div>
