@@ -64,9 +64,12 @@
 							</div>
 
 							<div class="escape_road8"></div>
+							
+							<div class="escape_road9"></div>
 
 							<!-- 길 애니메이션 -->
 							<div class="escape_ani infinite">infinite</div>
+							
 
 							<!-- 1_A tooltip-->
 							<div class="Area_1A">
@@ -106,7 +109,7 @@
 									</div>
 								</div>
 							</div>
-	
+							
 						</div><!-- End wrap -->
 					</div> <!-- End col-md -->
 						
@@ -1114,6 +1117,23 @@ input:checked + .slider:before {
   animation-delay: 4.5s;
 }
 
+.escape_road9{
+  position:absolute;
+  width: 2%;
+  margin-left:-50px;
+  background-color: #50c1c2;
+  /*display: none;*/
+  
+  top:23%;
+  left: 79.6%;
+  
+  animation-name: road_key9;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 2.3s;
+}
+
 @keyframes road_key1 {
    from{
        padding-top: 7%;
@@ -1156,6 +1176,15 @@ input:checked + .slider:before {
      }
      to{
       width: 4%;
+     }
+}
+
+@keyframes road_key9 {
+   from{
+       height: 0%;
+     }
+     to{
+      height: 22.5%;
      }
 }
 
