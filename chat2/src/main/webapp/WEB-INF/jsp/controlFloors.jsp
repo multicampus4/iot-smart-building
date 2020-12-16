@@ -14,7 +14,6 @@
 			</div>
 
 			<!-- 비활성화 제어 버튼 -->
-			
 			<div class="nav Dis_content">
 				<div class="Dis_title">디바이스 비활성화 : </div>
 				<div class="toggle_Dis" id="switch_Dis">
@@ -42,7 +41,33 @@
 							<div class="fp-image">
 								<img src="images/floorPlan7.jpg" alt="">
 							</div>
-	
+							
+							<!-- 비상대피로 -->
+							<!-- 길표시 -->
+							<div class="escape_road_container1">
+								<div class="escape_road1"></div>
+							</div>
+							<div class="escape_road2"></div>
+
+							<div class="escape_road_container3">
+								<div class="escape_road3"></div>
+							</div>
+							<div class="escape_road4"></div>
+
+							<div class="escape_road_container5">
+								<div class="escape_road5"></div>
+							</div>
+							<div class="escape_road6"></div>
+							
+							<div class="escape_road_container7">
+								<div class="escape_road7"></div>
+							</div>
+
+							<div class="escape_road8"></div>
+
+							<!-- 길 애니메이션 -->
+							<div class="escape_ani infinite">infinite</div>
+
 							<!-- 1_A tooltip-->
 							<div class="Area_1A">
 								<div class="con-tooltip right" id="tt_1_A">
@@ -561,6 +586,19 @@
 			}
 		});
 		
+		 // 비상대피로 표시
+	     $(".escape_road_container1").css("display","block");
+	     $(".escape_road2").css("display","block");
+	     setTimeout(function() {
+	        $(".escape_road_container3").css("display","block");
+	     }, 1000);
+	     setTimeout(function() {
+	        $(".escape_road_container5").css("display","block");
+	     }, 2500);
+	     setTimeout(function() {
+		    $(".escape_road_container7").css("display","block");
+		 }, 3600);
+		
 
 	});
 </script>
@@ -926,6 +964,229 @@ input:checked + .slider:before {
 	margin-left: 48%;
 }
 
+/* 비상대피로 */
+/* 길표시*/
+.escape_road_container1{
+  position:absolute;
+  width:2%;
+  height: 15%;
+  margin-left:-50px;
 
+  top: 48%;
+  left: 25.6%;
+  display: none;
+  animation-name: road_key1;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.escape_road1{
+  width:100%;
+  height: 100%;
+  background-color: #50c1c2;
+  /* border-radius: 7px 7px 7px 7px / 7px 7px 7px 7px; */
+}
+
+.escape_road2{
+  position:absolute;
+  height: 3%;
+  margin-left:-50px;
+  background-color: #50c1c2;
+  display: none;
+  
+  top:48%;
+  left: 25.6%;
+  
+  animation-name: road_key2;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.4s;
+}
+.escape_road_container3{
+  position:absolute;
+  width:2%;
+  height: 7%;
+  margin-left:-50px;
+
+  top: 43%;
+  left: 35.6%;
+  display: none;
+  animation-name: road_key1;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.escape_road3{
+  width:100%;
+  height: 100%;
+  background-color: #50c1c2;
+}
+
+.escape_road4{
+  position:absolute;
+  height: 3%;
+  margin-left:-50px;
+  background-color: #50c1c2;
+  /*display: none;*/
+  
+  top:43%;
+  left: 37%;
+  
+  animation-name: road_key3;
+  animation-timing-function: linear;
+  animation-duration: 0.9s;
+  animation-fill-mode: forwards;
+  animation-delay: 1.8s;
+}
+
+.escape_road_container5{
+  position:absolute;
+  width:2%;
+  height: 9%;
+  margin-left:-50px;
+
+  top: 35%;
+  left: 97%;
+  display: none;
+  animation-name: road_key1;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.escape_road5{
+  width:100%;
+  height: 100%;
+  background-color: #50c1c2;
+}
+
+.escape_road6{
+  position:absolute;
+  height: 3%;
+  margin-left:-50px;
+  background-color: #50c1c2;
+  /*display: none;*/
+  
+  top:35%;
+  left: 97%;
+  
+  animation-name: road_key6;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 3.3s;
+}
+
+.escape_road_container7{
+  position:absolute;
+  width:2%;
+  height: 10%;
+  margin-left:-50px;
+
+  top: 27%;
+  left: 103.7%;
+  display: none;
+  animation-name: road_key1;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.escape_road7{
+  width:100%;
+  height: 100%;
+  background-color: #50c1c2;
+}
+
+.escape_road8{
+  position:absolute;
+  height: 3%;
+  margin-left:-50px;
+  background-color: #50c1c2;
+  /*display: none;*/
+  
+  top:27%;
+  left: 103.7%;
+  
+  animation-name: road_key8;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 4.5s;
+}
+
+@keyframes road_key1 {
+   from{
+       padding-top: 7%;
+     }
+     to{
+      padding-top: 0%;
+     }
+}
+ 
+@keyframes road_key2 {
+   from{
+       width: 0%;
+     }
+     to{
+      width: 12%;
+     }
+}
+ 
+@keyframes road_key3 {
+   from{
+       width: 0%;
+     }
+     to{
+      width: 62%;
+     }
+}
+
+@keyframes road_key6 {
+   from{
+       width: 0%;
+     }
+     to{
+      width: 8.7%;
+     }
+}
+
+@keyframes road_key8 {
+   from{
+       width: 0%;
+     }
+     to{
+      width: 4%;
+     }
+}
+
+
+/* 길 따라 움직이는 애니메이션 */
+.escape_ani{
+  position:absolute;
+  left:100px;
+  width:100px;
+  height:50px;
+  margin-left:-50px;
+  background-color:#000;
+  color:#fff;
+  display: none;
+  /*animation-name:iteration-count; */
+  animation-timing-function:linear;
+  animation-duration:2s;
+  
+}
+.infinite{
+  top:140px;
+  animation-name: road_key2;
+  animation-iteration-count:infinite;
+}
+@keyframes road_key123 {
+     from{
+       left:100px;
+     }
+     to{
+       left:300px;
+     }
+}
 <!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
 </style>
