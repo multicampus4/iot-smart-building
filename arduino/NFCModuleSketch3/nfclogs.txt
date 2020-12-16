@@ -1,0 +1,38 @@
+copy_id
+send_tag
+read_ACK
+test_ACK
+0 UART_Send_Byte
+0 UART_Send_Byte
+FF UART_Send_Byte
+0 UART_Send_Byte
+FF UART_Send_Byte
+0 UART_Send_Byte
+0 UART_Send_Byte
+0 UART_Send_Byte
+FF UART_Send_Byte
+C UART_Send_Byte
+F4 UART_Send_Byte
+D5 UART_Send_Byte
+4B UART_Send_Byte
+1 UART_Send_Byte
+1 UART_Send_Byte
+0 UART_Send_Byte
+4 UART_Send_Byte
+8 UART_Send_Byte
+4 UART_Send_Byte
+2A UART_Send_Byte
+9F UART_Send_Byte
+EC UART_Send_Byte
+DD UART_Send_Byte
+3C UART_Send_Byte
+0 UART_Send_Byte
+
+display
+copy_id
+send_tag
+read_ACK
+cmp_id
+copy_id
+send_tag
+read_ACK
