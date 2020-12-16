@@ -78,7 +78,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 			con = DriverManager.getConnection(url, dbid, dbpwd);
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM T1130");
 			ResultSet rset = pstmt.executeQuery();
-			System.out.println(rset);
 			while (rset.next()) {
 				JSONObject data = new JSONObject();
 				data.put("name", rset.getString(1));
@@ -124,7 +123,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 			= con.prepareStatement("SELECT * FROM (SELECT * FROM T1130) WHERE ROWNUM <= 4");
 															
 			ResultSet rset = pstmt.executeQuery();
-			System.out.println(rset);
 			while (rset.next()) {
 
 				JSONObject data = new JSONObject();
@@ -158,33 +156,38 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		out.print(ja.toJSONString());
 		out.close();
 	}
-
+	
 	@RequestMapping("/getdata1130.mc")
 	@ResponseBody
-	public void getdata4(HttpServletResponse res) throws Exception {
+	public void getdata1130(HttpServletResponse res,HttpServletRequest req) throws Exception {
+		
+		
+		
 		Connection con = null;
+		String cmd = req.getParameter("CMD");
 		JSONArray ja = new JSONArray();
 		try {
 			con = DriverManager.getConnection(url, dbid, dbpwd);
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM (SELECT * FROM T1130) WHERE ROWNUM <= 4");
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM T1130");
 			ResultSet rset = pstmt.executeQuery();
-			System.out.println(rset);
 			while (rset.next()) {
 				JSONObject data = new JSONObject();
 				data.put("name", rset.getString(1));
-				data.put("data", rset.getFloat(12));
 
-				// JSONArray jo2 = new JSONArray();
-				// jo2.add(rset.getInt(2));
-				// jo2.add(rset.getString(5));
-				// jo2.add(rset.getFloat(1));
-				// jo2.add(rset.getFloat(1));
-				// jo2.add(rset.getFloat(2));
-				//
-				// ja.add(data);
-				// data.put("data",jo2);
+				JSONArray val = new JSONArray();
+				val.add(rset.getFloat(2));
+				val.add(rset.getFloat(3));
+				val.add(rset.getFloat(4));
+				val.add(rset.getFloat(5));
+				val.add(rset.getFloat(6));
+				val.add(rset.getFloat(7));
+				val.add(rset.getFloat(8));
+				val.add(rset.getFloat(9));
+				val.add(rset.getFloat(10));
+				val.add(rset.getFloat(11));
+				val.add(rset.getFloat(12));
+				data.put("data", val);
 				ja.add(data);
-				// System.out.println(ja);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -197,6 +200,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		out.print(ja.toJSONString());
 		out.close();
 	}
+	
+
 
 	@RequestMapping("/getdata1201.mc")
 	@ResponseBody
@@ -244,7 +249,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 	}
 	
 //	@RequestMapping("/get1201table.mc?cmd=2")
-	@RequestMapping("/getTable1201.mc")
+	@RequestMapping("/getdata1202.mc")
 	@ResponseBody
 	public void getTable1201(HttpServletResponse res) throws Exception {
 		Connection con = null;
@@ -252,7 +257,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		try {
 			con = DriverManager.getConnection(url, dbid, dbpwd);
 			PreparedStatement pstmt 
-			= con.prepareStatement("SELECT * FROM (SELECT * FROM T1201) WHERE ROWNUM <= 4");
+			= con.prepareStatement("SELECT * FROM T1202");
 															
 			ResultSet rset = pstmt.executeQuery();
 			System.out.println(rset);
@@ -291,22 +296,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 	}
 
 
-	@RequestMapping("/getdata1206.mc")
+	@RequestMapping("/getdata1203.mc")
 	@ResponseBody
 	public void getdata6(HttpServletResponse res) throws Exception {
 		Connection con = null;
 		JSONArray ja = new JSONArray();
 		try {
 			con = DriverManager.getConnection(url, dbid, dbpwd);
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM T1201");
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM T1203");
 			ResultSet rset = pstmt.executeQuery();
 			System.out.println(rset);
 			while (rset.next()) {
+
 				JSONObject data = new JSONObject();
+
 				data.put("name", rset.getString(1));
-				data.put("data", rset.getFloat(11));
+
+				JSONArray val = new JSONArray();
+				val.add(rset.getFloat(2));
+				val.add(rset.getFloat(3));
+				val.add(rset.getFloat(4));
+				val.add(rset.getFloat(5));
+				val.add(rset.getFloat(6));
+				val.add(rset.getFloat(7));
+				val.add(rset.getFloat(8));
+				val.add(rset.getFloat(9));
+				val.add(rset.getFloat(10));
+				val.add(rset.getFloat(11));
+				val.add(rset.getFloat(12));
+				data.put("data", val);
 				ja.add(data);
-				// System.out.println(ja);
+				//System.out.println(ja);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
