@@ -69,14 +69,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		this.hpwd = hivePwd;
 	}
 
-	@RequestMapping("/getMain.mc")
+	@RequestMapping("/getTimeGph.mc")
 	@ResponseBody
 	public void getTimeGph(HttpServletResponse res) throws Exception {
 		Connection con = null;
 		JSONArray ja = new JSONArray();
 		try {
 			con = DriverManager.getConnection(url, dbid, dbpwd);
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM T1130");
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM T1201");
 			ResultSet rset = pstmt.executeQuery();
 			while (rset.next()) {
 				JSONObject data = new JSONObject();
@@ -93,7 +93,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 				val.add(rset.getFloat(9));
 				val.add(rset.getFloat(10));
 				val.add(rset.getFloat(11));
-				val.add(rset.getFloat(12));
 				data.put("data", val);
 				ja.add(data);
 				// System.out.println(ja);
@@ -119,9 +118,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		JSONArray ja = new JSONArray();
 		try {
 			con = DriverManager.getConnection(url, dbid, dbpwd);
-			PreparedStatement pstmt 
-			= con.prepareStatement("SELECT * FROM (SELECT * FROM T1130) WHERE ROWNUM <= 4");
-															
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM T1201");
 			ResultSet rset = pstmt.executeQuery();
 			while (rset.next()) {
 
@@ -140,10 +137,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 				val.add(rset.getFloat(9));
 				val.add(rset.getFloat(10));
 				val.add(rset.getFloat(11));
-				val.add(rset.getFloat(12));
 				data.put("data", val);
 				ja.add(data);
-				//System.out.println(ja);
+				// System.out.println(ja);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -156,23 +152,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		out.print(ja.toJSONString());
 		out.close();
 	}
+
 	
 	@RequestMapping("/getdata1130.mc")
 	@ResponseBody
 	public void getdata1130(HttpServletResponse res,HttpServletRequest req) throws Exception {
-		
-		
-		
+	
 		Connection con = null;
 		String cmd = req.getParameter("CMD");
 		JSONArray ja = new JSONArray();
 		try {
 			con = DriverManager.getConnection(url, dbid, dbpwd);
+
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM T1130");
+
 			ResultSet rset = pstmt.executeQuery();
 			while (rset.next()) {
 				JSONObject data = new JSONObject();
 				data.put("name", rset.getString(1));
+
 
 				JSONArray val = new JSONArray();
 				val.add(rset.getFloat(2));
@@ -201,16 +199,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		out.close();
 	}
 	
-
-
 	@RequestMapping("/getdata1201.mc")
 	@ResponseBody
-	public void getdata5(HttpServletResponse res,HttpServletRequest req) throws Exception {
-		
-		
-		
+	public void getdata5(HttpServletResponse res) throws Exception {
 		Connection con = null;
-		String cmd = req.getParameter("CMD");
 		JSONArray ja = new JSONArray();
 		try {
 			con = DriverManager.getConnection(url, dbid, dbpwd);
@@ -220,6 +212,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 			while (rset.next()) {
 				JSONObject data = new JSONObject();
 				data.put("name", rset.getString(1));
+
 
 				JSONArray val = new JSONArray();
 				val.add(rset.getFloat(2));
@@ -280,8 +273,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 				val.add(rset.getFloat(11));
 				val.add(rset.getFloat(12));
 				data.put("data", val);
+
 				ja.add(data);
-				//System.out.println(ja);
+				// System.out.println(ja);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -296,7 +290,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 	}
 
 
+
 	@RequestMapping("/getdata1203.mc")
+
 	@ResponseBody
 	public void getdata6(HttpServletResponse res) throws Exception {
 		Connection con = null;

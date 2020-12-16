@@ -106,7 +106,7 @@ function displayTempAvg(data){
 			    // the value axis
 			    yAxis: {
 			        stops: [
-			            [1.5, '#FF8000'] //red
+			            [1.5, '#DF5353'] //red
 			            /* [0.5, ''], // yellow
 			            [0.9, '#DF5353'] */ // red
 			        ],
@@ -146,7 +146,7 @@ function displayTempAvg(data){
 			    series: [{
 			        name: 'Speed',
 			        //data:[data[0].data[1]] 행 배열로 받은 경우,
-			        data:[data[0].data[10]],
+			        data:[data[0].data],
 			        dataLabels: {
 			            format:
 			                '<div style="text-align:center">' +
@@ -196,8 +196,9 @@ function displayTempAvg(data){
 			    // the value axis
 			    yAxis: {
 			        stops: [
-			            [1.5, '#FFFF00'] //yellow
-			           
+			            [1.5, '#DDDF0D'] //yellow
+			            /* [0.5, ''], // yellow
+			            [0.9, '#DF5353'] */ // red
 			        ],
 			        lineWidth: 0,
 			        tickWidth: 0,
@@ -244,7 +245,7 @@ function displayTempAvg(data){
 			        name: 'Speed',
 			        
 			        
-			        data:[data[1].data[10]],
+			        data:[data[1].data],
 			   
 			        
 			        
@@ -297,7 +298,7 @@ function displayTempAvg(data){
 			    // the value axis
 			    yAxis: {
 			        stops: [
-			            [1.5, '#31B404'] // green
+			            [1.5, '#8041D9'] // green
 			            /* [0.5, '#DDDF0D'], // yellow
 			            [0.9, '#DF5353'] */ // red
 			        ],
@@ -346,7 +347,7 @@ function displayTempAvg(data){
 			        name: 'Speed',
 			        
 			        
-			        data:[data[2].data[10]],
+			        data:[data[2].data],
 			   
 			        
 			        
@@ -402,7 +403,7 @@ function displayTempAvg(data){
 			    // the value axis
 			    yAxis: {
 			        stops: [
-			            [1.5, '#9A2EFE'] // green
+			            [1.5, '#8041D9'] // green
 			            /* [0.5, '#DDDF0D'], // yellow
 			            [0.9, '#DF5353'] */ // red
 			        ],
@@ -433,7 +434,7 @@ function displayTempAvg(data){
 				
 			    yAxis: {
 			        min: 0,
-			        max: 1000,
+			        max: 4000,
 			        title: {
 			            text: 'Light'
 			        }
@@ -448,7 +449,7 @@ function displayTempAvg(data){
 			        name: 'Speed',
 			        
 			        
-			        data:[data[3].data[10]],
+			        data:[data[3].data],
 			   
 			        
 			        
@@ -486,13 +487,13 @@ function displayTempAvg(data){
 	         text: '빌딩 내 쾌적지수'
 	     },
 
-	    /*  subtitle: {
+	     subtitle: {
 	         text: '빌딩 내 평균 쾌적지수'
-	     }, */
+	     },
 
 	     yAxis: {
 	         title: {
-	             text: 'Average Score'
+	             text: 'Percentage usage'
 	         }
 	     },
 
@@ -500,14 +501,14 @@ function displayTempAvg(data){
 	         title: {
 	             text: 'Time'
 	         },
-	        /*  accessibility: {
+	         accessibility: {
 	             description: 'Time from December 2010 to September 2019'
-	         }, */
-	         categories: ['05:00', '07:00', '09:00', '11:00', '13:00', '15:00', '17:00', '19:00', '21:00', '23:00']
+	         },
+	         categories: ['01:00', '03:00', '05:00', '07:00', '09:00', '11:00', '13:00', '15:00', '17:00', '19:00', '21:00', '23:00']
 	     },
 
 	     tooltip: {
-	         valueSuffix: ''
+	         valueSuffix: '%'
 	     },
 
 	     plotOptions: {
@@ -530,9 +531,9 @@ function displayTempAvg(data){
 	        	 name: '온도',
 	        	 data :[data[4].data[0],data[4].data[1],data[4].data[2],data[4].data[3],
 	        		 data[4].data[4],data[4].data[5],data[4].data[6],data[4].data[7],
-	        		 data[4].data[8],data[4].data[9]], 
+	        		 data[4].data[8],data[4].data[9],data[4].data[10]], 
 	        	 dashStyle: 'Dash',
-	        	 color: colors[3]
+	        	 color: colors[1]
 	            
 	         },
 	         {
@@ -540,16 +541,16 @@ function displayTempAvg(data){
 	             name: '습도',
 	             data: [data[5].data[0],data[5].data[1],data[5].data[2],data[5].data[3],
 	        		 data[5].data[4],data[5].data[5],data[5].data[6],data[5].data[7],
-	        		 data[5].data[8],data[5].data[9]],
+	        		 data[5].data[8],data[5].data[9],data[5].data[10]],
 	             dashStyle: 'ShortDash',
-	             color: colors[7]
+	             color: colors[3]
 	         },
 	         
 	         {
 	        	 name: '미세먼지',
 	        	 data :[data[6].data[0],data[6].data[1],data[6].data[2],data[6].data[3],
 	        		 data[6].data[4],data[6].data[5],data[6].data[6],data[6].data[7],
-	        		 data[6].data[8],data[6].data[9]],
+	        		 data[6].data[8],data[6].data[9],data[6].data[10]],
 	        	 dashStyle: 'ShortDot',
 	        	 color: colors[2]
 	            
@@ -557,9 +558,7 @@ function displayTempAvg(data){
 	         
 	         {
 	        	 name: '조도',
-	        	 data : [data[7].data[0],data[7].data[1],data[7].data[2],data[7].data[3],
-	        	 		data[7].data[4],data[7].data[5],data[7].data[6],data[7].data[7],
-	        	 		data[7].data[8],data[7].data[9]], 
+	        	 //data : [35.6, 21.5, 14.2, 41.8, 24.2, 10.4], 
 	        	 dashStyle: 'ShortDashDot',
 	        	 color: colors[4]
 	            
@@ -593,8 +592,8 @@ function displayTempAvg(data){
  }
  
  function displayTable(data){
-	
 	 var str='';
+
 	/*  $.each(data, function(index,item){
 			
 		});  */
@@ -612,19 +611,18 @@ function displayTempAvg(data){
 			str += '<td>' + data[i].data[7]+ '</td>';
 			str += '<td>' + data[i].data[8]+ '</td>';
 			str += '<td>' + data[i].data[9]+ '</td>';
-			
+
 			str += '</tr>';
-		};
+		}); 
 		$('#htable').html(str);	
  }
  
  function getTimeGph(){
 		$.ajax({
-			url:'getMain.mc',
+			url:'getTimeGph.mc',
 			success:function(data){
 			
 				displayTimeGph(data);
-				console.log(data)
 				
 			},
 			error:function(){
@@ -640,16 +638,18 @@ function displayTempAvg(data){
 			success:function(data){
 				displayTable(data);
 	        //alert(data)
+
 	        //console.log(data)
 					},
 			error:function(){
 				}
 		});
+
 	}
  
 function getDayAvg(){
 		$.ajax({
-			url:'getMain.mc',
+			url:'getdata1204.mc',
 			
 			success:function(data){
 				//alert(data[0].data);
@@ -662,12 +662,17 @@ function getDayAvg(){
 			error:function(){
 				}
 		});
+		/* displayTempAvg();
+		displayHumAvg();
+		displayDustSat();
+		displayLightAvg(); */
 		
 	}
-	
+ 
  //body의 onclick에 의해 실행되는 함수 
  //클릭하면 아래의 함수가 호출되고 아래의 함수에 따른 데이터로 그래프와 표가 업데이트 된다.
  //추후 실제 로그데이터가 만들어지면 해당 날짜에 onclick이벤트 실행하여 해당 데이터로 업데이트 되는 함수 작성해 주면 됨 
+
  function getdata1130(){
 		$.ajax({
 			url:'getdata1130.mc',
@@ -731,7 +736,8 @@ function getDayAvg(){
  
  
   function getdata1202(){
-		$.ajax({
+	  
+	  $.ajax({
 			url:'getdata1202.mc',
 			//alert(123)
 			success:function(data){
@@ -751,7 +757,31 @@ function getDayAvg(){
 			error:function(){
 			}
 		});
+  }
+
+ function getdata1204(){
+		$.ajax({
+			url:'getdata1204.mc',
+			//alert(123)
+			success:function(data){
+				if(data.cmd="1"){
+					displayTempAvg(data);
+					displayHumAvg(data);
+					displayDustSat(data);
+					displayLightAvg(data);
+					displayTable(data);
+						//console.log(data)
+					}if(data.cmd="2"){
+						//alert("cmd ok")
+						displayTimeGph(data);
+						
+					} 
+			},
+			error:function(){
+			}
+		});
 	} 
+ 
   function getdata1203(){
 		$.ajax({
 			url:'getdata1203.mc',
@@ -779,10 +809,10 @@ function getDayAvg(){
 			url:'getdata1207.mc',
 			//alert(123)
 			success:function(data){
-				displayTempAvg(data)
-				displayHumAvg(data)
-				displayTable(data)
-				displayTimeTempHum(data)
+				displayTempAvg(data);
+				displayHumAvg(data);
+				displayTable(data);
+				//displayTimeTempHum(data)
 				console.log(data)
 			},
 			error:function(){
@@ -918,13 +948,12 @@ $(document).ready(function(){
                      <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle-split dropdown-toggle btn btn-secondary"><span class="sr-only">Toggle Dropdown</span>
                      </button>
                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+
                           <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1130()">2020-11-30</button>
                          <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1201()">2020-12-01</button>
                          <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1202()">2020-12-02</button>
                          <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1203()">2020-12-03</button> 
                          <!-- <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1208()">1208</button> -->
-                        
-                        
                         
                         </div>
                    </div>
@@ -932,7 +961,7 @@ $(document).ready(function(){
 			</div> 
 		</div>
 	</div>
-	 <div class="col-md-6 col-xl-4">
+	<div class="col-md-6 col-xl-4">
 		<div class="card mb-3 widget-content bg-grow-early">
 			<div class="widget-content-wrapper text-white">
 				<div class="widget-content-left">
@@ -946,7 +975,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-	</div> 
+	</div>
 	<div class="d-xl-none d-lg-block col-md-6 col-xl-4">
 		<div class="card mb-3 widget-content bg-premium-dark">
 			 <div class="widget-content-wrapper text-white">
@@ -1058,6 +1087,8 @@ $(document).ready(function(){
                                             <thead>
                                             <tr>
                                                 <th class='backslash'><div>시간</div>센서</th>
+                                                <th>01:00</th>
+                                                <th>03:00</th>
                                                 <th>05:00</th>
                                                 <th>07:00</th>
                                                 <th>09:00</th>
@@ -1079,6 +1110,7 @@ $(document).ready(function(){
                                 </div>
                             </div>
                             </div>
+<<<<<<< HEAD
 
 <!-- 
 <div class="row">
@@ -1403,3 +1435,7 @@ $(document).ready(function(){
 	
 
 
+=======
+                            
+                            
+>>>>>>> 2c34fe99cd48456c567dc12b722775c8d3381e5a
