@@ -600,6 +600,7 @@
 		});
 		
 		 // 비상대피로 표시 테스트  ----------------------------------------
+		 /*
 		 $(".intro-banner-vdo-play-btn").css("display", "block");
 	     $(".escape_road_container1").css("display","block");
 	     $(".escape_road2").css("display","block");
@@ -624,7 +625,7 @@
 	     setTimeout(function() {
 			$(".escape_road9").css("display","block");
 		 }, 2300);
-	     
+	     */
 		 //---------- 경보 알림 테스트
 		 /*	   
 		 toastr.options = {
