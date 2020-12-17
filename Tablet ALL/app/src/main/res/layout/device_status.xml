@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="null" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -127,10 +128,10 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/custom_shape_off"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="30dp"
-            android:background="@drawable/custom_shape_off">
+            android:padding="30dp">
 
             <TextView
                 android:id="@+id/textView3"
@@ -159,10 +160,10 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/custom_shape_off"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="30dp"
-            android:background="@drawable/custom_shape_off">
+            android:padding="30dp">
 
             <TextView
                 android:id="@+id/textView4"
@@ -199,10 +200,10 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/custom_shape_on"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="30dp"
-            android:background="@drawable/custom_shape_on">
+            android:padding="30dp">
 
             <TextView
                 android:id="@+id/textView5"
@@ -220,7 +221,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
-                android:text="OFF"
+                android:text="ON"
                 android:textSize="40sp" />
         </LinearLayout>
 
@@ -230,10 +231,10 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/custom_shape_on"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="30dp"
-            android:background="@drawable/custom_shape_on">
+            android:padding="30dp">
 
             <TextView
                 android:id="@+id/textView6"
@@ -251,7 +252,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
-                android:text="OFF"
+                android:text="ON"
                 android:textSize="40sp" />
         </LinearLayout>
 
@@ -261,10 +262,10 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@drawable/custom_shape_on"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="30dp"
-            android:background="@drawable/custom_shape_on">
+            android:padding="30dp">
 
             <TextView
                 android:id="@+id/textView7"
@@ -282,7 +283,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
-                android:text="OFF"
+                android:text="ON"
                 android:textSize="40sp" />
         </LinearLayout>
 

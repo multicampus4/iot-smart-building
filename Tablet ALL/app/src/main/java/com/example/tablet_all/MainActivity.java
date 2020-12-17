@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ConstraintLayout container1;
     SoundPool soundPool;
     SoundManager soundManager;
+    MediaPlayer mediaPlayer;
 
     TextView serverstat;        // 서버의 ON, OFF 상태
     TextView areastat;          // 상태 표시할 구역
@@ -74,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
         soundManager = new SoundManager(this, soundPool);
         soundManager.addSound(0, R.raw.turn_on_mp348);
         soundManager.addSound(1, R.raw.turn_off_mp348);
+        soundManager.addSound(2, R.raw.disaster_earthquake_full);
+
+        mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.disaster_earthquake_full);
+        // soundManager : 효과음 (재생시간 짧음)
+        // meidaPlayer : 미디어 재생 (재생시간 노상관 / 재생 중 여부 확인 가능)
 
     }
 
@@ -175,14 +182,16 @@ public class MainActivity extends AppCompatActivity {
                     msg = (Msg) oi.readObject();
 
                     Msg finalMsg = msg;
+
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
-                            // 1층 A구역의 센서 상태 처리
+                            // 시설(디바이스) 상태 처리
                             if(myArea.equals(finalMsg.getMsg().trim().substring(0, 3))){
+                                System.out.println("finalMsg : " + finalMsg);
                                 if (finalMsg.getType().equals("command")) {
-                                    System.out.println(finalMsg);
 
                                     // cmd : 들어오는 메세지(1_A_D_AIR_OFF,...), deviceId : (AIR, HUM, ...), deviceStat : ON or OFF
                                     String cmd = finalMsg.getMsg().trim();
@@ -209,13 +218,56 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     } catch (Exception e) {
                                         // 다른 층이나 구역의 DEVICE 신호가 들어올 때 에러
+                                        System.out.println("ERROR :: MainActivity.java :: Line: 212");
                                     }
                                 }
-                            } // end if(myArea.equals)
+                            } else if(finalMsg.getType().equalsIgnoreCase("disaster")){
+                                // 방송 ON
+                                int dLbrdcast = getResources().getIdentifier("L_D_BRDCAST", "id", getPackageName());
+                                ((LinearLayout) findViewById(dLbrdcast)).setBackground(
+                                        ContextCompat.getDrawable(findViewById(dLbrdcast).getContext(), R.drawable.custom_shape_disaster_on));
+                                int dTbrdcast = getResources().getIdentifier("T_D_BRDCAST", "id", getPackageName());
+                                ((TextView) findViewById(dTbrdcast)).setText("ON");
+
+                                // 재난방송 play
+                                if(!mediaPlayer.isPlaying()){
+                                    mediaPlayer.start();
+                                }
+
+                                // 비상대피로 OPEN
+                                int dLroute = getResources().getIdentifier("L_D_ROUTE", "id", getPackageName());
+                                ((LinearLayout) findViewById(dLroute)).setBackground(
+                                        ContextCompat.getDrawable(findViewById(dLroute).getContext(), R.drawable.custom_shape_disaster_on));
+                                int dTroute = getResources().getIdentifier("T_D_ROUTE", "id", getPackageName());
+                                ((TextView) findViewById(dTroute)).setText("OPEN");
+
+                                // 전기 OFF
+                                int dLelec = getResources().getIdentifier("L_D_ELEC", "id", getPackageName());
+                                ((LinearLayout) findViewById(dLelec)).setBackground(
+                                        ContextCompat.getDrawable(findViewById(dLelec).getContext(), R.drawable.custom_shape_off));
+                                int dTelec = getResources().getIdentifier("T_D_ELEC", "id", getPackageName());
+                                ((TextView) findViewById(dTelec)).setText("OFF");
+
+                                // 수도 OFF
+                                int dLwat = getResources().getIdentifier("L_D_WAT", "id", getPackageName());
+                                ((LinearLayout) findViewById(dLwat)).setBackground(
+                                        ContextCompat.getDrawable(findViewById(dLwat).getContext(), R.drawable.custom_shape_off));
+                                int dTwat = getResources().getIdentifier("T_D_WAT", "id", getPackageName());
+                                ((TextView) findViewById(dTwat)).setText("ON");
+
+                                // 가스 OFF
+                                int dLgas = getResources().getIdentifier("L_D_GAS", "id", getPackageName());
+                                ((LinearLayout) findViewById(dLgas)).setBackground(
+                                        ContextCompat.getDrawable(findViewById(dLwat).getContext(), R.drawable.custom_shape_off));
+                                int dTgas = getResources().getIdentifier("T_D_GAS", "id", getPackageName());
+                                ((TextView) findViewById(dTgas)).setText("ON");
+
+                            }
 
                         }
                     });
                     System.out.println(msg.getId() + msg.getMsg());
+                    System.out.println(msg);
                 } catch (Exception e) {
                     //e.printStackTrace();
                     break;
