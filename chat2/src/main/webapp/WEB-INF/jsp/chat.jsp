@@ -121,18 +121,29 @@
 					// display:none -> block, delay 시간 설정
 					// 비상대피로 위치 보이기
 					$(".intro-banner-vdo-play-btn").css("display", "block");
-					// 비상대피로 길 표시
 				    $(".escape_road_container1").css("display","block");
 				    $(".escape_road2").css("display","block");
 				    setTimeout(function() {
 				       $(".escape_road_container3").css("display","block");
 				    }, 1000);
 				    setTimeout(function() {
+					   $(".escape_road4").css("display","block");
+					}, 1800);
+				    setTimeout(function() {
 				       $(".escape_road_container5").css("display","block");
 				    }, 2500);
 				    setTimeout(function() {
+					   $(".escape_road6").css("display","block");
+					}, 3300);
+				    setTimeout(function() {
 					   $(".escape_road_container7").css("display","block");
 					}, 3600);
+				    setTimeout(function() {
+					   $(".escape_road8").css("display","block");
+					}, 4500);
+				    setTimeout(function() {
+					   $(".escape_road9").css("display","block");
+					}, 2300);
 				     
 				    // 경보 알림 toast
 				    // toastr(부트스트랩의 toast 라이브러리)의 option 설정
@@ -156,13 +167,14 @@
 				    // toastr 띄우기(error 타입)
 					toastr.error("<div class='text-center'>대피로 개방</div>", "<div class='text-center'>지진 경보</div>");
 					break;
-				}
+					
+				} // end switch
 				
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
 				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
 				
-			}
-		}
+			} // end if
+		} // end onMessage
 		
 		// 실시간 데이터 반영 및 상태에 따른 색상 표시
 		function drawData(obj, area){

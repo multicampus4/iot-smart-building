@@ -600,19 +600,31 @@
 		});
 		
 		 // 비상대피로 표시 테스트  ----------------------------------------
-		 /*
+		 $(".intro-banner-vdo-play-btn").css("display", "block");
 	     $(".escape_road_container1").css("display","block");
 	     $(".escape_road2").css("display","block");
 	     setTimeout(function() {
 	        $(".escape_road_container3").css("display","block");
 	     }, 1000);
 	     setTimeout(function() {
+		    $(".escape_road4").css("display","block");
+		 }, 1800);
+	     setTimeout(function() {
 	        $(".escape_road_container5").css("display","block");
 	     }, 2500);
 	     setTimeout(function() {
+		    $(".escape_road6").css("display","block");
+		 }, 3300);
+	     setTimeout(function() {
 		    $(".escape_road_container7").css("display","block");
 		 }, 3600);
-	     */
+	     setTimeout(function() {
+			$(".escape_road8").css("display","block");
+		 }, 4500);
+	     setTimeout(function() {
+			$(".escape_road9").css("display","block");
+		 }, 2300);
+	     
 		 //---------- 경보 알림 테스트
 		 /*	   
 		 toastr.options = {
@@ -1065,7 +1077,7 @@ input:checked + .slider:before {
   height: 3%;
   margin-left:-50px;
   background-color: #ffef2a;
-  /*display: none;*/
+  display: none;
   
   top:43%;
   left: 37%;
@@ -1074,7 +1086,7 @@ input:checked + .slider:before {
   animation-timing-function: linear;
   animation-duration: 0.9s;
   animation-fill-mode: forwards;
-  animation-delay: 1.8s;
+  /*animation-delay: 1.8s;*/
 }
 
 .escape_road_container5{
@@ -1102,7 +1114,7 @@ input:checked + .slider:before {
   height: 3%;
   margin-left:-50px;
   background-color: #ffef2a;
-  /*display: none;*/
+  display: none;
   
   top:35%;
   left: 97%;
@@ -1111,7 +1123,7 @@ input:checked + .slider:before {
   animation-timing-function: linear;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
-  animation-delay: 3.3s;
+  /*animation-delay: 3.3s;*/
 }
 
 .escape_road_container7{
@@ -1139,7 +1151,7 @@ input:checked + .slider:before {
   height: 3%;
   margin-left:-50px;
   background-color: #ffef2a;
-  /*display: none;*/
+  display: none;
   
   top:27%;
   left: 103.7%;
@@ -1148,7 +1160,7 @@ input:checked + .slider:before {
   animation-timing-function: linear;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
-  animation-delay: 4.5s;
+  /*animation-delay: 4.5s;*/
 }
 
 .escape_road9{
@@ -1156,7 +1168,7 @@ input:checked + .slider:before {
   width: 2%;
   margin-left:-50px;
   background-color: #ffef2a;
-  /*display: none;*/
+  display: none;
   
   top:23%;
   left: 79.6%;
@@ -1165,7 +1177,7 @@ input:checked + .slider:before {
   animation-timing-function: linear;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
-  animation-delay: 2.3s;
+  /*animation-delay: 2.3s;*/
 }
 
 @keyframes road_key1 {
