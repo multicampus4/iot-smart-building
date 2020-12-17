@@ -116,7 +116,7 @@
 					setButtonStateRealTime(obj);
 					break;
 				case "disaster":
-					console.log("DISDSAIDSISDISISII"")
+					console.log("DISASTER EVENT");
 					break;
 				}
 				
