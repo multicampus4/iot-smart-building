@@ -47,7 +47,7 @@ public class Fragment3 extends Fragment {
         return view;
     }
 
-    void setUpAnimation(LottieAnimationView animationView, int lottie_raw_file, int loop ) {
+    public void setUpAnimation(LottieAnimationView animationView, int lottie_raw_file, int loop ) {
         // 재생할 애니메이션 넣어준다.
         animationView.setAnimation(lottie_raw_file);
         // 반복횟수를 무한히 주고 싶을 땐 LottieDrawable.INFINITE or 원하는 횟수

@@ -180,25 +180,6 @@ public class MainActivity extends AppCompatActivity {
                 // noti 타입 disaster 인 경우 팝업창(dialog) 띄움
                 if(type.equals("disaster")){
                     lottieDialogFragment.show();
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
-//                    builder.setTitle("경보!!");
-//                    builder.setMessage("CONTINUE?");
-//
-//                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//
-//                        }
-//                    });
-//                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            finish();
-//                        }
-//                    });
-//
-//                    AlertDialog dialog = builder.create();
-//                    dialog.show();
                 }
             }
         }
@@ -313,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     msg = (Msg) oi.readObject();                                                        // oi 안의 메시지 내용을 읽어서 msg에 대입
                     Msg finalMsg = msg;                                                                 // Msg 객체인 변수 finalMsg에 msg 대입
+                    System.out.println("FINAL MSG: " + finalMsg);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -328,11 +310,10 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 case "nfc":
                                     if(fragment3 != null){
+                                        System.out.println("NFCCCCC");
                                         fragment3 = (Fragment3) fragmentManager.findFragmentById(R.id.frameLayout);
-
-//                                        LottieAnimationView animationView = view.findViewById(R.id.lottieAniView);
-//                                        setUpAnimation(animationView, R.raw.nfc_scanning2);
-
+                                        LottieAnimationView animationView = fragment3.getView().findViewById(R.id.lottieAniView);
+                                        fragment3.setUpAnimation(animationView, R.raw.nfc_scan_ok-, 1);
                                     }
                                     break;
                                 case "command":

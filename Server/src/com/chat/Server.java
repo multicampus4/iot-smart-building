@@ -224,8 +224,6 @@ public class Server {
 						// 기타 메시지 처리
 						System.out.println("기타메시지: " + msg);
 						break;
-//					case "RawToLog":
-////						logdata(msg.getMsg());
 					}
 
 					// =========================== Legacy ==================================
