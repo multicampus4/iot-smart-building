@@ -599,7 +599,8 @@
 			}
 		});
 		
-		 // 비상대피로 표시
+		 // 비상대피로 표시 테스트  ----------------------------------------
+		 /*
 	     $(".escape_road_container1").css("display","block");
 	     $(".escape_road2").css("display","block");
 	     setTimeout(function() {
@@ -611,27 +612,30 @@
 	     setTimeout(function() {
 		    $(".escape_road_container7").css("display","block");
 		 }, 3600);
-	     
-	     // 경보 알림
+	     */
+		 //---------- 경보 알림 테스트
+		 /*	   
 		 toastr.options = {
-	    	  "closeButton": true,
-			  "debug": false,
-			  "newstOnTop": false,
-			  "positionClass": "toast-top-full-width",
-			  "onclick": null,
-			  "showDuration": 300,
-			  "Hide Duration": 1000,
-			  "showEasing": "swing",
-			  "hideEasing" : "linear",
-			  "fadeIn": 300,
-			  "fadeOut": 1000,
-			  "timeOut": 100000,
-			  "extendedTimeOut": 1000,
-			  "showMethod": "slideDown",
-			  "hideMethod": "fadeOut"
+					"closeButton" : true,
+					"debug" : false,
+					"newstOnTop" : false,
+					"positionClass" : "toast-top-full-width",
+					"onclick" : null,
+					"showDuration" : 300,
+					"Hide Duration" : 1000,
+					"showEasing" : "swing",
+					"hideEasing" : "linear",
+					"fadeIn" : 300,
+					"fadeOut" : 1000,
+					"timeOut" : 100000, // toastr가 보여지는 시간
+					"extendedTimeOut" : 1000,
+					"showMethod" : "slideDown",
+					"hideMethod" : "fadeOut"
 		}
-
-		 toastr.error("<div class='text-center'>대피로 개방</div>", "<div class='text-center'>지진 경보</div>");
+		// toastr 띄우기(error 타입)
+		toastr.error("<div class='text-center'>대피로 개방</div>","<div class='text-center'>지진 경보</div>");
+		*/
+		// ------------------- 테스트 끝 -----------------------------
 
 	});
 </script>
@@ -1251,7 +1255,8 @@ input:checked + .slider:before {
     text-align:center;
     margin:-30px 0 0 -30px;
     border-radius:100px;
-    z-index:1
+    z-index:1;
+    display: none;
 }
 .intro-banner-vdo-play-btn i{
     line-height:56px;

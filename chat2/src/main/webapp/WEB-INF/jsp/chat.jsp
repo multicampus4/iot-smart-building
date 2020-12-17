@@ -73,7 +73,8 @@
 		}
 	</style>
 </head>
-
+<!-- 부트스트랩 toastr 라이브러리 -->
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script type="text/javascript">
 	var ws;
 	
@@ -116,7 +117,44 @@
 					setButtonStateRealTime(obj);
 					break;
 				case "disaster":
-					console.log("DISASTER EVENT");
+					// 비상대피로
+					// display:none -> block, delay 시간 설정
+					// 비상대피로 위치 보이기
+					$(".intro-banner-vdo-play-btn").css("display", "block");
+					// 비상대피로 길 표시
+				    $(".escape_road_container1").css("display","block");
+				    $(".escape_road2").css("display","block");
+				    setTimeout(function() {
+				       $(".escape_road_container3").css("display","block");
+				    }, 1000);
+				    setTimeout(function() {
+				       $(".escape_road_container5").css("display","block");
+				    }, 2500);
+				    setTimeout(function() {
+					   $(".escape_road_container7").css("display","block");
+					}, 3600);
+				     
+				    // 경보 알림 toast
+				    // toastr(부트스트랩의 toast 라이브러리)의 option 설정
+					toastr.options = {
+				    	 "closeButton": true,
+						 "debug": false,
+						 "newstOnTop": false,
+						 "positionClass": "toast-top-full-width",
+						 "onclick": null,
+						 "showDuration": 300,
+						 "Hide Duration": 1000,
+						 "showEasing": "swing",
+						 "hideEasing" : "linear",
+						 "fadeIn": 300,
+						 "fadeOut": 1000,
+						 "timeOut": 100000, // toastr가 보여지는 시간
+						 "extendedTimeOut": 1000,
+						 "showMethod": "slideDown",
+						 "hideMethod": "fadeOut"
+						 }
+				    // toastr 띄우기(error 타입)
+					toastr.error("<div class='text-center'>대피로 개방</div>", "<div class='text-center'>지진 경보</div>");
 					break;
 				}
 				
@@ -285,7 +323,7 @@
 	}
 	
 	$(document).ready(function() {
-		// 실시간 데이터 text 삽입 테스트, 배경색 변경 테스트
+		// 실시간 데이터 text 삽입 테스트, 배경색 변경 테스트 ------------------------
 		//$("#1_A_S_TEMP span").text("12345");
 		//$('#1_A_S_HUM span').css("color", "#e0201a");
 		/*
@@ -300,10 +338,9 @@
 		$("#P_1_B_S_DUST").css('color', '#f42a2f');
 		$("#P_1_B_S_ILLM").css('color', '#f7b924');
 		$("#P_1_A_S_DUST").css('color', '#00aeef');*/
+
 		
-	
-		
-		// ----- 테스트 끝 ------
+		// ----- 테스트 끝 ------------------------------------------------
 		
 		setButtonState();
 		
