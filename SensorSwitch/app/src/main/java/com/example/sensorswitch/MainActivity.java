@@ -307,10 +307,13 @@ public class MainActivity extends AppCompatActivity {
                                     if(fragment3 != null){
                                         fragment3 = (Fragment3) fragmentManager.findFragmentById(R.id.frameLayout);
                                         LottieAnimationView animationView = fragment3.getView().findViewById(R.id.lottieAniView);
+                                        TextView textView = fragment3.getView().findViewById(R.id.textView3);
                                         if(!nfcOk){
                                             fragment3.setUpAnimation(animationView, R.raw.nfc_scan_ok, 1);
+                                            textView.setText("정상 처리 되었습니다");
                                         } else {
                                             fragment3.setUpAnimation(animationView, R.raw.nfc_scan_fail, 1);
+                                            textView.setText("출입권한이 없습니다\n관리자에게 문의하세요");
                                         }
                                         nfcOk = !nfcOk;
                                     }
