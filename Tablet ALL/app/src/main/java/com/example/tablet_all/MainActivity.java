@@ -255,14 +255,44 @@ public class MainActivity extends AppCompatActivity {
                                 ((LinearLayout) findViewById(dLwat)).setBackground(
                                         ContextCompat.getDrawable(findViewById(dLwat).getContext(), R.drawable.custom_shape_off));
                                 int dTwat = getResources().getIdentifier("T_D_WAT", "id", getPackageName());
-                                ((TextView) findViewById(dTwat)).setText("ON");
+                                ((TextView) findViewById(dTwat)).setText("OFF");
 
                                 // 가스 OFF
                                 int dLgas = getResources().getIdentifier("L_D_GAS", "id", getPackageName());
                                 ((LinearLayout) findViewById(dLgas)).setBackground(
                                         ContextCompat.getDrawable(findViewById(dLwat).getContext(), R.drawable.custom_shape_off));
                                 int dTgas = getResources().getIdentifier("T_D_GAS", "id", getPackageName());
-                                ((TextView) findViewById(dTgas)).setText("ON");
+                                ((TextView) findViewById(dTgas)).setText("OFF");
+
+                                // 대피 유도등 ON
+                                int dLled = getResources().getIdentifier("L_D_LED", "id", getPackageName());
+                                ((LinearLayout) findViewById(dLled)).setBackground(
+                                        ContextCompat.getDrawable(findViewById(dLled).getContext(), R.drawable.custom_shape_disaster_on));
+                                int dTled = getResources().getIdentifier("T_D_LED", "id", getPackageName());
+                                ((TextView) findViewById(dTled)).setText("ON");
+                                int dTledName = getResources().getIdentifier("textView4", "id", getPackageName());
+                                ((TextView) findViewById(dTledName)).setText("비상조명");
+
+                                // 냉난방 OFF
+                                int dLair = getResources().getIdentifier("L_D_AIR", "id", getPackageName());
+                                ((LinearLayout) findViewById(dLair)).setBackground(
+                                        ContextCompat.getDrawable(findViewById(dLair).getContext(), R.drawable.custom_shape_off));
+                                int dTair = getResources().getIdentifier("T_D_AIR", "id", getPackageName());
+                                ((TextView) findViewById(dTair)).setText("OFF");
+
+                                // 가습 OFF
+                                int dLhum = getResources().getIdentifier("L_D_HUM", "id", getPackageName());
+                                ((LinearLayout) findViewById(dLhum)).setBackground(
+                                        ContextCompat.getDrawable(findViewById(dLhum).getContext(), R.drawable.custom_shape_off));
+                                int dThum = getResources().getIdentifier("T_D_HUM", "id", getPackageName());
+                                ((TextView) findViewById(dThum)).setText("OFF");
+
+                                // 공청기 OFF
+                                int dLaircl = getResources().getIdentifier("L_D_AIRCL", "id", getPackageName());
+                                ((LinearLayout) findViewById(dLaircl)).setBackground(
+                                        ContextCompat.getDrawable(findViewById(dLhum).getContext(), R.drawable.custom_shape_off));
+                                int dTaircl = getResources().getIdentifier("T_D_AIRCL", "id", getPackageName());
+                                ((TextView) findViewById(dTaircl)).setText("OFF");
 
                             }
 
