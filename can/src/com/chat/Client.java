@@ -296,11 +296,11 @@ public class Client implements SerialPortEventListener {
 //				}
 
 				// nfc, accelRaw, ssRaw 구분 
-				if(ss.substring(0,2).equals("nfc")) {
+				if(ss.substring(0,3).equals("nfc")) {
 					// nfc 데이터인 경우 
 					System.out.println("NFC? ::" + ss.substring(0,2) + ss);
 					rawToJson = convertJson(ss, "nfc").toJSONString();
-				} else if(ss.substring(0,2).equals("AcX")) {
+				} else if(ss.substring(0,3).equals("AcX")) {
 					JSONObject jsonAccel = new JSONObject();
 					jsonAccel = convertJson(ss, "accelRaw");
 					
