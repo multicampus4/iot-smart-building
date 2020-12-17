@@ -241,12 +241,14 @@ public class MainActivity extends AppCompatActivity {
                                 int dTroute = getResources().getIdentifier("T_D_ROUTE", "id", getPackageName());
                                 ((TextView) findViewById(dTroute)).setText("OPEN");
 
-                                // 전기 OFF
+                                // 전기 > 비상전력 ON
                                 int dLelec = getResources().getIdentifier("L_D_ELEC", "id", getPackageName());
                                 ((LinearLayout) findViewById(dLelec)).setBackground(
-                                        ContextCompat.getDrawable(findViewById(dLelec).getContext(), R.drawable.custom_shape_off));
+                                        ContextCompat.getDrawable(findViewById(dLelec).getContext(), R.drawable.custom_shape_disaster_on));
                                 int dTelec = getResources().getIdentifier("T_D_ELEC", "id", getPackageName());
-                                ((TextView) findViewById(dTelec)).setText("OFF");
+                                ((TextView) findViewById(dTelec)).setText("ON");
+                                int dTelecName = getResources().getIdentifier("textView5", "id", getPackageName());
+                                ((TextView) findViewById(dTelecName)).setText("비상전력");
 
                                 // 수도 OFF
                                 int dLwat = getResources().getIdentifier("L_D_WAT", "id", getPackageName());
