@@ -114,6 +114,10 @@
 				// 버튼의 on/off 상태 업데이트
 				case "command":
 					setButtonStateRealTime(obj);
+					break;
+				case "disaster":
+					console.log("DISDSAIDSISDISISII"")
+					break;
 				}
 				
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
@@ -124,26 +128,24 @@
 		
 		// 실시간 데이터 반영 및 상태에 따른 색상 표시
 		function drawData(obj, area){
+			var state = false;
 			if(obj.tmp != "undefined"){
 				$("#" + area + "_S_TEMP").text(obj.tmp);
 				$("#P_" + area + "_S_TEMP span").text(obj.tmp);
 				if(obj.tmp <= 18){
  					$("#" + area + "_S_TEMP").css("background-color", "#f7b924");
-					changeStateLightColor(area, true);
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
 					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-warning");
 					$("#P_" + area + "_S_TEMP_bdg").text("warning");
 					
 				}else if(obj.tmp > 18 && obj.tmp <= 21){
-					$("#" + area + "_S_TEMP").css("background-color", "none");
-					changeStateLightColor(area, false);
+					$("#" + area + "_S_TEMP").css("background-color", "transparent");
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
 					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-focus");
 					$("#P_" + area + "_S_TEMP_bdg").text("normal");
 					
 				}else if(obj.tmp > 21){
  					$("#" + area + "_S_TEMP").css("background-color", "#f42a2f");
-					changeStateLightColor(area, true);
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
 					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-danger");
 					$("#P_" + area + "_S_TEMP_bdg").text("danger");
@@ -154,21 +156,18 @@
 				$("#P_" + area + "_S_HUM span").text(obj.hum);
 				if(obj.hum <= 40){
 					$("#" + area + "_S_HUM").css("background-color", "#f7b924");
-					changeStateLightColor(area, true);
 					$("#P_" + area + "_S_HUM_bdg").removeClass();
 					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-warning");
 					$("#P_" + area + "_S_HUM_bdg").text("warning");
 					
 				}else if(obj.hum > 40 && obj.hum <= 40.99){
-					$("#" + area + "_S_HUM").css("background-color", "none");
-					changeStateLightColor(area, false);
+					$("#" + area + "_S_HUM").css("background-color", "transparent");
 					$("#P_" + area + "_S_HUM_bdg").removeClass();
 					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-focus");
 					$("#P_" + area + "_S_HUM_bdg").text("normal");
 				
 				}else if(obj.hum > 40.99){
 					$("#" + area + "_S_HUM").css("background-color", "#f42a2f");
-					changeStateLightColor(area, true);
 					$("#P_" + area + "_S_HUM_bdg").removeClass();
 					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-danger");
 					$("#P_" + area + "_S_HUM_bdg").text("danger");
@@ -180,21 +179,18 @@
 				if(obj.dst <= 30){
 					// 미세먼지가 상태가 매우 좋음일 경우 파란색으로 표시
 					$("#" + area + "_S_DUST").css("background-color", "#00aeef");
-					changeStateLightColor(area, false);
 					$("#P_" + area + "_S_DUST_bdg").removeClass();
 					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-info");
 					$("#P_" + area + "_S_DUST_bdg").text("good");
 					
 				}else if(obj.dst > 30 && obj.dst <= 80){
-					$("#" + area + "_S_DUST").css("background-color", "none");
-					changeStateLightColor(area, false);
+					$("#" + area + "_S_DUST").css("background-color", "transparent");
 					$("#P_" + area + "_S_DUST_bdg").removeClass();
 					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-focus");
 					$("#P_" + area + "_S_DUST_bdg").text("normal");
 					
 				}else if(obj.dst > 80){
 					$("#" + area + "_S_DUST").css("background-color", "#f42a2f");
-					changeStateLightColor(area, true);
 					$("#P_" + area + "_S_DUST_bdg").removeClass();
 					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-danger");
 					$("#P_" + area + "_S_DUST_bdg").text("danger");
@@ -205,24 +201,27 @@
 				$("#P_" + area + "_S_ILLM span").text(obj.lgt);
 				if(obj.lgt <= 300){
 					$("#" + area + "_S_ILLM").css("background-color", "#f7b924");
-					changeStateLightColor(area, true);
 					$("#P_" + area + "_S_ILLM_bdg").removeClass();
 					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-warning");
 					$("#P_" + area + "_S_ILLM_bdg").text("warning");
 					
 				}else if(obj.lgt > 300 && obj.lgt <= 600){
-					$("#" + area + "_S_ILLM").css("background-color", "none");
-					changeStateLightColor(area, false);
+					$("#" + area + "_S_ILLM").css("background-color", "transparent");
 					$("#P_" + area + "_S_ILLM_bdg").removeClass();
 					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-focus");
 					$("#P_" + area + "_S_ILLM_bdg").text("normal");
 					
 				}else if(obj.lgt > 600){
 					$("#" + area + "_S_ILLM").css("background-color", "#f42a2f");
-					changeStateLightColor(area, true);
 					$("#P_" + area + "_S_ILLM_bdg").removeClass();
 					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-danger");
 					$("#P_" + area + "_S_ILLM_bdg").text("danger");
+				}
+				
+				if(obj.tmp > 18 && obj.tmp <= 21 && obj.hum > 40 && obj.hum <= 40.99 && obj.dst <= 80 && obj.lgt > 300 && obj.lgt <= 600){
+					changeStateLightColor(area, false);
+				}else{
+					changeStateLightColor(area, true);
 				}
 			}
 		}

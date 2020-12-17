@@ -593,25 +593,25 @@ function displayTempAvg(data){
  
  function displayTable(data){
 	 var str='';
-	 $.each(data, function(index,item){
-		 //alert(item.data[0])
+
+	/*  $.each(data, function(index,item){
+			
+		});  */
+		for(var i=0;i<4;i++){
+			//alert(data.length[4])
 			str += '<tr>';
-			str += '<td>' + item.name+'</td>';
-			str += '<td>' + item.data[0]+ '</td>';
-			str += '<td>' + item.data[1]+ '</td>'; //str += '<td>' + item.y+ '</td>'; 이렇게 계속 추가하면 데이터 표에 입력됨 
-			str += '<td>' + item.data[2]+ '</td>';
-			str += '<td>' + item.data[3]+ '</td>';
-			str += '<td>' + item.data[4]+ '</td>';
-			str += '<td>' + item.data[6]+ '</td>';
-			str += '<td>' + item.data[7]+ '</td>';
-			str += '<td>' + item.data[8]+ '</td>';
-			str += '<td>' + item.data[9]+ '</td>';
-			str += '<td>' + item.data[10]+ '</td>';
-			str += '<td>' + item.data[11]+ '</td>';
-			str += '<td>' + item.data[12]+ '</td>';
-			
-		
-			
+			str += '<td>' + data[i].name+'</td>';
+			str += '<td>' + data[i].data[0]+ '</td>';
+			str += '<td>' + data[i].data[1]+ '</td>';  
+			str += '<td>' + data[i].data[2]+ '</td>';
+			str += '<td>' + data[i].data[3]+ '</td>';
+			str += '<td>' + data[i].data[4]+ '</td>';
+			str += '<td>' + data[i].data[5]+ '</td>';
+			str += '<td>' + data[i].data[6]+ '</td>';
+			str += '<td>' + data[i].data[7]+ '</td>';
+			str += '<td>' + data[i].data[8]+ '</td>';
+			str += '<td>' + data[i].data[9]+ '</td>';
+
 			str += '</tr>';
 		}); 
 		$('#htable').html(str);	
@@ -628,7 +628,6 @@ function displayTempAvg(data){
 			error:function(){
 				}
 		});
-		//displayTimeGph();
 		
 	}
 
@@ -639,14 +638,13 @@ function displayTempAvg(data){
 			success:function(data){
 				displayTable(data);
 	        //alert(data)
-	        console.log(data)
-				
 
-			},
+	        //console.log(data)
+					},
 			error:function(){
 				}
 		});
-		displayTable();
+
 	}
  
 function getDayAvg(){
@@ -674,45 +672,133 @@ function getDayAvg(){
  //body의 onclick에 의해 실행되는 함수 
  //클릭하면 아래의 함수가 호출되고 아래의 함수에 따른 데이터로 그래프와 표가 업데이트 된다.
  //추후 실제 로그데이터가 만들어지면 해당 날짜에 onclick이벤트 실행하여 해당 데이터로 업데이트 되는 함수 작성해 주면 됨 
+
+ function getdata1130(){
+		$.ajax({
+			url:'getdata1130.mc',
+			//alert(123)
+			success:function(data){
+				if(data.cmd="1"){
+					displayTempAvg(data);
+					displayHumAvg(data);
+					displayDustSat(data);
+					displayLightAvg(data);
+					displayTable(data);
+						console.log(data)
+					}if(data.cmd="2"){
+						//alert("cmd ok")
+						displayTimeGph(data);
+						
+					} 
+			},
+			error:function(){
+			}
+		});
+	} 
+ 
+ 
+ 
+ 
+ function getdata1201(){
+		$.ajax({
+			url:'getdata1201.mc',
+		 	
+		 
+			success:function(data){
+			
+				if(data.cmd="1"){
+				displayTempAvg(data);
+				displayHumAvg(data);
+				displayDustSat(data);
+				displayLightAvg(data);
+				displayTable(data);
+					//console.log(data)
+				}if(data.cmd="2"){
+					displayTimeGph(data);
+					
+				} 
+			
+			},
+			error:function(){
+			}
+			
+				});
+		/* $.ajax({
+			url:'getdata1201.mc?cmd=2',
+					success:function(data){
+						displayTimeGph(data);
+					},
+					error:function(){
+						
+					}
+		}); */
+	} 
+ 
+ 
+  function getdata1202(){
+	  
+	  $.ajax({
+			url:'getdata1202.mc',
+			//alert(123)
+			success:function(data){
+				if(data.cmd="1"){
+					displayTempAvg(data);
+					displayHumAvg(data);
+					displayDustSat(data);
+					displayLightAvg(data);
+					displayTable(data);
+						console.log(data)
+					}if(data.cmd="2"){
+						//alert("cmd ok")
+						displayTimeGph(data);
+						
+					} 
+			},
+			error:function(){
+			}
+		});
+  }
+
  function getdata1204(){
 		$.ajax({
 			url:'getdata1204.mc',
 			//alert(123)
 			success:function(data){
-				displayTempAvg(data)
-				displayHumAvg(data)
-				displayDustSat(data);
-				displayLightAvg(data);
+				if(data.cmd="1"){
+					displayTempAvg(data);
+					displayHumAvg(data);
+					displayDustSat(data);
+					displayLightAvg(data);
+					displayTable(data);
+						//console.log(data)
+					}if(data.cmd="2"){
+						//alert("cmd ok")
+						displayTimeGph(data);
+						
+					} 
 			},
 			error:function(){
 			}
 		});
 	} 
-  function getdata1205(){
+ 
+  function getdata1203(){
 		$.ajax({
-			url:'getdata1205.mc',
+			url:'getdata1203.mc',
 			//alert(123)
 			success:function(data){
-				displayTempAvg(data)
-				displayHumAvg(data)
-				displayDustSat(data);
-				displayLightAvg(data);
-				console.log(data)
-			},
-			error:function(){
-			}
-		});
-	} 
-  function getdata1206(){
-		$.ajax({
-			url:'getdata1206.mc',
-			//alert(123)
-			success:function(data){
-				displayTempAvg(data)
-				displayHumAvg(data)
-				displayDustSat(data);
-				displayLightAvg(data);
-				//console.log(data)
+				if(data.cmd="1"){
+					displayTempAvg(data);
+					displayHumAvg(data);
+					displayDustSat(data);
+					displayLightAvg(data);
+					displayTable(data);
+						//console.log(data)
+					}if(data.cmd="2"){
+						//alert("cmd ok")
+						displayTimeGph(data);
+						
+					} 
 			},
 			error:function(){
 			}
@@ -723,10 +809,10 @@ function getDayAvg(){
 			url:'getdata1207.mc',
 			//alert(123)
 			success:function(data){
-				displayTempAvg(data)
-				displayHumAvg(data)
-				displayTable(data)
-				displayTimeTempHum(data)
+				displayTempAvg(data);
+				displayHumAvg(data);
+				displayTable(data);
+				//displayTimeTempHum(data)
 				console.log(data)
 			},
 			error:function(){
@@ -862,11 +948,13 @@ $(document).ready(function(){
                      <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle-split dropdown-toggle btn btn-secondary"><span class="sr-only">Toggle Dropdown</span>
                      </button>
                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1204()">1204</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1205()">1205</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1206()">1206</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1207()">1207</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1208()">1208</button>
+
+                          <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1130()">2020-11-30</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1201()">2020-12-01</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1202()">2020-12-02</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1203()">2020-12-03</button> 
+                         <!-- <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1208()">1208</button> -->
+                        
                         </div>
                    </div>
 				</div>
@@ -1015,31 +1103,15 @@ $(document).ready(function(){
                                            </thead>
                                           <tbody id="htable">
                                             
-                                <!-- <tr><td>TEMP</td><td>24</td></tr><tr><td>TEMP</td><td>30</td></tr><tr><td>HUM</td><td>50</td></tr><tr><td>HUM</td><td>40</td></tr> -->
-                                            <!-- <tr>
-                                                <th scope="row">1</th>
-                                                <td>{}</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
-                                            </tr> -->
+                   
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                             </div>
+
+
 <div class="row">
 	<div class="col-md-6 col-xl-4">
 		<div class="card mb-3 widget-content">
@@ -1358,4 +1430,3 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
-

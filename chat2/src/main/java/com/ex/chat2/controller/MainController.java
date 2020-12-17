@@ -240,7 +240,8 @@ public class MainController {
 			
 			JSONObject data = new JSONObject();
 			data.put("control", "control1");
-			data.put("data", 100);
+			data.put("data", 1001111);
+			data.put("type", "disaster");
 			message.put("data", data);
 			
 			/* JSONObject message는 이렇게 생겼다.

@@ -51,6 +51,7 @@ void loop() {
     dht11.read(hum, tmp);
 
     // 출력
+    Serial.print("$");  // start char
 //    Serial.print("tmp");
     Serial.print(tmp);Serial.print(",");
 //    Serial.print(";hum");
@@ -58,7 +59,9 @@ void loop() {
 //    Serial.print(";dst");
     Serial.print(ugm3);Serial.print(",");
 //    Serial.print(";lgt");
-    Serial.println(analogRead(lightPin));
+    Serial.print(analogRead(lightPin));
+    Serial.print(";^\n"); // end char
+
     
     
     lowpulseoccupancy = 0;
