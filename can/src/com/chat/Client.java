@@ -251,6 +251,10 @@ public class Client implements SerialPortEventListener {
 			String rawToJson = "";
 			byte[] readBuffer = new byte[128];
 			try {
+				while (bin.available() > 0) {
+					int numBytes = bin.read(readBuffer);	// 유효한 데이터가 들어오는지 판단 
+				}
+				
 				String newBufferStr = new String(readBuffer);	// Data From Aruduino : "tmp26.00;hum80.00;^"
 				newBufferStr = eraseNullChar(newBufferStr);
 				System.out.println("RAW DATA From ARDUINO:" + newBufferStr );
