@@ -288,25 +288,32 @@ public class Client implements SerialPortEventListener {
 //					break;
 //				}
 
-				// nfc 데이터와 ssRaw 데이터 구분 
+				// nfc, accelRaw, ssRaw 구분 
 				if(ss.substring(0,2).equals("nfc")) {
 					// nfc 데이터인 경우 
 					System.out.println("NFC? ::" + ss.substring(0,2) + ss);
 					rawToJson = convertJson(ss, "nfc").toJSONString();
-				} else if(ss.charAt(0) == 'A') {
+				} else if(ss.substring(0,2).equals("AcX")) {
+					JSONObject jsonAccel = new JSONObject();
+					jsonAccel = convertJson(ss, "accelRaw");
 					
-					rawToJson = convertJson(ss, "accelRaw").toJSONString();
-					
-					
-					// dng 가 지진인 경우
-					
-					// 아니면 일반 가속도 데이터
+					if(jsonAccel.get("dng").equals("N")) {
+						// 노말상태인 경우
+						// msgType: accelRaw 전송 
+						rawToJson = jsonAccel.toString();
+					} else {
+						// 아니면 지진 
+						// msgType: disaster 전송
+						rawToJson = convertJson(ss, "disaster").toString();
+					}
 
 				} else {
 					// ssRaw 데이터인 경우 
 					rawToJson = convertJson(ss, "ssRaw").toJSONString();
 
 				}
+				
+				
 				System.out.println("rawToJson >> " + rawToJson);
 
 				// Send JSON to Server
