@@ -4,6 +4,7 @@
 .project
 .classpath
 .DS_Store
+bin/
 
 # properties
 my.*
