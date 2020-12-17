@@ -12,7 +12,7 @@
 				<a data-toggle="tab" href="#tab-eg4-1"
 					class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-danger"><h6 class="mb-0">2층</h6></a>
 			</div>
-
+			
 			<!-- 비활성화 제어 버튼 -->
 			<div class="nav Dis_content">
 				<div class="Dis_title">디바이스 비활성화 : </div>
@@ -23,7 +23,7 @@
 					<div class="toggle-text-on">ON</div>
 				</div>
 			</div>
-
+			
 		</div>
 	</div> <!-- End card-header -->
 
@@ -66,6 +66,15 @@
 							<div class="escape_road8"></div>
 							
 							<div class="escape_road9"></div>
+							
+							<!-- 비상구 표시 -->
+							<a class="intro-banner-vdo-play-btn pinkBg" target="_blank">
+							<i class="fas fa-door-open"></i>
+							<span class="ripple pinkBg"></span>
+							<span class="ripple pinkBg"></span>
+							<span class="ripple pinkBg"></span>
+							
+							</a>
 
 							<!-- 길 애니메이션 -->
 							<div class="escape_ani infinite">infinite</div>
@@ -546,6 +555,7 @@
 	
 </div> <!-- End card-body -->
 
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script>
 	// ON, OFF AJAX
@@ -601,7 +611,27 @@
 	     setTimeout(function() {
 		    $(".escape_road_container7").css("display","block");
 		 }, 3600);
-		
+	     
+	     // 경보 알림
+		 toastr.options = {
+	    	  "closeButton": true,
+			  "debug": false,
+			  "newstOnTop": false,
+			  "positionClass": "toast-top-full-width",
+			  "onclick": null,
+			  "showDuration": 300,
+			  "Hide Duration": 1000,
+			  "showEasing": "swing",
+			  "hideEasing" : "linear",
+			  "fadeIn": 300,
+			  "fadeOut": 1000,
+			  "timeOut": 100000,
+			  "extendedTimeOut": 1000,
+			  "showMethod": "slideDown",
+			  "hideMethod": "fadeOut"
+		}
+
+		 toastr.error("<div class='text-center'>대피로 개방</div>", "<div class='text-center'>지진 경보</div>");
 
 	});
 </script>
@@ -986,7 +1016,7 @@ input:checked + .slider:before {
 .escape_road1{
   width:100%;
   height: 100%;
-  background-color: #50c1c2;
+  background-color: #ffef2a;
   /* border-radius: 7px 7px 7px 7px / 7px 7px 7px 7px; */
 }
 
@@ -994,7 +1024,7 @@ input:checked + .slider:before {
   position:absolute;
   height: 3%;
   margin-left:-50px;
-  background-color: #50c1c2;
+  background-color: #ffef2a;
   display: none;
   
   top:48%;
@@ -1023,14 +1053,14 @@ input:checked + .slider:before {
 .escape_road3{
   width:100%;
   height: 100%;
-  background-color: #50c1c2;
+  background-color: #ffef2a;
 }
 
 .escape_road4{
   position:absolute;
   height: 3%;
   margin-left:-50px;
-  background-color: #50c1c2;
+  background-color: #ffef2a;
   /*display: none;*/
   
   top:43%;
@@ -1060,14 +1090,14 @@ input:checked + .slider:before {
 .escape_road5{
   width:100%;
   height: 100%;
-  background-color: #50c1c2;
+  background-color: #ffef2a;
 }
 
 .escape_road6{
   position:absolute;
   height: 3%;
   margin-left:-50px;
-  background-color: #50c1c2;
+  background-color: #ffef2a;
   /*display: none;*/
   
   top:35%;
@@ -1097,14 +1127,14 @@ input:checked + .slider:before {
 .escape_road7{
   width:100%;
   height: 100%;
-  background-color: #50c1c2;
+  background-color: #ffef2a;
 }
 
 .escape_road8{
   position:absolute;
   height: 3%;
   margin-left:-50px;
-  background-color: #50c1c2;
+  background-color: #ffef2a;
   /*display: none;*/
   
   top:27%;
@@ -1121,7 +1151,7 @@ input:checked + .slider:before {
   position:absolute;
   width: 2%;
   margin-left:-50px;
-  background-color: #50c1c2;
+  background-color: #ffef2a;
   /*display: none;*/
   
   top:23%;
@@ -1187,6 +1217,99 @@ input:checked + .slider:before {
       height: 22.5%;
      }
 }
+.Area_escape {
+	z-index:1;
+	padding: 5px 10px;
+	text-align: center;
+	position: absolute;
+	top: 28%;
+	left: 97%;
+	transform: translate( -30%, -50% );
+	
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	cursor: pointer;
+	float: left;
+	transition: all 0.2s;
+	
+	background: #f6ff60;
+	animation: kescp 1.75s 1s ease-out infinite;
+}
+
+/* 비상구 표시 */
+.pinkBg {
+    background-color: #ed184f!important;
+    background-image: linear-gradient(90deg, #fd5581, #fd8b55);
+}
+.intro-banner-vdo-play-btn{
+    height:40px;
+    width:40px;
+    position:absolute;
+    top:32%;
+    left:100%;
+    text-align:center;
+    margin:-30px 0 0 -30px;
+    border-radius:100px;
+    z-index:1
+}
+.intro-banner-vdo-play-btn i{
+    line-height:56px;
+    font-size:30px
+}
+.intro-banner-vdo-play-btn .ripple{
+    position:absolute;
+    width:160px;
+    height:160px;
+    z-index:-1;
+    left:50%;
+    top:50%;
+    opacity:0;
+    margin:-80px 0 0 -80px;
+    border-radius:100px;
+    -webkit-animation:ripple 1.8s infinite;
+    animation:ripple 1.8s infinite
+}
+
+@-webkit-keyframes ripple{
+    0%{
+        opacity:1;
+        -webkit-transform:scale(0);
+        transform:scale(0)
+    }
+    100%{
+        opacity:0;
+        -webkit-transform:scale(1);
+        transform:scale(1)
+    }
+}
+@keyframes ripple{
+    0%{
+        opacity:1;
+        -webkit-transform:scale(0);
+        transform:scale(0)
+    }
+    100%{
+        opacity:0;
+        -webkit-transform:scale(1);
+        transform:scale(1)
+    }
+}
+.intro-banner-vdo-play-btn .ripple:nth-child(2){
+    animation-delay:.3s;
+    -webkit-animation-delay:.3s
+}
+.intro-banner-vdo-play-btn .ripple:nth-child(3){
+    animation-delay:.6s;
+    -webkit-animation-delay:.6s
+}
+
+.intro-banner-vdo-play-btn i{
+	transform: translate( -40%, -50% );
+	width: 50% !important;
+	height: 50% !important;
+	color: #fff;
+}
 
 
 /* 길 따라 움직이는 애니메이션 */
@@ -1217,5 +1340,9 @@ input:checked + .slider:before {
        left:300px;
      }
 }
+
+
+/* 경보 alert창 */
+
 <!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
 </style>
