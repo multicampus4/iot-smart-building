@@ -114,6 +114,10 @@
 				// 버튼의 on/off 상태 업데이트
 				case "command":
 					setButtonStateRealTime(obj);
+					break;
+				case "disaster":
+					console.log("DISDSAIDSISDISISII"")
+					break;
 				}
 				
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");

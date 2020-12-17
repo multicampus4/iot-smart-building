@@ -43,19 +43,10 @@ void loop() {
   }
   
   Serial.print("$");  // start char
-  Serial.print("$");
   Serial.print("tmp");
   Serial.print(temp);
   Serial.print(";hum");
   Serial.print(temp+52.12);
-   
-//  Serial.print(";acx");
-//  Serial.print(temp+1.01);
-//  Serial.print(";acy");
-//  Serial.print(temp+2.19);
-//  Serial.print(";acz");
-//  Serial.print(temp+1.84);
-  Serial.print(";^\n");
   Serial.print(";^\n"); // end char
   
 }

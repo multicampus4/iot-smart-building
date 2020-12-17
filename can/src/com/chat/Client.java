@@ -293,6 +293,14 @@ public class Client implements SerialPortEventListener {
 					// nfc 데이터인 경우 
 					System.out.println("NFC? ::" + ss.substring(0,2) + ss);
 					rawToJson = convertJson(ss, "nfc").toJSONString();
+				} else if(ss.charAt(0) == 'A') {
+					
+					rawToJson = convertJson(ss, "accelRaw").toJSONString();
+					
+					
+					// dng 가 지진인 경우
+					
+					// 아니면 일반 가속도 데이터
 
 				} else {
 					// ssRaw 데이터인 경우 
