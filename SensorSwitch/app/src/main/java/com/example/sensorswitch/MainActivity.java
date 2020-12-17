@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -43,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     Fragment2 fragment2;
     Fragment3 fragment3;
     FragmentManager fragmentManager;
+
+    private WebView mWebView;
+    private WebSettings mWebSettings;
 
     TextView tx_data;
 
@@ -70,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
 //        fragment2 = new Fragment2(this);  // this : fragment에 현재 메인액티비티 전달
 //        fragment3 = new Fragment3();
 
-//        MyGlobals.getInstance().setFrgment3on(false);
         nfcOk = false;
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment1).commit();
+
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -109,16 +116,12 @@ public class MainActivity extends AppCompatActivity {
 //                        Toast.makeText(MainActivity.this, "tab2", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.tab3:
-                        if(fragment3 == null) {
-                            fragment3 = new Fragment3();
-                            fragmentManager.beginTransaction().add(R.id.frameLayout, fragment3).commit();
-                        }
+                        // nfc 태그 화면은 이전 화면 유지할 필요 없으므로 새로 그림
+                        fragment3 = new Fragment3();
+                        fragmentManager.beginTransaction().add(R.id.frameLayout, fragment3).commit();
 
                         if(fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
                         if(fragment2 != null) fragmentManager.beginTransaction().hide(fragment2).commit();
-                        if(fragment3 != null) fragmentManager.beginTransaction().show(fragment3).commit();
-
-//                        Toast.makeText(MainActivity.this, "tab3", Toast.LENGTH_SHORT).show();
                         return true;
                 }
                 return false;
