@@ -159,7 +159,7 @@ public class Server {
 						}
 						break;
 					case "ssRaw":
-						logdata(msg.getMsg());	// 로그데이터 먼저 보내기
+//						logdata(msg.getMsg());	// 로그데이터 먼저 보내기
 						ArrayList<String> autoControlCmd = autoController.getCmdArr(msg.getMsg());
 						if (autoControlCmd.isEmpty()) { // 제어할 내용 없음
 							System.out.println("Auto Controller : Fine! Nothing to control");
@@ -176,7 +176,7 @@ public class Server {
 						}
 						break;
 					case "command": // (웹),(안드로이드앱)에서 오는 제어명령 > 라떼로 Send Target
-						// 라떼 구분 ID : 1_A, 2_A, 2_B
+						// 라떼 구분 ID : 1_A, 1_B, 2_A
 						// 제어명령의 예: 1_A_D_AIR_OFF
 						split = msg.getMsg().split("_");
 						cmdTargetLatteId = "latte_" + split[0] + "_" + split[1];
@@ -203,6 +203,19 @@ public class Server {
 							// Target : Mobile App
 							sendTarget(idipMaps.get("mobileApp"), msg.getId(), "nfc", "현재시각을 넣어보자");
 						}
+						break;
+					case "accelRaw":
+						break;
+					case "disaster":
+						// Mobile) FCM 푸쉬 경보
+						// Tablet) 경보방송 시작, 대피로 개방, 전기-수도-가스 차단 
+						if (idipMaps.get("tablet_1_A") != null)	 // Target : tab
+							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", null);
+						if (idipMaps.get("tablet_1_B") != null)	 // Target : tab
+							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", null);
+						if (idipMaps.get("tablet_2_A") != null)	 // Target : tab
+							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", null);
+					
 						break;
 					case "etc":
 						// 기타 메시지 처리
