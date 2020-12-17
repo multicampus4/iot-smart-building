@@ -269,7 +269,14 @@ public class Client implements SerialPortEventListener {
 				while (bin.available() > 0) {
 					int numBytes = bin.read(readBuffer);	// ??? 뭐하는 코드?
 				}
-				String newBufferStr = new String(readBuffer).trim();	// Data From Aruduino : "tmp26.00;hum80.00;^"
+
+				String newBufferStr = new String(readBuffer);	// Data From Aruduino : "tmp26.00;hum80.00;^"
+				// 공백제거 
+				newBufferStr = newBufferStr.trim();	
+				// 개행문자 제거
+				newBufferStr = newBufferStr.replaceAll("(\r | \n | \r\n | \n\r)", "");
+				newBufferStr = newBufferStr.replace(System.getProperty("line.separator"), "");
+				
 				System.out.println("RAW DATA From ARDUINO:" + newBufferStr );
 				String correctedBufferStr = bufferCorrection(newBufferStr);	// crahed data 보정
 				
@@ -338,8 +345,6 @@ public class Client implements SerialPortEventListener {
 	// 시작 문자 : "$"
 	// 종료 문자 : "^"
 	public String bufferCorrection(String newBufferStr) {
-		// 개행문자 제거
-		newBufferStr = newBufferStr.replaceAll("(\r | \n | \r\n | \n\r)", "");
 		
 		if (newBufferStr.contains("$") && newBufferStr.contains("^")) {
 			bufferStr = bufferStr.concat(newBufferStr);
@@ -347,12 +352,13 @@ public class Client implements SerialPortEventListener {
 			int start = bufferStr.indexOf("$");
 			int end = bufferStr.indexOf("^");
 //			System.out.println("start: " + start + "; end: " + end);
-			if (start == end + 1) {
-				// ^$ 붙어있는 경우
+			if (start > end) {
+				// ^$ 붙어있는 경우 & ^가 $ 보다 앞에 있는 경우 >> 예외처리 
 				// $ 이후의 string만 보존하여 저장 후 null 리턴
 				bufferStr = bufferStr.substring(end+1);
 				return null;
 			} else {
+//				System.out.println(bufferStr);
 				String correctBufferStr = bufferStr.substring(start + 1, end);
 				// 병목 현상이 생기는 문제
 				// 임시방편 : 정상 처리 되면 나머지는 버리자
