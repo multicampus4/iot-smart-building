@@ -15,7 +15,7 @@
 			
 			<!-- 비활성화 제어 버튼 -->
 			<div class="nav Dis_content">
-				<div class="Dis_title">디바이스 비활성화 : </div>
+				<div class="Dis_title">시설 자동제어  </div>
 				<div class="toggle_Dis" id="switch_Dis">
 					<div class="toggle-text-off">OFF</div>
 					<div class="glow-comp"></div>
@@ -591,11 +591,13 @@
 			// UI 상태 변경
 			$(this).toggleClass("toggle-on");
 			
-			// 비활성화 상태 on, off
+			// 시설제어 토글버튼 활성/비활성 설정
 			if($(this).hasClass("toggle-on")){
 				$(".switch input").attr("disabled", true);
+				execAjax("ON", "AUTO");
 			}else{
 				$(".switch input").attr("disabled", false);
+				execAjax("OFF", "AUTO");
 			}
 		});
 		
