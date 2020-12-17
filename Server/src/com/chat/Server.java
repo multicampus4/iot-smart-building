@@ -49,6 +49,7 @@ public class Server {
 	ServerSocket serverSocket; 							// ServerSocket 객체
 	static WebSocketClient WsClient; 					// WebSocket Client 객체 (대시보드에 데이터 전송)
 	static AutoController autoController;
+	static FcmSender fcmSender;
 
 	// client들의 메세지를 받는다.
 	HashMap<String, ObjectOutputStream> maps;			// HashMap<IP주소, 해당 아웃풋스트림>
@@ -208,6 +209,8 @@ public class Server {
 						break;
 					case "disaster":
 						// Mobile) FCM 푸쉬 경보
+						fcmSender.sender("지진발생!!!", "관리자께서는 신속히 확인바랍니다!!!");
+
 						// Tablet) 경보방송 시작, 대피로 개방, 전기-수도-가스 차단 
 						if (idipMaps.get("tablet_1_A") != null)	 // Target : tab
 							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", null);
@@ -501,6 +504,7 @@ public class Server {
 		getProp();
 		Server server = new Server(tcpipPort); // tcpipPort 번호로 Server 객체 선언
 		autoController = new AutoController();
+		fcmSender = new FcmSender();
 		PropertyConfigurator.configure("log4j.properties");
 		try {
 			getDeviceStat(); // DB의 디바이스 상태 받아옴
