@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     MainActivity mainActivity;
 
     lottieDialogFragment lottieDialogFragment;
+    boolean nfcOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
 //        fragment2 = new Fragment2(this);  // this : fragment에 현재 메인액티비티 전달
 //        fragment3 = new Fragment3();
 
-        MyGlobals.getInstance().setFrgment3on(false);
+//        MyGlobals.getInstance().setFrgment3on(false);
+        nfcOk = false;
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment1).commit();
@@ -110,16 +112,6 @@ public class MainActivity extends AppCompatActivity {
                         if(fragment3 == null) {
                             fragment3 = new Fragment3();
                             fragmentManager.beginTransaction().add(R.id.frameLayout, fragment3).commit();
-                        }
-
-                        if(MyGlobals.getInstance().getFrgment3on()){
-                            TextView txMsg = fragment3.getView().findViewById(R.id.textView3);
-                            TextView tx1 = fragment3.getView().findViewById(R.id.textView4);
-                            txMsg.setText("정상적으로 처리되었습니다");
-                            tx1.setText("태깅 기록된 시각  ");
-
-                            LottieAnimationView animationView = fragment3.getView().findViewById(R.id.lottieAniView);
-                            fragment3.setUpAnimation(animationView, R.raw.nfc_scan_ok,1);
                         }
 
                         if(fragment1 != null) fragmentManager.beginTransaction().hide(fragment1).commit();
@@ -310,10 +302,14 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 case "nfc":
                                     if(fragment3 != null){
-                                        System.out.println("NFCCCCC");
                                         fragment3 = (Fragment3) fragmentManager.findFragmentById(R.id.frameLayout);
                                         LottieAnimationView animationView = fragment3.getView().findViewById(R.id.lottieAniView);
-                                        fragment3.setUpAnimation(animationView, R.raw.nfc_scan_ok-, 1);
+                                        if(!nfcOk){
+                                            fragment3.setUpAnimation(animationView, R.raw.nfc_scan_ok, 1);
+                                        } else {
+                                            fragment3.setUpAnimation(animationView, R.raw.nfc_scan_fail, 1);
+                                        }
+                                        nfcOk = !nfcOk;
                                     }
                                     break;
                                 case "command":
@@ -324,7 +320,6 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                     break;
                             }
-
 
 
 //                            tx_data.setText("[ID]" + finalMsg.getId()

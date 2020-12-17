@@ -38,8 +38,6 @@ public class Fragment3 extends Fragment {
         LottieAnimationView animationView = view.findViewById(R.id.lottieAniView);
         setUpAnimation(animationView, R.raw.nfc_scanning2, LottieDrawable.INFINITE);
 
-        MyGlobals.getInstance().setFrgment3on(true);
-
         // NFC 태깅 시간 출력
         TextView textView = view.findViewById(R.id.textView);
         textView.setText(formatDate);
