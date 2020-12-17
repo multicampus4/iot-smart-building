@@ -8,6 +8,70 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 	<title>WebSocket Data</title>
+	<style>
+		.container{
+			width: 800px;
+			margin: 0 auto;
+			padding: 25px
+		}
+		.container h2{
+			text-align: left;
+			padding: 5px 5px 5px 15px;
+			color: #FFBB00;
+			border-left: 3px solid #FFBB00;
+			margin-bottom: 20px;
+		}
+		.containerBottom{
+			width: 500px;
+			height: 100px;
+			margin: 0 auto;
+			padding: 25px
+		}
+		.btn1{
+			float: left;
+		}
+		.btn2{
+			float: left;
+		}
+		.btn3{
+			float:left;
+		}
+		.innerContainer0{
+			width: 30%;
+			float: left;
+			margin: 0 auto;
+			padding: 5px
+		}
+		.innerContainer1{
+			width: 30%;
+			float: left;
+			margin: 0 auto;
+			padding: 5px
+		}
+		.innerContainer2{
+			width: 30%;
+			float: left;
+			margin: 0 auto;
+			padding: 5px
+		}
+		.chatting{
+			background-color: #000;
+			width: 100%;
+			height: 500px;
+			overflow: auto;
+		}
+		.chatting p{
+			color: #fff;
+			text-align: left;
+		}
+		input{
+			width: 330px;
+			height: 25px;
+		}
+		#yourMsg{
+			display: none;
+		}
+	</style>
 </head>
 <!-- 부트스트랩 toastr 라이브러리 -->
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -32,7 +96,7 @@
 		// onmessage: 메시지가 도착하면 호출
 		ws.onmessage = function(data) {
 			var msg = data.data;
-			console.log(msg);
+			$("#chatting0").prepend("<p>" + msg + "</p>");
 			// ex: { "latteId":"latte_1_A", "tmp":"28.00", "hum":"80.00" }
 			// ex2:{"area":"1_A","msgType":"command","from":"MAIN Server","cmd":"AIR_ON"}
 
@@ -310,6 +374,38 @@
 	<div class="app-main__inner">
 		<jsp:include page="controlFloors.jsp"></jsp:include>
 	</div>
-	
+
+	<div id="container" class="container">
+		<div class="innerContainer0">
+			<h2>raw data</h2>
+			<div id="chatting0" class="chatting"></div>
+		</div>
+		<div class="innerContainer1">
+			<h2>센서1: 온도</h2>
+			<div id="chatting1" class="chatting"></div>
+		</div>
+		<div class="innerContainer2">
+			<h2>센서2: 습도</h2>
+			<div id="chatting2" class="chatting"></div>
+		</div>
+	</div>
+
+
+
+	<div id="container" class="containerBottom">
+		<div class="btn3">
+			<a class="btn" id= "alert" href = "#">Alert</a>
+		</div>
+		
+		<div id="yourMsg">
+			<table class="inputTable">
+				<tr>
+					<th>Data from Arduino</th>
+					<th><input id="chatting" value='{ "tmp":"28", "hum":"80" }'></th>
+					<th><button onclick="send()" id="sendBtn">보내기</button></th>
+				</tr>
+			</table>
+		</div>
+	</div>
 </body>
 </html>
