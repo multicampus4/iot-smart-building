@@ -229,12 +229,17 @@
 	// 버튼 id 예) 1_A_D_AIR
 	function setButtonState(){
 		<c:forEach var="d" items="${devicelist}">
-			// on인 상태일 때 버튼 색상 유지
 			<c:choose>
+				<c:when test="${d.DEVICE_ID eq 'AUTO' && d.DEVICE_STAT eq 'ON'}">
+				    $(".toggle_Dis").toggleClass("toggle-on");	// 자동제어버튼 on상태로 변
+			    	$(".switch input").attr("disabled", true);	// 시설제어버튼 비활성화 
+		    	</c:when>
 			    <c:when test="${d.DEVICE_STAT eq 'ON'}">
+			 		// on인 상태일 때 버튼 색상 유지
 					// `.click()`은 제어명령 이벤트가 발생하는 문제 > 이벤트 없이 버튼 상태만 바뀌도록 수정 
 	 				$("input[id='${d.DEVICE_ID}']").prop("checked", true);	
 			    </c:when>
+			    
 			    <c:otherwise>
 			    	$("input[id='${d.DEVICE_ID}']").prop("checked", false);	
 			    </c:otherwise>
