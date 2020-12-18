@@ -123,19 +123,19 @@
  					$("#" + area + "_S_TEMP").css("background-color", "#f7b924");
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
 					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-warning");
-					$("#P_" + area + "_S_TEMP_bdg").text("warning");
+					$("#P_" + area + "_S_TEMP_bdg").html("&#9660;");
 					
 				}else if(obj.tmp > 18 && obj.tmp <= 21){
 					$("#" + area + "_S_TEMP").css("background-color", "transparent");
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
-					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-focus");
-					$("#P_" + area + "_S_TEMP_bdg").text("normal");
+					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-success");
+					$("#P_" + area + "_S_TEMP_bdg").html("normal");
 					
 				}else if(obj.tmp > 21){
  					$("#" + area + "_S_TEMP").css("background-color", "#f42a2f");
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
 					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-danger");
-					$("#P_" + area + "_S_TEMP_bdg").text("danger");
+					$("#P_" + area + "_S_TEMP_bdg").html("&#9650;");
 				}
 			}
 			if(obj.hum != "undefined"){
@@ -145,19 +145,19 @@
 					$("#" + area + "_S_HUM").css("background-color", "#f7b924");
 					$("#P_" + area + "_S_HUM_bdg").removeClass();
 					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-warning");
-					$("#P_" + area + "_S_HUM_bdg").text("warning");
+					$("#P_" + area + "_S_HUM_bdg").html("&#9660;");
 					
 				}else if(obj.hum > 40 && obj.hum <= 40.99){
 					$("#" + area + "_S_HUM").css("background-color", "transparent");
 					$("#P_" + area + "_S_HUM_bdg").removeClass();
-					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-focus");
-					$("#P_" + area + "_S_HUM_bdg").text("normal");
+					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-success");
+					$("#P_" + area + "_S_HUM_bdg").html("normal");
 				
 				}else if(obj.hum > 40.99){
 					$("#" + area + "_S_HUM").css("background-color", "#f42a2f");
 					$("#P_" + area + "_S_HUM_bdg").removeClass();
 					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-danger");
-					$("#P_" + area + "_S_HUM_bdg").text("danger");
+					$("#P_" + area + "_S_HUM_bdg").html("&#9650;");
 				}
 			}
 			if(obj.dst != "undefined"){
@@ -168,19 +168,19 @@
 					$("#" + area + "_S_DUST").css("background-color", "#00aeef");
 					$("#P_" + area + "_S_DUST_bdg").removeClass();
 					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-info");
-					$("#P_" + area + "_S_DUST_bdg").text("good");
+					$("#P_" + area + "_S_DUST_bdg").html("&#9660;");
 					
 				}else if(obj.dst > 30 && obj.dst <= 80){
 					$("#" + area + "_S_DUST").css("background-color", "transparent");
 					$("#P_" + area + "_S_DUST_bdg").removeClass();
-					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-focus");
-					$("#P_" + area + "_S_DUST_bdg").text("normal");
+					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-success");
+					$("#P_" + area + "_S_DUST_bdg").html("normal");
 					
 				}else if(obj.dst > 80){
 					$("#" + area + "_S_DUST").css("background-color", "#f42a2f");
 					$("#P_" + area + "_S_DUST_bdg").removeClass();
 					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-danger");
-					$("#P_" + area + "_S_DUST_bdg").text("danger");
+					$("#P_" + area + "_S_DUST_bdg").html("&#9650;");
 				}
 			}
 			if(obj.lgt != "undefined"){
@@ -190,19 +190,19 @@
 					$("#" + area + "_S_ILLM").css("background-color", "#f7b924");
 					$("#P_" + area + "_S_ILLM_bdg").removeClass();
 					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-warning");
-					$("#P_" + area + "_S_ILLM_bdg").text("warning");
+					$("#P_" + area + "_S_ILLM_bdg").html("&#9660;");
 					
 				}else if(obj.lgt > 300 && obj.lgt <= 600){
 					$("#" + area + "_S_ILLM").css("background-color", "transparent");
 					$("#P_" + area + "_S_ILLM_bdg").removeClass();
-					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-focus");
-					$("#P_" + area + "_S_ILLM_bdg").text("normal");
+					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-success");
+					$("#P_" + area + "_S_ILLM_bdg").html("normal");
 					
 				}else if(obj.lgt > 600){
 					$("#" + area + "_S_ILLM").css("background-color", "#f42a2f");
 					$("#P_" + area + "_S_ILLM_bdg").removeClass();
 					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-danger");
-					$("#P_" + area + "_S_ILLM_bdg").text("danger");
+					$("#P_" + area + "_S_ILLM_bdg").html("&#9650;");
 				}
 				
 				if(obj.tmp > 18 && obj.tmp <= 21 && obj.hum > 40 && obj.hum <= 40.99 && obj.dst <= 80 && obj.lgt > 300 && obj.lgt <= 600){
@@ -291,9 +291,9 @@
 		$("#P_1_B_S_HUM").css('color', '#f42a2F');
 		$("#P_1_B_S_DUST").css('color', '#f42a2f');
 		$("#P_1_B_S_ILLM").css('color', '#f7b924');
-		$("#P_1_A_S_DUST").css('color', '#00aeef');*/
+		$("#P_1_A_S_DUST").css('color', '#00aeef');
 
-		
+		$("#P_1_B_S_HUM_bdg").html("&#9650;");*/
 		// ----- 테스트 끝 ------------------------------------------------
 		
 		setButtonState();

@@ -1008,8 +1008,7 @@ $(document).ready(function(){
 				<figure class="highcharts-figure">
     				<div id="daytemp" class="chart-container"></div>
 				</figure>
-				<button type="button" id="PopoverCustomT-1"
-				        class="btn btn-primary btn-sm" >Details</button>
+				
 			</div> 
 		</div>
 	</div>
@@ -1025,8 +1024,7 @@ $(document).ready(function(){
 				<figure class="highcharts-figure">
     <div id="dayhumid" class="chart-container"></div>
 				</figure>
-				<button type="button" id="PopoverCustomT-1"
-									class="btn btn-primary btn-sm" >Details</button>
+				
 			</div> 
 		</div>
 

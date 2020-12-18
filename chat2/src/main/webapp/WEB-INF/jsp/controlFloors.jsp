@@ -140,7 +140,7 @@
 												<span>21.34</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_A_S_TEMP_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_A_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -156,7 +156,7 @@
 												<span>67.0</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_A_S_HUM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_A_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -172,7 +172,7 @@
 												<span>17.23</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_A_S_DUST_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_A_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -188,7 +188,7 @@
 												<span>348</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_A_S_ILLM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_A_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -269,7 +269,7 @@
 												<span>17.12</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_B_S_TEMP_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_B_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -285,7 +285,7 @@
 												<span>88.50</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_B_S_HUM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_B_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -301,7 +301,7 @@
 												<span>63.27</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_B_S_DUST_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_B_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -317,7 +317,7 @@
 												<span>282</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_B_S_ILLM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_B_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -433,7 +433,7 @@
 												<span>22.41</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_2_A_S_TEMP_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_2_A_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -449,7 +449,7 @@
 												<span>65.1</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_2_A_S_HUM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_2_A_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -465,7 +465,7 @@
 												<span>27.11</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_2_A_S_DUST_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_2_A_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -481,7 +481,7 @@
 												<span>357</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_2_A_S_ILLM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_2_A_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
