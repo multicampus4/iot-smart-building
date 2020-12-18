@@ -138,6 +138,14 @@ public class MainController {
 		return mv;
 	}
 	
+	@RequestMapping("/monitor")
+	public ModelAndView monitor() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("centerpage", "dataMonitor.jsp");
+		mv.setViewName("index");
+		return mv;
+	}
+	
 	@RequestMapping("/history")
 	public ModelAndView history() {
 		ModelAndView mv = new ModelAndView();

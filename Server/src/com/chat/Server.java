@@ -225,11 +225,11 @@ public class Server {
 
 						// Tablet) 경보방송 시작, 대피로 개방, 전기-수도-가스 차단 
 						if (idipMaps.get("tablet_1_A") != null)	 // Target : tab
-							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", null);
+							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", "msg:disaster");
 						if (idipMaps.get("tablet_1_B") != null)	 // Target : tab
-							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", null);
+							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", "msg:disaster");
 						if (idipMaps.get("tablet_2_A") != null)	 // Target : tab
-							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", null);
+							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", "msg:disaster");
 					
 						break;
 					case "etc":
