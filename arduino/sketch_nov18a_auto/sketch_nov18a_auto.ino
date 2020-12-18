@@ -1,9 +1,9 @@
 #include <DHT11.h>
 
 // 핀설정
-const int temphumPin = A2;
+const int temphumPin = A0;
 const int dustPin = A1;
-const int lightPin = A0;
+const int lightPin = A2;
 
 // 온습도 설정
 DHT11 dht11(temphumPin); 
@@ -70,12 +70,13 @@ void loop() {
 
   // 미세먼지 계산
   duration = pulseIn(dustPin, LOW);
-  lowpulseoccupancy = lowpulseoccupancy + duration;
-  if ((millis() - starttime) > sampletime_ms)
+  lowpulseoccupancy = lowpulseoccupancy+duration;
+
+  if ((millis()-starttime) > sampletime_ms)
   {
-    ratio = lowpulseoccupancy / (sampletime_ms * 10.0); // Integer percentage 0=>100
-    concentration = 1.1 * pow(ratio, 3) - 3.8 * pow(ratio, 2) + 520 * ratio + 0.62; // using spec sheet curve
-    ugm3 =concentration * 100 / 13000;
+    ratio = lowpulseoccupancy/(sampletime_ms*10.0);  // Integer percentage 0=>100
+    concentration = 1.1*pow(ratio,3)-3.8*pow(ratio,2)+520*ratio+0.62; // using spec sheet curve
+    ugm3= concentration * 100 /13000;
     
     //Serial.print(ratio); Low pulse Occupancy %를 알고 싶을때
     //Serial.print(concentration); concentration 를 알고 싶을때
