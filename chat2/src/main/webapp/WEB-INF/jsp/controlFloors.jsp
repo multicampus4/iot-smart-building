@@ -591,10 +591,9 @@
 			// UI 상태 변경
 			$(this).toggleClass("toggle-on");
 			
-			// 시설제어 토글버튼 활성/비활성 설정
 			if($(this).hasClass("toggle-on")){
-				$(".switch input").attr("disabled", true);
-				execAjax("ON", "AUTO");
+				$(".switch input").attr("disabled", true);	// 시설제어 토글버튼 비활성
+				execAjax("ON", "AUTO");	// DB 반영 
 			}else{
 				$(".switch input").attr("disabled", false);
 				execAjax("OFF", "AUTO");
