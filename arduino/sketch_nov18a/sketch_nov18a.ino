@@ -52,14 +52,10 @@ void loop() {
 
     // 출력
     Serial.print("$");  // start char
-//    Serial.print("tmp");
-    Serial.print(tmp);Serial.print(",");
-//    Serial.print(";hum");
-    Serial.print(hum);Serial.print(",");
-//    Serial.print(";dst");
-    Serial.print(ugm3);Serial.print(",");
-//    Serial.print(";lgt");
-    Serial.print(analogRead(lightPin));
+    Serial.print("tmp");Serial.print(tmp);
+    Serial.print(";hum");Serial.print(hum);
+    Serial.print(";dst");Serial.print(ugm3);
+    Serial.print(";lgt");Serial.print(analogRead(lightPin));
     Serial.print(";^\n"); // end char
 
     
