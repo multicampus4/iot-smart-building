@@ -61,25 +61,25 @@
 				    $(".escape_road2").css("display","block");
 				    setTimeout(function() {
 				       $(".escape_road_container3").css("display","block");
-				    }, 1000);
+				    }, 700);
 				    setTimeout(function() {
 					   $(".escape_road4").css("display","block");
-					}, 1800);
+					}, 1300);
 				    setTimeout(function() {
 				       $(".escape_road_container5").css("display","block");
-				    }, 2500);
+				    }, 2050);
 				    setTimeout(function() {
 					   $(".escape_road6").css("display","block");
-					}, 3300);
+					}, 2500);
 				    setTimeout(function() {
 					   $(".escape_road_container7").css("display","block");
-					}, 3600);
+					}, 3000);
 				    setTimeout(function() {
 					   $(".escape_road8").css("display","block");
-					}, 4500);
+					}, 3500);
 				    setTimeout(function() {
 					   $(".escape_road9").css("display","block");
-					}, 2300);
+					}, 2000);
 				     
 				    // 경보 알림 toast
 				    // toastr(부트스트랩의 toast 라이브러리)의 option 설정
@@ -123,19 +123,19 @@
  					$("#" + area + "_S_TEMP").css("background-color", "#f7b924");
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
 					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-warning");
-					$("#P_" + area + "_S_TEMP_bdg").text("warning");
+					$("#P_" + area + "_S_TEMP_bdg").html("&#9660;");
 					
 				}else if(obj.tmp > 18 && obj.tmp <= 21){
 					$("#" + area + "_S_TEMP").css("background-color", "transparent");
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
-					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-focus");
-					$("#P_" + area + "_S_TEMP_bdg").text("normal");
+					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-success");
+					$("#P_" + area + "_S_TEMP_bdg").html("normal");
 					
 				}else if(obj.tmp > 21){
  					$("#" + area + "_S_TEMP").css("background-color", "#f42a2f");
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
 					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-danger");
-					$("#P_" + area + "_S_TEMP_bdg").text("danger");
+					$("#P_" + area + "_S_TEMP_bdg").html("&#9650;");
 				}
 			}
 			if(obj.hum != "undefined"){
@@ -145,19 +145,19 @@
 					$("#" + area + "_S_HUM").css("background-color", "#f7b924");
 					$("#P_" + area + "_S_HUM_bdg").removeClass();
 					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-warning");
-					$("#P_" + area + "_S_HUM_bdg").text("warning");
+					$("#P_" + area + "_S_HUM_bdg").html("&#9660;");
 					
 				}else if(obj.hum > 40 && obj.hum <= 40.99){
 					$("#" + area + "_S_HUM").css("background-color", "transparent");
 					$("#P_" + area + "_S_HUM_bdg").removeClass();
-					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-focus");
-					$("#P_" + area + "_S_HUM_bdg").text("normal");
+					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-success");
+					$("#P_" + area + "_S_HUM_bdg").html("normal");
 				
 				}else if(obj.hum > 40.99){
 					$("#" + area + "_S_HUM").css("background-color", "#f42a2f");
 					$("#P_" + area + "_S_HUM_bdg").removeClass();
 					$("#P_" + area + "_S_HUM_bdg").addClass("badge badge-pill badge-danger");
-					$("#P_" + area + "_S_HUM_bdg").text("danger");
+					$("#P_" + area + "_S_HUM_bdg").html("&#9650;");
 				}
 			}
 			if(obj.dst != "undefined"){
@@ -168,19 +168,19 @@
 					$("#" + area + "_S_DUST").css("background-color", "#00aeef");
 					$("#P_" + area + "_S_DUST_bdg").removeClass();
 					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-info");
-					$("#P_" + area + "_S_DUST_bdg").text("good");
+					$("#P_" + area + "_S_DUST_bdg").html("&#9660;");
 					
 				}else if(obj.dst > 30 && obj.dst <= 80){
 					$("#" + area + "_S_DUST").css("background-color", "transparent");
 					$("#P_" + area + "_S_DUST_bdg").removeClass();
-					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-focus");
-					$("#P_" + area + "_S_DUST_bdg").text("normal");
+					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-success");
+					$("#P_" + area + "_S_DUST_bdg").html("normal");
 					
 				}else if(obj.dst > 80){
 					$("#" + area + "_S_DUST").css("background-color", "#f42a2f");
 					$("#P_" + area + "_S_DUST_bdg").removeClass();
 					$("#P_" + area + "_S_DUST_bdg").addClass("badge badge-pill badge-danger");
-					$("#P_" + area + "_S_DUST_bdg").text("danger");
+					$("#P_" + area + "_S_DUST_bdg").html("&#9650;");
 				}
 			}
 			if(obj.lgt != "undefined"){
@@ -190,19 +190,19 @@
 					$("#" + area + "_S_ILLM").css("background-color", "#f7b924");
 					$("#P_" + area + "_S_ILLM_bdg").removeClass();
 					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-warning");
-					$("#P_" + area + "_S_ILLM_bdg").text("warning");
+					$("#P_" + area + "_S_ILLM_bdg").html("&#9660;");
 					
 				}else if(obj.lgt > 300 && obj.lgt <= 600){
 					$("#" + area + "_S_ILLM").css("background-color", "transparent");
 					$("#P_" + area + "_S_ILLM_bdg").removeClass();
-					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-focus");
-					$("#P_" + area + "_S_ILLM_bdg").text("normal");
+					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-success");
+					$("#P_" + area + "_S_ILLM_bdg").html("normal");
 					
 				}else if(obj.lgt > 600){
 					$("#" + area + "_S_ILLM").css("background-color", "#f42a2f");
 					$("#P_" + area + "_S_ILLM_bdg").removeClass();
 					$("#P_" + area + "_S_ILLM_bdg").addClass("badge badge-pill badge-danger");
-					$("#P_" + area + "_S_ILLM_bdg").text("danger");
+					$("#P_" + area + "_S_ILLM_bdg").html("&#9650;");
 				}
 				
 				if(obj.tmp > 18 && obj.tmp <= 21 && obj.hum > 40 && obj.hum <= 40.99 && obj.dst <= 80 && obj.lgt > 300 && obj.lgt <= 600){
@@ -291,9 +291,9 @@
 		$("#P_1_B_S_HUM").css('color', '#f42a2F');
 		$("#P_1_B_S_DUST").css('color', '#f42a2f');
 		$("#P_1_B_S_ILLM").css('color', '#f7b924');
-		$("#P_1_A_S_DUST").css('color', '#00aeef');*/
+		$("#P_1_A_S_DUST").css('color', '#00aeef');
 
-		
+		$("#P_1_B_S_HUM_bdg").html("&#9650;");*/
 		// ----- 테스트 끝 ------------------------------------------------
 		
 		setButtonState();

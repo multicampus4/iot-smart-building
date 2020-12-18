@@ -618,7 +618,7 @@ function displayTempAvg(data){
 			str += '<td>' + data[i].data[11]+ '</td>';
 		
 			str += '</tr>';
-			console.log(data)
+			//console.log(data)
 		} 
 		$('#htable').html(str);	
  }
@@ -660,7 +660,7 @@ function getDayAvg(){
 				displayHumAvg(data);
 				displayDustSat(data);
 				displayLightAvg(data);
-				console.log(data);
+				//console.log(data);
 			},
 			error:function(){
 				}
@@ -817,7 +817,7 @@ function getDayAvg(){
 				displayHumAvg(data);
 				displayTable(data);
 				//displayTimeTempHum(data)
-				console.log(data)
+				//console.log(data)
 			},
 			error:function(){
 			}
@@ -832,7 +832,7 @@ function getDayAvg(){
 				displayHumAvg(data)
 				displayDustSat(data);
 				displayLightAvg(data);
-				console.log(data)
+				//console.log(data)
 			},
 			error:function(){
 			}
@@ -1008,8 +1008,7 @@ $(document).ready(function(){
 				<figure class="highcharts-figure">
     				<div id="daytemp" class="chart-container"></div>
 				</figure>
-				<button type="button" id="PopoverCustomT-1"
-				        class="btn btn-primary btn-sm" >Details</button>
+				
 			</div> 
 		</div>
 	</div>
@@ -1025,8 +1024,7 @@ $(document).ready(function(){
 				<figure class="highcharts-figure">
     <div id="dayhumid" class="chart-container"></div>
 				</figure>
-				<button type="button" id="PopoverCustomT-1"
-									class="btn btn-primary btn-sm" >Details</button>
+				
 			</div> 
 		</div>
 
@@ -1115,13 +1113,9 @@ $(document).ready(function(){
                                 </div>
                             </div>
                             </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> b6c631177ce5386f3a550ae7701c56583851f1db
 
 
-<div class="row">
+<!-- <div class="row">
 	<div class="col-md-6 col-xl-4">
 		<div class="card mb-3 widget-content">
 			<div class="widget-content-outer">
@@ -1439,5 +1433,5 @@ $(document).ready(function(){
 		</div>
 	</div>
 
-</div>	
+</div>	 -->
 
