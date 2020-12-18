@@ -144,7 +144,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 				val.add(rset.getFloat(15));
 				data.put("data", val);
 				ja.add(data);
-				System.out.println(data);
+				//System.out.println(data);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
