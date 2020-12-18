@@ -7,6 +7,7 @@
 var obj=null;
 // 현재 온도 값 차트 
 function displayTempNow(temp){
+	temp *=1;
 	 var gaugeOptions = {
 			    chart: {
 			        type: 'solidgauge'
@@ -90,6 +91,7 @@ function displayTempNow(temp){
 } 
 //하루 평균 습도 차트 
  function displayHumNow(hum){
+	hum *=1;
 	 var gaugeOptions = {
 			    chart: {
 			        type: 'solidgauge'
@@ -173,6 +175,7 @@ function displayTempNow(temp){
 } 
 //하루 평균 미세먼지 농도 차트 
  function displayDustSatNow(dust){
+	 dust *=1;
 	 var gaugeOptions = {
 			    chart: {
 			        type: 'solidgauge'
@@ -257,6 +260,7 @@ function displayTempNow(temp){
  
 //하루 평균 조도 차트 
  function displayLightNow(illm){
+	 illm *=1;
 	 var gaugeOptions = {
 			    chart: {
 			        type: 'solidgauge'
@@ -354,6 +358,7 @@ function displayTempNow(temp){
 		}
 	function wsOpen() {
 		ws = new WebSocket("ws://" + location.host + "/chatting");
+		getData();
 		chart = new Highcharts.chart('hcontainer1', {
 			chart: {
 		        type: 'spline',
@@ -377,7 +382,7 @@ function displayTempNow(temp){
 			 },
 			xAxis: {
 				tickPixelInterval: 150,
-				   type: 'datetime'
+				type: 'datetime'
 			 },
 			yAxis: {
 			      title: {
@@ -386,7 +391,7 @@ function displayTempNow(temp){
 			      plotLines: [{
 			          value: 0,
 			          width: 1,
-			          color: '#808080'
+			          color: "#FF4500"
 			      }]
 			  }, 
 			accessibility: {
@@ -408,11 +413,12 @@ function displayTempNow(temp){
 			  headerFormat: '<b>{series.name}</b><br />',
 			  pointFormat: 'x = {point.x}, y = {point.y}'
 			},
-			legend: {
-			    layout: 'vertical',
-			    align: 'right',
-			    verticalAlign: 'middle'
-			},
+		    legend: {
+		        enabled: false
+		    },
+		    exporting: {
+		        enabled: false
+		    },
 			series: [{
 			      name: 'AcX',
 			      data: (function () {
@@ -428,7 +434,8 @@ function displayTempNow(temp){
 			              });
 			          }
 			          return data;
-			      }())
+			      }()),
+			      color: "#FF4500"
 			  }]
 			});
 		chart = new Highcharts.chart('hcontainer2', {
@@ -440,11 +447,11 @@ function displayTempNow(temp){
 		            load: 
 		            	function () {
 		                // set up the updating of the chart each second
-			                var series_X = this.series[0];
+			                var series_Y = this.series[0];
 			                setInterval(function () {
 			                    var x = (new Date()).getTime(), // current time
 			                        y = parseFloat(obj.AcY);
-			                    series_X.addPoint([x, y], true, true);
+			                    series_Y.addPoint([x, y], true, true);
 			                }, 1000);
 		            }
 		        }
@@ -454,7 +461,7 @@ function displayTempNow(temp){
 			 },
 			xAxis: {
 				tickPixelInterval: 150,
-				   type: 'datetime'
+				type: 'datetime'
 			 },
 			yAxis: {
 			      title: {
@@ -463,7 +470,7 @@ function displayTempNow(temp){
 			      plotLines: [{
 			          value: 0,
 			          width: 1,
-			          color: '#808080'
+			          color: "#000080"
 			      }]
 			  }, 
 			accessibility: {
@@ -485,11 +492,12 @@ function displayTempNow(temp){
 			  headerFormat: '<b>{series.name}</b><br />',
 			  pointFormat: 'x = {point.x}, y = {point.y}'
 			},
-			legend: {
-			    layout: 'vertical',
-			    align: 'right',
-			    verticalAlign: 'middle'
-			},
+		    legend: {
+		        enabled: false
+		    },
+		    exporting: {
+		        enabled: false
+		    },
 			series: [{
 			      name: 'AcY',
 			      data: (function () {
@@ -505,7 +513,8 @@ function displayTempNow(temp){
 			              });
 			          }
 			          return data;
-			      }())
+			      }()),
+			      color: "#000080"	
 			  }]
 			});
 		chart = new Highcharts.chart('hcontainer3', {
@@ -517,11 +526,11 @@ function displayTempNow(temp){
 			            load: 
 			            	function () {
 			                // set up the updating of the chart each second
-				                var series_X = this.series[0];
+				                var series_Z = this.series[0];
 				                setInterval(function () {
 				                    var x = (new Date()).getTime(), // current time
 				                        y = parseFloat(obj.AcZ);
-				                    series_X.addPoint([x, y], true, true);
+				                    series_Z.addPoint([x, y], true, true);
 				                }, 1000);
 			            }
 			        }
@@ -531,7 +540,7 @@ function displayTempNow(temp){
 				 },
 				xAxis: {
 					tickPixelInterval: 150,
-					   type: 'datetime'
+					type: 'datetime'
 				 },
 				yAxis: {
 				      title: {
@@ -540,7 +549,7 @@ function displayTempNow(temp){
 				      plotLines: [{
 				          value: 0,
 				          width: 1,
-				          color: '#808080'
+				          color: "#228B22"
 				      }]
 				  }, 
 				accessibility: {
@@ -562,11 +571,12 @@ function displayTempNow(temp){
 				  headerFormat: '<b>{series.name}</b><br />',
 				  pointFormat: 'x = {point.x}, y = {point.y}'
 				},
-				legend: {
-				    layout: 'vertical',
-				    align: 'right',
-				    verticalAlign: 'middle'
-				},
+			    legend: {
+			        enabled: false
+			    },
+			    exporting: {
+			        enabled: false
+			    },
 				series: [{
 				      name: 'AcZ',
 				      data: (function () {
@@ -582,7 +592,8 @@ function displayTempNow(temp){
 				              });
 				          }
 				          return data;
-				      }())
+				      }()),
+				      color: "#228B22"
 				  }]
 				});
 		wsEvt();
@@ -602,7 +613,6 @@ function displayTempNow(temp){
 	}
 $(document).ready(function(){
 	wsOpen();
-	getData();
 	
 });
 
@@ -618,8 +628,6 @@ $(document).ready(function(){
 				<figure class="highcharts-figure">
     				<div id="nowtemp" class="chart-container"></div>
 				</figure>
-				<button type="button" id="PopoverCustomT-1"
-				        class="btn btn-primary btn-sm" >Details</button>
 			</div> 
 		</div>
 	</div>
@@ -633,8 +641,6 @@ $(document).ready(function(){
 				<figure class="highcharts-figure">
     				<div id="nowhumid" class="chart-container"></div>
 				</figure>
-				<button type="button" id="PopoverCustomT-1"
-									class="btn btn-primary btn-sm" >Details</button>
 			</div> 
 		</div>
 	</div>
@@ -668,68 +674,7 @@ $(document).ready(function(){
 		</div>
 	</div>  
 </div>
-<div class="row">
-	<div class="col-md-6 col-xl-4">
-		<div class="card mb-3 widget-content bg-midnight-bloom">
-			<div class="widget-content-wrapper text-white">
-				<div class="widget-content-left">
-					<div class="widget-heading">Total Orders</div>
-					<div class="widget-subheading">Last year expenses</div>
-				</div>
-				<div class="widget-content-right">
-					<div class="widget-numbers text-white">
-						<span>1896</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-6 col-xl-4">
-		<div class="card mb-3 widget-content bg-arielle-smile">
-			<div class="widget-content-wrapper text-white">
-				<div class="widget-content-left">
-					<div class="widget-heading">Clients</div>
-					<div class="widget-subheading">Total Clients Profit</div>
-				</div>
-				<div class="widget-content-right">
-					<div class="widget-numbers text-white">
-						<span>$ 568</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-6 col-xl-4">
-		<div class="card mb-3 widget-content bg-grow-early">
-			<div class="widget-content-wrapper text-white">
-				<div class="widget-content-left">
-					<div class="widget-heading">Followers</div>
-					<div class="widget-subheading">People Interested</div>
-				</div>
-				<div class="widget-content-right">
-					<div class="widget-numbers text-white">
-						<span>46%</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="d-xl-none d-lg-block col-md-6 col-xl-4">
-		<div class="card mb-3 widget-content bg-premium-dark">
-			<div class="widget-content-wrapper text-white">
-				<div class="widget-content-left">
-					<div class="widget-heading">Products Sold</div>
-					<div class="widget-subheading">Revenue streams</div>
-				</div>
-				<div class="widget-content-right">
-					<div class="widget-numbers text-warning">
-						<span>$14M</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="main-card mb-3 card">
@@ -751,10 +696,6 @@ $(document).ready(function(){
 				<figure class="highcharts-figure">
 					<div id="hcontainer3"></div>
 				</figure>
-			</div>
-			<div class="tab-content">
-				데모 데이터 전송 : <input id="chatting" value='{ "tmp":"28", "hum":"80" }'>
-				<button onclick="send()" id="sendBtn">보내기</button>
 			</div>
 		</div>
 	</div>

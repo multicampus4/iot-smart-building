@@ -1,7 +1,6 @@
 package com.ex.chat2.controller;
 
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,17 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
@@ -368,33 +359,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 	@RequestMapping("/getNow.mc")
 	@ResponseBody
-	public void getNow1(HttpServletResponse res) throws Exception {
-
+	public void getNow(HttpServletResponse res) throws Exception {
+		Random random = new Random();
 		Connection con = null;
-//		SimpleDateFormat rtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		System.out.println(rtime);
 		JSONArray ja = new JSONArray();
-		try {
-			con = DriverManager.getConnection(url2, hid, hpwd);
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM ENV WHERE REALTIME ='2020-12-01 23:05:41'");
-			ResultSet rset = pstmt.executeQuery();
-			// [{name: 'Sweden',data:[0.904 81.0 11.0]},{}]
-			while (rset.next()) {
-				JSONObject jo = new JSONObject();
-				jo.put("ultra_finedust", rset.getInt(2));
-				jo.put("finedust", rset.getInt(3));
-				jo.put("temperature", rset.getFloat(4));
-				jo.put("humidity", rset.getInt(5));
-				jo.put("illuminance", rset.getInt(6));
-				ja.add(jo);
-				System.out.println(ja);
-
+		while(true) {
+			try {
+				int minute = random.nextInt(6)+21;			//21~26
+				int second = random.nextInt(60)+1;	
+				System.out.println(minute);System.out.println(second);
+				con = DriverManager.getConnection(url2, hid, hpwd);
+				PreparedStatement pstmt = con.prepareStatement("SELECT * FROM thdi where day(realtime)=13 and hour(realtime)=5 and minute(realtime)="+minute+" and second(realtime)="+second);
+				ResultSet rset = pstmt.executeQuery();
+				// [{name: 'Sweden',data:[0.904 81.0 11.0]},{}]
+				while(rset.next()) {
+					JSONObject jo = new JSONObject();
+					jo.put("temperature", rset.getString(2).substring(3));
+					jo.put("humidity", rset.getString(3).substring(3));
+					jo.put("finedust", rset.getString(4).substring(3));
+					jo.put("illuminance", rset.getString(5).substring(3));
+					ja.add(jo);
+				}
+				if(ja.size()==0) {
+					continue;
+				}
+				break;
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			throw e;
-		} finally {
 		}
 		con.close();
+		System.out.println(ja);
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("application/json");
 		PrintWriter out = res.getWriter();
@@ -449,7 +444,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
         hiveHostname = properties.getProperty("hiveHostname");
 	    hiveId = properties.getProperty("hiveId");
 		hivePwd = properties.getProperty("hivePwd");
-			
 	}
 
 }
