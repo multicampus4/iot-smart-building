@@ -12,7 +12,7 @@
 				<a data-toggle="tab" href="#tab-eg4-1"
 					class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-danger"><h6 class="mb-0">2층</h6></a>
 			</div>
-			
+
 			<!-- 비활성화 제어 버튼 -->
 			<div class="nav Dis_content">
 				<div class="Dis_title">시설 자동제어  </div>
@@ -75,6 +75,7 @@
 							<span class="ripple pinkBg"></span>
 							
 							</a>
+
 
 							<!-- 길 애니메이션 -->
 							<div class="escape_ani infinite">infinite</div>
@@ -626,9 +627,9 @@
 	     setTimeout(function() {
 			$(".escape_road9").css("display","block");
 		 }, 2300);
-	     */
+	     
 		 //---------- 경보 알림 테스트
-		 /*	   
+		   
 		 toastr.options = {
 					"closeButton" : true,
 					"debug" : false,
@@ -1024,7 +1025,7 @@ input:checked + .slider:before {
   margin-left:-50px;
 
   top: 48%;
-  left: 25.6%;
+  left: 22.8%;
   display: none;
   animation-name: road_key1;
   animation-timing-function: linear;
@@ -1046,7 +1047,7 @@ input:checked + .slider:before {
   display: none;
   
   top:48%;
-  left: 25.6%;
+  left: 22.8%;
   
   animation-name: road_key2;
   animation-timing-function: linear;
@@ -1061,7 +1062,7 @@ input:checked + .slider:before {
   margin-left:-50px;
 
   top: 43%;
-  left: 35.6%;
+  left: 32.8%;
   display: none;
   animation-name: road_key1;
   animation-timing-function: linear;
@@ -1082,7 +1083,7 @@ input:checked + .slider:before {
   display: none;
   
   top:43%;
-  left: 37%;
+  left: 34.6%;
   
   animation-name: road_key3;
   animation-timing-function: linear;
@@ -1098,7 +1099,7 @@ input:checked + .slider:before {
   margin-left:-50px;
 
   top: 35%;
-  left: 97%;
+  left: 94.2%;
   display: none;
   animation-name: road_key1;
   animation-timing-function: linear;
@@ -1119,7 +1120,7 @@ input:checked + .slider:before {
   display: none;
   
   top:35%;
-  left: 97%;
+  left: 94.2%;
   
   animation-name: road_key6;
   animation-timing-function: linear;
@@ -1135,7 +1136,7 @@ input:checked + .slider:before {
   margin-left:-50px;
 
   top: 27%;
-  left: 103.7%;
+  left: 100.9%;
   display: none;
   animation-name: road_key1;
   animation-timing-function: linear;
@@ -1156,7 +1157,7 @@ input:checked + .slider:before {
   display: none;
   
   top:27%;
-  left: 103.7%;
+  left: 100.9%;
   
   animation-name: road_key8;
   animation-timing-function: linear;
@@ -1173,7 +1174,7 @@ input:checked + .slider:before {
   display: none;
   
   top:23%;
-  left: 79.6%;
+  left: 76.8%;
   
   animation-name: road_key9;
   animation-timing-function: linear;
@@ -1205,7 +1206,7 @@ input:checked + .slider:before {
        width: 0%;
      }
      to{
-      width: 62%;
+      width: 61.5%;
      }
 }
 
@@ -1363,5 +1364,5 @@ input:checked + .slider:before {
 
 /* 경보 alert창 */
 
-<!-- 크롬 기준이므로 webkit(safari), moz(firefox) 제외함-->
+
 </style>
