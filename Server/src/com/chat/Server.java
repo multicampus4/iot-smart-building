@@ -217,6 +217,7 @@ public class Server {
 						}
 						break;
 					case "accelRaw":
+						writeLogdata(msg.getMsg(), "earthquake");
 						break;
 					case "disaster":
 						// Mobile) FCM 푸쉬 경보
