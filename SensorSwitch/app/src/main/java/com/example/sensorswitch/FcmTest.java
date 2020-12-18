@@ -24,7 +24,7 @@ public class FcmTest extends FirebaseMessagingService {
     private static String CHANNEL_ID = "channel1";
     private static String CHANEL_NAME = "ChName";
 
-    String title, control, data, body;
+    String title, control, data, body,type;
     public FcmTest() {
     }
 
@@ -34,6 +34,7 @@ public class FcmTest extends FirebaseMessagingService {
         control = remoteMessage.getData().get("control");                // "control1"
         data = remoteMessage.getData().get("data");                      // 100
         body = remoteMessage.getData().get("body");                      // "센서가 작동되었습니다."
+        type = remoteMessage.getData().get("type");                      //
 
 
         Log.d("[TAG]:",title + " " + control  + " " + data);          // "센서작동 control1 100"
@@ -44,6 +45,7 @@ public class FcmTest extends FirebaseMessagingService {
         intent.putExtra("control", control);
         intent.putExtra("data", data);
         intent.putExtra("body", body);
+        intent.putExtra("type", type);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);    // 보낸다.
     }
     public void showNoti(){

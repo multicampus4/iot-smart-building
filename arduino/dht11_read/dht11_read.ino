@@ -12,16 +12,20 @@ void loop()
   float temp, humi;
   if((err=dht11.read(humi, temp))==0)
   {
+    Serial.print("$");  // start char
     Serial.print("tmp:");
     Serial.print(temp);
     Serial.print(";hum:");
-    Serial.println(humi,0);
+    Serial.print(humi,0);
+    Serial.print(";^\n"); // end char
   }
   else
   {
+    Serial.print("$");  // start char
     Serial.println();
     Serial.print("Error No :");
-    Serial.println(err);
+    Serial.print(err);
+    Serial.print(";^\n"); // end char
   }
   delay(1200); //delay for reread
 }

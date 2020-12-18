@@ -56,6 +56,7 @@ void loop() {
   } else {
     state = "N";
   }
+  Serial.print("$");  // start char
   Serial.print("AcX");
   Serial.print(AcX);
   Serial.print(";AcY");
@@ -63,7 +64,9 @@ void loop() {
   Serial.print(";AcZ");
   Serial.print(AcZ);
   Serial.print(";dng");
-  Serial.println(state);
+  Serial.print(state);
+  Serial.print(";^\n"); // end char
+
 
   // 가속도 값 물려받기
   before_AcX = AcX;

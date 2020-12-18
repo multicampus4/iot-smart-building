@@ -1115,9 +1115,12 @@ $(document).ready(function(){
                                 </div>
                             </div>
                             </div>
+<<<<<<< HEAD
+
+=======
+>>>>>>> b6c631177ce5386f3a550ae7701c56583851f1db
 
 
-<!-- 
 <div class="row">
 	<div class="col-md-6 col-xl-4">
 		<div class="card mb-3 widget-content">
@@ -1435,6 +1438,6 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
+
 </div>	
- -->
-	
+
