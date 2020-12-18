@@ -23,7 +23,7 @@
 					<div class="toggle-text-on">ON</div>
 				</div>
 			</div>
-
+			
 		</div>
 	</div> <!-- End card-header -->
 
@@ -48,22 +48,39 @@
 								<div class="escape_road1"></div>
 							</div>
 							<div class="escape_road2"></div>
-							
+
 							<div class="escape_road_container3">
 								<div class="escape_road3"></div>
 							</div>
 							<div class="escape_road4"></div>
-							
+
 							<div class="escape_road_container5">
 								<div class="escape_road5"></div>
 							</div>
-							
 							<div class="escape_road6"></div>
+							
+							<div class="escape_road_container7">
+								<div class="escape_road7"></div>
+							</div>
+
+							<div class="escape_road8"></div>
+							
+							<div class="escape_road9"></div>
+							
+							<!-- 비상구 표시 -->
+							<a class="intro-banner-vdo-play-btn pinkBg" target="_blank">
+							<i class="fas fa-door-open"></i>
+							<span class="ripple pinkBg"></span>
+							<span class="ripple pinkBg"></span>
+							<span class="ripple pinkBg"></span>
+							
+							</a>
+
 
 							<!-- 길 애니메이션 -->
 							<div class="escape_ani infinite">infinite</div>
 							
-	
+
 							<!-- 1_A tooltip-->
 							<div class="Area_1A">
 								<div class="con-tooltip right" id="tt_1_A">
@@ -102,7 +119,7 @@
 									</div>
 								</div>
 							</div>
-	
+							
 						</div><!-- End wrap -->
 					</div> <!-- End col-md -->
 						
@@ -539,6 +556,7 @@
 	
 </div> <!-- End card-body -->
 
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script>
 	// ON, OFF AJAX
@@ -582,19 +600,56 @@
 			}
 		});
 		
-		// 비상대피로 표시
-		$(".escape_road_container1").css("display","block");
-		$(".escape_road2").css("display","block");
-		setTimeout(function() {
-			$(".escape_road_container3").css("display","block");
-		}, 2000);
-		setTimeout(function() {
-			$(".escape_road_container5").css("display","block");
-		}, 6000);
-		
-		
-		
-		
+		 // 비상대피로 표시 테스트  ----------------------------------------
+		 /*
+		 $(".intro-banner-vdo-play-btn").css("display", "block");
+	     $(".escape_road_container1").css("display","block");
+	     $(".escape_road2").css("display","block");
+	     setTimeout(function() {
+	        $(".escape_road_container3").css("display","block");
+	     }, 1000);
+	     setTimeout(function() {
+		    $(".escape_road4").css("display","block");
+		 }, 1800);
+	     setTimeout(function() {
+	        $(".escape_road_container5").css("display","block");
+	     }, 2500);
+	     setTimeout(function() {
+		    $(".escape_road6").css("display","block");
+		 }, 3300);
+	     setTimeout(function() {
+		    $(".escape_road_container7").css("display","block");
+		 }, 3600);
+	     setTimeout(function() {
+			$(".escape_road8").css("display","block");
+		 }, 4500);
+	     setTimeout(function() {
+			$(".escape_road9").css("display","block");
+		 }, 2300);
+	     
+		 //---------- 경보 알림 테스트
+		   
+		 toastr.options = {
+					"closeButton" : true,
+					"debug" : false,
+					"newstOnTop" : false,
+					"positionClass" : "toast-top-full-width",
+					"onclick" : null,
+					"showDuration" : 300,
+					"Hide Duration" : 1000,
+					"showEasing" : "swing",
+					"hideEasing" : "linear",
+					"fadeIn" : 300,
+					"fadeOut" : 1000,
+					"timeOut" : 100000, // toastr가 보여지는 시간
+					"extendedTimeOut" : 1000,
+					"showMethod" : "slideDown",
+					"hideMethod" : "fadeOut"
+		}
+		// toastr 띄우기(error 타입)
+		toastr.error("<div class='text-center'>대피로 개방</div>","<div class='text-center'>지진 경보</div>");
+		*/
+		// ------------------- 테스트 끝 -----------------------------
 
 	});
 </script>
@@ -964,154 +1019,315 @@ input:checked + .slider:before {
 /* 길표시*/
 .escape_road_container1{
   position:absolute;
-  width:20px;
-  height: 75px;
+  width:2%;
+  height: 15%;
   margin-left:-50px;
 
-  top: 225px;
-  left: 166px;
+  top: 48%;
+  left: 22.8%;
   display: none;
   animation-name: road_key1;
   animation-timing-function: linear;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
 .escape_road1{
   width:100%;
   height: 100%;
-  background-color: blue;
-  border-radius: 7px 7px 7px 7px / 7px 7px 7px 7px;
+  background-color: #ffef2a;
+  /* border-radius: 7px 7px 7px 7px / 7px 7px 7px 7px; */
 }
 
 .escape_road2{
   position:absolute;
-  height: 20px;
+  height: 3%;
   margin-left:-50px;
-  background-color: blue;
-  border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+  background-color: #ffef2a;
   display: none;
   
-  top:225px;
-  left: 169px;
+  top:48%;
+  left: 22.8%;
   
   animation-name: road_key2;
   animation-timing-function: linear;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
-  animation-delay: 1s;
+  animation-delay: 0.4s;
 }
 .escape_road_container3{
   position:absolute;
-  width:20px;
-  height: 35px;
+  width:2%;
+  height: 7%;
   margin-left:-50px;
 
-  top: 207px;
-  left: 222.5px;
+  top: 43%;
+  left: 32.8%;
   display: none;
   animation-name: road_key1;
   animation-timing-function: linear;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
 .escape_road3{
   width:100%;
   height: 100%;
-  background-color: blue;
-  border-radius: 7px 7px 12px 7px / 7px 7px 12px 7px;
+  background-color: #ffef2a;
 }
 
 .escape_road4{
   position:absolute;
-  height: 20px;
+  height: 3%;
   margin-left:-50px;
-  background-color: blue;
-  border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
-  /*display: none;*/
+  background-color: #ffef2a;
+  display: none;
   
-  top:207px;
-  left: 225px;
+  top:43%;
+  left: 34.6%;
   
   animation-name: road_key3;
   animation-timing-function: linear;
-  animation-duration: 2s;
+  animation-duration: 0.9s;
   animation-fill-mode: forwards;
-  animation-delay: 3.5s;
+  /*animation-delay: 1.8s;*/
 }
 
 .escape_road_container5{
   position:absolute;
-  width:20px;
-  height: 55px;
+  width:2%;
+  height: 9%;
   margin-left:-50px;
 
-  top: 170px;
-  left: 700px;
+  top: 35%;
+  left: 94.2%;
   display: none;
   animation-name: road_key1;
   animation-timing-function: linear;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
 .escape_road5{
   width:100%;
   height: 100%;
-  background-color: blue;
-  border-radius: 7px 7px 12px 7px / 7px 7px 12px 7px;
+  background-color: #ffef2a;
 }
 
 .escape_road6{
   position:absolute;
-  height: 20px;
+  height: 3%;
   margin-left:-50px;
-  background-color: blue;
-  border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
-  /*display: none;*/
+  background-color: #ffef2a;
+  display: none;
   
-  top:167px;
-  left: 700px;
+  top:35%;
+  left: 94.2%;
   
   animation-name: road_key6;
   animation-timing-function: linear;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
-  animation-delay: 8s;
+  /*animation-delay: 3.3s;*/
+}
+
+.escape_road_container7{
+  position:absolute;
+  width:2%;
+  height: 10%;
+  margin-left:-50px;
+
+  top: 27%;
+  left: 100.9%;
+  display: none;
+  animation-name: road_key1;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.escape_road7{
+  width:100%;
+  height: 100%;
+  background-color: #ffef2a;
+}
+
+.escape_road8{
+  position:absolute;
+  height: 3%;
+  margin-left:-50px;
+  background-color: #ffef2a;
+  display: none;
+  
+  top:27%;
+  left: 100.9%;
+  
+  animation-name: road_key8;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  /*animation-delay: 4.5s;*/
+}
+
+.escape_road9{
+  position:absolute;
+  width: 2%;
+  margin-left:-50px;
+  background-color: #ffef2a;
+  display: none;
+  
+  top:23%;
+  left: 76.8%;
+  
+  animation-name: road_key9;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  /*animation-delay: 2.3s;*/
 }
 
 @keyframes road_key1 {
-	from{
-    	padding-top: 7%;
-  	}
-  	to{
-		padding-top: 0%;
-  	}
+   from{
+       padding-top: 7%;
+     }
+     to{
+      padding-top: 0%;
+     }
 }
  
 @keyframes road_key2 {
-	from{
-    	width: 0%;
-  	}
-  	to{
-		width: 10%;
-  	}
+   from{
+       width: 0%;
+     }
+     to{
+      width: 12%;
+     }
 }
  
 @keyframes road_key3 {
-	from{
-    	width: 0%;
-  	}
-  	to{
-		width: 67%;
-  	}
+   from{
+       width: 0%;
+     }
+     to{
+      width: 61.5%;
+     }
 }
 
 @keyframes road_key6 {
-	from{
-    	width: 0%;
-  	}
-  	to{
-		width: 8%;
-  	}
+   from{
+       width: 0%;
+     }
+     to{
+      width: 8.7%;
+     }
+}
+
+@keyframes road_key8 {
+   from{
+       width: 0%;
+     }
+     to{
+      width: 4%;
+     }
+}
+
+@keyframes road_key9 {
+   from{
+       height: 0%;
+     }
+     to{
+      height: 22.5%;
+     }
+}
+.Area_escape {
+	z-index:1;
+	padding: 5px 10px;
+	text-align: center;
+	position: absolute;
+	top: 28%;
+	left: 97%;
+	transform: translate( -30%, -50% );
+	
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	cursor: pointer;
+	float: left;
+	transition: all 0.2s;
+	
+	background: #f6ff60;
+	animation: kescp 1.75s 1s ease-out infinite;
+}
+
+/* 비상구 표시 */
+.pinkBg {
+    background-color: #ed184f!important;
+    background-image: linear-gradient(90deg, #fd5581, #fd8b55);
+}
+.intro-banner-vdo-play-btn{
+    height:40px;
+    width:40px;
+    position:absolute;
+    top:32%;
+    left:100%;
+    text-align:center;
+    margin:-30px 0 0 -30px;
+    border-radius:100px;
+    z-index:1;
+    display: none;
+}
+.intro-banner-vdo-play-btn i{
+    line-height:56px;
+    font-size:30px
+}
+.intro-banner-vdo-play-btn .ripple{
+    position:absolute;
+    width:160px;
+    height:160px;
+    z-index:-1;
+    left:50%;
+    top:50%;
+    opacity:0;
+    margin:-80px 0 0 -80px;
+    border-radius:100px;
+    -webkit-animation:ripple 1.8s infinite;
+    animation:ripple 1.8s infinite
+}
+
+@-webkit-keyframes ripple{
+    0%{
+        opacity:1;
+        -webkit-transform:scale(0);
+        transform:scale(0)
+    }
+    100%{
+        opacity:0;
+        -webkit-transform:scale(1);
+        transform:scale(1)
+    }
+}
+@keyframes ripple{
+    0%{
+        opacity:1;
+        -webkit-transform:scale(0);
+        transform:scale(0)
+    }
+    100%{
+        opacity:0;
+        -webkit-transform:scale(1);
+        transform:scale(1)
+    }
+}
+.intro-banner-vdo-play-btn .ripple:nth-child(2){
+    animation-delay:.3s;
+    -webkit-animation-delay:.3s
+}
+.intro-banner-vdo-play-btn .ripple:nth-child(3){
+    animation-delay:.6s;
+    -webkit-animation-delay:.6s
+}
+
+.intro-banner-vdo-play-btn i{
+	transform: translate( -40%, -50% );
+	width: 50% !important;
+	height: 50% !important;
+	color: #fff;
 }
 
 
@@ -1136,12 +1352,16 @@ input:checked + .slider:before {
   animation-iteration-count:infinite;
 }
 @keyframes road_key123 {
-  	from{
-    	left:100px;
-  	}
-  	to{
-    	left:300px;
-  	}
+     from{
+       left:100px;
+     }
+     to{
+       left:300px;
+     }
 }
+
+
+/* 경보 alert창 */
+
 
 </style>

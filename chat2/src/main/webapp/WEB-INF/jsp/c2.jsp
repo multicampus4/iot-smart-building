@@ -593,25 +593,25 @@ function displayTempAvg(data){
  
  function displayTable(data){
 	 var str='';
-	 $.each(data, function(index,item){
-		 //alert(item.data[0])
+
+	/*  $.each(data, function(index,item){
+			
+		});  */
+		for(var i=0;i<4;i++){
+			//alert(data.length[4])
 			str += '<tr>';
-			str += '<td>' + item.name+'</td>';
-			str += '<td>' + item.data[0]+ '</td>';
-			str += '<td>' + item.data[1]+ '</td>'; //str += '<td>' + item.y+ '</td>'; 이렇게 계속 추가하면 데이터 표에 입력됨 
-			str += '<td>' + item.data[2]+ '</td>';
-			str += '<td>' + item.data[3]+ '</td>';
-			str += '<td>' + item.data[4]+ '</td>';
-			str += '<td>' + item.data[6]+ '</td>';
-			str += '<td>' + item.data[7]+ '</td>';
-			str += '<td>' + item.data[8]+ '</td>';
-			str += '<td>' + item.data[9]+ '</td>';
-			str += '<td>' + item.data[10]+ '</td>';
-			str += '<td>' + item.data[11]+ '</td>';
-			str += '<td>' + item.data[12]+ '</td>';
-			
-		
-			
+			str += '<td>' + data[i].name+'</td>';
+			str += '<td>' + data[i].data[0]+ '</td>';
+			str += '<td>' + data[i].data[1]+ '</td>';  
+			str += '<td>' + data[i].data[2]+ '</td>';
+			str += '<td>' + data[i].data[3]+ '</td>';
+			str += '<td>' + data[i].data[4]+ '</td>';
+			str += '<td>' + data[i].data[5]+ '</td>';
+			str += '<td>' + data[i].data[6]+ '</td>';
+			str += '<td>' + data[i].data[7]+ '</td>';
+			str += '<td>' + data[i].data[8]+ '</td>';
+			str += '<td>' + data[i].data[9]+ '</td>';
+
 			str += '</tr>';
 		}); 
 		$('#htable').html(str);	
@@ -628,7 +628,6 @@ function displayTempAvg(data){
 			error:function(){
 				}
 		});
-		//displayTimeGph();
 		
 	}
 
@@ -639,14 +638,13 @@ function displayTempAvg(data){
 			success:function(data){
 				displayTable(data);
 	        //alert(data)
-	        console.log(data)
-				
 
-			},
+	        //console.log(data)
+					},
 			error:function(){
 				}
 		});
-		displayTable();
+
 	}
  
 function getDayAvg(){
@@ -674,45 +672,133 @@ function getDayAvg(){
  //body의 onclick에 의해 실행되는 함수 
  //클릭하면 아래의 함수가 호출되고 아래의 함수에 따른 데이터로 그래프와 표가 업데이트 된다.
  //추후 실제 로그데이터가 만들어지면 해당 날짜에 onclick이벤트 실행하여 해당 데이터로 업데이트 되는 함수 작성해 주면 됨 
+
+ function getdata1130(){
+		$.ajax({
+			url:'getdata1130.mc',
+			//alert(123)
+			success:function(data){
+				if(data.cmd="1"){
+					displayTempAvg(data);
+					displayHumAvg(data);
+					displayDustSat(data);
+					displayLightAvg(data);
+					displayTable(data);
+						console.log(data)
+					}if(data.cmd="2"){
+						//alert("cmd ok")
+						displayTimeGph(data);
+						
+					} 
+			},
+			error:function(){
+			}
+		});
+	} 
+ 
+ 
+ 
+ 
+ function getdata1201(){
+		$.ajax({
+			url:'getdata1201.mc',
+		 	
+		 
+			success:function(data){
+			
+				if(data.cmd="1"){
+				displayTempAvg(data);
+				displayHumAvg(data);
+				displayDustSat(data);
+				displayLightAvg(data);
+				displayTable(data);
+					//console.log(data)
+				}if(data.cmd="2"){
+					displayTimeGph(data);
+					
+				} 
+			
+			},
+			error:function(){
+			}
+			
+				});
+		/* $.ajax({
+			url:'getdata1201.mc?cmd=2',
+					success:function(data){
+						displayTimeGph(data);
+					},
+					error:function(){
+						
+					}
+		}); */
+	} 
+ 
+ 
+  function getdata1202(){
+	  
+	  $.ajax({
+			url:'getdata1202.mc',
+			//alert(123)
+			success:function(data){
+				if(data.cmd="1"){
+					displayTempAvg(data);
+					displayHumAvg(data);
+					displayDustSat(data);
+					displayLightAvg(data);
+					displayTable(data);
+						console.log(data)
+					}if(data.cmd="2"){
+						//alert("cmd ok")
+						displayTimeGph(data);
+						
+					} 
+			},
+			error:function(){
+			}
+		});
+  }
+
  function getdata1204(){
 		$.ajax({
 			url:'getdata1204.mc',
 			//alert(123)
 			success:function(data){
-				displayTempAvg(data)
-				displayHumAvg(data)
-				displayDustSat(data);
-				displayLightAvg(data);
+				if(data.cmd="1"){
+					displayTempAvg(data);
+					displayHumAvg(data);
+					displayDustSat(data);
+					displayLightAvg(data);
+					displayTable(data);
+						//console.log(data)
+					}if(data.cmd="2"){
+						//alert("cmd ok")
+						displayTimeGph(data);
+						
+					} 
 			},
 			error:function(){
 			}
 		});
 	} 
-  function getdata1205(){
+ 
+  function getdata1203(){
 		$.ajax({
-			url:'getdata1205.mc',
+			url:'getdata1203.mc',
 			//alert(123)
 			success:function(data){
-				displayTempAvg(data)
-				displayHumAvg(data)
-				displayDustSat(data);
-				displayLightAvg(data);
-				console.log(data)
-			},
-			error:function(){
-			}
-		});
-	} 
-  function getdata1206(){
-		$.ajax({
-			url:'getdata1206.mc',
-			//alert(123)
-			success:function(data){
-				displayTempAvg(data)
-				displayHumAvg(data)
-				displayDustSat(data);
-				displayLightAvg(data);
-				//console.log(data)
+				if(data.cmd="1"){
+					displayTempAvg(data);
+					displayHumAvg(data);
+					displayDustSat(data);
+					displayLightAvg(data);
+					displayTable(data);
+						//console.log(data)
+					}if(data.cmd="2"){
+						//alert("cmd ok")
+						displayTimeGph(data);
+						
+					} 
 			},
 			error:function(){
 			}
@@ -723,10 +809,10 @@ function getDayAvg(){
 			url:'getdata1207.mc',
 			//alert(123)
 			success:function(data){
-				displayTempAvg(data)
-				displayHumAvg(data)
-				displayTable(data)
-				displayTimeTempHum(data)
+				displayTempAvg(data);
+				displayHumAvg(data);
+				displayTable(data);
+				//displayTimeTempHum(data)
 				console.log(data)
 			},
 			error:function(){
@@ -862,11 +948,13 @@ $(document).ready(function(){
                      <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle-split dropdown-toggle btn btn-secondary"><span class="sr-only">Toggle Dropdown</span>
                      </button>
                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1204()">1204</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1205()">1205</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1206()">1206</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1207()">1207</button>
-                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1208()">1208</button>
+
+                          <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1130()">2020-11-30</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1201()">2020-12-01</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1202()">2020-12-02</button>
+                         <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1203()">2020-12-03</button> 
+                         <!-- <button type="button" tabindex="0" class="dropdown-item" onclick="getdata1208()">1208</button> -->
+                        
                         </div>
                    </div>
 				</div>
@@ -1015,30 +1103,330 @@ $(document).ready(function(){
                                            </thead>
                                           <tbody id="htable">
                                             
-                                <!-- <tr><td>TEMP</td><td>24</td></tr><tr><td>TEMP</td><td>30</td></tr><tr><td>HUM</td><td>50</td></tr><tr><td>HUM</td><td>40</td></tr> -->
-                                            <!-- <tr>
-                                                <th scope="row">1</th>
-                                                <td>{}</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
-                                            </tr> -->
+                   
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                             </div>
-                            
-                            
+
+
+<div class="row">
+	<div class="col-md-6 col-xl-4">
+		<div class="card mb-3 widget-content">
+			<div class="widget-content-outer">
+				<div class="widget-content-wrapper">
+					<div class="widget-content-left">
+						<div class="widget-heading">Total Orders</div>
+						<div class="widget-subheading">Last year expenses</div>
+					</div>
+					<div class="widget-content-right">
+						<div class="widget-numbers text-success">1896</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-xl-4">
+		<div class="card mb-3 widget-content">
+			<div class="widget-content-outer">
+				<div class="widget-content-wrapper">
+					<div class="widget-content-left">
+						<div class="widget-heading">Products Sold</div>
+						<div class="widget-subheading">Revenue streams</div>
+					</div>
+					<div class="widget-content-right">
+						<div class="widget-numbers text-warning">$3M</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-xl-4">
+		<div class="card mb-3 widget-content">
+			<div class="widget-content-outer">
+				<div class="widget-content-wrapper">
+					<div class="widget-content-left">
+						<div class="widget-heading">Followers</div>
+						<div class="widget-subheading">People Interested</div>
+					</div>
+					<div class="widget-content-right">
+						<div class="widget-numbers text-danger">45,9%</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+		<div class="card mb-3 widget-content">
+			<div class="widget-content-outer">
+				<div class="widget-content-wrapper">
+					<div class="widget-content-left">
+						<div class="widget-heading">Income</div>
+						<div class="widget-subheading">Expected totals</div>
+					</div>
+					<div class="widget-content-right">
+						<div class="widget-numbers text-focus">$147</div>
+					</div>
+				</div>
+				<div class="widget-progress-wrapper">
+					<div class="progress-bar-sm progress-bar-animated-alt progress">
+						<div class="progress-bar bg-info" role="progressbar"
+							aria-valuenow="54" aria-valuemin="0" aria-valuemax="100"
+							style="width: 54%;"></div>
+					</div>
+					<div class="progress-sub-label">
+						<div class="sub-label-left">Expenses</div>
+						<div class="sub-label-right">100%</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="main-card mb-3 card">
+			<div class="card-header">
+				Active Users
+				<div class="btn-actions-pane-right">
+					<div role="group" class="btn-group-sm btn-group">
+						<button class="active btn btn-focus">Last Week</button>
+						<button class="btn btn-focus">All Month</button>
+					</div>
+				</div>
+			</div>
+			<div class="table-responsive">
+				<table
+					class="align-middle mb-0 table table-borderless table-striped table-hover">
+					<thead>
+						<tr>
+							<th class="text-center">#</th>
+							<th>Name</th>
+							<th class="text-center">City</th>
+							<th class="text-center">Status</th>
+							<th class="text-center">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center text-muted">#345</td>
+							<td>
+								<div class="widget-content p-0">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left mr-3">
+											<div class="widget-content-left">
+												<img width="40" class="rounded-circle"
+													src="assets/images/avatars/4.jpg" alt="">
+											</div>
+										</div>
+										<div class="widget-content-left flex2">
+											<div class="widget-heading">John Doe</div>
+											<div class="widget-subheading opacity-7">Web Developer</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">Madrid</td>
+							<td class="text-center">
+								<div class="badge badge-warning">Pending</div>
+							</td>
+							<td class="text-center">
+								<button type="button" id="PopoverCustomT-1"
+									class="btn btn-primary btn-sm">Details</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center text-muted">#347</td>
+							<td>
+								<div class="widget-content p-0">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left mr-3">
+											<div class="widget-content-left">
+												<img width="40" class="rounded-circle"
+													src="assets/images/avatars/3.jpg" alt="">
+											</div>
+										</div>
+										<div class="widget-content-left flex2">
+											<div class="widget-heading">Ruben Tillman</div>
+											<div class="widget-subheading opacity-7">Etiam sit amet
+												orci eget</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">Berlin</td>
+							<td class="text-center">
+								<div class="badge badge-success">Completed</div>
+							</td>
+							<td class="text-center">
+								<button type="button" id="PopoverCustomT-2"
+									class="btn btn-primary btn-sm">Details</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center text-muted">#321</td>
+							<td>
+								<div class="widget-content p-0">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left mr-3">
+											<div class="widget-content-left">
+												<img width="40" class="rounded-circle"
+													src="assets/images/avatars/2.jpg" alt="">
+											</div>
+										</div>
+										<div class="widget-content-left flex2">
+											<div class="widget-heading">Elliot Huber</div>
+											<div class="widget-subheading opacity-7">Lorem ipsum
+												dolor sic</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">London</td>
+							<td class="text-center">
+								<div class="badge badge-danger">In Progress</div>
+							</td>
+							<td class="text-center">
+								<button type="button" id="PopoverCustomT-3"
+									class="btn btn-primary btn-sm">Details</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center text-muted">#55</td>
+							<td>
+								<div class="widget-content p-0">
+									<div class="widget-content-wrapper">
+										<div class="widget-content-left mr-3">
+											<div class="widget-content-left">
+												<img width="40" class="rounded-circle"
+													src="assets/images/avatars/1.jpg" alt="">
+											</div>
+										</div>
+										<div class="widget-content-left flex2">
+											<div class="widget-heading">Vinnie Wagstaff</div>
+											<div class="widget-subheading opacity-7">UI Designer</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">Amsterdam</td>
+							<td class="text-center">
+								<div class="badge badge-info">On Hold</div>
+							</td>
+							<td class="text-center">
+								<button type="button" id="PopoverCustomT-4"
+									class="btn btn-primary btn-sm">Details</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="d-block text-center card-footer">
+				<button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
+					<i class="pe-7s-trash btn-icon-wrapper"> </i>
+				</button>
+				<button class="btn-wide btn btn-success">Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6 col-lg-3">
+		<div
+			class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<div class="widget-content-wrapper">
+						<div class="widget-content-left pr-2 fsize-1">
+							<div class="widget-numbers mt-0 fsize-3 text-danger" id=dustavg></div>
+						</div>
+						<div class="widget-content-right w-100">
+							<div class="progress-bar-xs progress">
+								<div class="progress-bar bg-danger" role="progressbar"
+									aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"
+									style="width: 50%;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="widget-content-left fsize-1">
+						<div class="text-muted opacity-6">Income Target</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-3">
+		<div
+			class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card">
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<div class="widget-content-wrapper">
+						<div class="widget-content-left pr-2 fsize-1">
+							<div class="widget-numbers mt-0 fsize-3 text-success">54%</div>
+						</div>
+						<div class="widget-content-right w-100">
+							<div class="progress-bar-xs progress">
+								<div class="progress-bar bg-success" role="progressbar"
+									aria-valuenow="54" aria-valuemin="0" aria-valuemax="100"
+									style="width: 54%;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="widget-content-left fsize-1">
+						<div class="text-muted opacity-6">Expenses Target</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-3">
+		<div
+			class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card">
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<div class="widget-content-wrapper">
+						<div class="widget-content-left pr-2 fsize-1">
+							<div class="widget-numbers mt-0 fsize-3 text-warning">32%</div>
+						</div>
+						<div class="widget-content-right w-100">
+							<div class="progress-bar-xs progress">
+								<div class="progress-bar bg-warning" role="progressbar"
+									aria-valuenow="32" aria-valuemin="0" aria-valuemax="100"
+									style="width: 32%;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="widget-content-left fsize-1">
+						<div class="text-muted opacity-6">Spendings Target</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-lg-3">
+		<div
+			class="card-shadow-info mb-3 widget-chart widget-chart2 text-left card">
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<div class="widget-content-wrapper">
+						<div class="widget-content-left pr-2 fsize-1">
+							<div class="widget-numbers mt-0 fsize-3 text-info">89%</div>
+						</div>
+						<div class="widget-content-right w-100">
+							<div class="progress-bar-xs progress">
+								<div class="progress-bar bg-info" role="progressbar"
+									aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"
+									style="width: 89%;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="widget-content-left fsize-1">
+						<div class="text-muted opacity-6">Totals Target</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

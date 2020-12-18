@@ -67,6 +67,7 @@ void loop() {
     float tmp, hum;
     dht11.read(hum, tmp);
     // 출력
+    Serial.print("$");  // start char
     Serial.print("tmp");
     Serial.print(tmp);
     Serial.print(";hum");
@@ -74,7 +75,8 @@ void loop() {
     Serial.print(";dst");
     Serial.print(ugm3);
     Serial.print(";lgt");
-    Serial.println(analogRead(lightPin));
+    Serial.print(analogRead(lightPin));
+    Serial.print(";^\n"); // end char
     lowpulseoccupancy = 0;
     starttime = millis();
   } else if ((millis() - starttime) > sampletime_ms2)
@@ -106,6 +108,7 @@ void loop() {
       state = "N";
     }
   }
+    Serial.print("$");  // start char
     Serial.print("AcX");
     Serial.print(AcX);
     Serial.print(";AcY");
@@ -114,6 +117,8 @@ void loop() {
     Serial.print(AcZ);
     Serial.print(";dng");
     Serial.println(state);
+    Serial.print(";^\n"); // end char
+
   // 가속도 값 물려받기
   before_AcX = AcX;
   before_AcY = AcY;

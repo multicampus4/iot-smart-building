@@ -8,72 +8,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 	<title>WebSocket Data</title>
-	<style>
-		.container{
-			width: 800px;
-			margin: 0 auto;
-			padding: 25px
-		}
-		.container h2{
-			text-align: left;
-			padding: 5px 5px 5px 15px;
-			color: #FFBB00;
-			border-left: 3px solid #FFBB00;
-			margin-bottom: 20px;
-		}
-		.containerBottom{
-			width: 500px;
-			height: 100px;
-			margin: 0 auto;
-			padding: 25px
-		}
-		.btn1{
-			float: left;
-		}
-		.btn2{
-			float: left;
-		}
-		.btn3{
-			float:left;
-		}
-		.innerContainer0{
-			width: 30%;
-			float: left;
-			margin: 0 auto;
-			padding: 5px
-		}
-		.innerContainer1{
-			width: 30%;
-			float: left;
-			margin: 0 auto;
-			padding: 5px
-		}
-		.innerContainer2{
-			width: 30%;
-			float: left;
-			margin: 0 auto;
-			padding: 5px
-		}
-		.chatting{
-			background-color: #000;
-			width: 100%;
-			height: 500px;
-			overflow: auto;
-		}
-		.chatting p{
-			color: #fff;
-			text-align: left;
-		}
-		input{
-			width: 330px;
-			height: 25px;
-		}
-		#yourMsg{
-			display: none;
-		}
-	</style>
 </head>
-
+<!-- 부트스트랩 toastr 라이브러리 -->
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script type="text/javascript">
 	var ws;
 	
@@ -95,7 +32,7 @@
 		// onmessage: 메시지가 도착하면 호출
 		ws.onmessage = function(data) {
 			var msg = data.data;
-			$("#chatting0").prepend("<p>" + msg + "</p>");
+			console.log(msg);
 			// ex: { "latteId":"latte_1_A", "tmp":"28.00", "hum":"80.00" }
 			// ex2:{"area":"1_A","msgType":"command","from":"MAIN Server","cmd":"AIR_ON"}
 
@@ -114,13 +51,66 @@
 				// 버튼의 on/off 상태 업데이트
 				case "command":
 					setButtonStateRealTime(obj);
-				}
+					break;
+				case "disaster":
+					// 비상대피로
+					// display:none -> block, delay 시간 설정
+					// 비상대피로 위치 보이기
+					$(".intro-banner-vdo-play-btn").css("display", "block");
+				    $(".escape_road_container1").css("display","block");
+				    $(".escape_road2").css("display","block");
+				    setTimeout(function() {
+				       $(".escape_road_container3").css("display","block");
+				    }, 1000);
+				    setTimeout(function() {
+					   $(".escape_road4").css("display","block");
+					}, 1800);
+				    setTimeout(function() {
+				       $(".escape_road_container5").css("display","block");
+				    }, 2500);
+				    setTimeout(function() {
+					   $(".escape_road6").css("display","block");
+					}, 3300);
+				    setTimeout(function() {
+					   $(".escape_road_container7").css("display","block");
+					}, 3600);
+				    setTimeout(function() {
+					   $(".escape_road8").css("display","block");
+					}, 4500);
+				    setTimeout(function() {
+					   $(".escape_road9").css("display","block");
+					}, 2300);
+				     
+				    // 경보 알림 toast
+				    // toastr(부트스트랩의 toast 라이브러리)의 option 설정
+					toastr.options = {
+				    	 "closeButton": true,
+						 "debug": false,
+						 "newstOnTop": false,
+						 "positionClass": "toast-top-full-width",
+						 "onclick": null,
+						 "showDuration": 300,
+						 "Hide Duration": 1000,
+						 "showEasing": "swing",
+						 "hideEasing" : "linear",
+						 "fadeIn": 300,
+						 "fadeOut": 1000,
+						 "timeOut": 100000, // toastr가 보여지는 시간
+						 "extendedTimeOut": 1000,
+						 "showMethod": "slideDown",
+						 "hideMethod": "fadeOut"
+						 }
+				    // toastr 띄우기(error 타입)
+					toastr.error("<div class='text-center'>대피로 개방</div>", "<div class='text-center'>지진 경보</div>");
+					break;
+					
+				} // end switch
 				
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
 				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
 				
-			}
-		}
+			} // end if
+		} // end onMessage
 		
 		// 실시간 데이터 반영 및 상태에 따른 색상 표시
 		function drawData(obj, area){
@@ -281,7 +271,7 @@
 	}
 	
 	$(document).ready(function() {
-		// 실시간 데이터 text 삽입 테스트, 배경색 변경 테스트
+		// 실시간 데이터 text 삽입 테스트, 배경색 변경 테스트 ------------------------
 		//$("#1_A_S_TEMP span").text("12345");
 		//$('#1_A_S_HUM span').css("color", "#e0201a");
 		/*
@@ -296,10 +286,9 @@
 		$("#P_1_B_S_DUST").css('color', '#f42a2f');
 		$("#P_1_B_S_ILLM").css('color', '#f7b924');
 		$("#P_1_A_S_DUST").css('color', '#00aeef');*/
+
 		
-	
-		
-		// ----- 테스트 끝 ------
+		// ----- 테스트 끝 ------------------------------------------------
 		
 		setButtonState();
 		
@@ -321,38 +310,6 @@
 	<div class="app-main__inner">
 		<jsp:include page="controlFloors.jsp"></jsp:include>
 	</div>
-
-	<div id="container" class="container">
-		<div class="innerContainer0">
-			<h2>raw data</h2>
-			<div id="chatting0" class="chatting"></div>
-		</div>
-		<div class="innerContainer1">
-			<h2>센서1: 온도</h2>
-			<div id="chatting1" class="chatting"></div>
-		</div>
-		<div class="innerContainer2">
-			<h2>센서2: 습도</h2>
-			<div id="chatting2" class="chatting"></div>
-		</div>
-	</div>
-
-
-
-	<div id="container" class="containerBottom">
-		<div class="btn3">
-			<a class="btn" id= "alert" href = "#">Alert</a>
-		</div>
-		
-		<div id="yourMsg">
-			<table class="inputTable">
-				<tr>
-					<th>Data from Arduino</th>
-					<th><input id="chatting" value='{ "tmp":"28", "hum":"80" }'></th>
-					<th><button onclick="send()" id="sendBtn">보내기</button></th>
-				</tr>
-			</table>
-		</div>
-	</div>
+	
 </body>
 </html>

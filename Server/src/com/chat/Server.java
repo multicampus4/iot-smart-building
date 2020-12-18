@@ -18,11 +18,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.java_websocket.client.WebSocketClient;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.msg.DeviceVO;
 import com.msg.Msg;
@@ -44,16 +46,17 @@ public class Server {
 	static String oracleId;
 	static String oraclePwd;
 
-	ServerSocket serverSocket; // ServerSocket 객체
-	static WebSocketClient WsClient; // WebSocket Client 객체 (대시보드에 데이터 전송)
+	ServerSocket serverSocket; 							// ServerSocket 객체
+	static WebSocketClient WsClient; 					// WebSocket Client 객체 (대시보드에 데이터 전송)
 	static AutoController autoController;
+	static FcmSender fcmSender;
 
 	// client들의 메세지를 받는다.
-	HashMap<String, ObjectOutputStream> maps;	// HashMap<IP주소, 해당 아웃풋스트림>
-	HashMap<String, String> idipMaps; 			// HashMap<클라이언트id, 클라이언트ip> for sendTarget
-												// ex) <latte_1_A, 192.168.1.11>
-	static boolean isConnectWebsocket = false;	// WebSocket 연결여부 확인 FLAG
-	static HashMap<String, DeviceVO> deviceStat;// DB Device 테이블의 디바이스 상태 저장 ex) <1_A_D_AIR, ON>
+	HashMap<String, ObjectOutputStream> maps;			// HashMap<IP주소, 해당 아웃풋스트림>
+	HashMap<String, String> idipMaps; 					// HashMap<클라이언트id, 클라이언트ip> for sendTarget
+														// ex) <latte_1_A, 192.168.1.11>
+	static boolean isConnectWebsocket = false;			// WebSocket 연결여부 확인 FLAG
+	static HashMap<String, DeviceVO> deviceStat;		// DB Device 테이블의 디바이스 상태 저장 ex) <1_A_D_AIR, ON>
 
 	// 기본 생성자
 	public Server() {
@@ -73,8 +76,8 @@ public class Server {
 
 	// 서버를 시작하는 startServer() 함수
 	public void startServer() throws Exception {
-		serverSocket = new ServerSocket(port); // serverSocket에 포트를 입력하여 선언
-		System.out.println("Strat Server ..."); // "서버를 시작합니다."
+		serverSocket = new ServerSocket(port); 			// serverSocket에 포트를 입력하여 선언
+		System.out.println("Strat Server ..."); 		// "서버를 시작합니다."
 
 		// 네트워크는 스레드에서 동작시켜야 한다.
 		Runnable r = new Runnable() {
@@ -108,9 +111,9 @@ public class Server {
 	// 각각의 client들의 outputstream을 hashmap에 저장한다.
 	public void makeOut(Socket socket) throws IOException {
 		ObjectOutputStream oo; // 아웃풋스트림 객체인 oo 선언
-		oo = new ObjectOutputStream(socket.getOutputStream()); // 소켓으로부터 아웃풋 스트림을 가져와 대입
-		maps.put(socket.getInetAddress().toString(), oo); // IP주소와 아웃풋스트림을 해쉬맵에 저장
-		System.out.println("접속자수: " + maps.size()); // 해쉬맵의 크기로 접속자 수를 출력
+		oo = new ObjectOutputStream(socket.getOutputStream());	// 소켓으로부터 아웃풋 스트림을 가져와 대입
+		maps.put(socket.getInetAddress().toString(), oo); 		// IP주소와 아웃풋스트림을 해쉬맵에 저장
+		System.out.println("접속자수: " + maps.size());			// 해쉬맵의 크기로 접속자 수를 출력
 	}
 
 	// client들을 받는다.
@@ -157,6 +160,7 @@ public class Server {
 						}
 						break;
 					case "ssRaw":
+//						logdata(msg.getMsg());	// 로그데이터 먼저 보내기
 						ArrayList<String> autoControlCmd = autoController.getCmdArr(msg.getMsg());
 						if (autoControlCmd.isEmpty()) { // 제어할 내용 없음
 							System.out.println("Auto Controller : Fine! Nothing to control");
@@ -173,7 +177,7 @@ public class Server {
 						}
 						break;
 					case "command": // (웹),(안드로이드앱)에서 오는 제어명령 > 라떼로 Send Target
-						// 라떼 구분 ID : 1_A, 2_A, 2_B
+						// 라떼 구분 ID : 1_A, 1_B, 2_A
 						// 제어명령의 예: 1_A_D_AIR_OFF
 						split = msg.getMsg().split("_");
 						cmdTargetLatteId = "latte_" + split[0] + "_" + split[1];
@@ -192,12 +196,34 @@ public class Server {
 							sendTarget(idipMaps.get("mobileApp"), msg.getId(), msg.getType(), msg.getMsg());
 						}
 						break;
+					case "nfc":
+						// nfcadminid;	>> "nfc" + "관리자 계정 ID"
+						// Mobile APP으로 OK 메시지 전송 (TCP/IP)
+						String userId = msg.getMsg().substring(3);
+						if (idipMaps.get("mobileApp") != null) {
+							// Target : Mobile App
+							sendTarget(idipMaps.get("mobileApp"), msg.getId(), "nfc", "현재시각을 넣어보자");
+						}
+						break;
+					case "accelRaw":
+						break;
+					case "disaster":
+						// Mobile) FCM 푸쉬 경보
+						fcmSender.sender("지진발생!!!", "관리자께서는 신속히 확인바랍니다!!!");
+
+						// Tablet) 경보방송 시작, 대피로 개방, 전기-수도-가스 차단 
+						if (idipMaps.get("tablet_1_A") != null)	 // Target : tab
+							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", null);
+						if (idipMaps.get("tablet_1_B") != null)	 // Target : tab
+							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", null);
+						if (idipMaps.get("tablet_2_A") != null)	 // Target : tab
+							sendTarget(idipMaps.get("tablet_1_A"), "MAIN Server", "disaster", null);
+					
+						break;
 					case "etc":
 						// 기타 메시지 처리
 						System.out.println("기타메시지: " + msg);
 						break;
-					case "RawToLog":
-						logdata(msg.getMsg());
 					}
 
 					// =========================== Legacy ==================================
@@ -424,20 +450,59 @@ public class Server {
 		System.out.println("Load deviceStat OK ... (FROM table `DEVICE`)");
 	}
 	public void logdata(String data) throws Exception {
+	    JSONParser jsonParser = new JSONParser();
+	    JSONObject jsonObj = null;
+		jsonObj = (JSONObject)jsonParser.parse(data);
+        Set key = jsonObj.keySet();
+        Iterator<String> iterator = key.iterator();
+        String log = "";
+        while(iterator.hasNext()) {
+        	String keyName = iterator.next();
+        	switch(keyName) {
+        	case "AcX":
+    	        log += (String) jsonObj.get("AcX")+",";
+    	        continue;
+        	case "AcY":
+        		log += (String) jsonObj.get("AcY")+",";
+        		continue;
+        	case "AcZ":
+        		log += (String) jsonObj.get("AcZ")+",";
+        		continue;
+        	case "dng":
+        		log += (String) jsonObj.get("dng");
+    			LOGGER = Logger.getLogger("earthquake");
+    			continue;
+        	case "tmp":
+    			log += (String) jsonObj.get("tmp")+",";
+        		continue;
+        	case "hum":
+    			log += (String) jsonObj.get("hum")+",";
+        		continue;
+        	case "dst":
+    			log += (String) jsonObj.get("dst")+",";
+        		continue;
+        	case "lgt":
+    			log += (String) jsonObj.get("lgt");
+    			LOGGER = Logger.getLogger("tmp&hum&dst&lgt");
+    			continue;
+        	}
+        }
+        LOGGER.info(log);
 		// tmp
-		System.out.println("<"+data+"> 로그데이터를 받았습니다.");
-		String [] array = data.split(";");
-		if(array[0].charAt(0)=='A') {
-			LOGGER = Logger.getLogger("earthquake");
-		}else if(array[0].charAt(0)=='t') {
-			LOGGER = Logger.getLogger("tmp&hum&dst&lgt");
-		}
-		LOGGER.info(data);
+//		System.out.println("<"+log+"> 로그데이터를 받았습니다.");
+//		String [] array_semicolon = data.split(";");
+//		System.out.println(array_semicolon[0]);
+//		if(array_semicolon[0].charAt(0) == 'A') {
+//			LOGGER = Logger.getLogger("earthquake");
+//		}else if(array_semicolon[0].charAt(0)== 't') {
+//			LOGGER = Logger.getLogger("tmp&hum&dst&lgt");
+//		}
 	}
 	public static void main(String[] args) {
 		getProp();
 		Server server = new Server(tcpipPort); // tcpipPort 번호로 Server 객체 선언
 		autoController = new AutoController();
+		fcmSender = new FcmSender();
 		PropertyConfigurator.configure("log4j.properties");
 		try {
 			getDeviceStat(); // DB의 디바이스 상태 받아옴

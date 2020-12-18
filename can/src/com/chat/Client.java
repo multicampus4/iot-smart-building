@@ -12,9 +12,7 @@ import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Properties;
-import java.util.Queue;
 import java.util.Set;
 
 import org.java_websocket.client.WebSocketClient;
@@ -28,12 +26,12 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
-
 public class Client implements SerialPortEventListener {
 	// LattePanda ID
 	// latte_1_A : 1A 구역에서 가동되는 IoT 클라이언트
 	static String AREA = "1_A";
 	static String LATTE_ID = "latte_" + AREA;	// latte_1_A
+	
 	// 멤버 변수
 	int port;
 	String address;
@@ -58,6 +56,9 @@ public class Client implements SerialPortEventListener {
 
 	// 웹소켓
 	static WebSocketClient WsClient;
+
+	String bufferStr = "";
+	String msgType;
 
 	// 기본생성자
 	public Client() throws Exception {
@@ -106,22 +107,9 @@ public class Client implements SerialPortEventListener {
 		new Thread(sender).start();
 	}
 
-	public void sendTarget(String ip, String cmd) {
-		// ArrayList<String> ips = new ArrayList<String>();
-		// ips.add(ip);
-		Msg msg = new Msg(id, null, cmd);
-//		sender.setMsg(msg);
-		new Thread(sender).start();
-	}
-
 	// Send 센서데이터 to 서버 through TCP/IP소켓통신 
-	public void sendTcpip(String ss) {
-		Msg msg = new Msg(id, "ssRaw", ss);
-		sender.setMsg(msg);
-		new Thread(sender).start();
-	}
-	public void sendTcpip2(String ss) {
-		Msg msg = new Msg(id, "RawToLog", ss);
+	public void sendTcpip(String ss, String msgType) {
+		Msg msg = new Msg(id, msgType, ss);
 		sender.setMsg(msg);
 		new Thread(sender).start();
 	}
@@ -259,27 +247,110 @@ public class Client implements SerialPortEventListener {
 		case SerialPortEvent.OUTPUT_BUFFER_EMPTY:
 			break;
 		case SerialPortEvent.DATA_AVAILABLE:
+			String ss = "";
+			String rawToJson = "";
 			byte[] readBuffer = new byte[128];
 			try {
 				while (bin.available() > 0) {
-					int numBytes = bin.read(readBuffer);	// ??? 뭐하는 코드?
+					int numBytes = bin.read(readBuffer);	// 유효한 데이터가 들어오는지 판단 
 				}
-				String ss = new String(readBuffer).trim();
-				String [] array = ss.split(";");
-				if(array.length != 4) {
-					System.out.println("Return ... Crashed Data ..." + ss);
+				
+				String newBufferStr = new String(readBuffer);	// Data From Aruduino : "tmp26.00;hum80.00;^"
+				newBufferStr = eraseNullChar(newBufferStr);
+				System.out.println("RAW DATA From ARDUINO:" + newBufferStr );
+				
+				String correctedBufferStr = bufferCorrection(newBufferStr);	// crashed data 보정
+				
+				if(correctedBufferStr != null) {
+					// 마스터 메시지 : 정상수행
+					ss = correctedBufferStr;
+					System.out.println("Corrected buffer : " + ss);
+				} else {
+					// 보정결과 불완전 메시지일 경우 return;
 					break;
 				}
-				System.out.println("RAW DATA From ARDUINO:" + ss);
-				sendTcpip2(ss);
+				
+				// nfc/accelRaw/disaster/ssRaw 구분 
+				if(ss.substring(0,3).equals("nfc")) {	// nfc 데이터인 경우 
+					msgType = "nfc";
+				} else if(ss.substring(0,3).equals("AcX")) {
+					// 가속도 데이터인 경우 >> "dng" 타입 확인 필요 (N / A,B,C)
+					JSONObject jsonAccel = new JSONObject();
+					jsonAccel = convertJson(ss, "accelRaw");
+					
+					if(jsonAccel.get("dng").equals("N")) {	// 정상(Normal)상태인 경우 > msgType: accelRaw
+						msgType = "accelRaw";
+					} else {
+						msgType = "disaster";
+					}
+				} else {	// 그외 ssRaw 데이터인 경우 
+					msgType = "ssRaw";
+				}
+				
+				rawToJson = convertJson(ss, msgType).toJSONString();
+				System.out.println("rawToJson >> " + rawToJson);
+
+				// Send JSON to Server
+				sendTcpip(rawToJson, msgType);
+				
 				// Send JSON to DashBoard (Websocket)
-				String rawToJson = convertJson(ss).toJSONString();
-				WsClient.send(rawToJson);
-				sendTcpip(rawToJson);
+				if(WsClient.isOpen()) {
+					WsClient.send(rawToJson);
+				} else {
+					System.out.println("WebSocket is not opend");
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
+		}
+	}
+
+	// 공백 및 개행문자 제거
+	private String eraseNullChar(String newBufferStr) {
+		// 공백제거 
+		newBufferStr = newBufferStr.trim();	
+		// 개행문자 제거
+		newBufferStr = newBufferStr.replaceAll("(\r | \n | \r\n | \n\r)", "");
+		newBufferStr = newBufferStr.replace(System.getProperty("line.separator"), "");
+		return newBufferStr;
+	}
+
+	// 끊겨서 들어오는 데이터 ex) "p26.00;hum80.00;^$tm"
+	// master 메시지 "tmp26.00;hum80.00;"
+	// 시작 문자 : "$"
+	// 종료 문자 : "^"
+	public String bufferCorrection(String newBufferStr) {
+		
+		if (newBufferStr.contains("$") && newBufferStr.contains("^")) {
+			bufferStr = bufferStr.concat(newBufferStr);
+			
+			int start = bufferStr.indexOf("$");
+			int end = bufferStr.indexOf("^");
+//			System.out.println("start: " + start + "; end: " + end);
+			if (start > end) {
+				// ^$ 붙어있는 경우 & ^가 $ 보다 앞에 있는 경우 >> 예외처리 
+				// $ 이후의 string만 보존하여 저장 후 null 리턴
+				bufferStr = bufferStr.substring(end+1);
+				return null;
+			} else {
+//				System.out.println(bufferStr);
+				String correctBufferStr = bufferStr.substring(start + 1, end);
+				// 병목 현상이 생기는 문제
+				// 임시방편 : 정상 처리 되면 나머지는 버리자
+//				bufferStr = bufferStr.substring(end + 1);
+				bufferStr = "";
+				
+//				System.out.println("correctBufferStr = " + correctBufferStr);
+				return correctBufferStr;
+			}
+			
+
+		} else {
+			// 기존 버퍼에 new버퍼 붙여서 저장 후 null 리턴
+			bufferStr = bufferStr.concat(newBufferStr);
+			return null;
 		}
 	}
 
@@ -323,35 +394,15 @@ public class Client implements SerialPortEventListener {
 		}
 
 	}
-	
-//	// http요청 > 로그 기록 목적
-//	public static void sendHttp(String data) {
-//		HttpSender sender = null;
-//		String urlstr = "http://" + wsIp + ":" + wsPort + "/log";
-//		URL url = null;
-//		try {
-//			//double temp = Double.parseDouble(data);
-//			url = new URL(urlstr + "?data=" + data);
-//			sender = new HttpSender(data, url);
-//			new Thread(sender).start();
-//		} catch (Exception e) {
-////			break;
-//		}
-////		try {
-////			Thread.sleep(2000);
-////		} catch (InterruptedException e) {
-////			e.printStackTrace();
-////		}
-//	}
 
 	// 아두이노에서 받은 센서데이터 > JSON 형식으로 변환 
-	public JSONObject convertJson(String ss) {
+	public JSONObject convertJson(String ss, String msgType) {
 		JSONObject jsonObj = new JSONObject();
 		String[] dataArr = ss.split(";");
 		
-		jsonObj.put("latteId", LATTE_ID);			// {latteId: LATTE_ID}
-		jsonObj.put("area", AREA);					// {latteId: LATTE_ID, area: AREA}
-		jsonObj.put("msgType", "ssRaw");			// {latteId: LATTE_ID, area: AREA, msgType: ssRaw}
+		jsonObj.put("latteId", LATTE_ID);
+		jsonObj.put("area", AREA);
+		jsonObj.put("msgType", msgType);
 		
 		for(int i=0; i<dataArr.length; i++) {
 			String dataName = dataArr[i].substring(0,3);
@@ -360,43 +411,6 @@ public class Client implements SerialPortEventListener {
 		}
 		return jsonObj;
 	}
-	
-//	// 아두이노에서 받은 센서데이터 > JSON 형식으로 변환 
-//	public JSONObject convertJson2(String ss) {
-//		JSONObject jsonObj = new JSONObject();
-//		JSONArray accelArray = new JSONArray();
-//		JSONObject accelXyz = new JSONObject();
-//		String[] dataArr = ss.split(";");
-//
-//		jsonObj.put("latteId", LATTE_ID);
-//		for (int i = 0; i < dataArr.length; i++) {
-//			String tempStr = dataArr[i].substring(0, 3);
-//			switch (tempStr) {
-//			case "tmp":
-////					System.out.println("온도"+dataArr[i].substring(3));
-//				jsonObj.put("tmp", dataArr[i].substring(3));
-//				continue;
-//			case "hum":
-////					System.out.println("습도"+dataArr[i].substring(3));
-//				jsonObj.put("hum", dataArr[i].substring(3));
-//				continue;
-//			case "acX":
-//				System.out.println("ACC-X: " + dataArr[i].substring(3));
-//				accelXyz.put("x", dataArr[i].substring(3));
-//				continue;
-//			case "acY":
-//				System.out.println("ACC-X: " + dataArr[i].substring(3));
-//				accelXyz.put("y", dataArr[i].substring(3));
-//				continue;
-//			case "acZ":
-//				System.out.println("ACC-X: " + dataArr[i].substring(3));
-//				accelXyz.put("z", dataArr[i].substring(3));
-//				jsonObj.put("acc", accelXyz);
-//				continue;
-//			}
-//		}
-//		return jsonObj;
-//	}
 
 	static class HttpSender implements Runnable {
 

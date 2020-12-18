@@ -21,8 +21,8 @@ public class AutoController {
 	static int MAX_QUE_SIZE = 5;
 	static float NORMAL_TEMP_MIN = (float) 18.00;	// 섭씨
 	static float NORMAL_TEMP_MAX = (float) 21.00;	// 섭씨
-	static float NORMAL_HUM_MIN = (float) 40.00;	// 퍼센트
-	static float NORMAL_HUM_MAX = (float) 40.99;	// 퍼센트
+	static float NORMAL_HUM_MIN = (float) 20.00;	// 퍼센트
+	static float NORMAL_HUM_MAX = (float) 50.00;	// 퍼센트
 	static float NORMAL_DUST_MIN = (float) 15.00;	// 마이크로그램
 	static float NORMAL_DUST_MAX = (float) 40.00;	// 마이크로그램 
 	
@@ -66,7 +66,7 @@ public class AutoController {
         			autoControlCmdArr.add(autoControlCmd);
     			continue;
         	case "hum":
-        		// 습도 데이터 >> 가습기 제어
+        		// 습도 데이터 >> 냉난방기 제어
         		deviceType = "HUM";	// 가습기 
         		deviceId = deviceArea + "_D_" + deviceType;	// 1_A_D_HUM
         		ssRawType = keyName;
