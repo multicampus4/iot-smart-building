@@ -61,25 +61,25 @@
 				    $(".escape_road2").css("display","block");
 				    setTimeout(function() {
 				       $(".escape_road_container3").css("display","block");
-				    }, 1000);
+				    }, 700);
 				    setTimeout(function() {
 					   $(".escape_road4").css("display","block");
-					}, 1800);
+					}, 1300);
 				    setTimeout(function() {
 				       $(".escape_road_container5").css("display","block");
-				    }, 2500);
+				    }, 2050);
 				    setTimeout(function() {
 					   $(".escape_road6").css("display","block");
-					}, 3300);
+					}, 2500);
 				    setTimeout(function() {
 					   $(".escape_road_container7").css("display","block");
-					}, 3600);
+					}, 3000);
 				    setTimeout(function() {
 					   $(".escape_road8").css("display","block");
-					}, 4500);
+					}, 3500);
 				    setTimeout(function() {
 					   $(".escape_road9").css("display","block");
-					}, 2300);
+					}, 2000);
 				     
 				    // 경보 알림 toast
 				    // toastr(부트스트랩의 toast 라이브러리)의 option 설정

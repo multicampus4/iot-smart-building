@@ -640,6 +640,7 @@
 					"Hide Duration" : 1000,
 					"showEasing" : "swing",
 					"hideEasing" : "linear",
+					"preventDuplicates": "true",
 					"fadeIn" : 300,
 					"fadeOut" : 1000,
 					"timeOut" : 100000, // toastr가 보여지는 시간
