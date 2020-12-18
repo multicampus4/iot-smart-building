@@ -84,7 +84,7 @@ void copy_id (void) {//save old id
   for (oi=0, ai=19; oi<5; oi++,ai++) {
     old_id[oi] = receive_ACK[ai];
   }
-  Serial.println("copy_id");
+//  Serial.println("copy_id");
 }
 
 char cmp_id (void){//return true if find id is old
@@ -93,7 +93,7 @@ char cmp_id (void){//return true if find id is old
     if (old_id[oi] != receive_ACK[ai])
       return 0;
   }
-  Serial.println("cmp_id");
+//  Serial.println("cmp_id");
   return 1;
 }
 
@@ -103,7 +103,7 @@ int test_ACK (void) {// return true if receive_ACK accord with std_ACK
     if (receive_ACK[i] != std_ACK[i])
       return 0;
   }
-  Serial.println("test_ACK");
+//  Serial.println("test_ACK");
   return 1;
 }
 
@@ -115,7 +115,7 @@ void send_id (void) {//send id to PC
     Serial.print (" ");
   }
   Serial.println ();
-  Serial.println("send_id");
+//  Serial.println("send_id");
 }
 
 void UART1_Send_Byte(unsigned char command_data){//send byte to device
@@ -128,9 +128,10 @@ void UART1_Send_Byte(unsigned char command_data){//send byte to device
 }
 
 // 여기가 데이터 읽어 오는 곳..?
+// get HEX
 void UART_Send_Byte(unsigned char command_data){//send byte to PC
-  Serial.print(command_data,HEX);
-  Serial.print(" ");
+//  Serial.print(command_data,HEX);
+//  Serial.print(" ");
   // Serial.println("UART_Send_Byte");
 }
 
@@ -167,6 +168,6 @@ void display(unsigned char tem){//send receive_ACK[] to PC
   unsigned char i;
   for(i=0;i<tem;i++) //send command
     UART_Send_Byte(receive_ACK[i]);
-  Serial.println();
-  Serial.println("nfc00;");
+//  Serial.println();
+  Serial.println("$nfc00;^");
 }
