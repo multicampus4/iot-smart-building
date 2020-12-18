@@ -93,6 +93,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 				val.add(rset.getFloat(9));
 				val.add(rset.getFloat(10));
 				val.add(rset.getFloat(11));
+				val.add(rset.getFloat(14));
+				val.add(rset.getFloat(15));
+				
 				data.put("data", val);
 				ja.add(data);
 				// System.out.println(ja);
@@ -111,7 +114,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		out.close();
 	}
 
-	@RequestMapping("/getdatatable.mc")
+	@RequestMapping("/getdayavg.mc")
 	@ResponseBody
 	public void getdata1(HttpServletResponse res) throws Exception {
 		Connection con = null;
@@ -123,7 +126,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 			while (rset.next()) {
 
 				JSONObject data = new JSONObject();
-
 				data.put("name", rset.getString(1));
 
 				JSONArray val = new JSONArray();
@@ -137,9 +139,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 				val.add(rset.getFloat(9));
 				val.add(rset.getFloat(10));
 				val.add(rset.getFloat(11));
+				val.add(rset.getFloat(12));
+				val.add(rset.getFloat(14));
+				val.add(rset.getFloat(15));
 				data.put("data", val);
 				ja.add(data);
-				// System.out.println(ja);
+				System.out.println(data);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -184,6 +189,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 				val.add(rset.getFloat(10));
 				val.add(rset.getFloat(11));
 				val.add(rset.getFloat(12));
+				val.add(rset.getFloat(14));
+				val.add(rset.getFloat(15));
 				data.put("data", val);
 				ja.add(data);
 			}
@@ -201,8 +208,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 	
 	@RequestMapping("/getdata1201.mc")
 	@ResponseBody
-	public void getdata5(HttpServletResponse res) throws Exception {
+	public void getdata5(HttpServletResponse res,HttpServletRequest req) throws Exception {
 		Connection con = null;
+		String cmd = req.getParameter("CMD");
 		JSONArray ja = new JSONArray();
 		try {
 			con = DriverManager.getConnection(url, dbid, dbpwd);
@@ -226,6 +234,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 				val.add(rset.getFloat(10));
 				val.add(rset.getFloat(11));
 				val.add(rset.getFloat(12));
+				val.add(rset.getFloat(14));
+				val.add(rset.getFloat(15));
 				data.put("data", val);
 				ja.add(data);
 			}
@@ -244,8 +254,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //	@RequestMapping("/get1201table.mc?cmd=2")
 	@RequestMapping("/getdata1202.mc")
 	@ResponseBody
-	public void getTable1201(HttpServletResponse res) throws Exception {
+	public void getTable1201(HttpServletResponse res,HttpServletRequest req) throws Exception {
 		Connection con = null;
+		String cmd = req.getParameter("CMD");
 		JSONArray ja = new JSONArray();
 		try {
 			con = DriverManager.getConnection(url, dbid, dbpwd);
@@ -272,6 +283,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 				val.add(rset.getFloat(10));
 				val.add(rset.getFloat(11));
 				val.add(rset.getFloat(12));
+				val.add(rset.getFloat(14));
+				val.add(rset.getFloat(15));
 				data.put("data", val);
 
 				ja.add(data);
@@ -294,8 +307,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 	@RequestMapping("/getdata1203.mc")
 
 	@ResponseBody
-	public void getdata6(HttpServletResponse res) throws Exception {
+	public void getdata6(HttpServletResponse res,HttpServletRequest req) throws Exception {
 		Connection con = null;
+		String cmd = req.getParameter("CMD");
 		JSONArray ja = new JSONArray();
 		try {
 			con = DriverManager.getConnection(url, dbid, dbpwd);
@@ -320,6 +334,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 				val.add(rset.getFloat(10));
 				val.add(rset.getFloat(11));
 				val.add(rset.getFloat(12));
+				val.add(rset.getFloat(14));
+				val.add(rset.getFloat(15));
 				data.put("data", val);
 				ja.add(data);
 				//System.out.println(ja);
