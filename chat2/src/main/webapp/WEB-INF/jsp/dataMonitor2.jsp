@@ -163,37 +163,17 @@
 			  series: [{
 			    data: [28, 22, 24, 28, 16, 32, 24, 28, 25, 22],
 			    pointStart: 1
-			  }]
-			});
-		
-		chart2 = new Highcharts.chart('hcontainer2', {
-			  title: {
-			    text: '습도'
-			  },
-			  xAxis: {
-			    tickInterval: 1,
-			    type: 'logarithmic',
-			    accessibility: {
-			      rangeDescription: 'Range: 1 to 10'
-			    }
-			  },
-			  yAxis: {
-				min: -10,
-				max: 40,
-			    minorTickInterval: 0.1,
-			    accessibility: {
-			      rangeDescription: 'Range: 0.1 to 1000'
-			    },
-			  },
-			  
-			  tooltip: {
-			    headerFormat: '<b>{series.name}</b><br />',
-			    pointFormat: 'x = {point.x}, y = {point.y}'
-			  },
-			  series: [{
-			    data: [28, 22, 24, 28, 16, 32, 24, 28, 25, 22],
-			    pointStart: 1
-			  }]
+			  },{
+			        name: 'Range',
+			        data: ranges,
+			        type: 'arearange',
+			        lineWidth: 0,
+			        color: Highcharts.getOptions().colors[0],
+			        fillOpacity: 0.3,
+			        zIndex: 0,
+			        marker: {
+			            enabled: false
+			        }}]
 			});
 		
 		
@@ -218,10 +198,7 @@
 				$("#chatting1").prepend("<p>" + obj.tmp + "</p>");
 				$("#chatting2").prepend("<p>" + obj.hum + "</p>");
 				
-				if(obj.tmp != null)
-					chart.series[0].addPoint(parseFloat(obj.tmp), true, true);
-				if(obj.hum != null)
-					chart2.series[0].addPoint(parseFloat(obj.hum), true, true);
+				chart.series[0].addPoint(parseFloat(obj.tmp), true, true);
 			}
 		}
 		document.addEventListener("keypress", function(e) {
@@ -270,10 +247,6 @@
 
 	<figure class="highcharts-figure">
 		<div id="hcontainer"></div>
-	</figure>
-	
-	<figure class="highcharts-figure">
-		<div id="hcontainer2"></div>
 	</figure>
 
 	<div id="container" class="container">
