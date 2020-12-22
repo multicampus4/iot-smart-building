@@ -26,6 +26,8 @@
 <link rel="stylesheet" type="text/css" href="css/admin.css">
 <link rel="stylesheet" type="text/css" href="css/admin.custom.css"></head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="assets/scripts/lottie.min.js"></script>
+
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
@@ -427,19 +429,19 @@
                                 <li class="app-sidebar__heading">Dashboards</li>
                                 <li>
                                     <a href="main" > <!-- class="mm-active" -->
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
-                                        	메인 페이지
+                                        <i class="metismenu-icon pe-7s-graph2"></i>
+                                        	건물 상태 모니터
                                     </a>
                                 </li>
                                 <li>
                                     <a href="chat">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        	시설 모니터링
+                                        <i class="metismenu-icon pe-7s-edit"></i>
+                                        	층별 시설 제어
                                     </a>
                                 </li>
                                 <li>
                                     <a href="history">
-                                        <i class="metismenu-icon pe-7s-ribbon">
+                                        <i class="metismenu-icon pe-7s-graph">
                                         </i>
                                         	빅데이터 조회
                                     </a>

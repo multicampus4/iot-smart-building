@@ -312,6 +312,27 @@
 </script>
 <body>
 
+	<div class="app-page-title">
+		<div class="page-title-wrapper">
+			<div class="page-title-heading">
+				<div class="page-title-icon">
+					<i class="pe-7s-edit icon-gradient bg-sunny-morning"> </i>
+				</div>
+				<div>
+					<b>층별 시설 제어</b>
+					<div class="page-title-subheading">
+					건물 각 구역의 시설 상태를 체크하고 자동제어, 개별제어를 수행합니다.</div>
+				</div>
+			</div>
+			<div class="page-title-actions">
+				<button type="button" data-toggle="tooltip" title="Example Tooltip"
+					data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+					<i class="fa fa-star"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+
 	<!-- 층별 제어 화면 -->
 	<div class="app-main__inner">
 		<jsp:include page="controlFloors.jsp"></jsp:include>

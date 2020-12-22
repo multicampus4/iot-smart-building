@@ -133,6 +133,13 @@
     display: inline-block;
 }
 
+.loading-span-history{
+	width: 50%;
+    height: 50%;
+    display: inline-block;
+    margin-top: 2em;
+}
+
 .loading-header{
 	z-index: 100;
 }

@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css" href="css/gaugeChart.css">
 <link rel="stylesheet" type="text/css" href="css/earthquakeGraph.css">
-<script src="assets/scripts/lottie.min.js"></script>
 <script type="text/javascript" >
 var obj=null;
 // 현재 온도 값 차트 
@@ -379,8 +378,6 @@ function displayTempNow(temp){
 				displayLightNow(data[0].illuminance)
 				displayHumNow(data[0].humidity)
 				$('#loading').hide();
-				$('#loading2').hide();
-				$('#loading3').hide();
 			}
 		});
 	}
@@ -643,12 +640,12 @@ function displayTempNow(temp){
 	<div class="page-title-wrapper">
 		<div class="page-title-heading">
 			<div class="page-title-icon">
-				<i class="pe-7s-graph text-success"> </i>
+				<i class="pe-7s-graph2 text-success"> </i>
 			</div>
 			<div>
 				<b>건물 상태 모니터</b>
 				<div class="page-title-subheading">
-				센서 수집 데이터의 시간별 평균, 가속도 센서의 실시간 그래프를 보여줍니다. </div>
+				센서 수집 데이터의 시간별 평균, 가속도 센서의 실시간 그래프를 확인하세요. </div>
 			</div>
 		</div>
 		<div class="page-title-actions">
@@ -748,10 +745,32 @@ function displayTempNow(temp){
 					<div id="hcontainer1"></div>
 				</figure>
 			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="main-card mb-3 card">
+			<!-- 실시간 차트 영역 -->
+			<div class="card-header">
+				실시간차트 :: 지진 모니터링 
+			</div>
 			<div class="tab-content">
 				<figure class="highcharts-figure-acc">
 					<div id="hcontainer2"></div>
 				</figure>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="main-card mb-3 card">
+			<!-- 실시간 차트 영역 -->
+			<div class="card-header">
+				실시간차트 :: 지진 모니터링 
 			</div>
 			<div class="tab-content">
 				<figure class="highcharts-figure-acc">
