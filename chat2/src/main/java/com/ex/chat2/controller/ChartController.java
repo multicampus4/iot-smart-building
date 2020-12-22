@@ -363,12 +363,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		Random random = new Random();
 		Connection con = null;
 		JSONArray ja = new JSONArray();
+		con = DriverManager.getConnection(url2, hid, hpwd);
 		while(true) {
 			try {
 				int minute = random.nextInt(6)+21;			//21~26
 				int second = random.nextInt(60)+1;	
 				System.out.println(minute);System.out.println(second);
-				con = DriverManager.getConnection(url2, hid, hpwd);
 				PreparedStatement pstmt = con.prepareStatement("SELECT * FROM thdi where day(realtime)=13 and hour(realtime)=5 and minute(realtime)="+minute+" and second(realtime)="+second);
 				ResultSet rset = pstmt.executeQuery();
 				// [{name: 'Sweden',data:[0.904 81.0 11.0]},{}]

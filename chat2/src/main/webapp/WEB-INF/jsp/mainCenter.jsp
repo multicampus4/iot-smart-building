@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css" href="css/gaugeChart.css">
 <link rel="stylesheet" type="text/css" href="css/earthquakeGraph.css">
+<script src="assets/scripts/lottie.min.js"></script>
 <script type="text/javascript" >
 var obj=null;
 // 현재 온도 값 차트 
@@ -378,6 +379,8 @@ function displayTempNow(temp){
 				displayLightNow(data[0].illuminance)
 				displayHumNow(data[0].humidity)
 				$('#loading').hide();
+				$('#loading2').hide();
+				$('#loading3').hide();
 			}
 		});
 	}
@@ -596,6 +599,34 @@ function displayTempNow(temp){
 		}
 	}
 	$(document).ready(function() {
+		var animation = bodymovin.loadAnimation({
+			  container: document.getElementById('lottie'), // Required
+			  path: 'assets/lottie/33019-gift-box.json', // Required
+			  renderer: 'svg', // Required
+			  loop: 5, // Optional
+			  autoplay: true // Optional
+			});
+		var animation2 = bodymovin.loadAnimation({
+			  container: document.getElementById('lottie2'), // Required
+			  path: 'assets/lottie/33019-gift-box.json', // Required
+			  renderer: 'svg', // Required
+			  loop: 6, // Optional
+			  autoplay: true // Optional
+			});
+		var animation3 = bodymovin.loadAnimation({
+			  container: document.getElementById('lottie3'), // Required
+			  path: 'assets/lottie/33019-gift-box.json', // Required
+			  renderer: 'svg', // Required
+			  loop: 8, // Optional
+			  autoplay: true // Optional
+			});
+		var animation4 = bodymovin.loadAnimation({
+			  container: document.getElementById('lottie4'), // Required
+			  path: 'assets/lottie/33019-gift-box.json', // Required
+			  renderer: 'svg', // Required
+			  loop: 7, // Optional
+			  autoplay: true // Optional
+			});
 		getData();
 		
 		wsOpen();
@@ -603,7 +634,31 @@ function displayTempNow(temp){
 		
 
 	});
+	
+	
+	
 </script>
+
+<div class="app-page-title">
+	<div class="page-title-wrapper">
+		<div class="page-title-heading">
+			<div class="page-title-icon">
+				<i class="pe-7s-graph text-success"> </i>
+			</div>
+			<div>
+				<b>건물 상태 모니터</b>
+				<div class="page-title-subheading">
+				센서 수집 데이터의 시간별 평균, 가속도 센서의 실시간 그래프를 보여줍니다. </div>
+			</div>
+		</div>
+		<div class="page-title-actions">
+			<button type="button" data-toggle="tooltip" title="Example Tooltip"
+				data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+				<i class="fa fa-star"></i>
+			</button>
+		</div>
+	</div>
+</div>
 
 <div class="row">
 	<div class="col-md-6 col-lg-3">
@@ -611,8 +666,10 @@ function displayTempNow(temp){
 		<div class="card-header">현재 실내 온도</div>
 			<div class="widget-content">
 				<div class="widget-content-outer">
-					<div id="loading">
-						<img id="loading-image" src="assets/images/logo-inverse.png" alt="Loading..." />
+					<div id="loading" class="loading">
+						<div class="loading-span">
+						<span id="lottie"></span>
+						</div>
 					</div>
 					<figure class="highcharts-figure">
 						<div id="nowtemp" class="chart-container"></div>
@@ -626,6 +683,11 @@ function displayTempNow(temp){
 			<div class="card-header">현재 실내 습도</div>
 			<div class="widget-content">
 				<div class="widget-content-outer">
+					<div id="loading" class="loading">
+						<div class="loading-span">
+						<span id="lottie2"></span>
+						</div>
+					</div>
 					<div class="tab-content">
 						<figure class="highcharts-figure">
 							<div id="nowhumid" class="chart-container"></div>
@@ -640,6 +702,11 @@ function displayTempNow(temp){
 		<div class="card-header">현재 실내 미세먼지 농도</div>
 			<div class="widget-content">
 				<div class="widget-content-outer">
+					<div id="loading" class="loading">
+						<div class="loading-span">
+						<span id="lottie3"></span>
+						</div>
+					</div>
 					<figure class="highcharts-figure">
 						<div id="nowdust" class="chart-container"></div>
 					</figure>
@@ -653,6 +720,11 @@ function displayTempNow(temp){
 			<div class="card-header">현재 실내 조도</div>
 			<div class="widget-content">
 				<div class="widget-content-outer">
+					<div id="loading" class="loading">
+						<div class="loading-span">
+						<span id="lottie4"></span>
+						</div>
+					</div>
 					<figure class="highcharts-figure">
 					<div id="nowlight" class="chart-container"></div>
 				</figure>
