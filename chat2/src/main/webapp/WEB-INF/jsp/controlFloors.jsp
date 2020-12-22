@@ -181,7 +181,7 @@
 									<div class="widget-content-wrapper">
 										<div class="widget-content-left">
 											<div class="widget-heading">조도</div>
-											<div class="widget-subheading">(lx)</div>
+											<div class="widget-subheading">(lux)</div>
 										</div>
 										<div class="widget-content-right">
 											<div class="widget-numbers" id="P_1_A_S_ILLM">

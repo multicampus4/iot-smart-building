@@ -63,9 +63,9 @@ function displayTempNow(temp){
 			var chartdust = Highcharts.chart('nowtemp', Highcharts.merge(gaugeOptions, {
 			    yAxis: {
 			        min: 0,
-			        max: 200,
+			        max: 40,
 			        title: {
-			            text: 'temperature'
+			            text: 'Temperature'
 			        }
 			    },
 			    credits: {
@@ -78,11 +78,11 @@ function displayTempNow(temp){
 			            format:
 			                '<div style="text-align:center">' +
 			                '<span style="font-size:25px">{y}</span><br/>' +
-			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '<span style="font-size:12px;opacity:0.4">&#186;C</span>' +
 			                '</div>'
 			        },
 			        tooltip: {
-			            valueSuffix: ' km/h'
+			            valueSuffix: ' &#186;C'
 			        }
 			    }]
 			}
@@ -147,9 +147,9 @@ function displayTempNow(temp){
 			var chartdust = Highcharts.chart('nowhumid', Highcharts.merge(gaugeOptions, {
 			    yAxis: {
 			        min: 0,
-			        max: 200,
+			        max: 100,
 			        title: {
-			            text: 'humidity'
+			            text: 'Humidity'
 			        }
 			    },
 			    credits: {
@@ -162,11 +162,11 @@ function displayTempNow(temp){
 			            format:
 			                '<div style="text-align:center">' +
 			                '<span style="font-size:25px">{y}</span><br/>' +
-			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '<span style="font-size:12px;opacity:0.4">&#37;</span>' +
 			                '</div>'
 			        },
 			        tooltip: {
-			            valueSuffix: ' km/h'
+			            valueSuffix: ' &#37;'
 			        }
 			    }]
 			}
@@ -233,7 +233,7 @@ function displayTempNow(temp){
 			        min: 0,
 			        max: 200,
 			        title: {
-			            text: 'Fine dust'
+			            text: 'Air pollution'
 			        }
 			    },
 			    credits: {
@@ -246,11 +246,11 @@ function displayTempNow(temp){
 			            format:
 			                '<div style="text-align:center">' +
 			                '<span style="font-size:25px">{y}</span><br/>' +
-			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '<span style="font-size:12px;opacity:0.4">&#181;m</span>' +
 			                '</div>'
 			        },
 			        tooltip: {
-			            valueSuffix: ' km/h'
+			            valueSuffix: ' &#181;m'
 			        }
 			    }]
 			}
@@ -318,7 +318,7 @@ function displayTempNow(temp){
 			        min: 0,
 			        max: 200,
 			        title: {
-			            text: 'Speed'
+			            text: 'Lights'
 			        }
 			    },
 			    credits: {
@@ -331,11 +331,11 @@ function displayTempNow(temp){
 			            format:
 			                '<div style="text-align:center">' +
 			                '<span style="font-size:25px">{y}</span><br/>' +
-			                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+			                '<span style="font-size:12px;opacity:0.4">lux</span>' +
 			                '</div>'
 			        },
 			        tooltip: {
-			            valueSuffix: ' km/h'
+			            valueSuffix: ' lux'
 			        }
 			    }]
 			}
@@ -344,259 +344,239 @@ function displayTempNow(temp){
  } 
 
  
-	function getData(){
+	function getFakeData(n) {
+
+		var arr = [], i, x, a, b, c, spike;
+		for (i = 0, x = Date.UTC(new Date().getUTCFullYear(), 0, 1) - n * 36e5; i < n; i = i + 1, x = x + 36e5) {
+			if (i % 100 === 0) {
+				a = 2 * Math.random();
+			}
+			if (i % 1000 === 0) {
+				b = 2 * Math.random();
+			}
+			if (i % 10000 === 0) {
+				c = 2 * Math.random();
+			}
+			if (i % 50000 === 0) {
+				spike = 10;
+			} else {
+				spike = 0;
+			}
+			arr.push([a + b + c + Math.random() ]);
+		}
+		return arr;
+	}
+	
+
+	function getData() {
 		$.ajax({
-			url:'getNow.mc',
-			success:function(data){
+			url : 'getNow.mc',
+			success : function(data) {
 				console.log(data)
 				displayDustSatNow(data[0].finedust)
 				displayTempNow(data[0].temperature)
 				displayLightNow(data[0].illuminance)
 				displayHumNow(data[0].humidity)
+				$('#loading').hide();
 			}
 		});
-		}
+	}
+	
 	function wsOpen() {
 		ws = new WebSocket("ws://" + location.host + "/chatting");
-		getData();
-		chart = new Highcharts.chart('hcontainer1', {
-			chart: {
-		        type: 'spline',
-		        animation: Highcharts.svg, // don't animate in old IE
-		        marginRight: 10,
-		        events: {
-		            load: 
-		            	function () {
-		                // set up the updating of the chart each second
-			                var series_X = this.series[0];
-			                setInterval(function () {
-			                    var x = (new Date()).getTime(), // current time
-			                        y = parseFloat(obj.AcX);
-			                    series_X.addPoint([x, y], true, true);
-			                }, 1000);
-		            }
-		        }
-		    },
-			title: {
-			   text: '실시간 가속도 그래프 - X'
-			 },
-			xAxis: {
-				tickPixelInterval: 150,
-				type: 'datetime'
-			 },
-			yAxis: {
-			      title: {
-			          text: 'AcX'
-			      },
-			      plotLines: [{
-			          value: 0,
-			          width: 1,
-			          color: "#FF4500"
-			      }]
-			  }, 
-			accessibility: {
-			      announceNewData: {
-			          enabled: true,
-			          minAnnounceInterval: 15000,
-			          announcementFormatter: function (allSeries, newSeries, newPoint) {
-			              if (newPoint) {
-			                  return 'New point added. Value: ' + newPoint.y;
-			              }
-			              return false;
-			          }
-			      }
-			  },
-		    time: {
-		        useUTC: false
-		    },
-			tooltip: {
-			  headerFormat: '<b>{series.name}</b><br />',
-			  pointFormat: 'x = {point.x}, y = {point.y}'
-			},
-		    legend: {
-		        enabled: false
-		    },
-		    exporting: {
-		        enabled: false
-		    },
-			series: [{
-			      name: 'AcX',
-			      data: (function () {
-			          // generate an array of random data
-			          var data = [],
-			              time = (new Date()).getTime(),
-			              i;
-			
-			          for (i = -19; i <= 0; i += 1) {
-			              data.push({
-			                  x: time + i * 1000,
-			                  y: 0
-			              });
-			          }
-			          return data;
-			      }()),
-			      color: "#FF4500"
-			  }]
-			});
-		chart = new Highcharts.chart('hcontainer2', {
-			chart: {
-		        type: 'spline',
-		        animation: Highcharts.svg, // don't animate in old IE
-		        marginRight: 10,
-		        events: {
-		            load: 
-		            	function () {
-		                // set up the updating of the chart each second
-			                var series_Y = this.series[0];
-			                setInterval(function () {
-			                    var x = (new Date()).getTime(), // current time
-			                        y = parseFloat(obj.AcY);
-			                    series_Y.addPoint([x, y], true, true);
-			                }, 1000);
-		            }
-		        }
-		    },
-			title: {
-			   text: '실시간 가속도 그래프 - Y'
-			 },
-			xAxis: {
-				tickPixelInterval: 150,
-				type: 'datetime'
-			 },
-			yAxis: {
-			      title: {
-			          text: 'AcY'
-			      },
-			      plotLines: [{
-			          value: 0,
-			          width: 1,
-			          color: "#000080"
-			      }]
-			  }, 
-			accessibility: {
-			      announceNewData: {
-			          enabled: true,
-			          minAnnounceInterval: 15000,
-			          announcementFormatter: function (allSeries, newSeries, newPoint) {
-			              if (newPoint) {
-			                  return 'New point added. Value: ' + newPoint.y;
-			              }
-			              return false;
-			          }
-			      }
-			  },
-		    time: {
-		        useUTC: false
-		    },
-			tooltip: {
-			  headerFormat: '<b>{series.name}</b><br />',
-			  pointFormat: 'x = {point.x}, y = {point.y}'
-			},
-		    legend: {
-		        enabled: false
-		    },
-		    exporting: {
-		        enabled: false
-		    },
-			series: [{
-			      name: 'AcY',
-			      data: (function () {
-			          // generate an array of random data
-			          var data = [],
-			              time = (new Date()).getTime(),
-			              i;
-			
-			          for (i = -19; i <= 0; i += 1) {
-			              data.push({
-			                  x: time + i * 1000,
-			                  y: 0
-			              });
-			          }
-			          return data;
-			      }()),
-			      color: "#000080"	
-			  }]
-			});
-		chart = new Highcharts.chart('hcontainer3', {
-				chart: {
-			        type: 'spline',
-			        animation: Highcharts.svg, // don't animate in old IE
-			        marginRight: 10,
-			        events: {
-			            load: 
-			            	function () {
-			                // set up the updating of the chart each second
-				                var series_Z = this.series[0];
-				                setInterval(function () {
-				                    var x = (new Date()).getTime(), // current time
-				                        y = parseFloat(obj.AcZ);
-				                    series_Z.addPoint([x, y], true, true);
-				                }, 1000);
-			            }
-			        }
-			    },
-				title: {
-				   text: '실시간 가속도 그래프 - Z'
-				 },
-				xAxis: {
-					tickPixelInterval: 150,
-					type: 'datetime'
-				 },
-				yAxis: {
-				      title: {
-				          text: 'AcZ'
-				      },
-				      plotLines: [{
-				          value: 0,
-				          width: 1,
-				          color: "#228B22"
-				      }]
-				  }, 
-				accessibility: {
-				      announceNewData: {
-				          enabled: true,
-				          minAnnounceInterval: 15000,
-				          announcementFormatter: function (allSeries, newSeries, newPoint) {
-				              if (newPoint) {
-				                  return 'New point added. Value: ' + newPoint.y;
-				              }
-				              return false;
-				          }
-				      }
-				  },
-			    time: {
-			        useUTC: false
-			    },
-				tooltip: {
-				  headerFormat: '<b>{series.name}</b><br />',
-				  pointFormat: 'x = {point.x}, y = {point.y}'
-				},
-			    legend: {
-			        enabled: false
-			    },
-			    exporting: {
-			        enabled: false
-			    },
-				series: [{
-				      name: 'AcZ',
-				      data: (function () {
-				          // generate an array of random data
-				          var data = [],
-				              time = (new Date()).getTime(),
-				              i;
-				
-				          for (i = -19; i <= 0; i += 1) {
-				              data.push({
-				                  x: time + i * 1000,
-				                  y: 0
-				              });
-				          }
-				          return data;
-				      }()),
-				      color: "#228B22"
-				  }]
-				});
 		wsEvt();
+		var n = 500, fakeData = getFakeData(n),
+		fakeData2 = getFakeData(n),
+		fakeData3 = getFakeData(n);
+		accChartX = new Highcharts.chart('hcontainer1', {
+			chart : {
+				type : 'spline',
+				animation : false, // don't animate in old IE
+				marginRight : 10,
+				events : {
+					load : function() {
+						// set up the updating of the chart each second
+						var series_X = this.series[0];
+						/* setInterval(function() {
+							var x = (new Date()).getTime(), // current time
+							y = parseFloat(obj.AcX);
+							series_X.addPoint([ x, y ], true, true);
+						}, 1000); */
+					}
+				}
+			},
+			title : {
+				text : '실시간 가속도 그래프 - X'
+			},
+			xAxis : {
+				tickPixelInterval : 150,
+				type : 'datetime'
+			},
+			yAxis : {
+				title : {
+					text : 'AcX'
+				},
+				plotLines : [ {
+					value : 0,
+					width : 1,
+					color : "#FF4500"
+				} ]
+			},
+			accessibility : {
+				announceNewData : {
+					enabled : true,
+					minAnnounceInterval : 15000,
+					announcementFormatter : function(allSeries, newSeries,
+							newPoint) {
+						if (newPoint) {
+							return 'New point added. Value: ' + newPoint.y;
+						}
+						return false;
+					}
+				}
+			},
+			time : {
+				useUTC : false
+			},
+			tooltip : {
+				headerFormat : '<b>{series.name}</b><br />',
+				pointFormat : 'x = {point.x}, y = {point.y}'
+			},
+			legend : {
+				enabled : false
+			},
+			exporting : {
+				enabled : false
+			},
+			series : [ {
+				name : 'AcX',
+				data : fakeData,
+				color : "#FF4500"
+			} ]
+		});
+		accChartY = new Highcharts.chart('hcontainer2', {
+			chart : {
+				type : 'spline',
+				animation : false, // don't animate in old IE
+				marginRight : 10,
+				events : {
+					load : function() {
+						// set up the updating of the chart each second
+						var series_Y = this.series[0];
+					}
+				}
+			},
+			title : {
+				text : '실시간 가속도 그래프 - Y'
+			},
+			xAxis : {
+				tickPixelInterval : 150,
+				type : 'datetime'
+			},
+			yAxis : {
+				title : {
+					text : 'AcY'
+				},
+				plotLines : [ {
+					value : 0,
+					width : 1,
+					color : "#000080"
+				} ]
+			},
+			accessibility : {
+				announceNewData : {
+					enabled : true,
+					minAnnounceInterval : 15000,
+					announcementFormatter : function(allSeries, newSeries,
+							newPoint) {
+						if (newPoint) {
+							return 'New point added. Value: ' + newPoint.y;
+						}
+						return false;
+					}
+				}
+			},
+			time : {
+				useUTC : false
+			},
+			tooltip : {
+				headerFormat : '<b>{series.name}</b><br />',
+				pointFormat : 'x = {point.x}, y = {point.y}'
+			},
+			legend : {
+				enabled : false
+			},
+			exporting : {
+				enabled : false
+			},
+			series : [ {
+				name : 'AcY',
+				data : fakeData2,
+				color : "#000080"
+			} ]
+		});
+		accChartZ = new Highcharts.chart('hcontainer3', {
+			chart : {
+				type : 'spline',
+				animation : false, // don't animate in old IE
+				marginRight : 10,
+				events : {
+					load : function() {
+						// set up the updating of the chart each second
+						var series_Z = this.series[0];
+					}
+				}
+			},
+			title : {
+				text : '실시간 가속도 그래프 - Z'
+			},
+			xAxis : {
+				tickPixelInterval : 150,
+				type : 'datetime'
+			},
+			yAxis : {
+				title : {
+					text : 'AcZ'
+				},
+				plotLines : [ {
+					value : 0,
+					width : 1,
+					color : "#228B22"
+				} ]
+			},
+			accessibility : {
+				announceNewData : {
+					enabled : true,
+					minAnnounceInterval : 15000,
+					announcementFormatter : function(allSeries, newSeries,
+							newPoint) {
+						if (newPoint) {
+							return 'New point added. Value: ' + newPoint.y;
+						}
+						return false;
+					}
+				}
+			},
+			time : {
+				useUTC : false
+			},
+			tooltip : {
+				headerFormat : '<b>{series.name}</b><br />',
+				pointFormat : 'x = {point.x}, y = {point.y}'
+			},
+			legend : {
+				enabled : false
+			},
+			exporting : {
+				enabled : false
+			},
+			series : [ {
+				name : 'AcZ',
+				data : fakeData3,
+				color : "#228B22"
+			} ]
+		});
+		
 	}
 	function wsEvt() {
 		// onopen: 웹 소켓이 열리면 호출
@@ -605,75 +585,84 @@ function displayTempNow(temp){
 		}
 		// onmessage: 메시지가 도착하면 호출
 		ws.onmessage = function(data) {
+			// console.log(msg);
 			var msg = data.data;
 			obj = JSON.parse(msg);
 
-			// ex: { "tmp":"28", "hum":"80" }
+			// console.log(obj);
+			accChartX.series[0].addPoint(parseFloat(obj.AcX), true, true);
+			accChartY.series[0].addPoint(parseFloat(obj.AcY), true, true);
+			accChartZ.series[0].addPoint(parseFloat(obj.AcZ), true, true);
 		}
 	}
-$(document).ready(function(){
-	wsOpen();
-	
-});
+	$(document).ready(function() {
+		getData();
+		
+		wsOpen();
+		
+		
 
+	});
 </script>
 
 <div class="row">
-	<div class="col-md-12 col-lg-6">
-		<div class="main-card mb-3 card">
-			<div class="card-header">
-				현재 실내 온도 
+	<div class="col-md-6 col-lg-3">
+		<div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+		<div class="card-header">현재 실내 온도</div>
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<div id="loading">
+						<img id="loading-image" src="assets/images/logo-inverse.png" alt="Loading..." />
+					</div>
+					<figure class="highcharts-figure">
+						<div id="nowtemp" class="chart-container"></div>
+					</figure>
+				</div>
 			</div>
-			 <div class="tab-content">
-				<figure class="highcharts-figure">
-    				<div id="nowtemp" class="chart-container"></div>
-				</figure>
-			</div> 
 		</div>
 	</div>
-	
-	<div class="col-md-12 col-lg-6">
-		<div class="main-card mb-3 card">
-			<div class="card-header">
-				현재 실내 습도 
+	<div class="col-md-6 col-lg-3">
+		<div class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card">
+			<div class="card-header">현재 실내 습도</div>
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<div class="tab-content">
+						<figure class="highcharts-figure">
+							<div id="nowhumid" class="chart-container"></div>
+						</figure>
+					</div>
+				</div>
 			</div>
-			 <div class="tab-content">
-				<figure class="highcharts-figure">
-    				<div id="nowhumid" class="chart-container"></div>
-				</figure>
-			</div> 
 		</div>
 	</div>
-</div>
-	
-	
-<div class="row"> 
-	<div class="col-md-12 col-lg-6">
-		<div class="main-card mb-3 card">
-			<div class="card-header">
-				현재 실내 미세먼지 농도  
+	<div class="col-md-6 col-lg-3">
+		<div class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card">
+		<div class="card-header">현재 실내 미세먼지 농도</div>
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<figure class="highcharts-figure">
+						<div id="nowdust" class="chart-container"></div>
+					</figure>
+
+				</div>
 			</div>
-			 <div class="tab-content">
-				<figure class="highcharts-figure">
-			   		<div id="nowdust" class="chart-container"></div>
-				</figure>
-			</div> 
 		</div>
-	</div> 
-	
-    <div class="col-md-12 col-lg-6">
-		<div class="main-card mb-3 card">
-			<div class="card-header">
-				현재 실내 조도
-			</div>
-			 <div class="tab-content">
-				<figure class="highcharts-figure">
+	</div>
+	<div class="col-md-6 col-lg-3">
+		<div class="card-shadow-info mb-3 widget-chart widget-chart2 text-left card">
+			<div class="card-header">현재 실내 조도</div>
+			<div class="widget-content">
+				<div class="widget-content-outer">
+					<figure class="highcharts-figure">
 					<div id="nowlight" class="chart-container"></div>
 				</figure>
-			</div> 
+					
+				</div>
+			</div>
 		</div>
-	</div>  
+	</div>
 </div>
+
 
 <div class="row">
 	<div class="col-md-12">
@@ -683,17 +672,17 @@ $(document).ready(function(){
 				실시간차트 :: 지진 모니터링 
 			</div>
 			<div class="tab-content">
-				<figure class="highcharts-figure">
+				<figure class="highcharts-figure-acc">
 					<div id="hcontainer1"></div>
 				</figure>
 			</div>
 			<div class="tab-content">
-				<figure class="highcharts-figure">
+				<figure class="highcharts-figure-acc">
 					<div id="hcontainer2"></div>
 				</figure>
 			</div>
 			<div class="tab-content">
-				<figure class="highcharts-figure">
+				<figure class="highcharts-figure-acc">
 					<div id="hcontainer3"></div>
 				</figure>
 			</div>
