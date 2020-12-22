@@ -27,8 +27,6 @@
 <link rel="stylesheet" type="text/css" href="css/admin.custom.css"></head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="assets/scripts/lottie.min.js"></script>
-
-
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
@@ -447,7 +445,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href=" ">
+                                    <a href="adminUsers">
                                         <i class="metismenu-icon pe-7s-user">
                                         </i>
                                         	사용자 관리

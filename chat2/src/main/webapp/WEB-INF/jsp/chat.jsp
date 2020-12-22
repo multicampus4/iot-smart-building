@@ -298,6 +298,14 @@
 		
 		setButtonState();
 		
+		var animation = bodymovin.loadAnimation({
+			  container: document.getElementById('lottie'), // Required
+			  path: 'assets/lottie/20496-edit-animation.json', // Required
+			  renderer: 'svg', // Required
+			  loop: true, // Optional
+			  autoplay: true // Optional
+			});
+		
 		$('#alert').click(function(){
 			$.ajax({
 				url:'alert',
@@ -354,7 +362,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="mb-0">자동제어 시스템 가동 중에는 개별제어할 수 없습니다.<br>개별 조작을 원하시면 자동제어를 꺼주세요.</p>
+				<div id="modalLottie" class="modalLottie">
+					<div class="modalLottie-span">
+						<span id="lottie"></span>
+					</div>
+				</div>
+				<p class="mb-0">자동제어 시스템 가동 중에는 개별제어할 수 없습니다.<br>개별 조작을 원하시면 자동제어를 꺼주세요.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>

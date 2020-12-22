@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.chat.Client;
 import com.vo.DeviceVO;
+import com.vo.UserVO;
 
 @Controller
 public class MainController {
@@ -94,6 +95,38 @@ public class MainController {
 		LOGGER.info(data);
 	}
 
+	@RequestMapping("/adminUsers")
+	public ModelAndView adminUserList() {
+		ModelAndView mv = new ModelAndView();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<UserVO> ulist = new ArrayList<>();
+		
+		try {
+			con = DriverManager.getConnection(url, dbid, dbpwd);
+			pstmt = con.prepareStatement("SELECT * FROM USERS");
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				String id = rset.getString(1);
+				String pwd = rset.getString(3);
+				String name = rset.getString(4);
+				String admin_yn = rset.getString(2);
+				
+				UserVO user = new UserVO(id, pwd, name, admin_yn);
+				ulist.add(user);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		mv.addObject("userList", ulist);
+		mv.addObject("centerpage", "userList.jsp");
+		mv.setViewName("index");
+		return mv;
+	}
 
 	@RequestMapping(value = {"/chat", "/mainController"})
 	public ModelAndView chat(ModelAndView mv, HttpServletResponse res) throws Exception {
