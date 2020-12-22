@@ -119,19 +119,19 @@
 			if(obj.tmp != "undefined"){
 				$("#" + area + "_S_TEMP").text(obj.tmp);
 				$("#P_" + area + "_S_TEMP span").text(obj.tmp);
-				if(obj.tmp <= 18){
+				if(obj.tmp <= 20){
  					$("#" + area + "_S_TEMP").css("background-color", "#f7b924");
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
 					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-warning");
 					$("#P_" + area + "_S_TEMP_bdg").html("under &#9660;");
 					
-				}else if(obj.tmp > 18 && obj.tmp <= 21){
+				}else if(obj.tmp > 20 && obj.tmp <= 25){
 					$("#" + area + "_S_TEMP").css("background-color", "transparent");
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
 					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-success");
 					$("#P_" + area + "_S_TEMP_bdg").html("normal");
 					
-				}else if(obj.tmp > 21){
+				}else if(obj.tmp > 25){
  					$("#" + area + "_S_TEMP").css("background-color", "#f42a2f");
 					$("#P_" + area + "_S_TEMP_bdg").removeClass();
 					$("#P_" + area + "_S_TEMP_bdg").addClass("badge badge-pill badge-danger");
@@ -232,8 +232,8 @@
 		<c:forEach var="d" items="${devicelist}">
 			<c:choose>
 				<c:when test="${d.DEVICE_ID eq 'AUTO' && d.DEVICE_STAT eq 'ON'}">
-				    $(".toggle_Dis").toggleClass("toggle-on");	// 자동제어버튼 on상태로 변
-			    	$(".switch input").attr("disabled", true);	// 시설제어버튼 비활성화 
+				    $(".toggle_Dis").toggleClass("toggle-on");	// 자동제어버튼 on상태로 변경 
+			    	$(".switch input").attr("readonly", true);	// 시설제어버튼 비활성화 
 		    	</c:when>
 			    <c:when test="${d.DEVICE_STAT eq 'ON'}">
 			 		// on인 상태일 때 버튼 색상 유지
@@ -316,6 +316,28 @@
 	<div class="app-main__inner">
 		<jsp:include page="controlFloors.jsp"></jsp:include>
 	</div>
-	
+	<button id="btnModal" type="button" class="btnModal"
+		data-toggle="modal" data-target="#alertModal">Basic Modal</button>
+
 </body>
 </html>
+
+<!-- Modal -->
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">자동제어 가동 중</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">자동제어 시스템 가동 중에는 개별제어할 수 없습니다.<br>개별 조작을 원하시면 자동제어를 꺼주세요.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+            </div>
+        </div>
+    </div>
+</div>

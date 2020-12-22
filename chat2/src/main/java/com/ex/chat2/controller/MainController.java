@@ -94,7 +94,8 @@ public class MainController {
 		LOGGER.info(data);
 	}
 
-	@RequestMapping("/chat")
+
+	@RequestMapping(value = {"/chat", "/mainController"})
 	public ModelAndView chat(ModelAndView mv, HttpServletResponse res) throws Exception {
 		
 		// DEVICE 데이터 가져오기
@@ -135,6 +136,13 @@ public class MainController {
 	public ModelAndView chat2() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("chat2");
+		return mv;
+	}
+	
+	@RequestMapping("/test")
+	public ModelAndView test() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("test");
 		return mv;
 	}
 	

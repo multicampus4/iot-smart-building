@@ -148,8 +148,8 @@
 			    }
 			  },
 			  yAxis: {
-				min: -10,
-				max: 40,
+				min: 20,
+				max: 30,
 			    minorTickInterval: 0.1,
 			    accessibility: {
 			      rangeDescription: 'Range: 0.1 to 1000'
@@ -161,7 +161,7 @@
 			    pointFormat: 'x = {point.x}, y = {point.y}'
 			  },
 			  series: [{
-			    data: [28, 22, 24, 28, 16, 32, 24, 28, 25, 22],
+			    data: [24, 22, 24, 26, 22, 24, 24, 23, 25, 22, 23, 21, 23],
 			    pointStart: 1
 			  }]
 			});
@@ -191,7 +191,7 @@
 			    pointFormat: 'x = {point.x}, y = {point.y}'
 			  },
 			  series: [{
-			    data: [28, 22, 24, 28, 16, 32, 24, 28, 25, 22],
+			    data: [21, 22, 24, 28, 16, 32, 24, 28, 25, 22, 24, 25, 21],
 			    pointStart: 1
 			  }]
 			});

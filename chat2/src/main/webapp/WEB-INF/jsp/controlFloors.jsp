@@ -578,6 +578,10 @@
 
 		// on, off button control
 		$("input[type='checkbox']").click(function(){
+			if ($(this).attr('readonly') == 'readonly') {
+		        $("#btnModal").trigger("click");	// 자동제어 중엔 개별조작 불가 메시지(모달)
+		        return false;
+		    }
 			device = $(this).attr('id');
 			if ($(this).is(":checked")) {
 				stat = 'ON';
@@ -593,10 +597,10 @@
 			$(this).toggleClass("toggle-on");
 			
 			if($(this).hasClass("toggle-on")){
-				$(".switch input").attr("disabled", true);	// 시설제어 토글버튼 비활성
+				$(".switch input").attr("readonly", true);	// 시설제어 토글버튼 비활성
 				execAjax("ON", "AUTO");	// DB 반영 
 			}else{
-				$(".switch input").attr("disabled", false);
+				$(".switch input").attr("readonly", false);
 				execAjax("OFF", "AUTO");
 			}
 		});
@@ -706,6 +710,9 @@ th {
 
 /* Hide default HTML checkbox */
 .switch input {display:none;}
+
+/* Hide Modal Show Button */
+.btnModal {display:none;}
 
 /* The slider */
 .slider {
