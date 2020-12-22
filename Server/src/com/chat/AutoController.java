@@ -19,8 +19,8 @@ import com.msg.DeviceVO;
 
 public class AutoController {
 	static int MAX_QUE_SIZE = 5;
-	static float NORMAL_TEMP_MIN = (float) 18.00;	// 섭씨
-	static float NORMAL_TEMP_MAX = (float) 21.00;	// 섭씨
+	static float NORMAL_TEMP_MIN = (float) 24.50;	// 섭씨
+	static float NORMAL_TEMP_MAX = (float) 25.50;	// 섭씨
 	static float NORMAL_HUM_MIN = (float) 20.00;	// 퍼센트
 	static float NORMAL_HUM_MAX = (float) 50.00;	// 퍼센트
 	static float NORMAL_DUST_MIN = (float) 15.00;	// 마이크로그램
@@ -122,7 +122,7 @@ public class AutoController {
 		dv.setRAW_QUEUE(rawQueue);
 		float queAvg = getQueAvg(rawQueue);
 
-		System.out.println(dv.getRAW_QUEUE());
+//		System.out.println(dv.getRAW_QUEUE());
 		System.out.println(deviceId + "의 현재 평균 값: " + queAvg);
 		// 센서 평균값 & 적정 기준치 값 비교
 		// return 예) 1_A_D_AIR_ON

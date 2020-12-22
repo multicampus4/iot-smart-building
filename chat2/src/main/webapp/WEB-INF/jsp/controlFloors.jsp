@@ -140,7 +140,7 @@
 												<span>21.34</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_A_S_TEMP_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_A_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -156,7 +156,7 @@
 												<span>67.0</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_A_S_HUM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_A_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -172,7 +172,7 @@
 												<span>17.23</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_A_S_DUST_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_A_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -188,7 +188,7 @@
 												<span>348</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_A_S_ILLM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_A_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -269,7 +269,7 @@
 												<span>17.12</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_B_S_TEMP_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_B_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -285,7 +285,7 @@
 												<span>88.50</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_B_S_HUM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_B_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -301,7 +301,7 @@
 												<span>63.27</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_B_S_DUST_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_B_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -317,7 +317,7 @@
 												<span>282</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_1_B_S_ILLM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_1_B_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -433,7 +433,7 @@
 												<span>22.41</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_2_A_S_TEMP_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_2_A_S_TEMP_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -449,7 +449,7 @@
 												<span>65.1</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_2_A_S_HUM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_2_A_S_HUM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -465,7 +465,7 @@
 												<span>27.11</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_2_A_S_DUST_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_2_A_S_DUST_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -481,7 +481,7 @@
 												<span>357</span>
 											</div>
 										</div>
-										<div class="badge badge-pill badge-focus" id="P_2_A_S_ILLM_bdg">normal</div>
+										<div class="badge badge-pill badge-success" id="P_2_A_S_ILLM_bdg">normal</div>
 									</div>
 								</div>
 							</div>
@@ -608,26 +608,26 @@
 	     $(".escape_road2").css("display","block");
 	     setTimeout(function() {
 	        $(".escape_road_container3").css("display","block");
-	     }, 1000);
+	     }, 700);
 	     setTimeout(function() {
 		    $(".escape_road4").css("display","block");
-		 }, 1800);
+		 }, 1300);
 	     setTimeout(function() {
 	        $(".escape_road_container5").css("display","block");
-	     }, 2500);
+	     }, 2050);
 	     setTimeout(function() {
 		    $(".escape_road6").css("display","block");
-		 }, 3300);
+		 }, 2500);
 	     setTimeout(function() {
 		    $(".escape_road_container7").css("display","block");
-		 }, 3600);
+		 }, 3000);
 	     setTimeout(function() {
 			$(".escape_road8").css("display","block");
-		 }, 4500);
+		 }, 3500);
 	     setTimeout(function() {
 			$(".escape_road9").css("display","block");
-		 }, 2300);
-	     
+		 }, 2000);*/
+	     /*
 		 //---------- 경보 알림 테스트
 		   
 		 toastr.options = {
@@ -640,6 +640,7 @@
 					"Hide Duration" : 1000,
 					"showEasing" : "swing",
 					"hideEasing" : "linear",
+					"preventDuplicates": "true",
 					"fadeIn" : 300,
 					"fadeOut" : 1000,
 					"timeOut" : 100000, // toastr가 보여지는 시간
@@ -1022,7 +1023,7 @@ input:checked + .slider:before {
   position:absolute;
   width:2%;
   height: 15%;
-  margin-left:-50px;
+  margin-left:-6.7%;
 
   top: 48%;
   left: 22.8%;
@@ -1035,15 +1036,15 @@ input:checked + .slider:before {
 .escape_road1{
   width:100%;
   height: 100%;
-  background-color: #ffef2a;
+  background-color: #00ff00;
   /* border-radius: 7px 7px 7px 7px / 7px 7px 7px 7px; */
 }
 
 .escape_road2{
   position:absolute;
   height: 3%;
-  margin-left:-50px;
-  background-color: #ffef2a;
+  margin-left:-6.7%;
+  background-color: #00ff00;
   display: none;
   
   top:48%;
@@ -1059,7 +1060,7 @@ input:checked + .slider:before {
   position:absolute;
   width:2%;
   height: 7%;
-  margin-left:-50px;
+  margin-left:-6.7%;
 
   top: 43%;
   left: 32.8%;
@@ -1072,14 +1073,14 @@ input:checked + .slider:before {
 .escape_road3{
   width:100%;
   height: 100%;
-  background-color: #ffef2a;
+  background-color: #00ff00;
 }
 
 .escape_road4{
   position:absolute;
   height: 3%;
-  margin-left:-50px;
-  background-color: #ffef2a;
+  margin-left:-6.7%;
+  background-color: #00ff00;
   display: none;
   
   top:43%;
@@ -1096,10 +1097,10 @@ input:checked + .slider:before {
   position:absolute;
   width:2%;
   height: 9%;
-  margin-left:-50px;
+  margin-left:-6.7%;
 
   top: 35%;
-  left: 94.2%;
+  left: 94.1%;
   display: none;
   animation-name: road_key1;
   animation-timing-function: linear;
@@ -1109,14 +1110,14 @@ input:checked + .slider:before {
 .escape_road5{
   width:100%;
   height: 100%;
-  background-color: #ffef2a;
+  background-color: #00ff00;
 }
 
 .escape_road6{
   position:absolute;
   height: 3%;
-  margin-left:-50px;
-  background-color: #ffef2a;
+  margin-left:-6.7%;
+  background-color: #00ff00;
   display: none;
   
   top:35%;
@@ -1133,7 +1134,7 @@ input:checked + .slider:before {
   position:absolute;
   width:2%;
   height: 10%;
-  margin-left:-50px;
+  margin-left:-6.7%;
 
   top: 27%;
   left: 100.9%;
@@ -1146,14 +1147,14 @@ input:checked + .slider:before {
 .escape_road7{
   width:100%;
   height: 100%;
-  background-color: #ffef2a;
+  background-color: #00ff00;
 }
 
 .escape_road8{
   position:absolute;
   height: 3%;
-  margin-left:-50px;
-  background-color: #ffef2a;
+  margin-left:-6.7%;
+  background-color: #00ff00;
   display: none;
   
   top:27%;
@@ -1169,8 +1170,8 @@ input:checked + .slider:before {
 .escape_road9{
   position:absolute;
   width: 2%;
-  margin-left:-50px;
-  background-color: #ffef2a;
+  margin-left:-6.7%;
+  background-color: #00ff00;
   display: none;
   
   top:23%;

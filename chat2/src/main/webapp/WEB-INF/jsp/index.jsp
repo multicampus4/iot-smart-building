@@ -448,34 +448,27 @@
                                 <li>
                                     <a href="main" > <!-- class="mm-active" -->
                                         <i class="metismenu-icon pe-7s-rocket"></i>
-                                        HOME
+                                        	메인 페이지
                                     </a>
                                 </li>
                                 <li>
                                     <a href="chat">
                                         <i class="metismenu-icon pe-7s-display2"></i>
-                                        Facility Control
-                                    </a>
-                                </li>                                
-                                <li>
-                                    <a href=" ">
-                                        <i class="metismenu-icon pe-7s-albums">
-                                        </i>
-                                        Manage Floors
+                                        	시설 모니터링
                                     </a>
                                 </li>
                                 <li>
                                     <a href="history">
                                         <i class="metismenu-icon pe-7s-ribbon">
                                         </i>
-                                        History
+                                        	빅데이터 조회
                                     </a>
                                 </li>
                                 <li>
                                     <a href=" ">
                                         <i class="metismenu-icon pe-7s-user">
                                         </i>
-                                        Users
+                                        	사용자 관리
                                     </a>
                                 </li>
                             </ul>
