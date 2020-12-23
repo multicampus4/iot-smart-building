@@ -128,7 +128,7 @@ public class MainController {
 		return mv;
 	}
 
-	@RequestMapping(value = {"/chat", "/mainController"})
+	@RequestMapping(value = {"/chat", "/controlFloors"})
 	public ModelAndView chat(ModelAndView mv, HttpServletResponse res) throws Exception {
 		
 		// DEVICE 데이터 가져오기
