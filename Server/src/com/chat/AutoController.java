@@ -106,6 +106,7 @@ public class AutoController {
 							Float standardMin, Float standardMax) throws SQLException {
 		DeviceVO dv = new DeviceVO();
 		Queue<Float> rawQueue = new LinkedList<>();
+		String command = null;
 		
 		dv = Server.deviceStat.get(deviceId);
 		if(dv.getRAW_QUEUE() == null)
@@ -120,16 +121,13 @@ public class AutoController {
 			rawQueue.poll();
 		}
 		dv.setRAW_QUEUE(rawQueue);
+		
 		float queAvg = getQueAvg(rawQueue);
 
-//		System.out.println(dv.getRAW_QUEUE());
 		System.out.println(deviceId + "의 현재 평균 값: " + queAvg);
-		// 센서 평균값 & 적정 기준치 값 비교
-		// return 예) 1_A_D_AIR_ON
-		String command = null;
 		
-		// 기준치에 따른 디바이스 작동상태 판단 
-//		if(getQueAvg(rawQueue) > standardMin) {
+		// 센서 평균값 & 적정 기준치 값 비교
+		// 디바이스 작동여부 판단 
 		if(standardMin < queAvg && queAvg < standardMax) {
 			command = "OFF";
 		} else {
@@ -143,11 +141,16 @@ public class AutoController {
 			return null;
 		} else {
 			upDeviceStat(deviceId, command);
-			String autoControlCmd = deviceArea + "_D_" + deviceType + "_" + command;	// 1_A_D_AIR_ON
+			String autoControlCmd = createCmdString(deviceArea, deviceType, command);	// 1_A_D_AIR_ON
 			return autoControlCmd;
 		}
 	}
 	
+	private String createCmdString(String deviceArea, String deviceType, String command) {
+		// 1_A_D_AIR_ON
+		return deviceArea + "_D_" + deviceType + "_" + command;
+	}
+
 	public boolean isCommandEqualsDeviceStat(String command, String deviceId) {
 //		if(Server.deviceStat.get("1_A_D_AIR").getDEVICE_STAT().equals(command)) {
 		if(Server.deviceStat.get(deviceId).getDEVICE_STAT().equals(command)) {
