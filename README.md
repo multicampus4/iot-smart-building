@@ -1,68 +1,58 @@
-# semi
+# IoT 센서를 활용한 건물 통합관제
 
-### 🐸 모든 프로젝트는 `Server.java` 실행이 선행되어야 함!
+## 목차
 
-### 🐤 프로젝트 실행 전 환경설정 필!
+1.  개요
+   1. 기획
+   2. 시스템 구성도
+   3. HW 구성도
+   4. 활용 기술 (기술 스택)
+   5. 활용 시나리오
+2. 구현 결과
+   1. IoT 센서
+   2. 웹 대시보드
+   3. 메인 서버
+   4. 안드로이드 (웹/태블릿)
+   5. 데이터 분석
 
-* 루트폴더의 `my.properties` 에서 각 로컬 환경에 맞는 IP, Port 번호 등 입력해주세요.
+## 1. 개요
 
-* [my.properties](https://github.com/multicampus4/semi/blob/master/my.properties)
+### 1. 기획
 
-  ```properties
-  # TCP/IP Main Server IP & Port
-  tcpipIp = 192.168.0.0
-  tcpipPort = 5253
-  	
-  # WebSocket IP & Port (Spring)
-  # AWS : 3.35.240.16
-  websocketIp = 192.168.0.0
-  websocketPort = 88
-  	
-  # Arduino Serial Port (ex. COM5)
-  serialPort = COM5
-  
-  # Oracle IP
-  oracleHostname = database-1.chookpxses6b.ap-northeast-2.rds.amazonaws.com
-  oracleId = admin
-  oraclePwd = 2020final
-  
-  #Hive IP
-  hiveHostname = 3.35.240.16:10000
-  hiveId = root
-  hivePwd = 111111
-  ```
+- 데이터 수집
+  * IoT 센서를 활용한 환경데이터 수집
+- 데이터 활용
+  * 시설제어 : 건물 내 쾌적한 환경 유지
+  * 재난 : 지진 감지 및 대응
+  * 빅데이터 : 에너지 리포트 제공
+  * 보안 : 출입기록 및 통제구역 관리
 
-* 적용되는 프로젝트 목록
+### 2. 시스템  구성도
 
-  * SensorSwitch
-  * Server
-  * can
-  * chat2
+<이미지>
 
-## 🐽 세미프로젝트 기준 시점
+### 3. H/W 구성도
 
-세미프로젝트 마지막 커밋 id : `d5c9d764ddf335663c32ff0f833dbb7726798a6a`
+<이미지>
 
-이 시점으로 돌아려면
+### 4. 활용 기술
 
-```bash
-git reset --hard d5c9d764ddf335663c32ff0f833dbb7726798a6a
-```
+<이미지>
+
+### 5. 활용 시나리오
+
+<이미지>
 
 
 
-## 🐋층별 구역 센서 및 디바이스 명칭
+## 2. 구현 결과
 
-- 센서
+### 1. IoT 센서
 
-  ![센서](https://user-images.githubusercontent.com/24764210/100413044-a6c5dc80-30b9-11eb-852e-ea2dac9db163.PNG) 
+### 2. 웹 대시보드
 
-- 디바이스
+### 3. 메인 서버
 
-  ![디바이스](https://user-images.githubusercontent.com/24764210/100413047-a75e7300-30b9-11eb-9d87-533d9b47589f.PNG) 
+### 4. 안드로이드 (앱/태블릿)
 
-- **ON, OFF 명령**은 뒤에 _ON 또는 _OFF를 붙입니다. 
-
-  예) 1_A_D_AIR_ON
-
-​        
+### 5. 데이터 분석
